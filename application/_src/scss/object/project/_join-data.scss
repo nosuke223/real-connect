@@ -1,0 +1,26 @@
+.p-join-data {
+  width: 100%;
+
+  // tr {}
+
+  th, td {
+    text-align: left;
+    border-bottom: 1px solid rgba($grey,.2);
+  }
+
+  th {
+    font-size: 10px;
+    font-weight: bold;
+    color: $grey;
+  }
+
+  td {
+    font-size: 12px;
+  }
+
+  thead {
+    th, td {
+      border-bottom-width: 2px;
+    }
+  }
+}

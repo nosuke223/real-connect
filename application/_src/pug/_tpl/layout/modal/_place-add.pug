@@ -1,0 +1,64 @@
+transition(name='v-modal' appear v-if='modal.placeAdd')
+  article#place-add.p-modal
+    .p-modal__overlay.u-mode-bg--overlay(@click.self='closeModal("placeAdd")')
+      section.p-modal__inner.u-mode-bg--light.p-card.v-modal-content
+        header.p-account
+          .p-account__title
+            label.p-avatar.p-avatar--rect
+              input(type='file' name='' @change='plcAvatar')
+              img(:src='plcReg.avatar_image' v-if='plcReg.avatar_image')
+              img(src='/_assets/img/common/no-image-avatar-place.png' v-else)
+            h2.p-username
+              input.p-profile__input(type='text' name='' autocomplete='off' placeholder='会場名を入力してください' value='Alone Together 天神大名')
+              small.p-username__small
+                input.p-profile__input(type='text' name='' autocomplete='off' placeholder='種別・業態を入力してください' value='イタリアンバル')
+          label.p-cover
+            input(type='file' name='' @change='plcCover')
+            img(:src='plcReg.cover_image' v-if='plcReg.cover_image')
+            img(src='/_assets/img/common/no-image-cover.png' v-else)
+        .p-card__body.u-text.p-profile
+          .p-profile__situation
+            p.p-profile__situation-item
+              i About
+            textarea.p-profile__situation-item.p-profile__textarea(name='' placeholder='概要を入力して下さい')
+          table.p-profile__table
+            tbody
+              tr
+                th エリア
+                td
+                  label.c-select
+                    select.c-select__item
+                      option(value='' selected disabled) エリアを選択して下さい
+                      option(value='1') 福岡 大名エリア
+                      option(value='2') 福岡 天神エリア
+              tr
+                th 住所
+                td
+                  input.p-profile__input(type='text' name='' autocomplete='off' placeholder='住所を入力してください' value='')
+              tr
+                th 営業時間
+                td
+                  +opentime('sun','日')
+                  +opentime('mon','月')
+                  +opentime('tue','火')
+                  +opentime('wed','水')
+                  +opentime('thu','木')
+                  +opentime('fri','金')
+                  +opentime('sat','土')
+              tr
+                th 電話番号
+                td
+                  input.p-profile__input(type='tel' name='' autocomplete='off' placeholder='電話番号を入力して下さい' value='')
+              tr
+                th 公式サイト
+                td
+                  input.p-profile__input(type='text' name='' autocomplete='off' placeholder='サイトのURLを入力してください' value='')
+              tr
+                th 備考
+                td
+                  textarea.p-profile__situation-item.p-profile__textarea(name='remarks' placeholder='備考を入力して下さい')
+
+        footer.p-card__footer.p-card__footer--fluid
+          .u-fluid-button.u-bg--primary
+            button.p-modal__close(@click='closeModal("placeAdd")') 閉じる
+            button 決定

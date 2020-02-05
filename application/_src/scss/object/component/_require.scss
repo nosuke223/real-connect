@@ -1,0 +1,13 @@
+.c-require {
+  display: inline-block;
+  color: $truewhite;
+  border-radius: .1em;
+  padding: 0 .5em;
+  margin-right: .5em;
+  background: HotPink;
+
+  &--free {
+    @extend .c-require ;
+    background: $silver;
+  }
+}

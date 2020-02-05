@@ -1,0 +1,18 @@
+ja:
+  activerecord:
+    models:
+      talk: トーク
+
+    attributes:
+      talk:
+        event: イベント
+        user: ユーザー
+        partner: パートナー
+        event_id: イベントID
+        user_id: ユーザーID
+        partner_id: パートナーID
+        unread_count: 未読数
+        last_read_at: 最終既読時刻
+        messages: メッセージ
+        created_at: 登録日時
+        updated_at: 更新日時

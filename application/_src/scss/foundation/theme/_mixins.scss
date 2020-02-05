@@ -1,0 +1,380 @@
+// ========================================
+// Gradient Reset
+// ========================================
+
+@mixin grad-reset {
+  background: none;
+  -webkit-background-clip: initial;
+  -webkit-text-fill-color: initial;
+}
+
+// ========================================
+// Mode
+// ========================================
+
+@mixin mode($fontColor,$primaryBG,$secondaryBG) {
+  color: $fontColor;
+  background-color: $primaryBG;
+
+  .u-mode-bg {
+    background: $secondaryBG;
+  }
+
+  .u-mode-bg--ltSM {
+    @include ltSM {
+      background-color: $secondaryBG;
+    };
+  }
+
+  .u-mode-bg--light {
+    background-color: $secondaryBG;
+  }
+
+  .u-mode-bg--overlay {
+    background-color: rgba($primaryBG,.95);
+    background-image: none;
+  }
+
+  @content;
+
+}
+
+// ========================================
+// Gradient UI
+// ========================================
+
+@mixin gradUI($c01L,$c01R,$c02L,$c02R) {
+  input[type="text"],input[type="tel"],input[type="password"],input[type="email"],textarea {
+    caret-color: $c01L;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    background: $c01L;
+  }
+
+  .u-bg--primary {
+    background-image: linear-gradient(to right, $c01L 0%, $c01R 100%);
+  }
+
+  .u-bg--secondary {
+    background-image: linear-gradient(to right, $c02L 0%, $c02R 100%);
+  }
+
+  .u-color {
+    &--primary,
+    &--secondary {
+      i, &::before {
+        -webkit-background-clip: initial;
+        -webkit-text-fill-color: initial;
+      }
+    }
+    &--primary {@include gradtypes($c01L,$c01R);}
+    &--secondary {@include gradtypes($c02L,$c02R);}
+
+    &--primary01 {
+      @include gradtypes($c01L,$c01R);
+    }
+  }
+
+  .l-header {
+    background-image: linear-gradient(to right, $c01L 0%, $c01R 100%);
+  }
+
+  .l-pane__header {
+    @include ltSM {
+      color: $truewhite !important;
+      background-image: linear-gradient(to right, $c01L 0%, $c01R 100%);
+    };
+  }
+
+  .p-talk-list__last-message.is-moved::before {
+    @extend .u-bg--secondary ;
+  }
+
+  // .u-fluid-button,
+  .p-event-list.is-now-event .c-date-thumb {
+    background-image: linear-gradient(to right, $c01L 0%, $c01R 100%);
+  }
+
+  .p-chat__item.is-send-message .p-chat__comment {
+    background-color: transparent;
+    background-image: linear-gradient(to right, $c01L 0%, $c01R 100%);
+    &::before {background: $c01R;}
+  }
+
+  .p-event-list.is-checked-in .p-event-list__check-in-status {
+    @extend .u-color--primary ;
+  }
+
+  .p-pane-message {
+    button,
+    input[type="button"],
+    input[type="submit"] {
+      color: $c01L;
+    }
+  }
+
+  .p-pc-menu__item.is-active i::before {
+    @include gradtypes($c01L,$c01R);
+  }
+
+  .p-header-app__input [type=text],
+  .p-pc-menu-account__input [type=text] {
+    &:focus { border-color: $c02L; }
+    & + button { @extend .u-bg--secondary ; }
+  }
+
+  .u-mode-bg--overlay {
+    background-color: rgba($truewhite,.6);
+    background-image: linear-gradient(to right bottom, rgba($c01L,.7) 0%, rgba($c01R,.7) 100%);
+  }
+
+  .p-toggle-tab {
+    color: $c01L;
+
+    &__item {
+      border-color: $c01L;
+      &:hover {background: rgba($c01L,.8);}
+      &.is-active {background: $c01L;}
+    }
+  }
+
+  input[type="text"].p-check-in__code:hover,
+  input[type="text"].p-check-in__code:focus,
+  .c-input:hover, .c-input:focus,
+  .c-select:hover, .c-select:focus {
+    border-color: $c01L;
+
+    i {
+      color: $c01L;
+    }
+  }
+
+  .p-block-content {
+    input[type="text"],
+    input[type="tel"],
+    input[type="password"],
+    input[type="email"],
+    textarea {
+      &:focus {
+        border-color: $c01L;
+      }
+    }
+  }
+
+  .c-radio input[type=radio]:checked+.c-radio__mirror {
+    border-color: $c01L;
+    &::before {background: $c01L;}
+  }
+  .c-checkbox input[type=checkbox]:checked+.c-checkbox__mirror {
+    border-color: $c01L;
+    &::before {border-color: $c01L;}
+  }
+
+  @content;
+}
+
+// ========================================
+// Custom UI
+// ========================================
+
+@mixin customUI($fontColor,$primaryBG,$secondaryBG,$accent01,$accent02,$accent03) {
+
+  color: $fontColor;
+  background-color: $primaryBG;
+  background-attachment: fixed;
+
+  input[type="text"],
+  input[type="tel"],
+  input[type="password"],
+  input[type="email"],
+  textarea {
+    caret-color: $fontColor;
+  }
+
+  .u-mode-bg {
+    background: $secondaryBG;
+  }
+
+  .u-mode-bg--light {
+    background: lighten($secondaryBG,2%);
+  }
+
+  .u-bg--primary {
+    background: $accent01;
+  }
+
+  .u-bg--secondary {
+    background: $accent01;
+  }
+
+  .u-color {
+    &--primary,
+    &--secondary {
+      @include grad-reset;
+    }
+    &--primary {
+      color: $accent03;
+    }
+    &--secondary {
+      color: $accent01;
+    }
+    &--primary01 {
+      @include grad-reset;
+      color: $accent01;
+    }
+  }
+
+  .l-header {
+    background: linear-gradient(
+      90deg,
+      rgba($primaryBG,.9),
+      rgba($primaryBG,.7) 40%,
+      rgba($primaryBG,.95)
+    );
+  }
+
+  .l-pane__header {
+    background: $primaryBG;
+
+    @include ltSM {
+      background: linear-gradient(
+        90deg,
+        rgba($primaryBG,.9),
+        rgba($primaryBG,.7) 40%,
+        rgba($primaryBG,.95)
+      );
+    };
+  }
+
+  .p-pc-menu {
+    background: rgba($secondaryBG,.8);
+
+    &__item.is-active {
+
+      &::after {background: $secondaryBG;}
+      i::before {
+        color: $accent01;
+        @include grad-reset;
+      }
+    }
+  }
+
+  .p-header-app__input [type=text],
+  .p-pc-menu-account__input [type=text] {
+    &:focus { border-color: $accent01; }
+    & + button {
+      background: $accent01;
+    }
+  }
+
+  .p-header-app__body {
+    color: inherit;
+  }
+
+  .p-pane-target-container,
+  .p-scrollable,
+  .p-scrollable--talk,
+  .p-pane-message {
+    background: $secondaryBG;
+  }
+
+  .l-pane-container {
+    @include gtMD {
+      background: $secondaryBG;
+    };
+  }
+
+  input[type="text"].p-check-in__code:hover,
+  input[type="text"].p-check-in__code:focus,
+  .c-input:hover, .c-input:focus,
+  .c-select:hover, .c-select:focus {
+    border-color: $fontColor;
+
+    i {
+      color: $fontColor;
+    }
+  }
+
+  .p-talk-list__last-message.is-moved::before {
+    background: $accent01;
+  }
+
+  .p-chat__item {
+    &.is-received-message .p-chat__comment {
+      background: lighten($secondaryBG,5%);
+    }
+
+    &.is-send-message .p-chat__comment {
+      background: darken($accent01,5%);
+      &::before {background: inherit;}
+    }
+  }
+
+  .p-event-list.is-checked-in .p-event-list__check-in-status {
+    color: $accent03;
+    @include grad-reset;
+    i {color: $accent03;@include grad-reset;}
+  }
+
+  .p-event-list__rate {
+    &:first-child {color: $accent02;}
+    &:last-child {color: $accent01;}
+  }
+
+  .p-talk-list__small {
+    i.glyph-male {background: $accent02;}
+    i.glyph-female {background: $accent01;}
+  }
+
+  .p-modal__overlay {
+    background: rgba($trueblack,.9);
+  }
+
+  .p-modal__inner {
+    background: $primaryBG;
+  }
+
+  .p-toggle-tab {
+    color: $accent01;
+
+    &__item {
+      border-color: $accent01;
+      &:hover {background: rgba($accent01,.8);}
+      &.is-active {background: $accent01;}
+    }
+  }
+
+  .p-pane-message {
+    button,
+    input[type="button"],
+    input[type="submit"] {
+      @include grad-reset;
+      color: $accent01;
+    }
+  }
+
+  .p-block-content {
+    input[type="text"],
+    input[type="tel"],
+    input[type="password"],
+    input[type="email"],
+    textarea {
+      &:focus {
+        border-color: $accent01;
+      }
+    }
+  }
+
+  .c-radio input[type=radio]:checked+.c-radio__mirror {
+    border-color: $accent01;
+    &::before {background: $accent01;}
+  }
+  .c-checkbox input[type=checkbox]:checked+.c-checkbox__mirror {
+    border-color: $accent01;
+    &::before {border-color: $accent01;}
+  }
+
+  @content;
+
+}

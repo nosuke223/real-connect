@@ -1,0 +1,47 @@
+@font-face {
+  font-family: "cft-fonts";
+  src: url('../fonts/cft/cft-fonts.eot');
+  src: url('../fonts/cft/cft-fonts.eot?#iefix') format('eot'),
+    url('../fonts/cft/cft-fonts.woff2') format('woff2'),
+    url('../fonts/cft/cft-fonts.woff') format('woff'),
+    url('../fonts/cft/cft-fonts.ttf') format('truetype'),
+    url('../fonts/cft/cft-fonts.svg#cft-fonts') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.cft {
+  font-family: "cft-fonts";
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: auto;
+  font-style: normal;
+  font-variant: normal;
+  line-height: 1;
+}
+
+// ----------------------------------------
+// Icon Sizes
+// ----------------------------------------
+
+// makes the font 33% larger relative to the icon container
+
+.cft-lg {
+  font-size: (4em / 3);
+  line-height: (3em / 4);
+  vertical-align: -.0667em;
+}
+
+.cft-xs {
+  font-size: .75em;
+}
+
+.cft-sm {
+  font-size: .875em;
+}
+
+@for $i from 1 through 10 {
+  .cft-#{$i}x {
+    font-size: $i * 1em;
+  }
+}

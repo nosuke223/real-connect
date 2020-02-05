@@ -1,0 +1,26 @@
+.ql-snow {
+  // ========================================
+  // Tool-bar
+  // ========================================
+  &.ql-toolbar {
+    border-color: rgba($grey,.2);
+    border-radius: 4px 4px 0 0;
+
+    button {
+      margin: 0;
+    }
+  }
+
+  // ========================================
+  // Container
+  // ========================================
+  &.ql-container {
+    border-color: rgba($grey,.2);
+    border-radius: 0 0 4px 4px;
+    height: calc(100vh - 330px);
+
+    @include ltXS {
+      height: calc(100vh - 200px);
+    };
+  }
+}

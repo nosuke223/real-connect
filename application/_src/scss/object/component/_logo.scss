@@ -1,0 +1,65 @@
+.c-logo {
+  @include flex(ce,ce);
+  height: $headerH;
+  letter-spacing: 0;
+  margin-left: 1.5em;
+  margin-right: 1.5em;
+
+  @include ltXXS {
+    height: 5em;
+  };
+
+  &__body {
+    @include fs(20);
+    @include flex(ce);
+    height: 100%;
+    color: currentColor;
+    text-decoration: none;
+  }
+
+  &__symbol {
+    @include fs(30);
+    margin-right: 0.8em;
+    font-weight: normal;
+  }
+
+  &__text {
+    font-weight: normal;
+    white-space: nowrap;
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
+
+  &__tag-line {
+    @include fs(12);
+    display: block;
+    width: 20em;
+    margin-left: 2em;
+    margin-top: .9em;
+    font-weight: 500;
+
+    @include ltSM {
+      display: none;
+    };
+  }
+
+  &__badge {
+    @include fs(12);
+    padding: .2em 1em;
+    position: relative;
+    // text-shadow: none;
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 1px solid currentColor;
+      border-radius: 1.5em;
+      @include opacity(.5);
+    }
+  }
+}

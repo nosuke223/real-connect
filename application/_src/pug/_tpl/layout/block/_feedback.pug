@@ -1,0 +1,26 @@
+article#feedback.l-block( data-layer='3' )
+  header.l-pane__header.p-pane-control
+    .p-pane-control__button( data-block='back' )
+      i.glyph ＜
+    .p-pane-control__heading
+      span.p-pane-control__title 問題を報告
+  section.l-pane__body
+    .p-scrollable
+      // ↓ BEGIN Block Content
+      .p-block-content-container
+        .p-block-content.p-block-content--full
+          section
+            h3 問題を報告する
+            p 「りあこね」のWEBアプリケーションの機能において問題が発生している場合は、具体的な内容を詳細に入力し、「問題を報告する」ボタンを押下してください。今後の機能改善に役立てます。なお、ご報告いただいた内容に対して、特別な場合を除き返信は行っておりません。
+            textarea(name='feedback' placeholder='問題の内容と発生状況を入力してください。')
+            button.u-bg--primary 問題を報告する
+            h3 過去に報告した問題
+            p
+              | ● 2018.08.12 15:44
+              br
+              | Android7.0 で利用しています。トークルームの相手のアバターが表示されていません。
+            p
+              | ● 2018.07.30 20:23
+              br
+              | Android7.0 で利用しています。チェックインしてもトーク一覧へ遷移できません。
+      // ↑ END Block Content

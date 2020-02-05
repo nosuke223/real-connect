@@ -1,0 +1,99 @@
+// .p-new-regist-block {
+//   @extend .p-block-content ;
+// }
+
+.p-new-regist {
+  width: 100%;
+  height: 100%;
+  background: rgba($truewhite,.1);
+  @include scroll;
+  padding: 20px;
+
+  @include ltXS {
+    padding: 10px;
+  };
+
+  &__header {
+    color: $truewhite;
+    padding: 4em 0;
+  }
+
+  &__logo {
+    @include fs(40);
+  }
+
+  &__header-lead {
+    @include fs(16);
+
+    small {
+      display: block;
+      @include fs(14);
+      text-transform: uppercase;
+      @include opacity(.5);
+      font-weight: bold;
+    }
+  }
+
+  &__body {
+    color: $darkcharcoal;
+    background: $truewhite;
+    width: 100%;
+    max-width: 800px;
+    margin: 2em auto 0;
+    padding: 4em 4em;
+    margin-bottom: 4em;
+
+    @include ltXS {
+      border-radius: 4px;
+      padding: 20px 20px;
+    };
+  }
+
+  &__avatar-select {
+    font-size: 20px;
+    position: relative;
+    cursor: pointer;
+
+    & > input[type='file'] {
+      display: none;
+    }
+  }
+
+  &__cover-select {
+    // font-size: 20px;
+    display: block;
+    max-width: 500px;
+    position: relative;
+    cursor: pointer;
+
+    @include gtSM {
+      & > .p-cover {
+        height: 250px;
+      }
+    };
+
+    & > input[type='file'] {
+      display: none;
+    }
+  }
+
+  &__select-image {
+    @include flex(fs,fs);
+  }
+
+  &__select-image-block {
+    &:first-child {
+      margin-right: 2em;
+      width: 10em;
+
+      @include gtSM {
+        & + * {
+          width: calc(100% - 10em - 2em);
+          max-width: 360px;
+        }
+      };
+    }
+  }
+
+  // &__submit {}
+}

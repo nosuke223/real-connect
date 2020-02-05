@@ -1,0 +1,31 @@
+header(role="banner").l-header.l-header--app.u-mode-bg
+
+  block header
+
+  .l-header__body.u-flex--ce-sb--gtSM.u-flex--ce-ce--inXS
+
+    h1.c-logo
+      a.c-logo__body(href="/")
+        i.glyph.glyph-brand-logo.c-logo__symbol
+        span.c-logo__text.cft Real-Connect Master
+      span.c-logo__tag-line Connecting People with People.
+      p.c-logo__badge システム管理者
+
+    section.p-header-app
+      header.p-account.p-header-app__header
+        .p-header-app__trigger
+          i.glyph.glyph-chevron-down
+        .p-account__title.p-header-app__title
+          figure.p-avatar.p-avatar--rect.p-header-app__avatar
+            img(src='/__source/_tmp/ava_tmp/nekochan.jpg')
+          h2.p-username.p-header-app__username システム管理者
+        figure.p-cover.p-header-app__cover
+          img(src='/__source/_tmp/ava_tmp/nekochan.jpg')
+      .p-header-app__body.u-mode-bg--light
+        .p-header-app__button-area
+          .p-header-app__button( data-menu='account' )
+            i.glyph.glyph-account
+            | アカウント
+          .p-header-app__button
+            i.glyph.glyph-sign-out-alt
+            | ログアウト

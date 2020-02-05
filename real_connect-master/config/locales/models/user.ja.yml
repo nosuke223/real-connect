@@ -1,0 +1,123 @@
+ja:
+  activerecord:
+    models:
+      user: 一般ユーザー
+      owner_user: オーナーユーザー
+      admin_user: システム管理ユーザー
+
+    attributes:
+      user:
+        id: ユーザーID
+        password: パスワード
+        password_confirmation: 確認用パスワード
+        email: メールアドレス
+        nickname: ニックネーム
+        avatar_image: プロフィール画像
+        cover_image: カバー画像
+        area: 地域
+        height: 身長
+        age: 年齢
+        blood: 血液型
+        gender: 性別
+        income: 収入
+        education: 学歴
+        prefecture: 都道府県
+        alcohol: 飲酒
+        tobacco: 喫煙
+        business: 職業
+        birthplace: 出身地
+        attracted_type: 好みの異性のタイプ
+        hobbies: 趣味
+        fashion: 服装
+        events: 参加したイベント
+        deleted?: 退会済み
+        own_places: 場所・店舗
+        confirmation_sent_at: 認証メール送信時刻
+        confirmed_at: メール認証完了日時
+        created_at: 登録日時
+        updated_at: 更新日時
+
+  enums:
+    user:
+      gender:
+        male: 男性
+        female: 女性
+      age:
+        early_twenty: 20代前半
+        late_twenty: 20代後半
+        thirty: 30代
+        fourty: 40代
+        fifty: 50代
+      blood:
+        A: A型
+        B: B型
+        O: O型
+        AB: AB型
+      income:
+        lower: 200 万円未満
+        annual300: 200 〜 300 万円
+        annual500: 300 〜 500 万円
+        annual1000: 500 〜 1,000 万円
+        annual2000: 1,000 〜 2,000 万円
+        annual3000: 2,000 〜 3,000 万円
+        annual5000: 3,000 〜 5,000 万円
+        annual100m: 5,000 万円 〜 1 億円
+        annual200m: 1 〜 2 億円
+        annual300m: 2 〜 3 億円
+        annual500m: 3 〜 5 億円
+        higher: 5 億円以上
+      education:
+        junior_high: 中学校卒
+        high: 高等学校卒
+        vocational: 専門学校卒
+        junior_college: 短期大学卒
+        university: 大学卒
+        university: 大学院卒
+      prefecture:
+        hokkaido: 北海道
+        aomori: 青森
+        iwate: 岩手
+        miyagi: 宮城
+        akita: 秋田
+        yamagata: 山形
+        fukushima: 福島
+        ibaraki: 茨城
+        tochigi: 栃木
+        gunma: 群馬
+        saitama: 埼玉
+        chiba: 千葉
+        tokyo: 東京
+        kanagawa: 神奈川
+        niigata: 新潟
+        toyama: 富山
+        ishikawa: 石川
+        fukui: 福井
+        yamanashi: 山梨
+        nagano: 長野
+        gifu: 岐阜
+        shizuoka: 静岡
+        aichi: 愛知
+        mie: 三重
+        shiga: 滋賀
+        kyoto: 京都
+        osaka: 大阪
+        hyogo: 兵庫
+        nara: 奈良
+        wakayama: 和歌山
+        tottori: 鳥取
+        shimane: 島根
+        okayama: 岡山
+        hiroshima: 広島
+        yamaguchi: 山口
+        tokushima: 徳島
+        kagawa: 香川
+        ehime: 愛媛
+        kochi: 高知
+        fukuoka: 福岡
+        saga: 佐賀
+        nagasaki: 長崎
+        kumamoto: 熊本
+        oita: 大分
+        miyazaki: 宮崎
+        kagoshima: 鹿児島
+        okinawa: 沖縄

@@ -1,0 +1,182 @@
+transition(name='v-modal' appear v-if='modal.userEdit')
+  article#user-edit.p-modal
+    .p-modal__overlay.u-mode-bg--overlay(@click.self='closeModal("userEdit")')
+      section.p-modal__inner.u-mode-bg--light.p-card.v-modal-content
+        header.p-account
+          .p-account__title
+            label.p-avatar
+              input(type='file' name='' @change='usrAvatar')
+              img(:src='usrReg.avatar_image' v-if='usrReg.avatar_image')
+              img(src='/__source/_tmp/ava_tmp/658872.jpg' v-else)
+              //- img(src='/_assets/img/common/no-image-avatar.png' v-else)
+            h2.p-username
+              input.p-profile__input(type='text' name='' autocomplete='off' placeholder='ニックネームを入力してください' value='ニックネーム')
+          label.p-cover
+            input(type='file' name='' @change='usrCover')
+            img(:src='usrReg.cover_image' v-if='usrReg.cover_image')
+            img(src='/__source/_tmp/ava_tmp/658872.jpg' v-else)
+        .p-card__body.u-text.p-profile
+          table.p-profile__table
+            tbody
+              tr
+                th 今日のファッション
+                td
+                  input.p-profile__input(type='text' name='' autocomplete='off' placeholder='今日のファッションを入力してください' value='カジュアル')
+              tr
+                th エリア
+                td
+                  label.c-select
+                    select.c-select__item
+                      option(value='' disabled) エリアを選択して下さい
+                      option(value='1' selected) 福岡 大名エリア
+                      option(value='2') 福岡 天神エリア
+              tr
+                th 会場
+                td
+                  label.c-select
+                    select.c-select__item
+                      option(value='' disabled) 会場を選択して下さい
+                      option(value='1' selected) Alone Together 天神大名
+                      option(value='2') Bar
+              tr
+                th 性別
+                td
+                  .input-field
+                    label.c-radio
+                      input(type='radio' name='gender' value='male' checked)
+                      span.c-radio__mirror
+                      | 男性
+                    label.c-radio
+                      input(type='radio' name='gender' value='female')
+                      span.c-radio__mirror
+                      | 女性
+              tr
+                th 血液型
+                td
+                  .input-field
+                    label.c-radio
+                      input(type='radio' name='blood' value='A')
+                      span.c-radio__mirror
+                      | A型
+                    label.c-radio
+                      input(type='radio' name='blood' value='B')
+                      span.c-radio__mirror
+                      | B型
+                    label.c-radio
+                      input(type='radio' name='blood' value='O' checked)
+                      span.c-radio__mirror
+                      | O型
+                    label.c-radio
+                      input(type='radio' name='blood' value='AB')
+                      span.c-radio__mirror
+                      | AB型
+              tr
+                th 年齢
+                td
+                  .input-field
+                    label.c-select
+                      select.c-select__item(name='')
+                        option(value='' disabled) 年齢層を選択してください
+                        option(value='early_twenty' selected) 20代前半
+                        option(value='late_twenty') 20代後半
+                        option(value='thirty') 30代
+                        option(value='fourty') 40代
+                        option(value='fifty') 50代
+              tr
+                th 身長
+                td
+                  .input-field
+                    label.c-select
+                      select.c-select__item(name='')
+                        option(value='' disabled) 身長を選択してください
+                        - for (let tall = 140; tall < 169; tall++)
+                          option(value=tall) #{tall} cm
+                        option(value='170' selected) 170 cm
+                        - for (let tall = 171; tall < 190; tall++)
+                          option(value=tall) #{tall} cm
+              tr
+                th 出身地
+                td
+                  input.p-profile__input(type='text' name='' autocomplete='off' placeholder='出身地を入力してください' value='東京')
+              tr
+                th タバコ
+                td
+                  .input-field
+                    label.c-radio
+                      input(type='radio' name='tobacco' value='true')
+                      span.c-radio__mirror
+                      | 吸う
+                    label.c-radio
+                      input(type='radio' name='tobacco' value='false' checked)
+                      span.c-radio__mirror
+                      | 吸わない
+              tr
+                th お酒
+                td
+                  .input-field
+                    label.c-radio
+                      input(type='radio' name='alcohol' value='true')
+                      span.c-radio__mirror
+                      | 飲む
+                    label.c-radio
+                      input(type='radio' name='alcohol' value='false' checked)
+                      span.c-radio__mirror
+                      | 飲まない
+              tr
+                th 職業
+                td
+                  textarea.p-profile__situation-item.p-profile__textarea(name='business' placeholder='職業を入力してください')
+                    | IT関連
+              tr
+                th 最終学歴
+                td
+                  .input-field
+                    label.c-select
+                      select.c-select__item(name='education')
+                        option(value='' disabled) 学歴を選択してください
+                        option(value='middle') 中学校卒
+                        option(value='high' selected) 高等学校卒
+                        option(value='vocational') 専門学校卒
+                        option(value='junior_college') 短期大学卒
+                        option(value='university') 大学卒
+                        option(value='graduate') 大学院卒
+              tr
+                th 好きな異性のタイプ
+                td
+                  textarea.p-profile__situation-item.p-profile__textarea(name='attracted_type' placeholder='好きな異性のタイプを入力してください')
+                    | きれいな人
+              tr
+                th 趣味･資格･特技
+                td
+                  textarea.p-profile__situation-item.p-profile__textarea(name='hobbies' placeholder='趣味･資格･特技を入力してください')
+                    | 趣味は旅行です。
+              tr
+                th 年収
+                td
+                  .input-field
+                    label.c-select
+                      select.c-select__item(name='income')
+                        option(value='' disabled) 年収を選択してください
+                        option(value='lower') 200 万円未満
+                        option(value='annual300') 200 〜 300 万円
+                        option(value='annual500') 300 〜 500 万円
+                        option(value='annual1000' selected) 500 〜 1,000 万円
+                        option(value='annual2000') 1,000 〜 2,000 万円
+                        option(value='annual3000') 2,000 〜 3,000 万円
+                        option(value='annual5000') 3,000 〜 5,000 万円
+                        option(value='annual100m') 5,000 万円 〜 1 億円
+                        option(value='annual200m') 1 〜 2 億円
+                        option(value='annual300m') 2 〜 3 億円
+                        option(value='annual500m') 3 〜 5 億円
+                        option(value='higher') 5 億円以上
+              tr
+                th 備考
+                td
+                  textarea.p-profile__situation-item.p-profile__textarea(name='remarks' placeholder='備考を入力してください')
+                    | 定休日・営業時間は予告なく変更する場合がございます。
+
+        footer.p-card__footer.p-card__footer--fluid
+          .u-fluid-button.u-bg--primary
+            button.p-modal__close(@click='closeModal("userEdit")') 閉じる
+            button 削除
+            button 決定

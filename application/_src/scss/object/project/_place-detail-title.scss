@@ -1,0 +1,44 @@
+.p-place-detail-title {
+  $buttonSize: 30px;
+  $basePadding: ( $paneHeaderH - $buttonSize ) / 2;
+  $this: &;
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  height: $paneHeaderH - 15px;
+  line-height: $paneHeaderH - 15px;
+  top: $paneHeaderH;
+  left: 100%;
+  font-size: 12px;
+  @include flex(ce,sb,false);
+  border-bottom: 1px solid rgba($grey,.2);
+  background: none;
+  padding-left: $basePadding;
+  padding-right: $basePadding;
+  @include ease(.4s);
+
+  &.is-visible {
+    left: 0;
+  }
+
+  @include ltSM {
+    background: none;
+    border: none;
+    line-height: $paneHeaderH - 20px;
+  };
+
+  &__body {
+    display: block;
+    width: calc( 100% - #{$buttonSize} );
+    font-size: 12px;
+    @include ellipsis;
+  }
+
+  &__button {
+    font-size: 12px;
+    min-width: $buttonSize;
+    height: $buttonSize;
+    @include flex(ce,ce);
+    cursor: pointer;
+  }
+}

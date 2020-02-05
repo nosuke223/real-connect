@@ -1,0 +1,118 @@
+ja:
+  helpers:
+    label:
+      user:
+        remember_me: "ログイン情報を保持する"
+        log_in: ログイン
+        log_out: ログアウト
+  errors:
+    messages:
+      not_found: "は見つかりませんでした"
+      already_confirmed: "は既に登録済みです"
+      not_locked: "は凍結されていません"
+      not_saved: "%{resource}を保存できませんでした（%{count}件の入力エラーがあります）"
+
+  users:
+    profile:
+      title: プロフィール情報
+      basic_info: 基本情報
+      connected_services: 外部サービス連携
+      connected: 連携済み
+      not_connected: 未連携
+    sessions:
+      new:
+        title: サービスへログインする
+        sub_titles:
+          login_with_email_and_password: メールアドレスとパスワードでログインする
+          login_with_oauth: SNSアカウントでログインする
+          no_account: アカウントをお持ちではありませんか？
+        forgot_password: パスワードをお忘れの方はこちら
+      create:
+        title: ログイン
+
+    registrations:
+      new:
+        title: 新規アカウントの登録
+        sub_titles:
+          sign_up_with_email_and_password: 情報を入力して会員登録する
+          sign_up_with_oauth: SNSアカウントで会員登録する
+          already_have_account: 既にアカウントをお持ちの場合
+      edit:
+        title: アカウント情報の編集
+      create:
+        title: 新規アカウントの登録
+    passwords:
+      new:
+        title: パスワードをお忘れですか？
+        description: アカウント登録時に設定したメールアドレス宛にパスワードの再設定方法を送信します。
+        placeholders:
+          email: アカウント登録したときのメールアドレスを入力してください
+      edit:
+        title: パスワードの再設定
+        description: 新しいパスワードを設定することで、サービスを再び利用することができるようになります。
+        new_password: 新しいパスワード
+        new_password_confirmation: 新しいパスワード（確認）
+        sub_titles:
+          renew_password: パスワードの再設定を行う
+          found_password: パスワードが見つかりましたか？
+        placeholders:
+          new_password: 半角英数字で8文字から128文字まで入力できます
+          new_password_confirmation: 上記で入力したパスワードと同じものを入力してください
+
+    mailer:
+      confirmation_instructions:
+        subject: 'メール認証を完了してください'
+      confirmation_on_create_instructions:
+        subject: '仮登録が完了しました'
+      welcome_letter:
+        subject: '本登録が完了しました'
+      reset_password_instructions:
+        greeting: "こんにちは %{recipient} さん"
+        instruction: お使いのアカウントのパスワードをリセットする要求を承りました。以下のリンクからパスワードの変更を行うことができます。
+        change_my_password: パスワードを変更する
+        please_ignore: 上記要求に身に覚えがない場合にはこのメールは無視して問題ございません。
+        wont_change: 上記リンクからパスワードを変更しない限り、現在登録されているパスワードが変更されることはございません。
+      # unlock_instructions:
+      #   subject: 'アカウントの凍結解除'
+
+
+  devise:
+    failure:
+      unauthenticated: 'ログインしてください。'
+      unconfirmed: '本登録を行ってください。'
+      locked: 'あなたのアカウントは凍結されています。'
+      invalid: 'メールアドレスかパスワードが違います。'
+      invalid_token: '認証キーが不正です。'
+      timeout: 'セッションがタイムアウトしました。もう一度ログインしてください。'
+      inactive: 'アカウントがアクティベートされていません。'
+      not_found_in_database: 'メールアドレスかパスワードが間違っています'
+      user:
+        invalid_email: '登録されていないメールアドレスです。'
+        login: 'パスワードが正しくありません。'
+    sessions:
+      signed_in: 'ログインしました。'
+      signed_out: 'ログアウトしました。'
+    passwords:
+      send_instructions: 'パスワードのリセット方法を数分以内にメールでご連絡します。'
+      updated: 'パスワードを変更しました。'
+    confirmations:
+      send_instructions: '登録方法を数分以内にメールでご連絡します。'
+      confirmed: 'アカウントを登録しました。'
+    registrations:
+      signed_up: 'アカウント登録を受け付けました。確認のメールをお送りします。'
+      updated: 'アカウントを更新しました。'
+      destroyed: 'アカウントを削除しました。またのご利用をお待ちしております。'
+    unlocks:
+      send_instructions: 'アカウントの凍結解除方法を数分以内にメールでご連絡します。'
+      unlocked: 'アカウントを凍結解除しました。'
+    mailer:
+      confirmation_instructions:
+        subject: 'メール認証を完了してください'
+      confirmation_on_create_instructions:
+        subject: '仮登録が完了しました'
+      welcome_letter:
+        subject: '本登録が完了しました'
+      reset_password_instructions:
+        subject: 'パスワードの再設定'
+      unlock_instructions:
+        subject: 'アカウントの凍結解除'

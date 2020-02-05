@@ -1,0 +1,128 @@
+.p-page-list {
+  $root: &;
+
+  &__title {
+    @include fs(18);
+  }
+
+  &__label {
+    color: currentColor;
+    display: block;
+    padding-top: .5em;
+    padding-bottom: .5em;
+    font-weight: 500;
+  }
+
+  &__content {
+    color: currentColor;
+    display: block;
+    padding-top: .5em;
+    padding-bottom: .5em;
+
+    @include hover {
+      color: $accent;
+    };
+
+    @include fas-before('\f0da',.5) {
+      margin-right: .5em;
+    };
+  }
+
+  &__notice {
+    color: currentColor;
+    display: block;
+    padding-top: .5em;
+    padding-bottom: .5em;
+    @include fs(13);
+
+    @include fas-before('\f071',.5) {
+      margin-right: .5em;
+    };
+  }
+
+  &__body {
+    border-top: 1px solid rgba($grey,.1);
+  }
+
+  &__item {
+    @include fs(14);
+    border-bottom: 1px solid rgba($grey,.1);
+  }
+
+  .cat-item {
+    @extend #{$root}__item;
+
+    > * {
+      @extend #{$root}__content;
+    }
+  }
+
+  &__tag {
+    @include fs(12);
+    color: $grey;
+
+    li {
+      display: inline-block;
+    }
+
+    a {
+      display: inline-block;
+      padding: 0 1em;
+      border: 1px solid $lightsilver;
+      border-radius: 1em;
+      background: $white;
+      margin: .2em;
+      color: currentColor;
+
+      @include hover {
+        background: $cs03;
+        color: $truewhite;
+        border-color: $accent;
+      };
+    }
+  }
+}
+
+.p-page-list-posts {
+  border-top: 1px solid rgba($grey,.1);
+
+  &__item {
+    color: $darkgrey;
+    padding: .5em 0;
+    border-bottom: 1px solid rgba($grey,.1);
+  }
+
+  &__body {
+    @include flex(ce,fs,false);
+    color: currentColor;
+  }
+
+  &__thumb {
+    min-width: 4em;
+    max-width: 4em;
+    height: 4em;
+    margin-right: .5em;
+
+    > img {
+      @include fs(10);
+      letter-spacing: 0;
+      width: 100%;
+      height: 100%;
+      @include object-fit;
+    }
+  }
+
+  &__date {
+    @include fs(10);
+    @include flex(ce,fs,false);
+    margin-bottom: .4em;
+  }
+
+  // &__date-body {}
+
+  &__title {
+    @include fs(12);
+    letter-spacing: 0;
+    line-height: 1.2;
+  }
+}

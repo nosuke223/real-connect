@@ -1,0 +1,86 @@
+article#menu.l-block(v-if='userData.own_places')
+  section.l-pane__body.l-pane__body--menu
+    .p-scrollable
+      header.l-pane__header.l-pane__header--menu.p-pane-control
+        .p-pane-control__button.u-White( data-block='back' )
+          i.glyph ＜
+
+      // ↓ BEGIN Block Content
+      if userType == 'admin'
+        .p-account.p-menu-account
+          .p-account__title.p-menu-account__title
+            figure.p-avatar.p-avatar--rect.p-menu-account__avatar
+              img(:src="userData.own_places.logo_image")
+            h2.p-username.p-menu-account__username {{ userData.own_places.name }}
+          figure.p-cover.p-menu-account__cover
+              img.is_origin(:src='userData.own_places.cover_image' v-if='userData.own_places.cover_image')
+              img.is_default(:src='"/_assets/img/default_svg/default-"+ String(userData.id).slice(-2) +".svg"' v-else)
+      if userType == 'master'
+        .p-account.p-menu-account
+          .p-account__title.p-menu-account__title
+            figure.p-avatar.p-avatar--rect.p-menu-account__avatar( data-modal='avatar-select' )
+              img(src='/__source/_tmp/ava_tmp/nekochan.jpg')
+            h2.p-username.p-menu-account__username システム管理者
+          figure.p-cover.p-menu-account__cover( data-modal='cover-select' )
+            img(src='/__source/_tmp/ava_tmp/nekochan.jpg')
+
+      .p-menu-nav
+        section
+          h3.p-menu-nav__subtitle 各種設定
+          ul.p-menu-nav__list
+            if userType == 'admin'
+              router-link.p-menu-nav__item(to='/admin' data-block='back')
+                i.glyph.glyph-dashboard
+                | ダッシュボード
+              router-link.p-menu-nav__item(to='/admin/profile' data-block='back')
+                i.glyph.glyph-map-marker-alt
+                | 店舗・会場情報
+              router-link.p-menu-nav__item(to='/admin/account' data-menu='account')
+                i.glyph.glyph-gear
+                | アカウント
+            if userType == 'master'
+              li.p-menu-nav__item( data-block='master-profile' )
+                i.glyph.glyph-map-marker-alt
+                | システム管理者情報
+            //- li.p-menu-nav__item( data-block='setting' )
+              i.glyph.glyph-tool
+              | アプリ設定
+          h3.p-menu-nav__subtitle 利用にあたって
+          ul.p-menu-nav__list
+            //- li.p-menu-nav__item( data-block='info' )
+              i.glyph.glyph-bell
+              | お知らせ
+            router-link.p-menu-nav__item(to='/admin/terms' data-block='back')
+              i.glyph.glyph-id-badge
+              | 利用規約
+            router-link.p-menu-nav__item(to='/admin/privacy' data-block='back')
+              i.glyph.glyph-secure
+              | 個人情報保護方針
+            //- li.p-menu-nav__item( data-block='help' )
+              i.glyph.glyph-question-circle
+              | ヘルプ
+            //- li.p-menu-nav__item( data-block='feedback' )
+              i.glyph.glyph-bug
+              | 問題を報告
+          //- h3.p-menu-nav__subtitle アプリケーション情報
+          //- ul.p-menu-nav__list
+            //- li.p-menu-nav__item( data-block='version' )
+              i.glyph.glyph-version
+              | バージョン情報
+            //- li.p-menu-nav__item( data-block='release' )
+              i.glyph.glyph-bullhorn
+              | リリースノート
+            //- li.p-menu-nav__item( data-block='license' )
+              i.glyph.glyph-ribbon
+              | ライセンス情報
+          //- h3.p-menu-nav__subtitle その他
+          //- ul.p-menu-nav__list
+            li.p-menu-nav__item(onclick='window.location.reload();')
+              i.glyph.glyph-preset03
+              | 再読み込み
+            li.p-menu-nav__item
+              i.glyph.glyph-sign-out-alt
+              | ログアウト
+
+
+      // ↑ END Block Content

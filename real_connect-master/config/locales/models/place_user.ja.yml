@@ -1,0 +1,16 @@
+ja:
+  activerecord:
+    models:
+      place_user: 場所のチェックイン
+
+    attributes:
+      place_user:
+        event: イベント
+        place: 場所
+        user: ユーザー
+        event_id: イベントID
+        place_id: 場所ID
+        user_id: ユーザーID
+        checked_out_at: チェックアウト時刻
+        created_at: チェックイン時刻
+        updated_at: 更新日時

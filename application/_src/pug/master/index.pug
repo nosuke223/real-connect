@@ -1,0 +1,51 @@
+extend /_tpl/foundation/_base-app
+
+append required
+  - const pageTitle = 'システム管理者'
+  - const userType = 'master'
+
+block content
+
+  // ↓ BEGIN Page Content
+
+  // ↓ Pane
+  .l-pane-container.l-block-behind
+    include /_tpl/layout/pane/_pane-dashboard-master
+  // ↑ Pane
+
+  // ↓ Block
+  .l-block-container
+    include /_tpl/layout/block/menu/_admin
+    include /_tpl/layout/block/_manage-place
+    include /_tpl/layout/block/_manage-event
+    include /_tpl/layout/block/_manage-user
+    include /_tpl/layout/block/_setting
+    include /_tpl/layout/block/_manage-info
+    include /_tpl/layout/block/_manage-help
+    include /_tpl/layout/block/_manage-terms
+    include /_tpl/layout/block/_manage-privacy
+    include /_tpl/layout/block/_version
+    include /_tpl/layout/block/_release
+    include /_tpl/layout/block/_manage-license
+  // ↑ Block
+
+  // ↓ Sidebar
+  include /_tpl/layout/pc-menu/_master
+  // ↑ Sidebar
+
+  // ↓ Modals
+  //- include /_tpl/layout/modal/_log-in
+  include /_tpl/layout/modal/_user-edit
+  include /_tpl/layout/modal/_user-add
+  include /_tpl/layout/modal/_place-edit
+  include /_tpl/layout/modal/_place-add
+  include /_tpl/layout/modal/_event-edit
+  include /_tpl/layout/modal/_event-add
+  include /_tpl/layout/modal/_info-edit
+  include /_tpl/layout/modal/_info-add
+  include /_tpl/layout/modal/_help-edit
+  include /_tpl/layout/modal/_help-add
+  //- include /_tpl/layout/modal/_admin-detail
+  // ↑ Modals
+  
+  // ↑ END Page Content

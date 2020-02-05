@@ -1,0 +1,55 @@
+.p-pane-control {
+  $buttonSize: 30px;
+  $basePadding: ( $paneHeaderH - $buttonSize ) / 2;
+  @include flex(ce,sb,false);
+  padding-left: $basePadding;
+  padding-right: $basePadding;
+
+  &__logo {
+    font-size: 20px;
+    letter-spacing: 1px;
+
+    @include gtMD {
+      width: 100%;
+      text-align: center;
+    };
+  }
+
+  &__button {
+    font-size: 16px;
+    min-width: $buttonSize;
+    height: $buttonSize;
+    @include flex(ce,ce);
+    cursor: pointer;
+
+    @include gtMD {
+      display: none;
+    };
+  }
+
+  &__heading {
+    @include flex(ce,sb,false);
+    line-height: 1;
+    width: 100%;
+    padding-left: $basePadding;
+    padding-right: $basePadding;
+  }
+
+  &__title {
+    display: block;
+    max-width: calc( 100% - 110px );
+    font-size: 13px;
+    @include ellipsis;
+    // word-break: break-all;
+    // word-wrap: break-word;
+  }
+
+  &__notice {
+    text-align: center;
+    display: block;
+    font-size: 11px;
+    background: rgba($truewhite,.1);
+    border-radius: 1em;
+    padding: 3px 8px;
+  }
+}

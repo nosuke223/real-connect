@@ -1,0 +1,21 @@
+transition(name='v-modal' appear v-if='modal.deleteAccount')
+  article#delete-account.p-modal
+    .p-modal__overlay.u-mode-bg--overlay(@click.self='closeModal("deleteAccount")')
+      section.p-modal__inner.u-mode-bg--light.p-card.v-modal-content
+        header.p-card__header.has-round-button
+          h2 退会処理
+          button.p-card__round-button.u-bg--primary.p-modal__close(@click='closeModal("deleteAccount")') ✕
+        .p-card__body.u-text
+          h2 退会についての留意事項
+          p 退会についての留意事項をよくお読みになった上で、「退会する」ボタンを押下してください。
+          ul
+            li ユーザー間でのトラブルや、皆様が安心して利用できる環境への取り組みのため、退会手続きを行ってもアカウントに使用していたデータは弊社サーバー上に一定期間保存されます。
+            li 第三者のなりすまし防止対策の一環として、一度退会してしまったアカウントを復旧することはできません。
+            li 退会したユーザーへはトークメッセージは送信されませんが、閲覧制限時間内であればトーク相手からは閲覧のみ可能となります。また、退会を行ったユーザーのプロフィールは閲覧できません。
+            li 退会を行った後でも、トーク相手から閲覧環境にキャッシュされたプロフィールのデータが閲覧できる時間的なずれが生じる場合があります。
+            li 退会手続きを行ったユーザー本人からであっても、退会後のユーザーの情報を開示することはできません。ただし、法律又は法律に基づく命令に別段の定めがある場合は、この限りではありません。
+
+        footer.p-card__footer.p-card__footer--fluid
+          .u-fluid-button.u-bg--primary
+            button.p-modal__close(@click='closeModal("deleteAccount")') キャンセル
+            button(@click='deleteAccount()') 退会する

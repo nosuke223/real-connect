@@ -1,0 +1,92 @@
+.p-article {
+  @include fs(16);
+  border-top: .3em solid transparent;
+
+  @include ltXS {
+    border-top-width: 2px;
+  };
+
+  &--01 {border-color: $cs01;}
+  &--02 {border-color: $cs02;}
+  &--03 {border-color: $cs03;}
+
+  &__header {
+    @include fs(40);
+    margin: 0;
+    padding: .5em 0;
+    font-weight: 400;
+    text-transform: uppercase;
+    @include flex(ce,fs,true);
+    border-bottom: 1px solid rgba($grey,.2);
+    position: relative;
+
+    @include ltXS {
+      font-weight: 300;
+      @include fs(50);
+    };
+
+    small {
+      @include fs(26);
+      margin-left: 1em;
+
+      @include ltXS {
+        @include fs(20);
+        font-weight: 500;
+        width: 100%;
+        display: block;
+        text-align: right;
+        @include opacity(.5);
+        position: absolute;
+        bottom: 1em;
+        right: 0;
+        z-index: 10;
+      };
+    }
+  }
+}
+
+.p-article-post {
+  @include clearfix;
+  line-height: 2em;
+
+  h2 {
+    clear: both;
+    border-bottom: 2px solid rgba($cs02Lt,.5);
+    padding-bottom: 1rem;
+  }
+
+  h3 {
+    clear: both;
+    border-bottom: 1px solid rgba($cs02Lt,.5);
+    padding-bottom: 1rem;
+  }
+
+  h4 {
+    clear: both;
+    border-left: 1rem solid rgba($cs02Lt,1);
+    padding-left: 2rem;
+  }
+
+  h5 {
+    clear: both;
+
+    &::before {
+      content: '▪';
+      color: rgba($cs02Lt,1);
+      margin-right: 1rem;
+    }
+  }
+
+  h6 {
+    clear: both;
+
+    &::before {
+      content: "•";
+      font-weight: 900;
+      color: rgba($cs02Lt,1);
+      margin-right: 1rem;
+    }
+  }
+
+  p {}
+}

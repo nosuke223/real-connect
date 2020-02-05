@@ -1,0 +1,266 @@
+.p-new-regist
+  header.p-new-regist__header.u-text__center
+    h2.u-flex--ce-ce.p-new-regist__logo
+      i.glyph.glyph-brand-logo
+      span.cft Real-Connect
+    p.p-new-regist__header-lead
+      small New Regist
+      | りあこねアカウントの作成
+
+  .p-new-regist__body.p-new-regist-block.p-block-content
+    section
+      h3
+        span.c-require 必須
+        | ニックネーム
+      p あなたのニックネームを入力しよう！（※匿名性を保持するため、本名は使用せずにニックネームで登録して下さい）
+      .input-field
+        input( type='text' name='nickname' placeholder='入力してください' v-model='newReg.nickname')
+        i.glyph.glyph-pen
+        i.glyph.glyph-check-circle.u-color--primary01
+
+    section
+      h3
+        span.c-require 必須
+        | プロフィール画像
+      label.p-new-regist__avatar-select
+        input(type='file' name='avatar_image' @change='regAvatar')
+        figure.p-avatar(v-if='avatar_image_preview')
+          img(:src='avatar_image_preview')
+        span.p-avatar(v-else-if='newReg.nickname' v-html='defaultAvatar(newReg.nickname,userData.id)')
+        span.p-avatar(v-else-if='userData.id' v-html='defaultAvatar("Ø",userData.id)')
+        figure.p-avatar( v-else)
+          img(src='/_assets/img/common/no-image-avatar.png')
+
+    section
+      h3
+        span.c-require--free 任意
+        | カバー画像
+      label.p-new-regist__cover-select
+        input(type='file' name='cover_image' @change='regCover')
+        figure.p-cover
+          img(:src='cover_image_preview' v-if='cover_image_preview')
+          img.is_default(:src='"/_assets/img/default_svg/default-"+ String(userData.id).slice(-2) +".svg"' v-else)
+
+    section
+      h3
+        span.c-require 必須
+        | 今日のファッション
+      p 会場であなたを見つけやすくするために、今のあなたのファッションをわかりやすく記入しよう！髪型や持ち物を記入してもOK！
+      .input-field
+        input(type='text' name='fashion' autocomplete='off' placeholder='入力してください' v-model='newReg.fashion')
+        i.glyph.glyph-pen
+        i.glyph.glyph-check-circle.u-color--primary01
+
+    section
+      h3
+        span.c-require 必須
+        | 都道府県
+      .input-field
+        label.c-select
+          select.c-select__item(v-model='newReg.prefecture' name='prefecture' @change='registerPrefecture()')
+            option(value='null' selected disabled) 都道府県を選択してください
+            option(:value='item.value' v-for='item in prefecture') {{item.title}}
+
+    section
+      h3
+        span.c-require 必須
+        | エリア
+      p 店舗・イベント会場のエリアを指定しよう！正しく選択していないとあなたのいる場所のイベントが表示されないよ。わからなければ会場のスタッフに気軽に聞いてね！
+      .input-field
+        label.c-select
+          .c-select-load(v-if='areaListLoad')
+            .p-load-text
+              .p-load-text__item.p-load-text__item--1
+              .p-load-text__item.p-load-text__item--2
+              .p-load-text__item.p-load-text__item--3
+          select.c-select__item(v-model='newReg.area_id' name='area' @change='registerArea()')
+            //- (1)API通信時の空白
+            option(:value='newReg.area_id' v-if='areaListLoad' disabled)
+            //- 選択可能なエリア一覧のオプション
+            option(v-for='option in newReg.areaList' :value='option.value' :disabled='option.disabled') {{ option.text }}
+      //- .p-check-in__err.u-text__center.u-flex--ce-ce(v-if='newReg.err.area')
+        i.glyph.glyph-exclamation-circle
+        | エリアが未選択、または変更されていません。
+
+    //- section
+      h3
+        span.c-require--free 任意
+        | 店舗・会場
+      .input-field
+        label.c-select
+          .c-select-load(v-if='placeListLoad')
+            .p-load-text
+              .p-load-text__item.p-load-text__item--1
+              .p-load-text__item.p-load-text__item--2
+              .p-load-text__item.p-load-text__item--3
+          select.c-select__item(v-model='newReg.place_id' name='current_place_id')
+            //- (1)API通信時の空白
+            option(:value='newReg.place_id' v-if='placeListLoad' disabled) 
+            option(v-for='option in newReg.placeList' :value='option.value' :disabled='option.disabled') {{ option.text }}
+
+    section
+      h3
+        span.c-require 必須
+        | 性別
+      .input-field
+        label.c-radio
+          input(type='radio' name='gender' value='male' v-model='newReg.gender')
+          span.c-radio__mirror
+          | 男性
+        label.c-radio
+          input(type='radio' name='gender' value='female' v-model='newReg.gender')
+          span.c-radio__mirror
+          | 女性
+
+    section
+      h3
+        span.c-require 必須
+        | 血液型
+      .input-field
+        label.c-radio
+          input(type='radio' name='blood' value='A' v-model='newReg.blood')
+          span.c-radio__mirror
+          | A型
+        label.c-radio
+          input(type='radio' name='blood' value='B' v-model='newReg.blood')
+          span.c-radio__mirror
+          | B型
+        label.c-radio
+          input(type='radio' name='blood' value='O' v-model='newReg.blood')
+          span.c-radio__mirror
+          | O型
+        label.c-radio
+          input(type='radio' name='blood' value='AB' v-model='newReg.blood')
+          span.c-radio__mirror
+          | AB型
+
+    section
+      h3
+        span.c-require 必須
+        | 年齢
+      .input-field
+        label.c-select
+          select.c-select__item(name='age' v-model='newReg.age')
+            option(value='' disabled) 年齢層を選択してください
+            option(value='early_twenty') 20代前半
+            option(value='late_twenty') 20代後半
+            option(value='thirty') 30代
+            option(value='fourty') 40代
+            option(value='fifty') 50代
+
+    section
+      h3
+        span.c-require 必須
+        | 身長
+      .input-field
+        label.c-select
+          select.c-select__item(name='height' v-model='newReg.height')
+            option(value='' disabled) 身長を選択してください
+            - for (let tall = 140; tall < 190; tall++)
+              option(value=tall) #{tall} cm
+
+    section
+      h3
+        span.c-require--free 任意
+        | 出身地
+      .input-field
+        input(type='text' name='birthplace' autocomplete='off' placeholder='入力してください' v-model='newReg.birthplace')
+        i.glyph.glyph-pen
+        i.glyph.glyph-check-circle.u-color--primary01
+
+    section
+      h3
+        span.c-require 必須
+        | タバコ
+      .input-field
+        label.c-radio
+          input(type='radio' name='tobacco' value='true' v-model='newReg.tobacco')
+          span.c-radio__mirror
+          | 吸う
+        label.c-radio
+          input(type='radio' name='tobacco' value='false' v-model='newReg.tobacco')
+          span.c-radio__mirror
+          | 吸わない
+
+    section
+      h3
+        span.c-require 必須
+        | お酒
+      .input-field
+        label.c-radio
+          input(type='radio' name='alcohol' value='true' v-model='newReg.alcohol')
+          span.c-radio__mirror
+          | 飲む
+        label.c-radio
+          input(type='radio' name='alcohol' value='false' v-model='newReg.alcohol')
+          span.c-radio__mirror
+          | 飲まない
+
+    section
+      h3
+        span.c-require--free 任意
+        | 職業
+      .input-field
+        textarea(name='business' placeholder='入力してください' v-model='newReg.business')
+        i.glyph.glyph-pen
+        i.glyph.glyph-check-circle.u-color--primary01
+
+    section
+      h3
+        span.c-require--free 任意
+        | 最終学歴
+      .input-field
+        label.c-select
+          select.c-select__item(name='education' v-model='newReg.education')
+            option(value='' disabled) 学歴を選択してください
+            option(value='middle') 中学校卒
+            option(value='high') 高等学校卒
+            option(value='vocational') 専門学校卒
+            option(value='junior_college') 短期大学卒
+            option(value='university') 大学卒
+            option(value='graduate') 大学院卒
+
+    section
+      h3
+        span.c-require--free 任意
+        | 好きな異性のタイプ
+      .input-field
+        textarea(name='attracted_type' placeholder='入力してください' v-model='newReg.attracted_type')
+        i.glyph.glyph-pen
+        i.glyph.glyph-check-circle.u-color--primary01
+
+    section
+      h3
+        span.c-require--free 任意
+        | 趣味･資格･特技
+      .input-field
+        textarea(name='hobbies' placeholder='入力してください' v-model='newReg.hobbies')
+        i.glyph.glyph-pen
+        i.glyph.glyph-check-circle.u-color--primary01
+
+    section
+      h3
+        span.c-require--free 任意
+        | 年収
+      .input-field
+        label.c-select
+          select.c-select__item(name='income' v-model='newReg.income')
+            option(value='' disabled) 年収を選択してください
+            option(value='lower') 200 万円未満
+            option(value='annual300') 200 〜 300 万円
+            option(value='annual500') 300 〜 500 万円
+            option(value='annual1000') 500 〜 1,000 万円
+            option(value='annual2000') 1,000 〜 2,000 万円
+            option(value='annual3000') 2,000 〜 3,000 万円
+            option(value='annual5000') 3,000 〜 5,000 万円
+            option(value='annual100m') 5,000 万円 〜 1 億円
+            option(value='annual200m') 1 〜 2 億円
+            option(value='annual300m') 2 〜 3 億円
+            option(value='annual500m') 3 〜 5 億円
+            option(value='higher') 5 億円以上
+
+      .p-login__progress(v-if='userLogInLoad')
+        .p-progress-bar.p-progress-bar--white
+      p.p-login__block.p-login__error(v-if='loginForm.msg!=""' :class='{"is-visible":loginForm.msg!=""}') {{loginForm.msg}}
+
+    button.p-new-regist__submit(@click='registerUser()') 登録する

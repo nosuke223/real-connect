@@ -1,0 +1,27 @@
+extend /_tpl/foundation/_base-app
+
+append required
+  - const pageTitle = '店舗・会場管理 ログイン'
+  - const userType = 'admin'
+
+block content
+  article#log-in.p-login.is-visible
+    .p-login__overlay
+      section.p-login__inner
+        header.p-login__header.u-text__center
+          h2.u-flex--ce-ce
+            i.glyph.glyph-brand-logo.p-login__logo
+            span.cft Real-Connect
+        #log-in-form.p-login__body
+          p.p-login__block りあこねアカウントでログイン（店舗管理画面）
+          .p-login__input-area.p-login__input-area--modified
+            label.c-input.p-login__input
+              i.glyph.glyph-envelope
+              input.c-input__item(type='email' name='user-login-email' placeholder='Eメールアドレス' v-model='loginFormData.email')
+            label.c-input.p-login__input.has-submit_
+              i.glyph.glyph-lock
+              input.c-input__item(type='password' name='user-login-password' placeholder='パスワード' v-model='loginFormData.password')
+          button.p-login__button(@click='requestLogin()' :class='{"is-loading":loading}')
+            i.glyph.glyph-sign-in-alt
+            | ログイン
+

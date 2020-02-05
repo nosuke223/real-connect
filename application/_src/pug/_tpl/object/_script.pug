@@ -1,0 +1,13 @@
+block js
+  if userType == 'user'
+    script(src="/_assets/js/app-user.js")
+  if userType == 'admin'
+    script(src="/_assets/js/app-admin.js")
+  if userType == 'master'
+    script(src="/_assets/js/app-master.js")
+
+script
+  .
+    if (location.pathname === '/') {
+      location.href = '/user/';
+    }

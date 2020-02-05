@@ -1,0 +1,48 @@
+.c-opentime-field {
+  font-size: 12px;
+  @include flex(ce,fs,false);
+  padding: 1em 0;
+
+  &__label {
+    @include fs(16);
+    background: rgba($grey,.1);
+    width: 2em;
+    min-width: 2em;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+    border-radius: 50%;
+    margin-right: .5em;
+
+    @include ltXS {
+      font-size: 16px;
+    };
+  }
+
+  &__select {
+    @include flex(ce,fs);
+  }
+
+  &__select-group {
+    @include flex(ce,ce);
+    margin-bottom: .2em;
+
+    &.fs {
+      @include flex(ce,fs);
+    }
+
+    .c-select-default {
+
+      &:first-child {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      &:last-child {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left: none;
+      }
+    }
+  }
+}

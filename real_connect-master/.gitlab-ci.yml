@@ -1,0 +1,47 @@
+stages:
+  - build
+  - deploy
+
+before_script:
+  - echo $DEPLOY_KEY_FILE
+  - echo $PROJECT_ID
+  - echo $DEPLOY_KEY_FILE > /tmp/$CI_PIPELINE_ID.json
+  #- apt-get update -y && apt-get --only-upgrade install -y kubectl google-cloud-sdk google-cloud-sdk-app-engine-grpc google-cloud-sdk-pubsub-emulator google-cloud-sdk-app-engine-go google-cloud-sdk-datastore-emulator google-cloud-sdk-app-engine-python google-cloud-sdk-cbt google-cloud-sdk-bigtable-emulator google-cloud-sdk-app-engine-python-extras google-cloud-sdk-datalab google-cloud-sdk-app-engine-java
+
+after_script:
+  - rm /tmp/$CI_PIPELINE_ID.json
+  
+build:
+  image: docker:latest
+  services:
+   - docker:dind
+  stage: build
+  script:
+    - docker build --build-arg DB_HOST=$DB_HOST --build-arg DB_USERNAME=$DB_USERNAME --build-arg DB_PASSWORD=$DB_PASSWORD --build-arg SENDGRID_USERNAME=$SENDGRID_USERNAME --build-arg SENDGRID_PASSWORD=$SENDGRID_PASSWORD -t registry.gitlab.com/leagalaid-real-connect/real_connect:$CI_COMMIT_SHA ./gcp
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
+    - docker push registry.gitlab.com/leagalaid-real-connect/real_connect:$CI_COMMIT_SHA
+    - docker tag registry.gitlab.com/leagalaid-real-connect/real_connect:$CI_COMMIT_SHA registry.gitlab.com/leagalaid-real-connect/real_connect:latest
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
+    - docker push registry.gitlab.com/leagalaid-real-connect/real_connect:latest
+  only:
+    - build
+
+
+deploy-core:
+  image: google/cloud-sdk:latest
+  stage: deploy
+  script:
+    - gcloud auth activate-service-account --key-file /tmp/$CI_PIPELINE_ID.json
+    - gcloud config set project $PROJECT_ID
+    - gcloud config list
+    - gcloud auth list
+    - gcloud info
+    #- ls -la
+    #- dev_appserver.py .
+    #- RAILS_ENV=production bundle exec rails assets:precompile
+    #- gem install bundler
+    #- bundle install
+    #- rake db:migrate
+    #- gcloud --quiet --project $PROJECT_ID app deploy
+  only:
+    - deploy

@@ -1,0 +1,15 @@
+ja:
+  activerecord:
+    models:
+      message: メッセージ
+
+    attributes:
+      message:
+        body: メッセージ内容
+        image: 画像
+        sender_id: 送信者ID
+        partner_id: 受信者ID
+        sender: 送信者
+        partner: 受信者
+        created_at: 登録日時
+        updated_at: 更新日時

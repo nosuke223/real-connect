@@ -1,0 +1,72 @@
+//------------------------------
+  PC用サイドメニュー（ユーザー）
+//------------------------------
+nav.p-pc-menu
+  header.p-pc-menu__header
+    h2.p-pc-menu__title MAIN MENU
+    button.p-pc-menu__button
+      i.glyph.glyph-bars
+  .p-pc-menu__body
+    .p-account.p-pc-menu-account
+      .p-account__title.p-pc-menu-account__title
+        figure.p-avatar.p-pc-menu-account__avatar(v-if='userData.avatar_image')
+          img(:src='avatar_image_preview' v-if='avatar_image_preview')
+          img(:src='userData.avatar_image' v-else)
+        span.p-avatar.p-pc-menu-account__avatar(v-else v-html='defaultAvatar(userData.nickname,userData.id)')
+        h2.p-username.p-pc-menu-account__username {{userData.nickname}}
+      .p-pc-menu-account__detail
+        .p-pc-menu-account__label
+          i.glyph.glyph-fashion
+          | 今日のファッション
+        .p-pc-menu-account__input
+          input#pcMenuFashion(type='text' name='fashion' autocomplete='off' placeholder='入力してください' v-model='userDataTemporary.fashion' @blur='updateProfile()')
+          button#pcMenuSave OK
+    ul.p-pc-menu__list(@click='updateProfile()')
+      li.p-pc-menu__item( data-menu='back')
+        i.glyph.glyph-brand-logo
+        | トーク
+      li.p-pc-menu__item( data-menu='user-profile' )
+        i.glyph.glyph-account
+        | プロフィール
+      li.p-pc-menu__item( data-menu='account' )
+        i.glyph.glyph-gear
+        | アカウント
+      li.p-pc-menu__item( data-menu='setting')
+        i.glyph.glyph-tool
+        | アプリ設定
+    h3.p-pc-menu__subtitle
+      span.p-pc-menu__badge 利用にあたって
+    ul.p-pc-menu__list(@click='updateProfile()')
+      //- li.p-pc-menu__item( data-menu='info' )
+        i.glyph.glyph-bell
+        | お知らせ
+      li.p-pc-menu__item( data-menu='terms' )
+        i.glyph.glyph-id-badge
+        | 利用規約
+      li.p-pc-menu__item( data-menu='privacy' )
+        i.glyph.glyph-secure
+        | 個人情報保護方針
+      //- li.p-pc-menu__item( data-menu='help' )
+        i.glyph.glyph-question-circle
+        | ヘルプ
+      //- li.p-pc-menu__item( data-menu='feedback' )
+        i.glyph.glyph-bug
+        | 問題を報告
+    //- h3.p-pc-menu__subtitle
+      span.p-pc-menu__badge アプリケーション情報
+    //- ul.p-pc-menu__list(@click='updateProfile()')
+      li.p-pc-menu__item( data-menu='version' )
+        i.glyph.glyph-version
+        | バージョン情報
+      li.p-pc-menu__item( data-menu='license' )
+        i.glyph.glyph-ribbon
+        | ライセンス情報
+    h3.p-pc-menu__subtitle
+      span.p-pc-menu__badge ユーザー操作
+    ul.p-pc-menu__list(@click='updateProfile()')
+      li.p-pc-menu__item(@click='reload()')
+        i.glyph.glyph-preset03
+        | 再読み込み
+      li.p-pc-menu__item(@click='logoutUser()')
+        i.glyph.glyph-sign-out-alt
+        | ログアウト

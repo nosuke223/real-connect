@@ -1,0 +1,74 @@
+article#menu.l-block( data-layer='1' )
+  section.l-pane__body.l-pane__body--menu
+    .p-scrollable
+      header.l-pane__header.l-pane__header--menu.p-pane-control
+        .p-pane-control__button.u-White( data-block='back' )
+          i.glyph ＜
+
+      // ↓ BEGIN Block Content
+      .p-account.p-menu-account(v-if='loadCompleted')
+        .p-account__title.p-menu-account__title
+          //- figure.p-avatar.p-menu-account__avatar( data-modal='avatar-select' )
+            img(src='/__source/_tmp/ava_tmp/6117510.jpg')
+          figure.p-avatar.p-menu-account__avatar(v-if='userData.avatar_image')
+            img(:src='avatar_image_preview' v-if='avatar_image_preview' data-imgpre)
+            img(:src='userData.avatar_image' v-else  data-imgpre)
+          span.p-avatar.p-menu-account__avatar(v-else-if='userData.nickname' v-html='defaultAvatar(userData.nickname,userData.id)')
+          span.p-avatar.p-menu-account__avatar(v-else v-html='defaultAvatar("仮",userData.id)')
+
+          h2.p-username.p-menu-account__username(v-if='userData.nickname') {{userData.nickname}}
+          h2.p-username.p-menu-account__username(v-else) 仮登録ユーザ ID {{userData.id}}
+        figure.p-cover.p-menu-account__cover
+          img(:src='cover_image_preview' v-if='cover_image_preview'  data-imgpre)
+          img(:src='userData.cover_image' v-else-if='userData.cover_image' data-imgpre)
+          img(:src='"/_assets/img/default_svg/default-"+ String(userDetail.id).slice(-2) +".svg"' v-else)
+
+      .p-menu-nav
+        section
+          h3.p-menu-nav__subtitle 各種設定
+          ul.p-menu-nav__list
+            li.p-menu-nav__item( data-block='user-profile' )
+              i.glyph.glyph-account
+              | プロフィール
+            li.p-menu-nav__item( data-block='account' )
+              i.glyph.glyph-gear
+              | アカウント
+            li.p-menu-nav__item( data-block='setting' )
+              i.glyph.glyph-tool
+              | アプリ設定
+          h3.p-menu-nav__subtitle 利用にあたって
+          ul.p-menu-nav__list
+            //- li.p-menu-nav__item( data-block='info' )
+              i.glyph.glyph-bell
+              | お知らせ
+            li.p-menu-nav__item( data-block='terms' )
+              i.glyph.glyph-id-badge
+              | 利用規約
+            li.p-menu-nav__item( data-block='privacy' )
+              i.glyph.glyph-secure
+              | 個人情報保護方針
+            //- li.p-menu-nav__item( data-block='help' )
+              i.glyph.glyph-question-circle
+              | ヘルプ
+            //- li.p-menu-nav__item( data-block='feedback' )
+              i.glyph.glyph-bug
+              | 問題を報告
+          //- h3.p-menu-nav__subtitle アプリケーション情報
+          //- ul.p-menu-nav__list
+            //- li.p-menu-nav__item( data-block='version' )
+              i.glyph.glyph-version
+              | バージョン情報
+            li.p-menu-nav__item( data-block='license' )
+              i.glyph.glyph-ribbon
+              | ライセンス情報
+          h3.p-menu-nav__subtitle その他
+          ul.p-menu-nav__list
+            li.p-menu-nav__item(@click='reload()')
+              i.glyph.glyph-preset03
+              | 再読み込み
+            li.p-menu-nav__item(@click="logoutUser()")
+              i.glyph.glyph-sign-out-alt
+              | ログアウト
+
+
+      // ↑ END Block Content

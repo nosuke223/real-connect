@@ -1,0 +1,48 @@
+.p-toggle-tab {
+  color: $lightgrey;
+  color: rgba($accent,.7);
+  width: auto;
+  @include flex(ce,ce,false);
+  @include fs(14);
+  padding: 10px;
+
+  @include ltSM {
+    font-size: 12px;
+  };
+
+  &__item {
+    max-width: 100%;
+    padding: 0 1em;
+    border: 1px solid $accent;
+    cursor: pointer;
+    @include ease;
+
+    @include ltXS {
+      padding: .3em .8em;
+    };
+
+    &:first-of-type {
+      border-top-left-radius: 1.5em;
+      border-bottom-left-radius: 1.5em;
+    }
+
+    &:last-of-type {
+      border-top-right-radius: 1.5em;
+      border-bottom-right-radius: 1.5em;
+    }
+
+    &:not(:last-of-type) {
+      border-right: none;
+    }
+
+    @include hover {
+      color: $truewhite;
+      background: rgba($accent,.8);
+    };
+
+    &.is-active {
+      color: $truewhite;
+      background: $accent;
+    }
+  }
+}

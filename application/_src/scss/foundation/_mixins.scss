@@ -1,0 +1,379 @@
+// ========================================
+// Gradient
+// ========================================
+
+$grad1: $male;
+$grad2: $female;
+
+@mixin gradtypes($color1: $grad1, $color2: $grad2, $start: left) {
+  color: $color1;
+  background: -webkit-linear-gradient($start,$color1,$color2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@mixin gradbg($color1: $grad1, $color2: $grad2, $to:right) {
+  background: linear-gradient(to $to, $color1 0%, $color2 100%);
+}
+
+// ========================================
+//  IE Hack
+// ========================================
+
+@mixin opacity($transparent) {
+  opacity: $transparent;
+  filter: alpha(opacity= $transparent * 100);
+}
+
+@mixin clearfix {
+  *zoom: 1;
+
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+@mixin object-fit($type:cover) {
+  object-fit: $type;
+  font-family: 'object-fit: #{$type}';
+}
+
+// ========================================
+// Images
+// ========================================
+
+@mixin crisp {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -o-crisp-edges;
+  image-rendering: crisp-edges;
+  -ms-interpolation-mode: nearest-neighbor;
+}
+
+@mixin bgs($width,$height) {
+  width: $width;
+  height: $height;
+  background-size: $width $height;
+}
+
+// ========================================
+// Links & Hover action
+// ========================================
+
+@mixin transition($time:.15s) {
+  transition: $time all;
+}
+
+@mixin ease($time:.15s) {
+  transition: $time all ease-in-out;
+}
+
+@mixin linear($time:.15s) {
+  transition: $time all linear;
+}
+
+@mixin hover {
+  &:hover {
+    @include gtMD { @content; }
+  }
+}
+
+@mixin external($ct:↗,$family:glyph) {
+  &[target] {
+    &::after {
+      font-size: .8em;
+      margin-left: .2em;
+      margin-right: .2em;
+    }
+    @if $family == glyph {
+      @include glyph-after($ct,.5);
+    } @else if $family == far {
+      @include far-after($ct,.5);
+    } @else if $family == fab {
+      @include fab-after($ct,.5);
+    } @else if $family == fas {
+      @include fas-after($ct,.5);
+    }
+  }
+}
+
+// ========================================
+// Icons
+// ========================================
+
+@mixin icons-base($family) {
+  font-family: $family;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: auto;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  line-height: 1;
+  font-weight: 400;
+}
+
+@mixin far-before($ct,$op:1,$cl:inherit) {
+  &::before {
+    @include icons-base('Font Awesome 5 Free');
+    content: '#{$ct}';
+    opacity: $op;
+    filter: alpha(opacity= $op * 100);
+    color: $cl;
+    @content;
+  }
+}
+
+@mixin far-after($ct,$op:1,$cl:inherit) {
+  &::after {
+    @include icons-base('Font Awesome 5 Free');
+    content: '#{$ct}';
+    opacity: $op;
+    filter: alpha(opacity= $op * 100);
+    color: $cl;
+    @content;
+  }
+}
+
+@mixin fab-before($ct,$op:1,$cl:inherit) {
+  &::before {
+    @include icons-base('Font Awesome 5 Brands');
+    content: '#{$ct}';
+    opacity: $op;
+    filter: alpha(opacity= $op * 100);
+    color: $cl;
+    @content;
+  }
+}
+
+@mixin fab-after($ct,$op:1,$cl:inherit) {
+  &::after {
+    @include icons-base('Font Awesome 5 Brands');
+    content: '#{$ct}';
+    opacity: $op;
+    filter: alpha(opacity= $op * 100);
+    color: $cl;
+    @content;
+  }
+}
+
+@mixin fas-before($ct,$op:1,$cl:inherit) {
+  &::before {
+    @include icons-base('Font Awesome 5 Free');
+    content: '#{$ct}';
+    opacity: $op;
+    filter: alpha(opacity= $op * 100);
+    color: $cl;
+    font-weight: 900;
+    @content;
+  }
+}
+
+@mixin fas-after($ct,$op:1,$cl:inherit) {
+  &::after {
+    @include icons-base('Font Awesome 5 Free');
+    content: '#{$ct}';
+    opacity: $op;
+    filter: alpha(opacity= $op * 100);
+    color: $cl;
+    font-weight: 900;
+    @content;
+  }
+}
+
+@mixin glyph-before($ct,$op:1,$cl:inherit) {
+  &::before {
+    @include icons-base('glyphs');
+    vertical-align: -.1em;
+    content: '#{$ct}';
+    opacity: $op;
+    filter: alpha(opacity= $op * 100);
+    color: $cl;
+    @content;
+  }
+}
+
+@mixin glyph-after($ct,$op:1,$cl:inherit) {
+  &::after {
+    @include icons-base('glyphs');
+    vertical-align: -.1em;
+    content: '#{$ct}';
+    opacity: $op;
+    filter: alpha(opacity= $op * 100);
+    color: $cl;
+    @content;
+  }
+}
+
+// ========================================
+// Flex Box
+// ========================================
+
+@mixin flex($ai:null,$jc:null,$fw:true) {
+  display: flex;
+
+  @if $ai {
+    @if $ai == ce {
+      align-items: center;
+    } @else if $ai == fs {
+      align-items: flex-start;
+    } @else if $ai == fe {
+      align-items: flex-end;
+    } @else if $ai == st {
+      align-items: stretch;
+    } @else {
+      align-items: $ai;
+    }
+  }
+
+  @if $jc {
+    @if $jc == ce {
+      justify-content: center;
+    } @else if $jc == fs {
+      justify-content: flex-start;
+    } @else if $jc == fe {
+      justify-content: flex-end;
+    } @else if $jc == sa {
+      justify-content: space-around;
+    } @else if $jc == sb {
+      justify-content: space-between;
+    } @else {
+      justify-content: $jc;
+    }
+  }
+
+  @if $fw == true {
+    flex-wrap: wrap;
+  } @else if $fw == false {
+    flex-wrap: nowrap;
+  } @else {
+    justify-content: $fw;
+  }
+}
+
+// ========================================
+// Page Types
+// ========================================
+
+@mixin index() {
+  .index & { @content; }
+}
+
+@mixin lower() {
+  .lower & { @content; }
+}
+
+@mixin screen-height() {
+  .screen-height & { @content; }
+}
+
+@mixin logged-in() {
+  .logged-in & { @content; }
+}
+
+@mixin admin-bar() {
+  .admin-bar & { @content; }
+}
+
+// ========================================
+// Input Area
+// ========================================
+
+@mixin input {
+  border: 1px solid rgba($grey,.2);
+  border-radius: 2em;
+  display: block;
+  position: relative;
+  @include ease;
+
+  &__item {
+    font-size: inherit;
+    appearance: button;
+    border-radius: 2em;
+    display: block;
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    font-family: inherit;
+    padding: 0 3em 0 1em;
+    height: 2em;
+    line-height: 2em;
+    color: inherit;
+    cursor: pointer;
+    @include ease;
+    margin: 0;
+
+    @include ltXS {
+      $fontsize: 12px;
+      $width: 100%;
+      $height: 30px;
+      $scale: $fontsize/16px;
+      $adjustWidth: $width * ( 1 / $scale );
+      $adjustHeight: $height * ( 1 / $scale );
+      font-size: 16px;
+      transform: scale($scale);
+      width: $adjustWidth;
+      height: $adjustHeight;
+      line-height: $adjustHeight;
+      margin-left: ($width - $adjustWidth)/2;
+      margin-right: ($width - $adjustWidth)/2;
+      margin-top: ($height - $adjustHeight)/2;
+      margin-bottom: ($height - $adjustHeight)/2;
+    };
+  }
+
+  .glyph,.fas,.fab,.far {
+    position: absolute;
+    margin-top: .1em;
+    top: 0;
+    left: .8em;
+    @include opacity(.5);
+
+    @include gtMD {
+      left: 1.2em;
+    };
+
+    @include ltXS {
+      font-size: 16px;
+    };
+
+    & + * {
+      padding-left: 3em;
+    }
+  }
+
+  &:hover,&:focus {
+    border-color: $accent;
+
+    .glyph,.fas,.fab,.far {
+      color: $accent;
+      @include opacity(1);
+    }
+  }
+
+  &.has-submit {
+    width: calc( 100% - 2em - 13px );
+  }
+
+  @content;
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin scroll {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

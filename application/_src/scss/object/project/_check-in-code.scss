@@ -1,0 +1,47 @@
+.p-check-in-code {
+  width: 100%;
+  height: 100%;
+  background: url(../img/common/bg_code.jpg);
+  background-size: cover;
+  @include flex(ce,ce);
+
+  .c-logo__tag-line {
+    width: auto;
+  }
+
+  &__inner {
+    color: $truewhite;
+  }
+
+  &__header {}
+
+  &__message {
+    text-align: center;
+    @include fs(12);
+  }
+
+  &__body {
+    background: rgba($darkcharcoal,.5);
+    text-align: center;
+    padding: 2em;
+    margin-top: 1em;
+  }
+
+  &__title {
+    @include fs(24);
+
+    small {
+      @include fs(14);
+    }
+  }
+
+  &__number {
+    display: block;
+    margin-top: 10px;
+    @include fs(80);
+    line-height: 1em;
+    background: rgba($darkcharcoal,.5);
+    text-align: center;
+    padding: 20px 0;
+  }
+}

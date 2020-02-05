@@ -1,0 +1,14 @@
+ja:
+  activerecord:
+    models:
+      event_user: イベントのチェックイン
+
+    attributes:
+      event_user:
+        event: イベント
+        user: ユーザー
+        event_id: イベントID
+        user_id: ユーザーID
+        checked_out_at: チェックアウト時刻
+        created_at: チェックイン時刻
+        updated_at: 更新日時

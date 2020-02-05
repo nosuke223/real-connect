@@ -1,0 +1,148 @@
+article#manage-user.l-block( data-layer='2' )
+  header.l-pane__header.p-pane-control
+    .p-pane-control__button( data-block='manage-user' )
+      i.glyph ＜
+    .p-pane-control__heading
+      span.p-pane-control__title ユーザー
+  section.l-pane__body
+    .p-scrollable
+      // ↓ BEGIN Block Content
+      .p-block-content-container
+        .p-block-content.p-block-content--full
+
+          button(@click='openModal("userAdd")') 新規追加
+
+          table.p-user-data
+            thead
+              tr
+                th(colspan='2')
+                  .u-flex--ce-fs
+                    label.c-checkbox
+                      input(type='checkbox' name='' value='')
+                      span.c-checkbox__mirror
+                    | ユーザー
+                th エリア
+                th Eメールアドレス
+                th 登録日時
+            tbody
+              tr
+                td(colspan='2')
+                  .p-account__title.p-user-data-account__title-2
+                    label.c-checkbox
+                      input(type='checkbox' name='' value='')
+                      span.c-checkbox__mirror
+                    figure.p-avatar.p-user-data-account__avatar(@click='openModal("userEdit")')
+                      img(src='/__source/_tmp/ava_tmp/658872.jpg')
+                    .p-username.p-user-data-account__username
+                      | ID:6
+                      br
+                      | ニックネーム
+                td: .p-user-data__ellipse 福岡 大名エリア
+                td: .p-user-data__ellipse test@example.com
+                td
+                  time 2018年10月15日(月)
+                  br
+                  time 20時24分54秒
+              tr
+                td(colspan='2')
+                  .p-account__title.p-user-data-account__title-2
+                    label.c-checkbox
+                      input(type='checkbox' name='' value='')
+                      span.c-checkbox__mirror
+                    figure.p-avatar.p-user-data-account__avatar(@click='openModal("userEdit")')
+                      img(src='/__source/_tmp/ava_tmp/658872.jpg')
+                    .p-username.p-user-data-account__username
+                      | ID:5
+                      br
+                      | ニックネーム
+                td: .p-user-data__ellipse 福岡 大名エリア
+                td: .p-user-data__ellipse test@example.com
+                td
+                  time 2018年10月15日(月)
+                  br
+                  time 20時24分54秒
+              tr
+                td(colspan='2')
+                  .p-account__title.p-user-data-account__title-2
+                    label.c-checkbox
+                      input(type='checkbox' name='' value='')
+                      span.c-checkbox__mirror
+                    figure.p-avatar.p-user-data-account__avatar(@click='openModal("userEdit")')
+                      img(src='/__source/_tmp/ava_tmp/658872.jpg')
+                    .p-username.p-user-data-account__username
+                      | ID:4
+                      br
+                      | ニックネーム
+                td: .p-user-data__ellipse 福岡 大名エリア
+                td: .p-user-data__ellipse test@example.com
+                td
+                  time 2018年10月15日(月)
+                  br
+                  time 20時24分54秒
+              tr
+                td(colspan='2')
+                  .p-account__title.p-user-data-account__title-2
+                    label.c-checkbox
+                      input(type='checkbox' name='' value='')
+                      span.c-checkbox__mirror
+                    figure.p-avatar.p-user-data-account__avatar(@click='openModal("userEdit")')
+                      img(src='/__source/_tmp/ava_tmp/658872.jpg')
+                    .p-username.p-user-data-account__username
+                      | ID:3
+                      br
+                      | ニックネーム
+                td: .p-user-data__ellipse 福岡 大名エリア
+                td: .p-user-data__ellipse test@example.com
+                td
+                  time 2018年10月15日(月)
+                  br
+                  time 20時24分54秒
+              tr
+                td(colspan='2')
+                  .p-account__title.p-user-data-account__title-2
+                    label.c-checkbox
+                      input(type='checkbox' name='' value='')
+                      span.c-checkbox__mirror
+                    figure.p-avatar.p-user-data-account__avatar(@click='openModal("userEdit")')
+                      img(src='/__source/_tmp/ava_tmp/658872.jpg')
+                    .p-username.p-user-data-account__username
+                      | ID:2
+                      br
+                      | ニックネーム
+                td: .p-user-data__ellipse 福岡 大名エリア
+                td: .p-user-data__ellipse test@example.com
+                td
+                  time 2018年10月15日(月)
+                  br
+                  time 20時24分54秒
+              tr
+                td(colspan='2')
+                  .p-account__title.p-user-data-account__title-2
+                    label.c-checkbox
+                      input(type='checkbox' name='' value='')
+                      span.c-checkbox__mirror
+                    figure.p-avatar.p-user-data-account__avatar(@click='openModal("userEdit")')
+                      img(src='/__source/_tmp/ava_tmp/658872.jpg')
+                    .p-username.p-user-data-account__username
+                      | ID:1
+                      br
+                      | ニックネーム
+                td: .p-user-data__ellipse 福岡 大名エリア
+                td: .p-user-data__ellipse test@example.com
+                td
+                  time 2018年10月15日(月)
+                  br
+                  time 20時24分54秒
+          .p-pagenavi
+            span.p-pagenavi__page(data-pagination='1') 1
+            span.p-pagenavi__extend ...
+            span.p-pagenavi__page(data-pagination='13') «
+            span.p-pagenavi__page(data-pagination='12') 12
+            span.p-pagenavi__page(data-pagination='13') 13
+            span.p-pagenavi__page.is-current(data-pagination='14') 14
+            span.p-pagenavi__page(data-pagination='15') 15
+            span.p-pagenavi__page(data-pagination='16') 16
+            span.p-pagenavi__page(data-pagination='15') »
+            span.p-pagenavi__extend ...
+            span.p-pagenavi__page(data-pagination='34') 34
+      // ↑ END Block Content

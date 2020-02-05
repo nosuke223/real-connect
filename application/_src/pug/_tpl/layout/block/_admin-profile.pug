@@ -1,0 +1,191 @@
+
+header.l-pane__header.p-pane-control
+  .p-pane-control__button( data-block='admin-profile' )
+    i.glyph ＜
+  .p-pane-control__heading
+    span.p-pane-control__title 店舗・会場情報
+section.l-pane__body
+  .p-scrollable
+    // ↓ BEGIN Block Content
+    .p-block-content-container
+      .p-block-content
+        .p-account
+          .p-account__title
+            figure.p-avatar.p-avatar--rect( data-modal='avatar-select' )
+              img(src='/__source/_tmp/ava_tmp/at.png')
+            .p-username
+              small 店舗・会場の名称
+              input( type='text' name='' value='Alone Together 天神大名' placeholder='入力してください' )
+              i.glyph.glyph-pen
+              i.glyph.glyph-check-circle.u-color--primary01
+
+        section
+          h3 カバー画像
+          figure.p-cover( data-modal='cover-select' )
+            img(src='/__source/_tmp/ava_tmp/at-cover.png')
+
+        section
+          h3 会場の種別・店舗業態
+          p
+            | 例えば、イベント会場であれば、「屋外特設会場」や「〇〇セミナー会場」、店舗であれば「イタリアンバル」や「個室居酒屋」などが良いでしょう。
+          .input-field
+            input(type='text' name='place_type' value='イタリアンバル' autocomplete='off' placeholder='入力してください')
+            i.glyph.glyph-pen
+            i.glyph.glyph-check-circle.u-color--primary01
+
+        section
+          h3 会場・店舗について（概要、特徴など）
+          .input-field
+            textarea(name='overview' placeholder='入力してください')
+              | 一流イタリアンシェフとのコラボレーションによって実現した「逢える・話せるトークバル」です。今までの「相席」とはひと味違うサービスをお楽しみください。
+              | 天神駅から徒歩7分という好立地にある当店は、福岡の男女の出会いや交流の場としても賑わっています！街コンや恋活イベントも定期的に実施しています♪
+            i.glyph.glyph-pen
+            i.glyph.glyph-check-circle.u-color--primary01
+
+        section
+          h3 現在の空席状況
+          .input-field
+            label.c-radio
+              input(type='radio' name='vacant' value='空席あり' checked)
+              span.c-radio__mirror
+              | 空席あり
+            label.c-radio
+              input(type='radio' name='vacant' value='空席なし')
+              span.c-radio__mirror
+              | 空席なし
+
+        section
+          h3 男女比率の表示設定
+          div
+            | 男女の合計が
+            select.c-select-default(name='gender-rate')
+              - for (total = 0; total < 11; total++)
+                - let total_ = total*5
+                option(value=total_) #{total_}
+            | 名以上のときに実数を表示
+          p この人数に達していない場合は「％」で表示されます。
+
+      .p-block-content
+        section
+          h3 営業時間・開催時間
+
+          - let openH, openM, closeH, closeM
+
+          mixin opentime(day,youbi,close)
+            .c-opentime-field
+              .c-opentime-field__label #{youbi}
+              .c-opentime-field__body
+                .c-opentime-field__select
+                  .c-opentime-field__select-group
+                    select.c-select-default(name=day+'OpenH')
+                      option(value='' disabled) --
+                      - for (openH = 0; openH < 18; openH++)
+                        - openH = ( '00' + openH ).slice( -2 )
+                        option(value=openH) #{openH}
+                      option(value='18' selected) 18
+                      - for (openH = 19; openH < 24; openH++)
+                        - openH = ( '00' + openH ).slice( -2 )
+                        option(value=openH) #{openH}
+                    select.c-select-default(name=day+'OpenM')
+                      option(value='' disabled) --
+                      - for (openM = 0; openM < 12; openM++)
+                        - let openM_ = openM*5
+                        - openM_ = ( '00' + openM_ ).slice( -2 )
+                        option(value=openM_) #{openM_}
+                  i.glyph.glyph-cart-right
+                  .c-opentime-field__select-group
+                    select.c-select-default(name=day+'CloseH')
+                      option(value='' disabled) --
+                      - for (closeH = 12; closeH < 24; closeH++)
+                        - closeH = ( '00' + closeH ).slice( -2 )
+                        option(value=closeH) #{closeH}
+                      option(value='24' selected) 24
+                      - for (closeH = 1; closeH < 13; closeH++)
+                        - closeH = ( '00' + closeH ).slice( -2 )
+                        option(value=closeH) #{closeH}
+                    select.c-select-default(name=day+'CloseM')
+                      option(value='' disabled) --
+                      - for (closeM = 0; closeM < 12; closeM++)
+                        - let closeM_ = closeM*5
+                        - closeM_ = ( '00' + closeM_ ).slice( -2 )
+                        option(value=closeM_) #{closeM_}
+
+                .c-opentime-field__checkbox
+                  if close
+
+                    label.c-checkbox
+                      input.c-opentime-close(type='checkbox' name=day+'close' value='1' checked)
+                      span.c-checkbox__mirror
+                      | 定休日
+
+                  else
+
+                    label.c-checkbox
+                      input.c-opentime-close(type='checkbox' name=day+'close' value='1')
+                      span.c-checkbox__mirror
+                      | 定休日
+
+          +opentime('sun','日')
+          +opentime('mon','月',true)
+          +opentime('tue','火')
+          +opentime('wed','水')
+          +opentime('thu','木')
+          +opentime('fri','金')
+          +opentime('sat','土')
+
+      .p-block-content
+        section
+          h3 店舗・会場の基本情報
+
+          section
+            h3 エリア
+            p 会場が属するエリアを選択してください。
+            .input-field
+              label.c-select
+                select.c-select__item(name='area')
+                  option(value='' selected disabled) エリアを選択してください
+                  option(value='ar001') 福岡市 中央区エリア
+                  option(value='ar002') 福岡市 博多区エリア
+
+          section
+            h3 所在地
+            p ※都道府県名は不要です。
+
+          section
+            h3 市区町村 番地
+            .input-field
+              input(type='text' name='address1' value='福岡市中央区大名 1-14-29' autocomplete='off' placeholder='入力してください')
+              i.glyph.glyph-pen
+              i.glyph.glyph-check-circle.u-color--primary01
+
+          section
+            h3 建物名、階数、部屋番号など（任意）
+            .input-field
+              input(type='text' name='address2' value='D.SIDE 4F' autocomplete='off' placeholder='入力してください')
+              i.glyph.glyph-pen
+              i.glyph.glyph-check-circle.u-color--primary01
+
+          section
+            h3 電話番号
+            .input-field
+              input(type='tel' name='tel' value='092-707-2066' autocomplete='off' placeholder='入力してください')
+              i.glyph.glyph-pen
+              i.glyph.glyph-check-circle.u-color--primary01
+
+          section
+            h3 公式サイトURL
+            .input-field
+              input(type='text' name='site' value='https://alone-together.net/' autocomplete='off' placeholder='入力してください')
+              i.glyph.glyph-pen
+              i.glyph.glyph-check-circle.u-color--primary01
+
+          section
+            h3 備考
+            .input-field
+              textarea(name='remarks' placeholder='入力してください')
+                | 定休日・営業時間は予告なく変更する場合がございます。
+                | ラストオーダーは閉店時刻の30分前となります。
+              i.glyph.glyph-pen
+              i.glyph.glyph-check-circle.u-color--primary01
+
+    // ↑ END Block Content

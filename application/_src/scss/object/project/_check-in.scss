@@ -1,0 +1,36 @@
+input[type="text"].p-check-in__code {
+  appearance: button;
+  @include fs(40);
+  width: 8em;
+  display: block;
+  margin: 0 auto;
+  background: transparent;
+  border-radius: 1.5em;
+  padding: .1em 0em .1em 1.4em;
+  border: 1px solid rgba($grey,.2);
+  color: inherit;
+  font-family: monospace;
+  letter-spacing: .5em;
+  text-indent: .5em;
+  text-transform: uppercase;
+  font-weight: 500;
+  @include ease;
+
+  &:hover,
+  &:focus {
+    border-color: $accent;
+  }
+}
+
+.u-text .p-check-in__err,
+.u-text > .p-check-in__err {
+  color: Magenta;
+  margin-top: 0;
+  font-size: 14px;
+}
+
+.u-text > .c-select + .p-check-in__err,
+.u-text > .c-input + .p-check-in__err {
+  color: Magenta;
+  margin-top: -15px;
+}

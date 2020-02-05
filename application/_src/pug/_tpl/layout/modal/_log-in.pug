@@ -1,0 +1,53 @@
+article#log-in.p-login
+  .p-login__overlay
+    section.p-login__inner
+      header.p-login__header.u-text__center
+        h2.u-flex--ce-ce
+          i.glyph.glyph-brand-logo.p-login__logo
+          span.cft Real-Connect
+      form#log-in-form.p-login__body.is-tgltab-target
+        p.p-login__block りあこねアカウントでログイン
+        .p-login__input-area
+          label.c-input.p-login__input
+            i.glyph.glyph-envelope
+            input.c-input__item(type='email' name='' placeholder='Eメールアドレス')
+          label.c-input.p-login__input.has-submit
+            i.glyph.glyph-lock
+            input.c-input__item(type='password' name='' placeholder='パスワード')
+          button.c-input__button(type='submit')
+            i.glyph.glyph-sign-in-alt
+        label.p-login__block.u-flex--ce
+          input.p-login__checkbox(type='checkbox')
+          span ログイン状態を保持する
+        p.p-login__block
+          span
+          span.p-login__underline(data-tgltab='new-regist') → パスワードをお忘れですか？
+        .p-login__regist
+          p まだアカウントを
+            br
+            | お持ちではない方
+          button アカウントの作成
+      form#new-regist.p-login__body.is-tgltab-target.is-hidden
+        .p-login__text
+          h3: i.glyph.glyph-lock
+            | パスワードの再設定
+          p 登録したEメールアドレスを入力してください。登録Eメールアドレスへパスワードの再設定メールが送信されます。
+        .p-login__input-area
+          label.c-input.p-login__input.has-submit
+            i.glyph.glyph-envelope
+            input.c-input__item(type='email' name='' placeholder='Eメールアドレス')
+          div
+            button.c-input__button(type='submit')
+              i.glyph.glyph-black-rightwards-arrowhead
+        .p-login__text
+          p 送信後30分以内に、Eメールに記載されたURLをクリックし、パスワードの再設定を開きます。
+            br
+            | パスワードの再設定画面にて新しいパスワードを設定してください。
+          p
+            span.p-login__underline(data-tgltab='log-in-form') ← ログイン画面へ戻る
+    figure.p-login__image.fadeslider
+      img(src='/__source/_tmp/login01.jpg')
+    figure.p-login__image.fadeslider
+      img(src='/__source/_tmp/login02.jpg')
+    figure.p-login__image.fadeslider
+      img(src='/__source/_tmp/login03.jpg')

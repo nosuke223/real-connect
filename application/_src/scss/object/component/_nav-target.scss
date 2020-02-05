@@ -1,0 +1,7 @@
+.c-nav-target {
+
+  @include mq {
+    height: 100vh;
+    display: none;
+  };
+}

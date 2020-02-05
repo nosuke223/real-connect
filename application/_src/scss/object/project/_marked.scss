@@ -1,0 +1,152 @@
+.p-marked {
+  word-wrap: break-word;
+  word-break: break-all;
+
+  // ------------------------------
+  // インライン
+  // ------------------------------
+  & > br:last-child {
+    display: none;
+  }
+
+  & > br:first-child {
+    display: none;
+  }
+
+  & > br + br {
+    display: none;
+  }
+
+  code {
+    background: rgba($lightsilver,.5);
+    color: $cs04Lt;
+    display: inline-block;
+    padding: 0 10px;
+    margin: 0 5px;
+    border-radius: 4px;
+    font-size: 90%;
+    font-weight: 700;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+
+  em {
+    font-style: italic;
+    margin-right: .3em;
+  }
+
+  hr {
+    margin: 0;
+    height: 2px;
+    border: none;
+    border-radius: 2px;
+    background: rgba($lightsilver,.5);
+  }
+
+  // ------------------------------
+  // ブロック
+  // ------------------------------
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    & + br {display: none;}
+    margin: .5em 0;
+  }
+
+  h1 { font-size: 17px; }
+  h2 { font-size: 16px; }
+  h3 { font-size: 15px; }
+  h4 { font-size: 14px; }
+  h5 { font-size: 13px; }
+  h6 { font-size: 12px; }
+
+  p {
+    font-size: 12px;
+
+    // br:last-child {display: none;}
+  }
+
+  ul, ol {
+    & > br {display: none;}
+    & li {
+      margin-top: 0;
+    }
+    // & + br {display: none;}
+  }
+
+  & > ul,
+  & > ol {
+    margin-bottom: 1em;
+
+    &:nth-last-child(2){
+      margin-bottom: 0;
+    }
+  }
+
+  // li > p + br {display: none;}
+  li {
+    & > br {display: none;}
+  }
+
+  ul {
+    list-style: disc;
+    margin-left: 1.5em;
+    ul {
+      list-style: circle;
+      ul {list-style: square;}
+    }
+  }
+
+  ol {
+    list-style: decimal;
+    margin-left: 1.5em;
+    ol {
+      list-style: lower-roman;
+      ol {list-style: lower-latin;}
+    }
+  }
+
+  blockquote {
+    border-left: 4px solid rgba($lightsilver,.5);
+    padding-left: 10px;
+    & > br {display: none;}
+  }
+
+  table {
+    // border: 1px solid rgba($lightsilver,.5);
+
+    th, td {
+      border: 1px solid rgba($lightsilver,.5);
+      padding: .4em .8em;
+    }
+
+    th {
+      background: rgba($lightsilver,.2);
+      font-weight: bold;
+    }
+  }
+
+  pre {
+    background: $lightcharcoal;
+    border-radius: 4px;
+    padding: 5px 10px;
+
+    code {
+      display: block;
+      background: transparent;
+      color: $white;
+      padding: 0;
+      margin: 0;
+      border-radius: 0;
+      font-weight: 700;
+    }
+  }
+}
+
+
+.is-send .p-marked {
+  a {
+    color: $truewhite;
+  }
+}

@@ -1,0 +1,214 @@
+// ========================================
+// Color
+// ========================================
+
+body.is-color {
+
+  // カンパニュラ
+  &--cp {
+    @include gradUI($male,$female,$cs01Lt,$male);
+  }
+
+  // コールドチェア
+  &--cc {
+    @include gradUI($male,$cs01Lt,$accentLt,$cs01Lt);
+  }
+
+}
+
+// ========================================
+// Mode
+// ========================================
+
+body.is-mode {
+
+  // ダークモード
+  &--dark {
+    @include mode($truewhite,$charcoal,$lightcharcoal) {
+      .u-mode-bg--light {
+        color: inherit;
+      }
+
+      .u-fluid-button button {
+        &:first-child,
+        &:last-child {
+          border-color: $lightcharcoal;
+        }
+      }
+
+      .p-pc-menu__item.is-active::after {
+        background: $charcoal;
+      }
+    };
+  }
+
+  // ライトモード
+  &--light {
+    @include mode($lightcharcoal,$truewhite,$white) {
+      .l-header {
+        color: inherit;
+      }
+
+      .l-pane__header {
+        @include ltSM {
+          background-color: $white;
+          color: inherit;
+        };
+      }
+
+      .p-header-app:not(.is-visible) {
+        .p-account {
+          color: inherit;
+        }
+      }
+    };
+  }
+}
+
+// ========================================
+// Theme
+// ========================================
+
+
+body.is-theme {
+
+  // デニム
+  $denim-blu: #001629;
+  $denim-bluSub: #0d1b29;
+  $denim-blk: $darkcharcoal;
+  $denim-blkSub: $darkcharcoal;
+  $denim-red: #bc2230;
+  $denim-ora: #c2755e;
+  $denim-yel: #e8bf7f;
+
+  &--dnm {
+    @include customUI($truewhite,$denim-blu,$denim-bluSub,$denim-red,$denim-ora,$denim-yel) {
+      background-image: url('/_assets/img/theme/_ptn-denim.jpg');
+      background-size: 250px 250px;
+      background-position: left top;
+      background-repeat: repeat-x;
+
+      @include gtSM {
+        background-repeat: repeat;
+      };
+
+      .p-event-list.is-now-event .c-date-thumb {
+        background-image: url('/_assets/img/theme/_ptn-denim.jpg');
+        background-size: 250px 250px;
+
+        &::after {
+          content: '';
+          display: block;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: $denim-blu;
+          z-index: 0;
+          @include opacity(.6);
+        }
+      }
+
+    };
+  }
+
+  // デニム ブラック
+  &--dnm-blk {
+    @include customUI($truewhite,$denim-blk,$denim-blkSub,$denim-red,$denim-ora,$denim-yel) {
+      background-image: url('/_assets/img/theme/_ptn-denim.jpg');
+      background-size: 250px 250px;
+      background-position: left top;
+      background-repeat: repeat-x;
+
+      @include gtSM {
+        background-repeat: repeat;
+      };
+
+      .p-event-list.is-now-event .c-date-thumb {
+        background-image: url('/_assets/img/theme/_ptn-denim.jpg');
+        background-size: 250px 250px;
+
+        &::after {
+          content: '';
+          display: block;
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: $denim-blk;
+          z-index: 0;
+          @include opacity(.6);
+        }
+      }
+    };
+  }
+
+  // カモミール
+  &--ch {
+    @include customUI($darkgrey,$white,$truewhite,MediumSeaGreen,SandyBrown,SandyBrown) {
+      font-family: HuiFont, $sansSerif;
+      .cft {
+        font-family: inherit;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .u-mode-bg--overlay {
+        background-color: rgba($lightsilver,.90);
+        background-image: none;
+      }
+
+      .u-fluid-button button {
+        &:first-child,
+        &:last-child {
+          border-color: $truewhite;
+        }
+      }
+
+      .l-header {
+        color: inherit;
+        background-color: $white;
+        text-shadow: none;
+      }
+
+      .l-pane__header {
+        background-color: $truewhite;
+        @include ltSM {
+          background-image: none;
+          background-color: $truewhite;
+          color: $darksilver;
+          box-shadow: 0 0 10px rgba($trueblack,.1);
+        };
+      }
+
+      .p-header-app {
+        &:not(.is-visible) .p-account {
+          color: inherit;
+        }
+      }
+
+      .p-event-list.is-now-event .c-date-thumb {
+        background-image: none;
+        background-color: Gold;
+        background-size: 250px 250px;
+      }
+
+      .p-pane-tab {
+        color: MediumSeaGreen;
+        border-bottom: 1px solid rgba($trueblack,.05);
+      }
+
+      .p-chat__item.is-received-message .p-chat__comment {
+        background: $white;
+      }
+
+      .p-event-list__rate {
+        &:first-child {color: MediumSeaGreen}
+        &:last-child {color: SandyBrown}
+      }
+
+      .p-talk-list__small i {
+        &.glyph-male {background: MediumSeaGreen}
+        &.glyph-female {background: SandyBrown}
+      }
+    }
+  }
+}

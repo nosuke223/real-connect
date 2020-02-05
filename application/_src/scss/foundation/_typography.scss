@@ -1,0 +1,42 @@
+// --------------------------------------------------
+// variables
+// --------------------------------------------------
+
+$sansSerif: 'Yu Gothic', YuGothic, '游ゴシック', '游ゴシック体', 'メイリオ', Meiryo, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'ＭＳ Ｐゴシック', sans-serif;
+$monospace: Monaco, Consolas, 'Courier New', Courier, monospace;
+$Mplus: 'Mplus 1p', $sansSerif;
+
+// --------------------------------------------------
+// mixins
+// --------------------------------------------------
+
+@mixin ls($ls:.08) {
+  letter-spacing: #{1.0*$ls}em;
+  @include ltMD { letter-spacing: #{.8*$ls}em; };
+  @include ltSM { letter-spacing: #{.4*$ls}em; };
+  @include ltXS { letter-spacing: #{.3*$ls}em; };
+  @include ltXXS { letter-spacing: #{.2*$ls}em; };
+}
+
+@mixin sansSerif($weight:500, $ls:.08) {
+  font-family: $sansSerif;
+  font-weight: $weight;
+  letter-spacing: #{$ls}em;
+};
+
+@mixin monospace($weight:400, $ls:0) {
+  font-family: $monospace;
+  font-weight: $weight;
+  letter-spacing: #{$ls}em;
+};
+
+@mixin Mplus($weight:500, $ls:.08) {
+  font-family: $Mplus;
+  font-weight: $weight;
+  @include ls($ls);
+};
+
+@mixin fs($size, $base: 10) {
+  font-size: $size + px;
+  font-size: ($size / $base) + rem;
+}

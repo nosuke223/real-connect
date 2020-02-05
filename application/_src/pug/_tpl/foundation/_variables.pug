@@ -1,0 +1,11 @@
+block required
+
+prepend variables
+  - const pageOgpTitle = pageTitle
+  - const pageUrl = relativePath.replace(/index.html$/,'')
+  - let pageLang = "ja"
+  - let bodyClass
+    if pageTitle
+      - bodyClass = 'lower'
+    else
+      - bodyClass = 'index'

@@ -1,0 +1,180 @@
+article#user-profile.l-block( data-layer='2' )
+  header.l-pane__header.p-pane-control
+    .p-pane-control__button( data-block='user-profile' @click='updateProfile()' )
+      i.glyph ＜
+    .p-pane-control__heading
+      span.p-pane-control__title プロフィール
+  section.l-pane__body
+    .p-scrollable
+      // ↓ BEGIN Block Content
+      .p-block-content-container
+        .p-block-content
+          .p-account
+            .p-account__title
+              label.p-avatar(for='chgAvatar' v-if='userDataTemporary.avatar_image')
+                img.is_preview(:src='avatar_image_preview' v-if='avatar_image_preview')
+                img.is_origin(:src='userData.avatar_image' v-else)
+              label.p-avatar(for='chgAvatar' v-else v-html='defaultAvatar(userDataTemporary.nickname,userDataTemporary.id)')
+              input(type='file' name='avatar_image' @change='chgAvatar' id='chgAvatar')
+
+              .p-username
+                small ニックネーム
+                input( type='text' name='' placeholder='入力してください' v-model='userDataTemporary.nickname')
+                i.glyph.glyph-pen
+                i.glyph.glyph-check-circle.u-color--primary01
+
+          section
+            h3 カバー画像
+            label.p-cover( data-modal='cover-select' )
+              input(type='file' name='cover_image' @change='chgCover' id='chgCover')
+              img.is_preview(:src='cover_image_preview' v-if='cover_image_preview')
+              img.is_origin(:src='userData.cover_image' v-else-if='userDataTemporary.cover_image')
+              img.is_default(:src='"/_assets/img/default_svg/default-"+ String(userData.id).slice(-2) +".svg"' v-else)
+          section
+            h3 今日のファッション
+            p 会場であなたを見つけやすくするために、今のあなたのファッションをわかりやすく記入しよう！髪型や持ち物を記入してもOK！
+            .input-field
+              input(type='text' name='fashion' autocomplete='off' placeholder='入力してください' v-model='userDataTemporary.fashion')
+              i.glyph.glyph-pen
+              i.glyph.glyph-check-circle.u-color--primary01
+
+          section
+            h3 登録エリアの変更
+            p 登録エリアを変更すると、以前のエリアに戻るまで移動前のエリアからのメッセージを閲覧することができなくなります。
+            button.u-bg--primary(@click='modal.areaChange=true') 登録エリアの変更
+
+        .p-block-content
+          section
+            h3 プロフィール
+            section
+              h4 性別
+              .input-field
+                label.c-radio
+                  input(type='radio' name='gender' value='male' v-model='userDataTemporary.gender')
+                  span.c-radio__mirror
+                  | 男性
+                label.c-radio
+                  input(type='radio' name='gender' value='female' v-model='userDataTemporary.gender')
+                  span.c-radio__mirror
+                  | 女性
+            section
+              h4 血液型
+              .input-field
+                label.c-radio
+                  input(type='radio' name='blood' value='A' v-model='userDataTemporary.blood')
+                  span.c-radio__mirror
+                  | A型
+                label.c-radio
+                  input(type='radio' name='blood' value='B' v-model='userDataTemporary.blood')
+                  span.c-radio__mirror
+                  | B型
+                label.c-radio
+                  input(type='radio' name='blood' value='O' v-model='userDataTemporary.blood')
+                  span.c-radio__mirror
+                  | O型
+                label.c-radio
+                  input(type='radio' name='blood' value='AB' v-model='userDataTemporary.blood')
+                  span.c-radio__mirror
+                  | AB型
+            section
+              h4 年齢
+              .input-field
+                label.c-select
+                  select.c-select__item(name='age' v-model='userDataTemporary.age')
+                    option(value='' disabled) 年齢層を選択してください
+                    option(value='early_twenty') 20代前半
+                    option(value='late_twenty') 20代後半
+                    option(value='thirty') 30代
+                    option(value='fourty') 40代
+                    option(value='fifty') 50代
+            section
+              h4 身長
+              .input-field
+                label.c-select
+                  select.c-select__item(name='height' v-model='userDataTemporary.height')
+                    option(value='' disabled) 身長を選択してください
+                    - for (let tall = 140; tall < 190; tall++)
+                      option(value=tall) #{tall} cm
+            section
+              h4 出身地
+              .input-field
+                input(type='text' name='birthplace' autocomplete='off' placeholder='入力してください' v-model='userDataTemporary.birthplace')
+                i.glyph.glyph-pen
+                i.glyph.glyph-check-circle.u-color--primary01
+            section
+              h4 タバコ
+              .input-field
+                label.c-radio
+                  input(type='radio' name='tobacco' value='true' v-model='userDataTemporary.tobacco')
+                  span.c-radio__mirror
+                  | 吸う
+                label.c-radio
+                  input(type='radio' name='tobacco' value='false' v-model='userDataTemporary.tobacco')
+                  span.c-radio__mirror
+                  | 吸わない
+            section
+              h4 お酒
+              .input-field
+                label.c-radio
+                  input(type='radio' name='alcohol' value='true' v-model='userDataTemporary.alcohol')
+                  span.c-radio__mirror
+                  | 飲む
+                label.c-radio
+                  input(type='radio' name='alcohol' value='false' v-model='userDataTemporary.alcohol')
+                  span.c-radio__mirror
+                  | 飲まない
+        .p-block-content
+          section
+            h3 仕事、資格、学歴など
+            section
+              h4 職業
+              .input-field
+                textarea(name='business' placeholder='入力してください' v-model='userDataTemporary.business')
+                i.glyph.glyph-pen
+                i.glyph.glyph-check-circle.u-color--primary01
+            section
+              h4 最終学歴
+              .input-field
+                label.c-select
+                  select.c-select__item(name='education' v-model='userDataTemporary.education')
+                    option(value='' disabled) 学歴を選択してください
+                    option(value='middle') 中学校卒
+                    option(value='high') 高等学校卒
+                    option(value='vocational') 専門学校卒
+                    option(value='junior_college') 短期大学卒
+                    option(value='university') 大学卒
+                    option(value='graduate') 大学院卒
+            section
+              h4 好きな異性のタイプ
+              .input-field
+                textarea(name='attracted_type' placeholder='入力してください' v-model='userDataTemporary.attracted_type')
+                  | かわいらしく清潔感のある人。
+                  | 周囲への気配りができて、おとなしい人。
+                i.glyph.glyph-pen
+                i.glyph.glyph-check-circle.u-color--primary01
+            section
+              h4 趣味･資格･特技
+              .input-field
+                textarea(name='hobbies' placeholder='入力してください' v-model='userDataTemporary.hobbies')
+                i.glyph.glyph-pen
+                i.glyph.glyph-check-circle.u-color--primary01
+            section
+              h4 年収
+              .input-field
+                label.c-select
+                  select.c-select__item(name='income' v-model='userDataTemporary.income')
+                    option(value='' disabled) 年収を選択してください
+                    option(value='lower') 200 万円未満
+                    option(value='annual300') 200 〜 300 万円
+                    option(value='annual500') 300 〜 500 万円
+                    option(value='annual1000') 500 〜 1,000 万円
+                    option(value='annual2000') 1,000 〜 2,000 万円
+                    option(value='annual3000') 2,000 〜 3,000 万円
+                    option(value='annual5000') 3,000 〜 5,000 万円
+                    option(value='annual100m') 5,000 万円 〜 1 億円
+                    option(value='annual200m') 1 〜 2 億円
+                    option(value='annual300m') 2 〜 3 億円
+                    option(value='annual500m') 3 〜 5 億円
+                    option(value='higher') 5 億円以上
+
+      // ↑ END Block Content

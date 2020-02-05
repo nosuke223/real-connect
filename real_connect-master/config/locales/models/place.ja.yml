@@ -1,0 +1,50 @@
+ja:
+  activerecord:
+    models:
+      place: 場所・店舗
+
+    attributes:
+      place:
+        owner: オーナーユーザー
+        name: 店舗・会場の名称
+        area: 地域
+        address: 市区町村 番地
+        building: 建物名、階数、部屋番号など
+        telephone: 電話番号
+        url: 公式サイトURL
+        logo_image: ロゴ
+        cover_image: カバー画像
+        type: タイプ会場の種別・店舗業態
+        description: 会場・店舗について（概要、特徴など）
+        note: 備考
+        seat_status: 空席状況
+        sun_start_at: （日曜）開店時刻
+        sun_end_at: （日曜）閉店時刻
+        is_sun_holiday: （日曜）定休日
+        mon_start_at: （月曜）開店時刻
+        mon_end_at: （月曜）閉店時刻
+        is_mon_holiday: （月曜）定休日
+        tue_start_at: （火曜）開店時刻
+        tue_end_at: （火曜）閉店時刻
+        is_tue_holiday: （火曜）定休日
+        wed_start_at: （水曜）開店時刻
+        wed_end_at: （水曜）閉店時刻
+        is_wed_holiday: （水曜）定休日
+        thu_start_at: （木曜）開店時刻
+        thu_end_at: （木曜）閉店時刻
+        is_thu_holiday: （木曜）定休日
+        fri_start_at: （金曜）開店時刻
+        fri_end_at: （金曜）閉店時刻
+        is_fri_holiday: （金曜）定休日
+        sat_start_at: （土曜）開店時刻
+        sat_end_at: （土曜）閉店時刻
+        is_sat_holiday: （土曜）定休日
+        created_at: 登録日時
+        updated_at: 更新日時
+  
+  enums:
+    place:
+      seat_status:
+        open: 空席あり
+        few:  もうすぐ満席
+        full: 満席
