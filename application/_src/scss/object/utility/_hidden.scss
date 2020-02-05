@@ -1,9 +1,0 @@
-.u-hidden {
-  @include mq {display: none;};
-
-  &--iPhoneSE {
-    @include SE {
-      display: none;
-    };
-  }
-}

@@ -1,7 +1,0 @@
-<svg width="1000" height="1000" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="1000" height="1000" fill="white"/>
-<rect width="1000" height="1000" transform="matrix(-1 0 0 1 1000 0)" fill="#00ACC1"/>
-<path d="M0 0H568L652 1000H0V0Z" fill="#0D47A1"/>
-<path d="M0 0H1000V307.392L0 356V0Z" fill="white" style="mix-blend-mode:overlay"/>
-<path d="M0 999.504H1000V818L0 866.608V999.504Z" fill="#A73C3C" style="mix-blend-mode:overlay"/>
-</svg>
