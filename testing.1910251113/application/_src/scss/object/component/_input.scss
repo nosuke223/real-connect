@@ -1,0 +1,43 @@
+.c-input {
+
+  @include input {
+    font-size: 14px;
+  };
+
+  &__button {
+    font-family: "glyphs";
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    display: block;
+    text-align: center;
+    padding: 0;
+    padding-bottom: .2em;
+    position: absolute;
+    background: transparent;
+    font-size: 14px;
+    bottom: 0;
+    right: 0;
+    border: none;
+    width: calc( 2em + 12px );
+    height: calc( 2em + 12px );
+    line-height: 0;
+    background: rgba($cs02Lt,.8);
+    color: rgba($truewhite,.7);
+
+    &:hover {
+      background: $accent;
+      color: $truewhite;
+      border-color: transparent;
+      @include opacity(1);
+    }
+
+    @include ltSM {
+      font-size: 16px;
+      width: calc( 2em + 9px );
+      height: calc( 2em + 10px );
+    };
+  }
+}

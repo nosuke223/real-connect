@@ -1,0 +1,58 @@
+nav.p-pc-menu
+  header.p-pc-menu__header
+    h2.p-pc-menu__title MAIN MENU
+    button.p-pc-menu__button
+      i.glyph.glyph-bars
+  .p-pc-menu__body
+    .p-account.p-pc-menu-account
+      .p-account__title.p-pc-menu-account__title
+        figure.p-avatar.p-avatar--rect.p-pc-menu-account__avatar
+          img(src='/__source/_tmp/ava_tmp/nekochan.jpg')
+        h2.p-username.p-pc-menu-account__username システム管理者
+    .p-pc-menu-code
+      .p-pc-menu-code__label 現在のチェックインコード
+      a.p-pc-menu-code__code(href='/admin/code/' target='_blank')
+        span 1qaz
+    ul.p-pc-menu__list
+      li.p-pc-menu__item( data-menu='back' )
+        i.glyph.glyph-dashboard
+        | ダッシュボード
+      li.p-pc-menu__item( data-menu='manage-place' )
+        i.glyph.glyph-map-marker-alt
+        | 会場・店舗
+      li.p-pc-menu__item( data-menu='manage-event' )
+        i.glyph.glyph-alarm-clock-round
+        | イベント
+      li.p-pc-menu__item( data-menu='manage-user' )
+        i.glyph.glyph-account
+        | ユーザー
+      li.p-pc-menu__item( data-menu='setting' )
+        i.glyph.glyph-tool
+        | アプリ設定
+    h3.p-pc-menu__subtitle
+      span.p-pc-menu__badge 利用にあたって
+    ul.p-pc-menu__list
+      li.p-pc-menu__item( data-menu='manage-info' )
+        i.glyph.glyph-bell
+        | お知らせ
+      li.p-pc-menu__item( data-menu='manage-terms' )
+        i.glyph.glyph-id-badge
+        | 利用規約
+      li.p-pc-menu__item( data-menu='manage-privacy' )
+        i.glyph.glyph-secure
+        | 個人情報保護方針
+      li.p-pc-menu__item( data-menu='manage-help' )
+        i.glyph.glyph-question-circle
+        | ヘルプ
+      li.p-pc-menu__item( data-menu='feedback' )
+        i.glyph.glyph-bug
+        | 問題を報告
+    h3.p-pc-menu__subtitle
+      span.p-pc-menu__badge アプリケーション情報
+    ul.p-pc-menu__list
+      li.p-pc-menu__item( data-menu='version' )
+        i.glyph.glyph-version
+        | バージョン情報
+      li.p-pc-menu__item( data-menu='manage-license' )
+        i.glyph.glyph-ribbon
+        | ライセンス情報

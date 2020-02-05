@@ -1,0 +1,14 @@
+<svg width="1000" height="1000" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0)">
+<rect width="1000" height="1000" fill="white"/>
+<rect width="999.999" height="1000" transform="matrix(1.74846e-09 1 1 -1.09278e-06 0 0.000976562)" fill="#F57F17"/>
+<path d="M1000 0L1000 555.999L0.000151098 508.171L0.000117779 2.91409e-05L1000 0Z" fill="#FFB300"/>
+<path d="M0 0.000976562L1.74846e-06 1000L156 1000L188 0.000779337L0 0.000976562Z" fill="#FBC02D" style="mix-blend-mode:overlay"/>
+<path d="M999.999 0.000974989L999.999 1000L823.999 1000L859.999 0.000974989L999.999 0.000974989Z" fill="#A73C3C" style="mix-blend-mode:overlay"/>
+</g>
+<defs>
+<clipPath id="clip0">
+<rect width="1000" height="1000" fill="white"/>
+</clipPath>
+</defs>
+</svg>

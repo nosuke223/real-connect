@@ -1,0 +1,94 @@
+// --------------------------------------------------
+// Color set
+// --------------------------------------------------
+
+// Ratio range
+$range: 7.5%;
+
+$cs01:                     #039BE5;
+$cs01Lt:    lighten($cs01, $range);
+$cs01Dk:     darken($cs01, $range);
+$cs01St:   saturate($cs01, $range);
+$cs01Ds: desaturate($cs01, $range);
+
+$cs02:                     #0097A7;
+$cs02Lt:    lighten($cs02, $range);
+$cs02Dk:     darken($cs02, $range);
+$cs02St:   saturate($cs02, $range);
+$cs02Ds: desaturate($cs02, $range);
+
+$cs03:                     #4DD0E1;
+$cs03Lt:    lighten($cs03, $range);
+$cs03Dk:     darken($cs03, $range);
+$cs03St:   saturate($cs03, $range);
+$cs03Ds: desaturate($cs03, $range);
+
+$cs04:                     #D81B60;
+$cs04Lt:    lighten($cs04, $range);
+$cs04Dk:     darken($cs04, $range);
+$cs04St:   saturate($cs04, $range);
+$cs04Ds: desaturate($cs04, $range);
+
+// --------------------------------------------------
+// UI color
+// --------------------------------------------------
+
+$base:                         #f4f4f4;
+$baseLt:        lighten($base, $range);
+$baseDk:         darken($base, $range);
+$baseSt:       saturate($base, $range);
+$baseDs:     desaturate($base, $range);
+
+$main:                         #0097A7;
+$mainLt:         lighten($main, $range);
+$mainDk:          darken($main, $range);
+$mainSt:        saturate($main, $range);
+$mainDs:      desaturate($main, $range);
+
+$accent:                       #00BFA5;
+$accentLt:    lighten($accent, $range);
+$accentDk:     darken($accent, $range);
+$accentSt:   saturate($accent, $range);
+$accentDs: desaturate($accent, $range);
+
+// --------------------------------------------------
+// Gray-scale color
+// --------------------------------------------------
+
+$standard-gray:                 #7F7F7F;
+$blue-gray:                     #727A8B;
+$brown-gray:                    #827169;
+$grey-base:                  $blue-gray;
+
+$truewhite:    lighten($grey-base, 50%);
+$white:        lighten($grey-base, 45%);
+$lightsilver:  lighten($grey-base, 40%);
+$silver:       lighten($grey-base, 30%);
+$darksilver:   lighten($grey-base, 20%);
+$lightgrey:    lighten($grey-base, 10%);
+$grey:                       $grey-base;
+$darkgrey:      darken($grey-base, 10%);
+$lightcharcoal: darken($grey-base, 20%);
+$charcoal:      darken($grey-base, 30%);
+$darkcharcoal:  darken($grey-base, 40%);
+$black:         darken($grey-base, 45%);
+$trueblack:     darken($grey-base, 50%);
+
+// --------------------------------------------------
+// Additional color
+// --------------------------------------------------
+
+$grad: linear-gradient(to right, $base 0%, $accent 100%);
+
+// $male:                         #8b81fc;
+$male:                         #7280FF;
+$maleLt:        lighten($male, $range);
+$maleDk:         darken($male, $range);
+$maleSt:       saturate($male, $range);
+$maleDs:     desaturate($male, $range);
+
+$female:                       #dd43f1;
+$femaleLt:     lighten($female, $range);
+$femaleDk:      darken($female, $range);
+$femaleSt:    saturate($female, $range);
+$femaleDs:  desaturate($female, $range);

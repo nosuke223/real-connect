@@ -1,0 +1,66 @@
+# --------------------
+# Linux
+# --------------------
+
+*~
+
+# --------------------
+# Apple OS X
+# --------------------
+
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# --------------------
+# Microsoft Windows
+# --------------------
+
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msm
+*.msp
+
+# --------------------
+# district files
+# ※ 開発フェーズの場合等、生成されたソースもコミット対象にしたい場合は、
+#   コメント化（先頭に「#」つける）してくださいm(_ _)m
+# --------------------
+
+/dest/
+/public/**/
+
+# --------------------
+# private environment
+# --------------------
+
+/ftpdata.json
+/symlink_config.js
+
+# --------------------
+# npm & bower & etc
+# --------------------
+
+/.tmp/
+*.log
+/node_modules/
+/bower_components/
+/.vagrant/
+/.vscode/
+# .htaccess
+# .htpasswd
+# robots.txt
+
+# --------------------
+# Master ブランチ切替用
+# --------------------
+
+/_resources/

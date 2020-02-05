@@ -1,0 +1,24 @@
+.p-activity {
+  margin: 15px 0;
+
+  &__device {
+    font-size: 160%;
+
+    i {
+      @include opacity(.5);
+      margin-right: .5em;
+    }
+  }
+
+  &__detail {
+    border-left: 5px solid rgba($grey,.5);
+    padding-left: 15px;
+    @include opacity(.5);
+  }
+
+  // &__browser {}
+
+  // &__time {}
+
+  // &__place {}
+}

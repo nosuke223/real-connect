@@ -1,0 +1,35 @@
+{
+  "name": "Real Connect Admin",
+  "short_name": "りあこね管理",
+  "icons": [
+    {
+      "src": "/_assets/img/pwa-app-icons/admin/128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/_assets/img/pwa-app-icons/admin/192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/_assets/img/pwa-app-icons/admin/256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/_assets/img/pwa-app-icons/admin/384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/_assets/img/pwa-app-icons/admin/512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/admin/",
+  "display": "standalone",
+  "theme_color": "#333333",
+  "background_color": "#333333"
+}

@@ -1,0 +1,267 @@
+.p-user-data-account {
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  &__avatar {
+    &::before {
+      content: none !important;
+      display: none !important;
+    }
+  }
+
+  &__title {
+    position: static;
+  }
+
+  &__title-2 {
+    position: static;
+
+    @include gtSM {
+      min-height: 4.5em;
+    };
+  }
+
+  &__username {
+    font-size: 12px !important;
+  }
+}
+
+.p-user-data-history-container {
+  position: absolute;
+  top: 3.5em;
+  left: -1em;
+  right: -1em;
+  z-index: 5;
+  background: $charcoal;
+  color: $truewhite;
+  padding: 10px;
+  border-radius: 4px;
+  // display: none;
+  visibility: hidden;
+  @include opacity(0);
+  @include ease;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    background: inherit;
+    transform: rotate(45deg);
+    top: -4px;
+    left: calc( 50% - 4px )
+  }
+}
+
+.p-user-data-history {
+  max-height: 10em;
+  @include scroll;
+
+  &__title {
+    font-size: 10px;
+    font-weight: bold;
+    @include opacity(.5);
+    border-top: 1px solid rgba($grey,.2);
+    padding-top: 5px;
+  }
+
+  ul {
+    list-style: none;
+    margin-left: 0;
+  }
+
+  &__detail {
+    margin-bottom: 5px;
+
+    li {
+      line-height: 1.2em;
+      padding: 2px 0;
+      @include flex(ce,fs,false);
+    }
+
+    time {
+      font-size: 10px;
+      font-weight: bold;
+      @include opacity(.5);
+      display: block;
+      margin-right: .5em;
+    }
+
+    span {
+      display: block;
+      @include ellipsis;
+    }
+  }
+}
+
+.p-user-data {
+  width: 100%;
+  table-layout: fixed;
+
+  tr {
+    @include ltXS {
+      display: block;
+      border: 1px solid rgba($grey,.2);
+      padding: .5em 1em;
+      margin-bottom: 1em;
+      border-radius: 4px;
+    };
+  }
+
+  th, td {
+    text-align: left;
+    vertical-align: middle;
+    border-bottom: 1px solid rgba($grey,.2);
+    padding-right: 1em;
+
+    @include ltXS {
+      display: block;
+      // border-bottom: none;
+      line-height: 1.2;
+      margin-top: .5em;
+      margin-bottom: .5em;
+      padding-top: .5em;
+      padding-bottom: .8em;
+
+      &:first-child {
+        margin-top: 0;
+        padding-top: 0;
+      }
+
+      &:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+      }
+    };
+  }
+
+  th {
+    font-size: 10px;
+    font-weight: bold;
+    color: $grey;
+  }
+
+  td {
+    font-size: 12px;
+  }
+
+  thead {
+    @include ltXS {
+      display: none;
+    };
+
+    th, td {
+      border-bottom-width: 2px;
+    }
+  }
+
+  // Data sell
+  @mixin widthFix($width) {
+    width: $width;
+    max-width: $width;
+    min-width: $width
+  }
+
+  input[type='checkbox'] {
+    margin-right: 1em;
+  }
+
+  @include gtSM {
+    &__user {
+      @include widthFix(15em);
+    }
+    &__gender-age {
+      @include widthFix(calc( 20% - 3em ));
+    }
+    &__regist-time {
+      @include widthFix(calc( 20% - 3em ));
+    }
+    &__regist-place {
+      @include widthFix(calc( 20% - 3em ));
+    }
+    &__last-checkin {
+      @include widthFix(calc( 20% - 3em ));
+    }
+    &__remark {
+      @include widthFix(calc( 20% - 3em ));
+    }
+  };
+
+  @include ltXS {
+    &__regist-time,
+    &__last-checkin {
+      &::before {
+        display: block;
+        @include opacity(.5);
+        font-weight: bold;
+        margin-bottom: .5em;
+      }
+    }
+    &__regist-time::before {
+      content: "登録日時・登録会場";
+    }
+    &__last-checkin::before {
+      content: "最終チェックイン";
+    }
+  };
+
+  &__ellipse {
+    @include ellipsis;
+  }
+
+  &__last-checkin-inner {
+    position: relative;
+    padding-right: 2em;
+    @include ease;
+
+    @include gtSM {
+      cursor: pointer;
+
+      &:hover {
+        .p-user-data-history-container {
+          // display: block;
+          @include opacity(1);
+          visibility: visible;
+        }
+      }
+    };
+
+    & > time,
+    & > span {
+      display: block;
+      @include ellipsis;
+    }
+
+    @include glyph-after('\F014') {
+      position: absolute;
+      font-size: 10px;
+      top: calc( 50% - 5px );
+      right: 0;
+
+      @include ltXS {
+        display: none;
+      }
+    };
+  }
+
+  &__event {
+    display: inline-block;
+    border: 1px solid rgba($grey,.1);
+    border-radius: 1.5em;
+    padding: .5em 1em;
+    margin: 1em 0;
+    cursor: pointer;
+
+    max-width: calc(100% - 5em);
+
+    span {
+      display: inline-block;
+      background: rgba($grey,.1);
+      border-radius: 1.5em;
+      padding: 0 1em;
+      margin-left: 1em;
+      text-transform: uppercase;
+    }
+  }
+}

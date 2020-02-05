@@ -1,0 +1,17 @@
+include /_tpl/foundation/_variables
+
+doctype html
+html( lang=pageLang ).screen
+  head
+
+    include /_tpl/object/_head
+
+  body#pagetop.screen-height( class=bodyClass data-root-url='/' )
+
+    +gtm-noscript
+
+    #app.c-app-container
+
+      include /_tpl/layout/_main
+
+    include /_tpl/object/_script

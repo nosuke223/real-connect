@@ -1,0 +1,35 @@
+.p-menu-nav {
+
+  &__subtitle {
+    padding: 0;
+    height: 30px;
+    @include flex(ce,fs);
+    font-size: 10px;
+  }
+
+  &__item {
+    font-size: 12px;
+    position: relative;
+    cursor: pointer;
+    height: 45px;
+    @include flex(ce);
+
+    > i {
+      font-size: 16px;
+      @include flex(ce,ce);
+      width: 30px;
+      min-width: 30px;
+      margin-right: 10px;
+      height: 100%;
+      @include opacity(.5);
+    }
+
+    @include hover {
+      background: rgba($grey,.1);
+    };
+  }
+
+  &__list {
+    margin-bottom: .5em;
+  }
+}

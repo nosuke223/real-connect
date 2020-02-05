@@ -1,0 +1,182 @@
+article#pane-dashboard.l-pane.l-pane--full.is-visible
+
+  header.l-pane__header.p-pane-control.u-mode-bg--ltSM
+    .p-pane-control__heading
+      span.p-pane-control__logo.cft.u-visible--ltSM Real-Connect Master
+      span.p-pane-control__title.u-visible--gtMD ダッシュボード
+    .p-pane-control__button( data-block='admin-profile' )
+      i.glyph.glyph-account
+    .p-pane-control__button( data-block='menu' )
+      i.glyph ︙
+  section.l-pane__body
+    .p-scrollable
+      // ↓ BEGIN Block Content
+      .p-block-content-container
+
+        .p-block-content.p-block-content--full
+          section
+            h3 現在開催中のイベント
+
+            .p-now-event
+              .p-now-event__detail
+                .c-date-thumb.p-now-event__date-thumb
+                  .c-date-thumb__year 2018
+                  .c-date-thumb__month 10
+                  .c-date-thumb__date 22
+                  .c-date-thumb__day monday
+                .p-now-event__code
+                  a(href='/admin/code/' target='_blank')
+                    small チェックインコード
+                    em 1qaz
+              .p-now-event-user
+                .p-now-event-user__total
+                  div
+                    small 参加人数
+                    em 22
+                .p-now-event-user__detail
+                  .p-now-event-user__detail-item.male
+                    small Men
+                    em 10
+                  .p-now-event-user__detail-item.female
+                    small Women
+                    em 12
+              .p-now-event-time
+                .p-now-event-time__item
+                  small 開始時間
+                  span 2018-10-22 10:00
+                .p-now-event-time__item
+                  small 終了時間
+                  span 2018-10-23 00:00
+
+
+        .p-block-content.p-block-content--half
+          section
+            h3 新規登録ユーザー
+            p 当日 10名 / 全期間 135名
+            canvas#new-regist
+
+        .p-block-content.p-block-content--half
+          section
+            h3 年齢層の割合
+            canvas#rate-of-age
+
+        .p-block-content.p-block-content--full
+          section
+            h3 ユーザー一覧
+            p ※ 絞り込みの項目を確認（日時など）
+              br
+              | ※ 表に表示する項目を確認（今日のファッション、チェックイン回数など）
+              br
+              | ※ Admin 権限での編集可能な項目を確認
+              br
+              | ※ パジネーション追加予定（未実装）
+            .input-field
+              label.c-checkbox
+                input(type='checkbox' name='user-data' value='regist-user' checked)
+                span.c-checkbox__mirror
+                | 当会場での登録ユーザ
+              label.c-checkbox
+                input(type='checkbox' name='user-data' value='other-place-user')
+                span.c-checkbox__mirror
+                | 他会場からの移動者
+              label.c-checkbox
+                input(type='checkbox' name='user-data' value='male' checked)
+                span.c-checkbox__mirror
+                | 男性
+              label.c-checkbox
+                input(type='checkbox' name='user-data' value='male' checked)
+                span.c-checkbox__mirror
+                | 女性
+
+            .p-pagenavi
+              span.p-pagenavi__page(data-pagination='1') 1
+              span.p-pagenavi__extend ...
+              span.p-pagenavi__page(data-pagination='13') «
+              span.p-pagenavi__page(data-pagination='12') 12
+              span.p-pagenavi__page(data-pagination='13') 13
+              span.p-pagenavi__page.is-current(data-pagination='14') 14
+              span.p-pagenavi__page(data-pagination='15') 15
+              span.p-pagenavi__page(data-pagination='16') 16
+              span.p-pagenavi__page(data-pagination='15') »
+              span.p-pagenavi__extend ...
+              span.p-pagenavi__page(data-pagination='34') 34
+
+            table.p-user-data
+              thead
+                tr
+                  th ユーザー
+                  th 性別・年齢層
+                  th 登録日時・登録会場
+                  th 最終チェックイン
+                  th 備考
+              tbody
+                mixin user-list(item)
+                  tr
+                    th.p-user-data__user
+                      .p-account.p-user-data-account
+                        .p-account__title.p-user-data-account__title
+                          figure.p-avatar.p-user-data-account__avatar( data-modal='user-detail' )
+                            img(src='/__source/_tmp/ava_tmp/'+item.ava)
+                          .p-username.p-user-data-account__username #{item.name}
+                    td.p-user-data__gender-age: .p-user-data__ellipse #{item.gdr} ─ #{item.age}
+                    td.p-user-data__regist-time
+                      time.p-user-data__ellipse 2017.09.15 18:21
+                      .p-user-data__ellipse Alone Together 天神大名
+                    td.p-user-data__last-checkin
+                      .p-user-data__last-checkin-inner
+                        time 2018.08.18 21:45
+                        span Alone Together 天神大名
+                        .p-user-data-history-container
+                          .p-user-data-history
+                            | チェックイン履歴
+                            .p-user-data-history__title 2018.08.18
+                            ul.p-user-data-history__detail
+                              li
+                                time 21:45
+                                span Alone Together 天神大名天神大名
+                              li 
+                                time 19:20
+                                span Bar SUNRISE 天神今泉
+                            .p-user-data-history
+                              .p-user-data-history__title 2018.08.17
+                              ul.p-user-data-history__detail
+                                li
+                                  time 21:45
+                                  span Alone Together 天神大名
+                    td.p-user-data__remark 備考
+
+              -
+                let user = [
+                  {ava:'tot-416967.jpg',name:'古賀 花絵',age:'20代前半',bld:'O',gdr:'female',fsn:'白いワンピース'},
+                  {ava:'गणेश.jpg',name:'しめさば',age:'20代後半',bld:'A',gdr:'female',fsn:'Tシャツとジーンズ'},
+                  {ava:'ブランド品1.jpg',name:'激安贅沢コピー品',age:'30代',bld:'A',gdr:'female',fsn:'お知らせ：スーパーコピー商品！激安！申し訳ございませんこれは広告専用アカウントです。返事しません。'},
+                  {ava:'うさぎ苺.png',name:'うさBerry🍓',age:'20代前半',bld:'O',gdr:'female',fsn:'水色スカート'},
+                  {ava:'658872.jpg',name:'たく',age:'20代前半',bld:'A',gdr:'male',fsn:'シンプルカジュアル'},
+                  {ava:'melan-cholia.jpg',name:'まなみ',age:'30代',bld:'A',gdr:'female',fsn:'クルーネックセーター（黒） / ワイドパンツ（ベージュ）'},
+                  {ava:'407918482_16.png',name:'社員番号014509',age:'30代',bld:'O',gdr:'male',fsn:'スヌーピーTシャツ'},
+                  {ava:'BRZ.jpg',name:'りょーへー',age:'20代後半',bld:'A',gdr:'male',fsn:'わりとガタイ系www'},
+                  {ava:'Eternal-Love.jpg',name:'＊§タカヒロLOVE§＊',age:'30代',bld:'A',gdr:'female',fsn:'ツアT'},
+                  {ava:'貴文.jpg',name:'タカフミ',age:'20代後半',bld:'B',gdr:'male',fsn:'黒のTシャツとジーンズ'},
+                  {ava:'514879789_14.png',name:'超絶最強2ちゃん出身女子',age:'20代前半',bld:'B',gdr:'female',fsn:'紺のストライプ'},
+                  {ava:'Image.png',name:'ドラッグスター',age:'20代後半',bld:'B',gdr:'male',fsn:'All ✕ Black & Chrome Hearts.'},
+                  {ava:'641800261_04.png',name:'大介',age:'40代',bld:'A',gdr:'male',fsn:'基本的にワイシャツとネクタイ'},
+                ]
+
+              each item in user
+                +user-list(item)
+
+            .p-pagenavi
+              span.p-pagenavi__page(data-pagination='1') 1
+              span.p-pagenavi__extend ...
+              span.p-pagenavi__page(data-pagination='13') «
+              span.p-pagenavi__page(data-pagination='12') 12
+              span.p-pagenavi__page(data-pagination='13') 13
+              span.p-pagenavi__page.is-current(data-pagination='14') 14
+              span.p-pagenavi__page(data-pagination='15') 15
+              span.p-pagenavi__page(data-pagination='16') 16
+              span.p-pagenavi__page(data-pagination='15') »
+              span.p-pagenavi__extend ...
+              span.p-pagenavi__page(data-pagination='34') 34
+
+
+      // ↑ END Block Content

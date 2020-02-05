@@ -1,0 +1,49 @@
+.c-container {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+
+  @include ltXL {width: 1470px;};
+
+  @include ltLG {width: 1170px;};
+
+  @include ltMD {width: 970px;};
+
+  @include ltSM {width: 740px;};
+
+  @include ltXS {
+    box-sizing: border-box;
+    width: 100%;
+    padding-left: 6%;
+    padding-right: 6%;
+  };
+
+  // サイドバーが有効のときのコンテナ
+  &-wrap &:nth-last-child(2) {
+    max-width: calc( 100% - 16em - 4em );
+
+    @include ltSM {
+      max-width: calc( 100% - 25% - 6% );
+    };
+
+    @include ltXS {
+      max-width: 100%;
+    };
+  }
+
+  &-wrap {
+    @extend .c-container ;
+    display: flex;
+
+    &--reverse {
+      flex-direction: row-reverse;
+    }
+
+    @include ltXS {
+      flex-wrap: wrap;
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}

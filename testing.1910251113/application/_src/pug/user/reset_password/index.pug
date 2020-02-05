@@ -1,0 +1,39 @@
+extend /_tpl/foundation/_base-account
+
+append required
+  - const pageTitle = 'パスワードの再設定'
+  - const userType = 'user'
+
+block content
+
+  // ↓ BEGIN Page Content
+  article#log-in.p-login.is-visible
+    .p-login__overlay
+      section.p-login__inner
+        header.p-login__header.u-text__center
+          h2.u-flex--ce-ce
+            i.glyph.glyph-brand-logo.p-login__logo
+            span.cft Real-Connect
+
+        #new-regist.p-login__body
+          .p-login__text
+            h3.u-text__center.p-login__se-hidden
+              | パスワードの再設定
+            p
+              span.p-login__se-hidden あたらしいパスワードを入力してください
+          .p-login__text
+            p 半角英数8文字以上（大文字小文字は区別されます）
+          .p-login__input-area
+            label.c-input.p-login__input
+              i.glyph.glyph-lock
+              input.c-input__item(type='password' name='password' placeholder='パスワード' v-model='userLogIn.password')
+          .p-login__input-area
+            label.c-input.p-login__input
+              i.glyph.glyph-lock
+              input.c-input__item(type='password' name='password_conf' v-model='userLogIn.password_conf' placeholder='パスワード（確認）')
+
+          button.p-login__button.p-login__button--round(@click='requestUpdatePassword()' :class='{"is-loading":userLogInLoad}')
+            i.glyph.glyph-sign-in-alt
+            | 送信する
+
+  // ↑ END Page Content

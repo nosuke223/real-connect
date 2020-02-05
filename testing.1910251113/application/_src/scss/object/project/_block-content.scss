@@ -1,0 +1,277 @@
+.p-block-content-container {
+  @include flex(st,fs);
+
+  @include gtMD {
+    padding-bottom: 30px;
+  };
+}
+
+.p-block-content {
+  font-size: 12px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  width: 100%;
+
+  p.men {
+    color: rgba($male,.4);
+  }
+  p.women {
+    color: rgba($female,.4);
+  }
+
+  @include gtMD {
+    max-width: 31.3333%;
+    max-width: calc( 100% / 3 - 2% );
+    margin: 30px 1% 0;
+    padding: 30px;
+    border: 1px solid rgba($grey,.2);
+    border-radius: 6px;
+
+    &--full {
+      max-width: 98%;
+    }
+
+    &--double {
+      max-width: 64.6666%;
+      max-width: calc( 100% / 3 * 2 - 2% );
+    }
+
+    &--half {
+      max-width: 48%;
+    }
+  };
+
+  @include ltSM {
+    max-width: 100%;
+  };
+
+  & > * {
+    margin: 15px 0;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &.ql-snow {
+      &.ql-toolbar {
+        margin-bottom: 0;
+      }
+
+      &.ql-container {
+        margin-top: 0;
+      }
+    }
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  p {
+    font-size: 12px;
+  }
+
+  ul {
+    list-style: disc;
+    margin-left: 1.5em;
+  }
+
+  ol {
+    list-style: decimal;
+    margin-left: 1.5em;
+  }
+
+  .input-field {
+    font-size: 16px;
+    position: relative;
+  }
+
+  & > section {
+    & > * {
+      margin: 10px 0;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    & > section {
+      margin-bottom: 20px;
+    }
+
+    h4 {
+      @include opacity(.5);
+    }
+
+    .input-field {
+      max-width: 500px;
+    }
+
+    p {
+      font-size: 12px;
+      @include opacity(.5);
+      margin: 10px 0;
+
+      &.mail-preview {
+        font-size: 16px;
+        @include opacity(1);
+        color: $grey;
+      }
+    }
+
+    .c-select {
+      margin: 10px 0;
+    }
+  }
+
+  input[type="text"],
+  input[type="tel"],
+  input[type="password"],
+  input[type="email"],
+  textarea {
+    border-bottom: 2px solid rgba($grey,.1);
+    padding: 5px 0;
+    @include ease(.3s);
+    width: 100%;
+    font-size: 16px;
+    color: $grey;
+    padding-right: 2em;
+
+    &:hover {
+      border-color: rgba($grey,.3);
+    }
+
+    &:focus {
+      border-color: $accent;
+      color: inherit;
+
+      & + .glyph-pen {
+        @include opacity(0);
+        right: -10px;
+
+        & + .glyph-check-circle {
+          right: 5px;
+          @include opacity(1);
+        }
+      }
+    }
+  }
+
+  textarea {
+    font-size: 16px;
+    display: block;
+    resize: none;
+    padding: 0 2em 10px 0;
+    margin: 10px 0;
+    min-height: 4.5em;
+  }
+
+  button {
+    color: inherit;
+    border: none;
+    border-radius: 1.5em;
+    font-size: 12px;
+    padding: 5px 20px;
+    margin: 15px 0;
+    font-weight: 500;
+    background: $accent;
+    color: $truewhite;
+  }
+
+  .glyph-check-circle,
+  .glyph-pen {
+    font-size: 12px;
+    @include opacity(.5);
+    @include ease(.3s);
+    position: absolute;
+    bottom: 10px;
+    right: 0;
+  }
+
+  .glyph-check-circle {
+    // font-size: 20px;
+    color: $accent;
+    right: -10px;
+    transform: scale(1.8);
+    @include opacity(0);
+  }
+
+  .p-account {
+    font-size: 16px;
+    height: 3em;
+    color: inherit;
+
+    &__title {
+      padding: 0;
+      background: none;
+    }
+  }
+
+  .p-avatar {
+    margin-right: 10px;
+
+    @include glyph-before('\F022') {
+      color: $grey;
+      font-size: 10px;
+      width: 20px;
+      height: 20px;
+      @include flex(ce,ce);
+      background: rgba($truewhite,.9);
+      border-radius: 50%;
+      position: absolute;
+      bottom: .6em;
+      left: .6em;
+      z-index: 1;
+      box-shadow: 0 0 10px rgba($trueblack,.2);
+    };
+  }
+
+  .p-username {
+    padding: 0;
+    font-size: 16px;
+    color: inherit;
+    width: 100%;
+
+    small {
+      display: block;
+      font-size: 10px;
+      position: relative;
+      top: 5px;
+    }
+
+    // input[type="text"] {}
+  }
+
+  .p-cover {
+    margin: 10px 0;
+    position: relative;
+
+    @include glyph-before('\F022') {
+      color: $grey;
+      font-size: 10px;
+      width: 20px;
+      height: 20px;
+      @include flex(ce,ce);
+      background: rgba($truewhite,.9);
+      border-radius: 50%;
+      position: absolute;
+      bottom: 5px;
+      left: 5px;
+      z-index: 1;
+      box-shadow: 0 0 10px rgba($trueblack,.2);
+    };
+  }
+
+  canvas {
+    max-width: 500px;
+  }
+}

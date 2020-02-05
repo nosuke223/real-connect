@@ -1,0 +1,44 @@
+//------------------------------
+  ヘッダー（ユーザー）
+//------------------------------
+header(role="banner").l-header.l-header--app.u-mode-bg
+
+  block header
+
+  .l-header__body.u-flex--ce-sb--gtSM.u-flex--ce-ce--inXS
+
+    h1.c-logo
+      a.c-logo__body(href="/")
+        i.glyph.glyph-brand-logo.c-logo__symbol
+        span.c-logo__text.cft Real-Connect
+      span.c-logo__tag-line Connecting People with People.
+
+    section.p-header-app
+      header.p-account.p-header-app__header
+        .p-header-app__trigger
+          i.glyph.glyph-chevron-down
+        .p-account__title.p-header-app__title(v-if='loadCompleted')
+          figure.p-avatar.p-header-app__avatar(v-if='userData.avatar_image')
+            img(v-lazy='avatar_image_preview' v-if='avatar_image_preview')
+            img(v-lazy='userData.avatar_image' v-else)
+          span.p-avatar.p-header-app__avatar(v-else v-html='defaultAvatar(userData.nickname,userData.id)')
+          h2.p-username.p-header-app__username {{userData.nickname}}
+        figure.p-cover.p-header-app__cover(v-if='loadCompleted')
+          img(v-lazy='cover_image_preview' v-if='cover_image_preview')
+          img(v-lazy='userData.cover_image' v-else-if='userData.cover_image')
+          img(v-lazy='"/_assets/img/default_svg/default-"+ String(userDetail.id).slice(-2) +".svg"' v-else)
+      .p-header-app__body.u-mode-bg--light
+        .p-header-app__content
+          .p-header-app__label
+            i.glyph.glyph-fashion
+            | 今日のファッション
+          .p-header-app__input
+            input#headerFashion(type='text' name='fashion' autocomplete='off' placeholder='入力してください' v-model='userDataTemporary.fashion' @blur='updateProfile()')
+            button#headerSave(type='submit' name='') 保存
+        .p-header-app__button-area
+          .p-header-app__button( data-menu='account' )
+            i.glyph.glyph-account
+            | アカウント
+          .p-header-app__button(@click='logoutUser()')
+            i.glyph.glyph-sign-out-alt
+            | ログアウト

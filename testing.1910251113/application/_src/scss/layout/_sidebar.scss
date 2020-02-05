@@ -1,0 +1,59 @@
+.l-sidebar {
+  $parentElm: ".c-container-wrap--reverse";
+  min-width: 16em;
+  max-width: 16em;
+  margin-left: 4em;
+  padding-top: 4em;
+  padding-bottom: 4em;
+
+  @include ltMD {
+    padding-top: 3em;
+    padding-bottom: 3em;
+  };
+
+  #{$parentElm} & {
+    margin-left: 0;
+    margin-right: 4em;
+  }
+
+  @include ltSM {
+    min-width: 25%;
+    max-width: 25%;
+    margin-left: 6%;
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+
+    #{$parentElm} & {
+      margin-left: 0;
+      margin-right: 6%;
+    }
+  };
+
+  @include ltXS {
+    min-width: 100%;
+    padding-left: 6%;
+    padding-right: 6%;
+    margin-left: 0;
+    padding-top: 0;
+    padding-bottom: 4em;
+
+    #{$parentElm} & {
+      margin-left: 0;
+      margin-right: 0;
+    }
+  };
+
+  &__title {
+    @include fs(20);
+    border-bottom: 2px solid rgba($grey,.1);
+    margin-top: 2rem;
+    padding-bottom: 1rem;
+  }
+
+  &__text {
+    @include fs(14);
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid rgba($grey,.1);
+  }
+}

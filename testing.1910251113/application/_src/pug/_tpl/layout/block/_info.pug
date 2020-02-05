@@ -1,0 +1,118 @@
+article#info.l-block( data-layer='2' )
+  header.l-pane__header.p-pane-control
+    .p-pane-control__button( data-block='back' )
+      i.glyph ＜
+    .p-pane-control__heading
+      span.p-pane-control__title お知らせ
+  section.l-pane__body
+    .p-scrollable
+      // ↓ BEGIN Block Content
+      .p-block-content-container
+        .p-block-content.p-block-content--full
+
+          .c-collapse
+            .c-collapse-trigger(@click='toggleAccordion("info-6")')
+              span
+                | サーバーメンテナンスのお知らせ
+                small 2018.08.25
+              i.glyph.glyph-chevron-down
+            accordion(:opened='isOpenedAccordion("info-6")')
+              .c-collapse-target
+                p
+                  | いつも「りあこね」をご利用いただき、誠にありがとうございます。
+                  br
+                  | 2018年9月1日にて、サーバーメンテナンスにより全サービスが停止いたします。
+                  br
+                  | ご利用のお客様には大変ご迷惑をお掛け致しますが、何卒ご理解の程お願い申し上げます。
+
+            .c-collapse-trigger(@click='toggleAccordion("info-5")')
+              span
+                | PCブラウザでの閲覧に対応しました。
+                small 2018.08.20
+              i.glyph.glyph-chevron-down
+            accordion(:opened='isOpenedAccordion("info-5")')
+              .c-collapse-target
+                p
+                  | 当サービスはこれまでスマートフォンのみご利用いただける内容でしたが、ご要望の多かったPCブラウザ（Chrome、Safari、Firefox）での閲覧に一部ではありますが対応を行いました。
+                  br
+                  br
+                  | イベント、および会場の選択と、主要なトーク機能がご利用いただけます。
+                  br
+                  | なお、当サービスのすべての機能をご利用いただくにはスマートフォンでのご利用を推奨いたします。
+
+            .c-collapse-trigger(@click='toggleAccordion("info-4")')
+              span
+                | モード・テーマの切り替え機能が追加になりました
+                small 2018.08.11
+              i.glyph.glyph-chevron-down
+            accordion(:opened='isOpenedAccordion("info-4")')
+              .c-collapse-target
+                p
+                  | ご要望の多かったダークモードへの切り替え機能を追加しました。
+                  br
+                  | 夜間に視認性のよい配色となっております。夜間での利用の際にぜひお試しください。
+
+            .c-collapse-trigger(@click='toggleAccordion("info-3")')
+              span
+                | イベント会場の展開のお知らせ
+                small 2018.08.01
+              i.glyph.glyph-chevron-down
+            accordion(:opened='isOpenedAccordion("info-3")')
+              .c-collapse-target
+                p
+                  | これまで単一会場での利用となっていましたが、複数の会場ごとにチェックインができるようになりました。
+                  br
+                  br
+                  | いずれかの会場へ実際にお越しいただき、端末でチェックイン処理を行うことで同一会場内のみならず、他の会場にチェックインしているユーザーとトークが可能です。（※登録エリア内に限る）
+                  br
+                  | 別の会場へ移動してももちろん構いません。
+
+            .c-collapse-trigger(@click='toggleAccordion("info-2")')
+              span
+                | メジャーアップデートに伴うサービス名称、その他変更のお知らせ
+                small 2018.07.20
+              i.glyph.glyph-chevron-down
+            accordion(:opened='isOpenedAccordion("info-2")')
+              .c-collapse-target
+                p
+                  | いつも「Alone Together マイページ」をご利用いただき、誠にありがとうございます。
+                  br
+                  | 2018年8月1日より、当サービス名称、ならびにWEBアプリケーションのURLを変更いたします。
+                  br
+                  br
+                  | 変更内容は以下の通りとなります。
+                  br
+                  br
+                  b 変更前
+                  br
+                  | サービス名 : Alone Together マイページ
+                  br
+                  | URL : https://alone-together.net/user/
+                  br
+                  b 変更後
+                  br
+                  | サービス名 : りあこね
+                  br
+                  | URL : https://real-connect.com/user/
+                p
+                  | メジャーアップデートに伴い、新たな機能が追加となりますが、これまでご利用いただいていたサービスは引き続きご利用いただけます。
+                  br
+                  | 今後とも、お客様のあらゆるニーズに迅速にお応えできるよう、サービスの充実を図ってまいります。
+                  br
+                  | 引き続き、変わらぬご愛顧を賜りますよう、宜しくお願い申し上げます。
+
+            .c-collapse-trigger(@click='toggleAccordion("info-1")')
+              span
+                | サーバーメンテナンスのお知らせ
+                small 2018.07.10
+              i.glyph.glyph-chevron-down
+            accordion(:opened='isOpenedAccordion("info-1")')
+              .c-collapse-target
+                p
+                  | いつも「Alone Together マイページ」をご利用いただき、誠にありがとうございます。
+                  br
+                  | 2018年7月31日にて、サーバーメンテナンスにより全サービスが停止いたします。
+                  br
+                  | ご利用のお客様には大変ご迷惑をお掛け致しますが、何卒ご理解の程お願い申し上げます。
+
+      // ↑ END Block Content

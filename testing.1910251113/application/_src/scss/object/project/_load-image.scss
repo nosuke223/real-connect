@@ -1,0 +1,45 @@
+$loadBg: #E7EFF1;
+
+.p-load-image {
+  @include opacity(0);
+  // @include ease(.4s);
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: $loadBg;
+
+  &.is-loaded {
+    @include opacity(1);
+    background: transparent;
+  }
+}
+
+.p-load-image-mirror {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: $loadBg;
+  @include opacity(1);
+  @include ease(.4s);
+}
+
+.is-loaded + .p-load-image-mirror {
+  @include opacity(0);
+  transition-delay: 1s;
+  background: transparent;
+}
+
+
+.p-load-image-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  background: red;
+}
+
+.is-loaded + .p-load-image-loader {
+  background: blue;
+}

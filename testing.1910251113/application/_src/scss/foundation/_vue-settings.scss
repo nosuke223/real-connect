@@ -1,0 +1,181 @@
+[v-cloak] {
+  display: none;
+  // background: red;
+}
+
+// ------------------------------
+// トランジション用スタイル
+// ------------------------------
+
+// デフォルト トランジション
+// ------------------------------
+.v {
+  &-enter-active,
+  &-leave-active {
+    transition: opacity .4s;
+  }
+
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+  }
+}
+
+// talkLoad（トークルーム）
+// ------------------------------
+.v-talkLoad {
+  &-enter-active,
+  &-leave-active {
+    transition: opacity .5s;
+    transition-delay: .5s;
+  }
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+  }
+}
+
+// modal（トークルーム）
+// ------------------------------
+.v-modal {
+  &-enter-active,
+  &-leave-active {
+    transition: opacity .5s;
+    // transition-delay: .5s;
+  }
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+
+    .v-modal-content {
+      transform: translateY(-20px);
+    }
+  }
+}
+
+// toast
+// ------------------------------
+.v-toast {
+  &-enter-active,
+  &-leave-active {
+    transition-timing-function: opacity;
+    transition-duration: .2s;
+  }
+  &-enter,
+  &-leave-to {
+    transition-duration: 1s;
+    opacity: 0;
+
+    .c-toast__frame {
+      transition-duration: 1s;
+      transform: translateY(-20px);
+    }
+  }
+}
+
+// notice
+// ------------------------------
+.v-notice {
+  &-enter-active,
+  &-leave-active {
+    transition-timing-function: opacity;
+    transition-duration: .2s;
+  }
+  &-enter,
+  &-leave-to {
+    transition-duration: 1s;
+    opacity: 0;
+
+    .c-notice__frame {
+      transition-duration: 1s;
+      transform: translateX(-100px);
+      // transform: translateX(100px);
+    }
+  }
+}
+
+
+// progress
+// ------------------------------
+.v-progress {
+  &-enter-active,
+  &-leave-active {
+    transition: opacity .2s;
+  }
+
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+    transition-delay: .2s;
+    // transition-duration: .2s;
+
+    // .p-login__progress {
+    //   margin-bottom: 0;
+    // }
+  }
+}
+
+// preloader
+// ------------------------------
+.v-preloader {
+  &-enter-active,
+  &-leave-active {
+    transition: opacity 0;
+  }
+
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+    transition-delay: 1s;
+    transition-duration: 1.5s;
+
+    .p-preloader__inner {
+      opacity: 0;
+      transition-delay: 1s;
+      transition: opacity 1.2s;
+    }
+  }
+}
+
+
+// preloader
+// ------------------------------
+.v-talkloader {
+  &-enter-active,
+  &-leave-active {
+    transition: opacity .5s;
+  }
+
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+
+    .p-spinner {}
+  }
+}
+
+
+// sending
+// ------------------------------
+.v-sending {
+  // &-enter-active,
+  // &-leave-active {
+  //
+  //
+  //   .p-progress-bar {
+  //     transition: margin 1s;
+  //   }
+  // }
+  //
+  // &-enter,
+  // &-leave-to {
+  //   // opacity: 0;
+  //   transition-delay: .5s;
+  //   transition-duration: .2s;
+  //   // @include flex(ce,fe);
+  //
+  //   .p-progress-bar {
+  //     margin-left: 100%;
+  //   }
+  // }
+}

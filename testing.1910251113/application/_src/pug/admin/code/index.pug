@@ -1,0 +1,57 @@
+extend /_tpl/foundation/_base-code
+
+append required
+  - const pageTitle = 'Check-in Code'
+  - const userType = 'admin'
+
+block content
+
+  // ↓ BEGIN Page Content
+  
+  .p-check-in-code
+    .p-check-in-code__inner
+      header.p-check-in-code__header
+        h1.c-logo
+          a.c-logo__body(href="/")
+            i.glyph.glyph-brand-logo.c-logo__symbol
+            span.c-logo__text.cft Real-Connect
+          span.c-logo__tag-line Connecting People with People.
+        p.p-check-in-code__message Welcome! Thank you for coming to here!
+
+      .p-check-in-code__body
+        span.p-check-in-code__title
+          | Check-in Code
+          br
+          small チェックインコード
+        span.p-check-in-code__number
+          | ----
+
+      //- .p-check-in-code__body
+        span.p-check-in-code__title
+          | Out of Event Time.
+          br
+          small イベント開催時間外です
+        span.p-check-in-code__number
+          | ----
+
+
+  // ↑ END Page Content
+
+  script
+    .
+      /**
+       * URLのパラメータを取得
+       */
+      function getParam(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
+
+      window.addEventListener('load', function() {
+        $('.p-check-in-code__number').text(getParam('check_in_code'))
+      });

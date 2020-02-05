@@ -1,0 +1,46 @@
+.p-table-content {
+
+  &__heading {
+    padding: .5em 0;
+    @include fs(20);
+    text-transform: uppercase;
+    border-bottom: 2px solid rgba($accent,.8);
+    font-weight: 700;
+
+    > a {
+      color: currentColor;
+    }
+  }
+}
+
+.p-table-content-body {
+  @include flex(fs);
+  margin-bottom: 2em;
+
+  @include ltXS {
+    padding: 0;
+  };
+
+  &__item {
+    @include fs(13);
+    width: 100%;
+    border-bottom: 1px solid rgba($grey,.2);
+  }
+
+  &__content {
+    // display: block;
+    @include flex(ce);
+    color: currentColor;
+    padding: 1em 0;
+
+    @include glyph-before('\FF1C',.5) {
+      margin-right: .5em;
+      @include fs(10);
+      transform: rotate(180deg);
+    };
+  }
+
+  &__label {
+    width: 14em;
+  }
+}

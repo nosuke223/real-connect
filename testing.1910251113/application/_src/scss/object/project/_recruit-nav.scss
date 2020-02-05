@@ -1,0 +1,25 @@
+.p-recruit-nav {
+  margin-top: 2em;
+
+  &__item {
+    @include flex(ce);
+
+    &::before {
+      content: "";
+      display: block;
+      width: .4em;
+      min-width: .4em;
+      height: .4em;
+      border-radius: 50%;
+      background: $accent;
+      margin-right: .5em;
+    }
+  }
+
+  a {
+    color: currentColor;
+    font-weight: 500;
+    display: inline-block;
+    border-bottom: 1px solid rgba($grey,.5);
+  }
+}

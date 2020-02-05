@@ -1,0 +1,118 @@
+// ========================================
+// Identification from User Agent
+// ========================================
+
+// ----------------------------------------
+// User Agent Device
+// ----------------------------------------
+
+@mixin mobile() {
+  .mobile & { @content; }
+}
+@mixin tablet() {
+  .tablet & { @content; }
+}
+@mixin pc() {
+  .pc & { @content; }
+}
+
+// ----------------------------------------
+// User Agent Device's OS
+// ----------------------------------------
+
+@mixin ios() {
+  .ios & { @content; }
+}
+@mixin android() {
+  .android & { @content; }
+}
+
+// ----------------------------------------
+// User Agent Browser
+// ----------------------------------------
+
+@mixin opera() {
+  .opera & { @content; }
+}
+@mixin msie() {
+  .msie & { @content; }
+}
+@mixin ie6() {
+  .ie6 & { @content; }
+}
+@mixin ie7() {
+  .ie7 & { @content; }
+}
+@mixin ie8() {
+  .ie8 & { @content; }
+}
+@mixin ie9() {
+  .ie9 & { @content; }
+}
+@mixin ie10() {
+  .ie10 & { @content; }
+}
+@mixin ie() {
+  .ie & { @content; }
+}
+@mixin ie11() {
+  .ie11 & { @content; }
+}
+@mixin edge() {
+  .edge & { @content; }
+}
+@mixin chrome() {
+  .chrome & { @content; }
+}
+@mixin safari() {
+  .safari & { @content; }
+}
+@mixin firefox() {
+  .firefox & { @content; }
+}
+@mixin gecko() {
+  .gecko & { @content; }
+}
+
+// ----------------------------------------
+// Pixel Ratio
+// ----------------------------------------
+
+@mixin pixelRatio-1() {
+  .pixelRatio-1 & { @content; }
+}
+@mixin pixelRatio-2() {
+  .pixelRatio-2 & { @content; }
+}
+@mixin pixelRatio-3() {
+  .pixelRatio-3 & { @content; }
+}
+@mixin pixelRatio-4() {
+  .pixelRatio-4 & { @content; }
+}
+@mixin pixelRatio-5() {
+  .pixelRatio-5 & { @content; }
+}
+@mixin pixelRatio-6() {
+  .pixelRatio-6 & { @content; }
+}
+@mixin pixelRatio-L() {
+  .pixelRatio-L & { @content; }
+}
+
+// ----------------------------------------
+// uaDevice * uaDeviceOS
+// ----------------------------------------
+
+@mixin mobile_ios() {
+  .mobile.ios & { @content; }
+}
+@mixin mobile_android() {
+  .mobile.android & { @content; }
+}
+@mixin tablet_ios() {
+  .tablet.ios & { @content; }
+}
+@mixin tablet_android() {
+  .tablet.android & { @content; }
+}

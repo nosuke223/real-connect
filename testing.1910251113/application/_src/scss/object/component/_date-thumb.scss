@@ -1,0 +1,74 @@
+$parent: '.p-event-list';
+
+.c-date-thumb {
+  width: 80px;
+  min-width: 80px;
+  height: 80px;
+  background: rgba($grey,.1);
+  color: $grey;
+  text-align: center;
+  @include flex(ce,ce);
+  line-height: 1em;
+  padding: 0 5px;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+  @include opacity(.5);
+  z-index: 0;
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(140deg, currentColor 41.5%, transparent 41.5%, transparent);
+    z-index: 1;
+    @include opacity(.2);
+  }
+
+  & > * {
+    display: block;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    line-height: 1em;
+  }
+
+  #{$parent}.is-now-event & {
+    background: $mainLt;
+    color: $truewhite;
+  }
+
+  #{$parent}.is-checked-in & {
+    @include opacity(1);
+  }
+
+  #{$parent}.is-enabled & {
+    @include opacity(1);
+  }
+
+  &__year {
+    font-size: 10px;
+    font-weight: bold;
+  }
+
+  &__month {
+    text-align: left;
+    font-size: 19px;
+    font-weight: bold;
+  }
+
+  &__date {
+    text-align: right;
+    font-size: 34px;
+    margin-top: -.4em;
+  }
+
+  &__day {
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: bold;
+    @include opacity(.7);
+  }
+}

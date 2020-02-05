@@ -1,0 +1,121 @@
+.l-navigation {
+  $border: 1px solid rgba($truewhite,.3);
+  padding: 0 1em;
+
+  &__body {
+    padding: 0 .5em;
+
+    @include ltXS {
+      padding: .5em;
+    };
+
+    @include ltXXS {
+      padding: 0 2em;
+    };
+  }
+
+  &__item {
+    text-transform: uppercase;
+    margin-left: .2em;
+    margin-right: .2em;
+
+    a {
+      @include hover {
+        color: $cs02;
+      };
+    }
+
+    @include ltXXS {
+      border-bottom: $border;
+      margin: 0;
+
+      &:nth-of-type(1) {
+        border-top: $border;
+      }
+    };
+  }
+
+  &__sns-item {
+    margin-left: .4em;
+    margin-right: .4em;
+  }
+
+  &__button-item {
+    margin-left: .4em;
+    margin-right: .4em;
+    width: 1.4em;
+  }
+
+  &__link {
+    @include fs(14);
+    color: currentColor;
+    text-decoration: none;
+    position: relative;
+    display: block;
+    padding: .1em 0;
+    font-weight: 800;
+
+    @include gtXS {
+      background: transparent;
+      border-radius: 1em;
+      padding: .1em 1em;
+
+      &.is-current {
+        background: rgba($truewhite,.2);
+      }
+    };
+
+    @include ltXXS {
+      padding: 1em 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &::after {
+        content: "";
+        display: block;
+        width: .5em;
+        height: .5em;
+        border-top: 1px solid;
+        border-right: 1px solid;
+        margin-right: .2em;
+        transform: rotate(45deg);
+        @include opacity(.5);
+      }
+    };
+
+    @include hover {
+      background: rgba($truewhite,.8);
+    };
+  }
+
+  &__sns {
+    @include fs(30);
+    color: currentColor;
+    position: relative;
+    display: block;
+    padding: 0;
+    font-weight: normal;
+    @include flex(ce,ce);
+
+    @include ltXXS {
+      @include fs(50);
+      padding: .5em 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      @include opacity(.8);
+    };
+
+    @include hover {
+      transform: scale(1.2);
+    };
+  }
+
+  &__button {
+    @extend .l-navigation__sns ;
+    cursor: pointer;
+    @include fs(20);
+    @include ease;
+  }
+}

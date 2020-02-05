@@ -1,0 +1,8 @@
+.p-talkroom-load {
+  height: 100%;
+  color: $mainLt;
+  @include flex(ce,ce);
+  @include ease;
+
+  // .p-spinner {}
+}

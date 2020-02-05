@@ -1,0 +1,221 @@
+.p-header-app {
+  $this: &;
+  position: absolute;
+  top: calc( -10em + #{$headerH} );
+  right: 0;
+  z-index: 2000;
+  width: 12em;
+  @include ease(.3s);
+  text-shadow: none;
+
+  &.is-visible {
+    top: 0;
+    width: 20em;
+    box-shadow: 0 0 10px rgba($trueblack,.1);
+  }
+
+  &__trigger {
+    position: absolute;
+    top: calc( 10em - #{$headerH} );
+    right: 0;
+    width: 100%;
+    height: $headerH;
+    z-index: 1010;
+    @include ease(.3s);
+    @include flex(ce,fe);
+    cursor: pointer;
+
+    &:hover {
+      background: rgba($trueblack,.1);
+    }
+
+    i {
+      margin-right: 0;
+      @include opacity(1);
+      width: 3em;
+      height: 3em;
+      @include flex(ce,ce);
+      @include ease(.3s);
+      transform: scale(.8);
+    }
+
+    #{$this}.is-visible & {
+      top: 0;
+      width: 3em;
+      height: 3em;
+      border-radius: 50%;
+      margin-top: .2em;
+      margin-right: .5em;
+      background: rgba($trueblack,.2);
+
+      &:hover {
+        background: rgba($trueblack,.4);
+      }
+
+      i {
+        transform: rotate(180deg) scale(1);
+      }
+    }
+  }
+
+  &__title {
+    height: $headerH;
+    background: transparent;
+    @include ease(.3s);
+    z-index: 1000;
+
+    #{$this}.is-visible & {
+      height: 4em;
+      transform: scale(1);
+      @include gradbg(rgba($charcoal,.5),transparent,top);
+    }
+  }
+
+  &__avatar {
+    @include fs(12);
+    @include ease(.3s);
+
+    #{$this}.is-visible & {
+      @include fs(16);
+    }
+  }
+
+  &__username {
+    @include fs(12);
+    @include ease(.3s);
+    margin-right: .5em;
+
+    #{$this}.is-visible & {
+      @include fs(16);
+      margin-right: 0;
+    }
+  }
+
+  &__cover {
+    @include opacity(0);
+    height: 10em;
+    @include ease(.3s);
+
+    #{$this}.is-visible & {
+      @include opacity(1);
+    }
+  }
+
+  &__body {
+    color: $charcoal;
+    text-shadow: none;
+    background: $truewhite;
+    overflow: hidden;
+    @include ease(.3s);
+    max-height: 0;
+
+    #{$this}.is-visible & {
+      max-height: 10em;
+    }
+  }
+
+  &__content {
+    padding: 1em 1.5em;
+  }
+
+  &__label {
+    @include fs(12);
+
+    i {
+      margin-right: .5em;
+      @include opacity(.5);
+      transform: scale(1.2);
+    }
+  }
+
+  &__input {
+    position: relative;
+
+    [type=text] {
+      @include fs(14);
+      padding: .5em 0;
+      width: 100%;
+      border: none;
+      border-bottom: 2px solid rgba($grey,.2);
+      background: transparent;
+      font-family: inherit;
+      transition: all .3s;
+
+      & + button {
+        position: absolute;
+        bottom: .5em;
+        right: -6em;
+        transition: all .3s;
+        border: none;
+        border-radius: 1em;
+        background: $accent;
+        color: $truewhite;
+        font-family: inherit;
+        @include fs(14);
+        font-weight: 500;
+        display: block;
+        padding: .2em .8em;
+      }
+
+      &:hover {
+        border-color: rgba($grey,.8);
+      }
+
+      &:focus {
+        width: calc( 100% - 4.5em );
+        border-color: $accent;
+
+        & + button {
+          right: 0;
+        }
+      }
+    }
+  }
+
+  &__button-area {
+    width: 100%;
+    @include flex(ce,ce);
+    border-top: 1px solid rgba($grey,.1);
+  }
+
+  &__button {
+    width: 50%;
+    @include fs(14);
+    padding: .5em 1.5em;
+    cursor: pointer;
+    @include ease;
+
+    &:hover {
+      background: rgba($grey,.1);
+    }
+
+    &:not(:first-of-type) {
+      border-left: 1px solid rgba($grey,.1);
+    }
+  }
+
+  &__toggle-container {
+    @include flex(ce,ce,false);
+    @include fs(14);
+    background: $accent;
+    color: $truewhite;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  &__toggle {
+    width: 100%;
+    text-align: center;
+    background: rgba($truewhite,.5);
+    cursor: pointer;
+    @include ease;
+
+    @include hover {
+      background: none;
+    };
+
+    &.is-active {
+      background: none;
+    }
+  }
+}

@@ -1,0 +1,39 @@
+$headerH: 3.5em;
+
+.l-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: $main;
+  color: $truewhite;
+
+  @include ltSM {
+    display: none;
+  };
+
+  a {
+    @include hover {
+      color: currentColor;
+    };
+  }
+
+  &--app {
+    @include gtMD {
+      text-shadow: 0 2px 1px rgba($trueblack,.2);
+    };
+  }
+
+  &__body {
+    min-height: $headerH;
+
+    @include ltXS {
+      padding: .4em 0;
+    };
+
+    @include ltXXS {
+      padding: 0;
+    };
+  }
+}

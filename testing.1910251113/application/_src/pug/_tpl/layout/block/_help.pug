@@ -1,0 +1,53 @@
+article#help.l-block( data-layer='2' )
+  header.l-pane__header.p-pane-control
+    .p-pane-control__button( data-block='back' )
+      i.glyph ＜
+    .p-pane-control__heading
+      span.p-pane-control__title ヘルプ
+  section.l-pane__body
+    .p-scrollable
+      // ↓ BEGIN Block Content
+      .p-block-content-container
+        .p-block-content.p-block-content--full
+          h3 よくある質問
+          .c-collapse
+            .c-collapse-trigger(@click='toggleAccordion("help-4")')
+              span 迷惑なトークが届いた
+              i.glyph.glyph-chevron-down
+            accordion(:opened='isOpenedAccordion("help-4")')
+              .c-collapse-target
+                p
+                  | 迷惑トークが届いた場合、ダミーテキストです。
+
+            .c-collapse-trigger(@click='toggleAccordion("help-3")')
+              span トークをバックアップすることはできますか？
+              i.glyph.glyph-chevron-down
+            accordion(:opened='isOpenedAccordion("help-3")')
+              .c-collapse-target
+                p
+                  | トークのバックアップを行うことはできません。
+
+            .c-collapse-trigger(@click='toggleAccordion("help-2")')
+              span 登録しているパスワードを忘れた・確認、変更したい
+              i.glyph.glyph-chevron-down
+            accordion(:opened='isOpenedAccordion("help-2")')
+              .c-collapse-target
+                p
+                  | パスワードを直接確認することはできません。
+                  br
+                  | パスワードを忘れた場合は、以下の手順で変更してください。
+                ol
+                  li [メニュー]→[アカウント]を押下
+                  li ページ内の「パスワード」の項目で新しいパスワードを入力
+                  li 新しいパスワードをもう一度入力し、「パスワードを変更する」を押下
+
+            .c-collapse-trigger(@click='toggleAccordion("help-1")')
+              span トークが自動更新されません
+              i.glyph.glyph-chevron-down
+            accordion(:opened='isOpenedAccordion("help-1")')
+              .c-collapse-target
+                ol
+                  li Wi-Fiおよびモバイルネットワーク等のネットワーク接続をご確認いただき、通信ができる状態に設定を行ってください。
+                  li メニューの下部にある「再読み込み」を押下してください。（PCおよびブラウザで閲覧している場合はページの更新を行ってください。）
+                p 上記手順を行ってもトークが更新されない場合は、お使いの端末およびPCの再起動を行ってください。
+      // ↑ END Block Content

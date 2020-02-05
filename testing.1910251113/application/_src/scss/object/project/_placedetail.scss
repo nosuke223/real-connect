@@ -1,0 +1,115 @@
+.p-placedetail {
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  &__header {
+    margin-bottom: 10px;
+  }
+
+  // &__body {}
+
+  // &__button-container {}
+
+  &__chechbox {
+    border: 2px solid rgba($grey,.2);
+    padding: 5px 15px;
+    border-radius: 1.5em;
+    display: block;
+    margin-right: 0;
+    margin-bottom: 10px;
+    @include ease;
+
+    @include hover {
+      border-color: $accent;
+    };
+
+    .c-checkbox__mirror {
+      margin-left: 15px;
+    }
+  }
+
+  &__button {
+    font-size: 12px;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px 17px;
+    font-weight: bold;
+    border-radius: 2em;
+    border: 1px solid transparent;
+    background: $accent;
+    color: $truewhite;
+    @include flex(ce,sb,false);
+
+    &::after {
+      content: '';
+      display: block;
+      width: 6px;
+      min-width: 6px;
+      height: 6px;
+      border-top: 2px solid $truewhite;
+      border-right: 2px solid $truewhite;
+      transform: rotate(45deg);
+      @include opacity(.5);
+      margin-left: auto;
+    }
+
+    & > span {
+      @include flex(ce,ce);
+      width: calc(100% - 10px);
+      margin-right: 5px;
+
+      em {
+        @include ellipsis;
+        max-width: calc(100% - 10.5em);
+      }
+    }
+  }
+
+  &__plase-change {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    margin-right: 5px;
+    border: 2px solid rgba($grey,0.2);
+    padding: 7px 15px;
+    border-radius: 1.5em;
+    width: 100%;
+    @include flex(ce,ce);
+    margin-right: 0;
+    margin-bottom: 10px;
+    transition: .15s all ease-in-out;
+    background: rgba($truewhite,.1);
+
+    @include hover {
+      border-color: $accent;
+    };
+
+    & > .glyph {
+      margin-right: .5em;
+      color: rgba($grey,.5);
+      font-size: 20px;
+      position: absolute;
+      top: 50%;
+      line-height: 0;
+      left: 10px;
+    }
+
+    & > span {
+      color: $accent;
+      font-weight: bold;
+    }
+
+    &.is-current {
+      border-color: $accent;
+
+      & > .glyph {
+        color: $accent;
+      }
+
+      & > span {
+        color: $grey;
+      }
+    }
+  }
+}
