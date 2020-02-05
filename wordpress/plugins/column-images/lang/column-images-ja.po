@@ -1,0 +1,55 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Column Images v1.2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-05-05 20:49+0100\n"
+"PO-Revision-Date: 2019-01-11 04:41+0900\n"
+"Last-Translator: Shin Wakayama\n"
+"Language-Team: \n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;"
+"_nx_noop:4c,1,2\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+# @ column-images
+#: ../column-images.php:4
+msgid "Adds featured images to the admin post lists and allows you to add and modify them without loading the post's edit page."
+msgstr "アイキャッチ画像が管理列（投稿一覧）に表示され、さらに編集画面へ遷移せずに投稿一覧から直接追加・変更できます。"
+
+# @ column-images
+#: ../column-images.php:3
+msgid "Column Images - Add featured images to admin columns"
+msgstr "Column Images - 管理列アイキャッチ"
+
+# @ column-images
+#: ../class-column-images.php:145
+msgid "Browse Or Upload An Image"
+msgstr "画像を選択、またはアップロードする"
+
+# @ column-images
+#: ../class-column-images.php:146
+msgid "Set featured image"
+msgstr "アイキャッチ画像を設定する"
+
+# @ column-images
+#: ../class-column-images.php:148 ../class-column-images.php:213
+msgid "add image"
+msgstr "画像を追加"
+
+# @ column-images
+#: ../class-column-images.php:149 ../class-column-images.php:218
+msgid "remove"
+msgstr "削除"
+
+# @ column-images
+#: ../class-column-images.php:170
+msgid "Image"
+msgstr "画像"

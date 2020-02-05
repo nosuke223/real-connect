@@ -1,0 +1,37 @@
+{
+  "name": "りあこね - Real-Connect",
+  "short_name": "りあこねinfo",
+  "description": "リアルタイム・ソーシャルサービス りあこね",
+  "icons": [
+    {
+      "src": "/_assets/img/pwa-app-icons/brandsite/128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/_assets/img/pwa-app-icons/brandsite/192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/_assets/img/pwa-app-icons/brandsite/256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/_assets/img/pwa-app-icons/brandsite/384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "/_assets/img/pwa-app-icons/brandsite/512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#333333",
+  "background_color": "#7280FF",
+  "orientation": "portrait"
+}
