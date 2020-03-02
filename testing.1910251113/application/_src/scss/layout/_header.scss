@@ -37,3 +37,42 @@ $headerH: 3.5em;
     };
   }
 }
+
+// ikeda 追加
+.s-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-image: linear-gradient(to right, #7280FF 0%, #dd43f1 100%);
+  color: $truewhite;
+
+  // @include ltSM {
+  //   display: none;
+  // };
+
+  // a {
+  //   @include hover {
+  //     color: currentColor;
+  //   };
+  // }
+
+  // &--app {
+  //   @include gtMD {
+  //     text-shadow: 0 2px 1px rgba($trueblack,.2);
+  //   };
+  // }
+
+  // &__body {
+  //   min-height: $headerH;
+
+  //   @include ltXS {
+  //     padding: .4em 0;
+  //   };
+
+  //   @include ltXXS {
+  //     padding: 0;
+  //   };
+  // }
+}

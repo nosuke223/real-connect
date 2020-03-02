@@ -1,0 +1,97 @@
+extend /_tpl/foundation/_base-app
+
+append required
+  - const pageTitle = 'エリア'
+  - const userType = 'area'
+
+block content
+  .main-block(style={margin: "120px 0 30px 0"}).p-scrollable--area
+    span(style={"text-align": "center", display: "block"}) {{ title.title }}
+    .button-center(style={"text-align": "center"})
+      button(v-show="show" @click="click" style={margin: "10px 0", padding: "5px 20px", "background-image": "linear-gradient(to right, #7280FF 0%, #dd43f1 100%)", color: "#fff", "box-shadow": "none", "border-radius": "2em"})  エリアで絞り込む
+    .search(v-show="search" style={"text-align": "center", "background-color": "white", margin: "20px 200px 5px 200px","box-shadow": "1px 2px 10px rgba(0, 0, 0, .2)", "border-radius": "2px"})
+      | 地域を選択してください
+      br
+      | 地域 |
+      li(v-for='region in region' style={"list-style": "none", display: "inline-block"})
+        label(:for="`checkbox1-${region.id}`")
+          input(type="checkbox", :id="`checkbox1-${region.id}`" :value="region.id" @change="change" v-model="checkedLabels")
+          | {{ region.label }}
+      br
+      | 県 |
+      li(v-for='prefecture in prefecture' style={"list-style": "none", display: "inline-block"})
+        label(:for="`checkbox2-${prefecture.id}`")
+          input(type="checkbox", :id="`checkbox2-${prefecture.id}`" :value="prefecture.id" @change="selectArea" v-model="areaLists")
+          | {{ prefecture.name }}
+      br
+      | エリア |
+      li(v-for='area in areaList' style={"list-style": "none", display: "inline-block"})
+        .area-list(v-if='area.name')
+          label(:for="`checkbox3-${area.id}`")
+            input(type="checkbox", :id="`checkbox3-${area.id}`" :value="area.id" v-model="forQuery")
+            | {{ area.name }}
+      br
+      button(@click="submitQuery" style={"margin": "10px 0", padding: "5px 20px", "background-image": "linear-gradient(to right, #7280FF 0%, #dd43f1 100%)", color: "#fff", "box-shadow": "none", "border-radius": "2em"})  絞り込み
+
+  
+    ul#example-1(style={textAlign: "center"})
+      li(v-for='place in placelistTmp')
+        .shopList(style={margin: "20px 340px", backgroundColor: "#fff", display:"flex", "flex-direction": "row", "box-shadow": "1px 2px 10px rgba(0, 0, 0, .2)", "border-radius": "2px", cursor: "pointer"} @click="showModals(place.id)")
+          .shop-img
+            img(:src='place.logo_image' style={width: "200px",height: "100%", "border-radius": "2px"})
+          .shop-detail(style={textAlign: "left", "margin-left": "10px"})
+            .shop-name(style={"font-weight": "bold", "font-size": "1.2em"}) {{ place.name }}
+            br
+            .shop-address(style={}) {{ place.address }} {{ place.building }}
+            br
+            .shop-type(style={"font-size": "0.8em"}) {{ place.store_type }}
+        modal(:name="`hello-world-${place.id}`")
+          .s-scrollable--area
+            img(:src='place.cover_image' style={width: "100%", "border-radius": "2em 2em 0 0"})
+            .padding-area(style={"padding": "10px 35px", display:"flex", "flex-direction": "column", "text-align": "center"})
+              .place-name(style={"font-weight": "bold", "font-size": "1.2em", "margin-bottom": "5px"})
+                | {{ place.name }}
+              .place-description
+                .place-description-inside(style={"margin-bottom": "20px", "border-bottom": "2px solid rgba(147,154,168,0.2"})
+                  .about(style={color: "#939aa8"})
+                    | About
+                  .description(style={margin: "10px 5px"})
+                    | {{ place.description }}
+              table(style={"text-align": "left", margin: "10px 0", "line-height": "250%", "table-layout":"fixed", "width":"100%"})
+                tr(style={margin: "10px 0"})
+                  th(style={color: "#939aa8", width: "20%"}) 住所
+                  th.place-address {{ place.address }} {{ place.buildings }}
+                tr
+                  th(style={color: "#939aa8", width: "20%"}) 営業時間
+                  td.place-time
+                    li
+                      span(style={color: "#939aa8"}) 日 
+                      span {{ place.sun_start_at }} - {{ place.sun_end_at }}
+                    li
+                      span(style={color: "#939aa8"}) 月 
+                      span {{ place.mon_start_at }} - {{ place.mon_end_at }}
+                    li
+                      span(style={color: "#939aa8"}) 火 
+                      span {{ place.tue_start_at }} - {{ place.tue_end_at }}
+                    li
+                      span(style={color: "#939aa8"}) 水 
+                      span {{ place.wen_start_at }} - {{ place.wen_end_at }}
+                    li
+                      span(style={color: "#939aa8"}) 木 
+                      span {{ place.thu_start_at }} - {{ place.thu_end_at }}
+                    li
+                      span(style={color: "#939aa8"}) 金 
+                      span {{ place.fri_start_at }} - {{ place.fri_end_at }}
+                    li
+                      span(style={color: "#939aa8"}) 土 
+                      span {{ place.sat_start_at }} - {{ place.sat_end_at }}
+                tr
+                  th(style={color: "#939aa8", width: "20%"}) 電話番号
+                  th.place-phone {{ place.telephone }}
+                tr
+                  th(style={color: "#939aa8", width: "20%"}) 公式サイト
+                  th(style={"word-wrap":"break-word"}).place-url {{ place.url }}
+                tr 
+                  th(style={color: "#939aa8", width: "20%"}) 備考
+                  th.place-note {{ place.note }}
+              button(@click='hideModals(place.id)' style={"margin-top": "10px", padding: "5px 20px", "background-image": "linear-gradient(to right, #7280FF 0%, #dd43f1 100%)", color: "#fff", "box-shadow": "none", "border-radius": "2em"}) CLOSE

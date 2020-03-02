@@ -1,7 +1,7 @@
 const
   SRC = './_src', // <= ソースファイル（監視ディレクトリ）
   DST = './dest', // <= テーマやパッケージ名、PJ名など。(デフォルト : dest)
-  DST_ASSETS = DST+'/_assets'
+  DST_ASSETS = DST + '/_assets'
 
 const
   // [NPM 非依存 公式] Node.jsでファイルを操作
@@ -35,7 +35,7 @@ const
   // [NPM 非依存] requireをフロントエンドで利用するための変換を行う
   browserify = require('browserify'),
   // [NPM 非依存] ES6のトランスパイラ
-  babelify   = require('babelify'),
+  babelify = require('babelify'),
   // [NPM 非依存] オブジェクトをvinylオブジェクトに変換する
   source = require('vinyl-source-stream')
 
@@ -58,37 +58,37 @@ const pug_html = () => {
     notify.onError(e)
   }
   return src([
-    SRC+'/pug/**/*.pug',
-    '!'+SRC+'/pug/**/_*.pug'
+    SRC + '/pug/**/*.pug',
+    '!' + SRC + '/pug/**/_*.pug'
   ])
-    .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
-    .pipe(data(function(file) {
+    .pipe(plumber({ errorHandler: notify.onError("<%= error.message %>") }))
+    .pipe(data(function (file) {
       locals.relativePath = path.relative(
         file.base,
-        file.path.replace(/.pug$/,'.html')
+        file.path.replace(/.pug$/, '.html')
       )
       locals.currentDir = path.relative(
         file.base,
-        file.path.replace(/index.pug$/,'')
+        file.path.replace(/index.pug$/, '')
       )
       // If lower page
-      if ( locals.currentDir.length > 1 ) {
+      if (locals.currentDir.length > 1) {
         locals.currentDir += "/";
       }
       let namedPug = 0;
       let dirCount = 0;
       locals.depth = ""
-      if ( locals.currentDir.length ) {
-        if ( locals.currentDir.match('.pug') ) {namedPug = 1}
+      if (locals.currentDir.length) {
+        if (locals.currentDir.match('.pug')) { namedPug = 1 }
         dirCount = locals.currentDir.match(/\//gm).length - namedPug;
-        for (var i = 0; i < dirCount; i++) {locals.depth += '../'}
+        for (var i = 0; i < dirCount; i++) { locals.depth += '../' }
       }
       return locals
     }))
     .pipe(changed(DST))
     .pipe(pug({
       locals: locals,
-      basedir: SRC+'/pug/',
+      basedir: SRC + '/pug/',
       pretty: '  ', // <= HTMLを圧縮しない場合、コメントはずす
     }))
     .pipe(dest(DST))
@@ -99,15 +99,15 @@ const pug_html = () => {
 // ----------------------------------------
 
 const css = () => {
-  return src(SRC+'/scss/*.scss', { sourcemaps: true })
-    .pipe(plumber({errorHandler: notify.onError("<%= error.message %>")}))
+  return src(SRC + '/scss/*.scss', { sourcemaps: true })
+    .pipe(plumber({ errorHandler: notify.onError("<%= error.message %>") }))
     .pipe(sassGlob())
     .pipe(sass({
       // outputStyle: ['compressed'|'compact'|'expanded'|'nested']
       outputStyle: 'compressed'
     }))
     .pipe(autoprefixer())
-    .pipe(dest(DST_ASSETS+'/css', { sourcemaps: './__maps' }))
+    .pipe(dest(DST_ASSETS + '/css', { sourcemaps: './__maps' }))
     .pipe(browser.stream())
 }
 
@@ -116,12 +116,12 @@ const css = () => {
 // ----------------------------------------
 
 const js = (target) => {
-  return browserify({'entries': [SRC+'/vue/'+target+'.js']},{debug:false})
+  return browserify({ 'entries': [SRC + '/vue/' + target + '.js'] }, { debug: false })
     .transform(babelify)
     .bundle()
     .on('error', notify.onError('<%= error.message %>'))
-    .pipe(source(target+'.js'))
-    .pipe(dest(DST_ASSETS+'/js'))
+    .pipe(source(target + '.js'))
+    .pipe(dest(DST_ASSETS + '/js'))
 }
 
 const appUser = () => {
@@ -132,6 +132,9 @@ const appAdmin = () => {
 }
 const appMaster = () => {
   return js('app-master')
+}
+const appArea = () => {
+  return js('app-area')
 }
 
 // ----------------------------------------
@@ -149,12 +152,12 @@ const IMGMIN_OPTION = [
 
 const images = () => {
   return src([
-    SRC+'/img/**/*.+(jpg|jpeg|png|gif|svg)',
-    '!'+SRC+'/img/favicons/*.ico'
+    SRC + '/img/**/*.+(jpg|jpeg|png|gif|svg)',
+    '!' + SRC + '/img/favicons/*.ico'
   ])
-    .pipe(changed(DST_ASSETS+'/img'))
+    .pipe(changed(DST_ASSETS + '/img'))
     .pipe(imagemin(IMGMIN_OPTION))
-    .pipe(dest(DST_ASSETS+'/img'))
+    .pipe(dest(DST_ASSETS + '/img'))
 }
 
 // ----------------------------------------
@@ -162,10 +165,10 @@ const images = () => {
 // ----------------------------------------
 
 const files = () => {
-  return src(SRC+'/files/**/*')
-    .pipe(changed(DST_ASSETS+'/files'))
+  return src(SRC + '/files/**/*')
+    .pipe(changed(DST_ASSETS + '/files'))
     .pipe(imagemin(IMGMIN_OPTION))
-    .pipe(dest(DST_ASSETS+'/files'))
+    .pipe(dest(DST_ASSETS + '/files'))
 }
 
 // ----------------------------------------
@@ -173,8 +176,8 @@ const files = () => {
 // ----------------------------------------
 
 const favicon = () => {
-  return src(SRC+'/img/favicons/**/*.ico')
-    .pipe(dest(DST_ASSETS+'/img/favicons'))
+  return src(SRC + '/img/favicons/**/*.ico')
+    .pipe(dest(DST_ASSETS + '/img/favicons'))
 }
 
 // ----------------------------------------
@@ -182,8 +185,8 @@ const favicon = () => {
 // ----------------------------------------
 
 const fonts = () => {
-  return src(SRC+'/fonts/**/*')
-    .pipe(dest(DST_ASSETS+'/fonts'))
+  return src(SRC + '/fonts/**/*')
+    .pipe(dest(DST_ASSETS + '/fonts'))
 }
 
 // ----------------------------------------
@@ -191,7 +194,7 @@ const fonts = () => {
 // ----------------------------------------
 
 const pwa = () => {
-  return src(SRC+'/pwa/**/*')
+  return src(SRC + '/pwa/**/*')
     .pipe(dest(DST))
 }
 
@@ -234,25 +237,25 @@ const watchFiles = (done) => {
   // DST 配下の監視 → 自動リロード
   // ----------------------------------------
 
-  watch(DST+'/**/*.+!(css|map)').on('change', series(RELOAD))
+  watch(DST + '/**/*.+!(css|map)').on('change', series(RELOAD))
 
   // ----------------------------------------
   // 自動コンパイル
   // ----------------------------------------
 
-  watch(['**/*.json',SRC+'/**/*.pug']).on('change', series(pug_html))
-  watch(SRC+'/**/*.scss').on('change', series(css))
-  watch(SRC+'/vue/**/*').on('change', series(parallel(appUser,appAdmin,appMaster)))
-  watch(SRC+'/img/**/*.+(jpg|jpeg|png|gif|svg)',series(images))
-  watch(SRC+'/**/*.ico').on('change', series(favicon))
-  watch(SRC+'/files/**/*',series(files))
-  watch(SRC+'/fonts/**/*',series(fonts))
-  watch(SRC+'/pwa/**/*',series(pwa))
+  watch(['**/*.json', SRC + '/**/*.pug']).on('change', series(pug_html))
+  watch(SRC + '/**/*.scss').on('change', series(css))
+  watch(SRC + '/vue/**/*').on('change', series(parallel(appUser, appAdmin, appMaster, appArea)))
+  watch(SRC + '/img/**/*.+(jpg|jpeg|png|gif|svg)', series(images))
+  watch(SRC + '/**/*.ico').on('change', series(favicon))
+  watch(SRC + '/files/**/*', series(files))
+  watch(SRC + '/fonts/**/*', series(fonts))
+  watch(SRC + '/pwa/**/*', series(pwa))
 }
 
 // ========================================
 // NPM コマンド用のエクスポート
 // ========================================
 
-exports.default = parallel(parallel(appUser,appAdmin,appMaster), css, pug_html, images, files, favicon, fonts, pwa)
+exports.default = parallel(parallel(appUser, appAdmin, appMaster, appArea), css, pug_html, images, files, favicon, fonts, pwa)
 exports.server = series(browsersync, watchFiles)

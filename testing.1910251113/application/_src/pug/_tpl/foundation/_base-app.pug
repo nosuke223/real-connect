@@ -23,6 +23,8 @@ html( lang=pageLang ).screen
         include /_tpl/layout/header-app/_admin
       if userType == 'master'
         include /_tpl/layout/header-app/_master
+      if userType == 'area'
+        include /_tpl/layout/header-app/_area
 
       include /_tpl/layout/_main
 
