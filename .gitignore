@@ -1,0 +1,4 @@
+rails/vendor/*
+
+vue/nodemodules
+vue/dest

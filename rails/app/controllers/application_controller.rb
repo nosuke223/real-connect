@@ -30,6 +30,6 @@ class ApplicationController < ActionController::Base
   end
 
   def devise_parameter_sanitizer
-    @devise_parameter_sanitizer ||= ParameterSanitizer.new(User, :user, params)
+    @devise_parameter_sanitizer ||= ::ParameterSanitizer.new(User, :user, params)
   end
 end
