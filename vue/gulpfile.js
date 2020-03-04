@@ -209,8 +209,6 @@ const BS_OPTION = {
       DST,
       // '.static',
     ],
-    port: 80,
-    host: '0.0.0.0',
   },
   startPath: '__content/index.html',
   reloadOnRestart: true,
