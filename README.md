@@ -25,7 +25,7 @@ $ docker-compose run admin_web bin/rake app:dev:sample
 - 管理者PASS: : `password`
 
 りあこね
-- URL : `http://localhost:3000/__content/index.html`
+- URL : `http://localhost:3000/user`
 
 `app-user.js`の20~21行目を以下のように修正するとローカルのRailsと連携できる
 ```
