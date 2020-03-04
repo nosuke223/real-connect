@@ -171,24 +171,24 @@ class User < ApplicationRecord
   # -------------------------------------------------------------------------------
   # Validations
   # -------------------------------------------------------------------------------
-  # validates :password, confirmation: true,
-  #                      format: { with: /\A[a-z\d]{8,100}+\z/i, message: 'は半角英数字で入力してください' },
-  #                      on: :create
-  # validates :password, confirmation: true,
-  #                      format: { with: /\A[a-z\d]{8,100}+\z/i, message: 'は半角英数字で入力してください' },
-  #                      on: :update, allow_blank: true
-  # validates :password_confirmation, presence: true, on: :create
-  # validates :password_confirmation, presence: true, on: :update, allow_blank: true
-  # validates :nickname, presence: true, if: :confirmed_user?
-  # validates :avatar_image, presence: true, if: :confirmed_user?
-  # validates :fashion, presence: true, if: :confirmed_user?
-  # validates :area, presence: true, if: :confirmed_user?
-  # validates :gender, presence: true, if: :confirmed_user?
-  # validates :blood, presence: true, if: :confirmed_user?
-  # validates :age, presence: true, if: :confirmed_user?
-  # validates :height, presence: true, if: :confirmed_user?
-  # validates :tobacco, inclusion: {in: [true, false]}, if: :confirmed_user?
-  # validates :alcohol, inclusion: {in: [true, false]}, if: :confirmed_user?
+  validates :password, confirmation: true,
+                       format: { with: /\A[a-z\d]{8,100}+\z/i, message: 'は半角英数字で入力してください' },
+                       on: :create
+  validates :password, confirmation: true,
+                       format: { with: /\A[a-z\d]{8,100}+\z/i, message: 'は半角英数字で入力してください' },
+                       on: :update, allow_blank: true
+  validates :password_confirmation, presence: true, on: :create
+  validates :password_confirmation, presence: true, on: :update, allow_blank: true
+  validates :nickname, presence: true, if: :confirmed_user?
+  validates :avatar_image, presence: true, if: :confirmed_user?
+  validates :fashion, presence: true, if: :confirmed_user?
+  validates :area, presence: true, if: :confirmed_user?
+  validates :gender, presence: true, if: :confirmed_user?
+  validates :blood, presence: true, if: :confirmed_user?
+  validates :age, presence: true, if: :confirmed_user?
+  validates :height, presence: true, if: :confirmed_user?
+  validates :tobacco, inclusion: {in: [true, false]}, if: :confirmed_user?
+  validates :alcohol, inclusion: {in: [true, false]}, if: :confirmed_user?
 
   # -------------------------------------------------------------------------------
   # Attributes
