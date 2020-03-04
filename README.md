@@ -26,3 +26,9 @@ $ docker-compose run admin_web bin/rake app:dev:sample
 
 りあこね
 - URL : `http://localhost:3000/__content/index.html`
+
+`app-user.js`の20~21行目を以下のように修正するとローカルのRailsと連携できる
+```
+const BASE_URL = 'http://localhost:8080/api/v1';
+const cable = ActionCable.createConsumer('ws:localhost:8080/cable');
+```
