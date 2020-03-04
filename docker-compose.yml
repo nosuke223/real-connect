@@ -34,6 +34,6 @@ services:
     privileged: true
     tty: true
     stdin_open: true
-    command: /bin/sh -c "npm rebuild && npm start"
+    command: /bin/sh -c "npm start"
 volumes:
   postgres:
