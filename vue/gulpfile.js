@@ -208,7 +208,7 @@ const BS_OPTION = {
     baseDir: [
       DST,
       // '.static',
-    ]
+    ],
   },
   startPath: '__content/index.html',
   reloadOnRestart: true,
