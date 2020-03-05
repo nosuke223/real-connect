@@ -17,8 +17,13 @@ import VueLazyload from 'vue-lazyload'
 import {TweenMax} from 'gsap'
 import _ from 'lodash'
 
-const BASE_URL = 'https://real-connect.herokuapp.com/api/v1';
-const cable = ActionCable.createConsumer('wss:real-connect.herokuapp.com/cable');
+let BASE_URL = 'https://real-connect.herokuapp.com/api/v1';
+let cable = ActionCable.createConsumer('wss:real-connect.herokuapp.com/cable');
+
+if (document.domain=='localhost') {
+  BASE_URL = 'http://localhost:8080/api/v1';
+  cable = ActionCable.createConsumer('ws:localhost:8080/cable')
+}
 
 Vue.prototype.$cable = cable;
 Vue.use(VueCookie);
