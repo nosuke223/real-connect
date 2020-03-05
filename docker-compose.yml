@@ -24,16 +24,5 @@ services:
       DATABASE_PORT: 5432
       DATABASE_USER: postgres
       DATABASE_PASSWORD: pass
-  app:
-    build: ./vue
-    volumes:
-      - ./vue:/app
-    ports:
-      - 3000:3000
-      - 3001:3001
-    privileged: true
-    tty: true
-    stdin_open: true
-    command: /bin/sh -c "npm start"
 volumes:
   postgres:
