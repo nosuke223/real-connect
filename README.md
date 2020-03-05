@@ -29,17 +29,17 @@ $ npm start
 
 ## 確認URL
 
-管理画面 ※一度ログインするとログアウトできない（Cookieを削除するしかない）
+### 管理画面 ※一度ログインするとログアウトできない（Cookieを削除するしかない）
 - URL : `http://localhost:8080/admin`
 - 管理者メールアドレス : `admin@example.com`
 - 管理者PASS: : `password`
 
-りあこね
+### りあこね
 - URL : `http://localhost:3000/user`
 - メールアドレス : `test1@example.com` (test1 ~ 10まである)
 - 管理者PASS: : `password`
 
-りあこね管理画面
+### りあこね管理画面
 - URL : `http://localhost:3000/admin`
 - メールアドレス : `admin@example.com`
 - 管理者PASS: : `password`
