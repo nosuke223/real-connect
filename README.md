@@ -17,7 +17,7 @@ $ docker-compose up -d
 $ docker-compose run admin_web sh -c 'bin/rake db:create db:migrate db:seed && bin/rake app:dev:admin && bin/rake app:dev:sample'
 ```
 
-### 3. りあこねNodeパッケージインストール&サーバー立ち上げ
+### 3. りあこねnpmパッケージインストール&サーバー立ち上げ
 ```
 $ node -v
 # 開発時のnodeバージョンは「v10.16.0」
