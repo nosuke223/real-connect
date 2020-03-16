@@ -64,4 +64,6 @@ Rails.application.configure do
 
   config.action_cable.allowed_request_origins = [ 'localhost' ]
   ActionCable.server.config.disable_request_forgery_protection = true
+
+  config.web_console.whitelisted_ips = '172.22.0.1'
 end

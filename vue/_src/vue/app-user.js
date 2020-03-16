@@ -18,12 +18,14 @@ import {TweenMax} from 'gsap'
 import _ from 'lodash'
 
 let BASE_URL = 'https://real-connect.herokuapp.com/api/v1';
-let cable = ActionCable.createConsumer('wss:real-connect.herokuapp.com/cable');
+let CABLE_URL = 'wss:real-connect.herokuapp.com/cable';
 
 if (document.domain=='localhost') {
   BASE_URL = 'http://localhost:8080/api/v1';
-  cable = ActionCable.createConsumer('ws:localhost:8080/cable')
+  CABLE_URL = 'ws:localhost:8080/cable';
 }
+
+let cable = ActionCable.createConsumer(CABLE_URL);
 
 Vue.prototype.$cable = cable;
 Vue.use(VueCookie);

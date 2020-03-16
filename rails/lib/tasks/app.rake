@@ -11,7 +11,7 @@ namespace :app do
       areas = FactoryBot.create_list(:area, 2)
 
       areas.each do |area|
-        users = FactoryBot.create_list(:user, 5, area: area)
+        users = FactoryBot.create_list(:user, 5, area: area, confirmed_at: '2020-01-01 00:00:00')
         places = FactoryBot.create_list(:place, 3, area: area, owner: owner)
 
         events = FactoryBot.create_list(:event, 3, area: area)
