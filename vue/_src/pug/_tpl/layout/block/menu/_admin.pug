@@ -35,7 +35,7 @@ article#menu.l-block(v-if='userData.own_places')
               router-link.p-menu-nav__item(to='/admin/profile' data-block='back')
                 i.glyph.glyph-map-marker-alt
                 | 店舗・会場情報
-              router-link.p-menu-nav__item(to='/admin/account' data-menu='account')
+              router-link.p-menu-nav__item(to='/admin/account' data-block='back')
                 i.glyph.glyph-gear
                 | アカウント
             if userType == 'master'
