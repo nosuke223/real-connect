@@ -11,8 +11,10 @@ FactoryBot.define do
         Bar New Nature
         いかや クラーケン
       ).sample }
-    address { Faker::Address.street_name }
-    building { Faker::Address.secondary_address }
+    zipcode { Faker::Address.postcode }
+    address1 { Faker::Address.state }
+    address2 { Faker::Address.city }
+    address3 { Faker::Address.street_address }
     telephone { Faker::PhoneNumber.phone_number.delete('-') }
     description { '一流イタリアンシェフとのコラボレーションによって実現した「逢える・話せるトークバル」です。今までの「相席」とはひと味違うサービスをお楽しみください。天神駅から徒歩7分という好立地にある当店は、福岡の男女の出会いや交流の場としても賑わっています！街コンや恋活イベントも定期的に実施しています♪' }
     

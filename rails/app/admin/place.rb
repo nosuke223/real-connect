@@ -4,8 +4,10 @@ ActiveAdmin.register Place do
   permit_params :owner_id,
     :name,
     :area_id,
-    :address,
-    :building,
+    :zipcode,
+    :address1,
+    :address2,
+    :address3,
     :telephone,
     :url,
     :logo_image,
@@ -57,8 +59,10 @@ ActiveAdmin.register Place do
 
       row :name
       row :area
-      row :address
-      row :building
+      row :zipcode
+      row :address1
+      row :address2
+      row :address3
       row :telephone
       row :url
 
@@ -108,8 +112,10 @@ ActiveAdmin.register Place do
       f.input :owner, as: :select, collection: User.owner.all.map { |e| ["#{e.email}（ID：#{e.id}）", e.id] }
       f.input :name
       f.input :area
-      f.input :address
-      f.input :building
+      f.input :zipcode
+      f.input :address1
+      f.input :address2
+      f.input :address3
       f.input :telephone
       f.input :url
       f.input :logo_image

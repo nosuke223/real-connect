@@ -15,7 +15,7 @@ class Api::V1::Owners::PlacesController < Api::V1::Owners::BaseController
 
   def place_params
     params.permit(
-      :address, :building, :cover_image, :deleted_at, :description, :fri_end_at,
+      :zipcode, :address1, :address2, :address3, :cover_image, :deleted_at, :description, :fri_end_at,
       :fri_start_at, :is_fri_holiday, :is_mon_holiday, :is_sat_holiday,
       :is_sun_holiday, :is_thu_holiday, :is_tue_holiday, :is_wed_holiday,
       :logo_image, :mon_end_at, :mon_start_at, :name, :note, :sat_end_at,

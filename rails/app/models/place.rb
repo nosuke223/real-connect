@@ -3,8 +3,9 @@
 # Table name: places
 #
 #  id                :bigint(8)        not null, primary key
-#  address           :string
-#  building          :string
+#  address1          :string
+#  address2          :string
+#  address3          :string
 #  cover_image       :string
 #  deleted_at        :datetime
 #  description       :string
@@ -37,6 +38,7 @@
 #  url               :string
 #  wed_end_at        :time
 #  wed_start_at      :time
+#  zipcode           :string(8)
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  area_id           :integer

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_07_090745) do
+ActiveRecord::Schema.define(version: 2020_04_01_100136) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,8 +107,7 @@ ActiveRecord::Schema.define(version: 2018_12_07_090745) do
     t.integer "owner_id"
     t.string "name"
     t.integer "area_id"
-    t.string "address"
-    t.string "building"
+    t.string "address1"
     t.string "telephone"
     t.string "url"
     t.string "logo_image"
@@ -142,6 +141,9 @@ ActiveRecord::Schema.define(version: 2018_12_07_090745) do
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.integer "place_users_count", default: 0, null: false
+    t.string "zipcode", limit: 8
+    t.string "address2"
+    t.string "address3"
     t.index ["area_id"], name: "index_places_on_area_id"
     t.index ["deleted_at"], name: "index_places_on_deleted_at"
     t.index ["owner_id"], name: "index_places_on_owner_id"

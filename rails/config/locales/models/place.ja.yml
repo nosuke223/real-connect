@@ -8,8 +8,10 @@ ja:
         owner: オーナーユーザー
         name: 店舗・会場の名称
         area: 地域
-        address: 市区町村 番地
-        building: 建物名、階数、部屋番号など
+        zipcode: 郵便番号
+        address1: 都道府県
+        address2: 市区町村
+        address3: 番地以降
         telephone: 電話番号
         url: 公式サイトURL
         logo_image: ロゴ
