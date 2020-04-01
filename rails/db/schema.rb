@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_01_100136) do
+ActiveRecord::Schema.define(version: 2020_04_01_112639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -147,6 +147,20 @@ ActiveRecord::Schema.define(version: 2020_04_01_100136) do
     t.index ["area_id"], name: "index_places_on_area_id"
     t.index ["deleted_at"], name: "index_places_on_deleted_at"
     t.index ["owner_id"], name: "index_places_on_owner_id"
+  end
+
+  create_table "prefectures", force: :cascade do |t|
+    t.integer "region_id"
+    t.string "code"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "regions", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "talks", force: :cascade do |t|
