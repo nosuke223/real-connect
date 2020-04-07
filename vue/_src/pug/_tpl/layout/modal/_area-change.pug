@@ -12,7 +12,7 @@ transition(name='v-modal' appear v-if='modal.areaChange')
               label.c-select
                 select.c-select__item(v-model='areaChangeData.prefecture' name='prefecture' @change='changePrefecture()')
                   option(value='null' selected disabled) 都道府県を選択してください
-                  option(:value='item.value' v-for='item in prefecture') {{item.title}}
+                  option(:value='item.code' v-for='item in prefecture') {{item.name}}
 
           section
             h2 エリアを選択して下さい

@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(version: 2020_04_01_112639) do
     t.integer "region_id"
     t.string "code"
     t.string "name"
+    t.string "kana"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

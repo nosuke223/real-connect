@@ -59,7 +59,7 @@
         label.c-select
           select.c-select__item(v-model='newReg.prefecture' name='prefecture' @change='registerPrefecture()')
             option(value='null' selected disabled) 都道府県を選択してください
-            option(:value='item.value' v-for='item in prefecture') {{item.title}}
+            option(:value='item.code' v-for='item in prefecture') {{item.name}}
 
     section
       h3

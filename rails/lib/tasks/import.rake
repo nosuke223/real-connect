@@ -28,6 +28,7 @@ namespace :import do
           region_id: row["region_id"],
           code: row["code"],
           name: row["name"],
+          kana: row["kana"],
       }
     end
     puts "start to create prefecture data"

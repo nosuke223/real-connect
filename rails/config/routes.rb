@@ -53,6 +53,8 @@ Rails.application.routes.draw do
 
       resource :messages, only: %i[show create]
 
+      resources :prefectures, only: [:index]
+
       resources :areas, only: %i[index] do
         collection do
           get :prefectures

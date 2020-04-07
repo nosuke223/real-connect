@@ -1021,12 +1021,12 @@ const app = new Vue({
 
       axios({
         method: 'GET',
-        // url: BASE_URL + "/area/prefectures",
+        url: BASE_URL + "/prefectures",
         // ※ ▲ ▼ 一旦静的JSONで対応
-        url: '../../_assets/files/prefecture.json',
-        // headers: {
-        //   Authorization: this.$cookie.get('Authorization')
-        // },
+        // url: '../../_assets/files/prefecture.json',
+        headers: {
+          Authorization: this.$cookie.get('Authorization')
+        },
       })
       .then(function(response) {
         this.prefecture = response.data
@@ -3649,7 +3649,7 @@ const app = new Vue({
             })
             // 3. 都道府県一覧から相手の都道府県の値を探す
             prefData = this.prefecture.filter(function(el){
-              return el.value == prefVal
+              return el.kana == prefVal
             })
             if (placeData.length>0) {
               // 相手の会場IDが、会場一覧にある場合
@@ -4382,7 +4382,7 @@ const app = new Vue({
     // ------------------------------
     let prefecture = this.userDataTemporary.prefecture
     let areaByPrefecture = this.prefectureAll.filter(function(el){
-      return el.value == prefecture
+      return el.kana == prefecture
     })
     if (areaByPrefecture.length>0) {
       this.areaList = areaByPrefecture[0].area

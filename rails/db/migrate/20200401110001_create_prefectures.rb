@@ -4,6 +4,7 @@ class CreatePrefectures < ActiveRecord::Migration[5.2]
       t.integer :region_id
       t.string :code
       t.string :name
+      t.string :kana
 
       t.timestamps
     end
