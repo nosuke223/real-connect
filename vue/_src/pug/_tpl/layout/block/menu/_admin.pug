@@ -26,6 +26,12 @@ article#menu.l-block(v-if='userData.own_places')
 
       .p-menu-nav
         section
+          .p-header-app__mobile(v-if='userData.own_places')
+            .p-header-app__label 現在の空席状況 
+              .p-header-app__toggle-container-mobile.u-bg--primary
+                .p-header-app__toggle(@click='requestUpdateOwnPlace({seat_status: "open"})' :class='{"is-active":userData.own_places.seat_status === "open"}') あり
+                .p-header-app__toggle(@click='requestUpdateOwnPlace({seat_status: "few"})' :class='{"is-active":userData.own_places.seat_status === "few"}') 空少
+                .p-header-app__toggle(@click='requestUpdateOwnPlace({seat_status: "full"})' :class='{"is-active":userData.own_places.seat_status === "full"}') 満席
           h3.p-menu-nav__subtitle 各種設定
           ul.p-menu-nav__list
             if userType == 'admin'

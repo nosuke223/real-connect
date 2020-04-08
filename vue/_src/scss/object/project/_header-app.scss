@@ -118,6 +118,10 @@
     padding: 1em 1.5em;
   }
 
+  &__mobile {
+    padding: 1em 0;
+  }
+
   &__label {
     @include fs(12);
 
@@ -201,6 +205,11 @@
     color: $truewhite;
     border-radius: 4px;
     overflow: hidden;
+  }
+
+  &__toggle-container-mobile {
+    @extend #{$this}__toggle-container;
+    margin-top: 1.2em;
   }
 
   &__toggle {
