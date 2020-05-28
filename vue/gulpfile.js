@@ -112,6 +112,24 @@ const css = () => {
 }
 
 // ----------------------------------------
+// BootStrap（コンパイルSCSS）
+// ----------------------------------------
+
+const bootstrap = () => {
+  return src(SRC + "/scss/layout/bootstrap*.scss", { sourcemaps: true })
+    .pipe(plumber({ errorHandler: notify.onError("<%= error.message %>") }))
+    .pipe(sassGlob())
+    .pipe(
+      sass({
+        outputStyle: "compressed",
+      })
+    )
+    .pipe(autoprefixer())
+    .pipe(dest(DST_ASSETS + "/css/bootstrap", { sourcemaps: "./__maps" }))
+    .pipe(browser.stream());
+};
+
+// ----------------------------------------
 // JS
 // ----------------------------------------
 
@@ -254,5 +272,5 @@ const watchFiles = (done) => {
 // NPM コマンド用のエクスポート
 // ========================================
 
-exports.default = parallel(parallel(appUser,appAdmin,appMaster), css, pug_html, images, files, favicon, fonts, pwa)
+exports.default = parallel(parallel(appUser,appAdmin,appMaster), css, pug_html, images, files, favicon, fonts, pwa, bootstrap)
 exports.server = series(browsersync, watchFiles)
