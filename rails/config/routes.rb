@@ -67,6 +67,10 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :event_statuses, only: %i[index show create update destroy]
+
+      resources :user_statuses, only: %i[index show create update destroy]
+
       #
       # 店舗管理者用のAPI
       #

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_01_112639) do
+ActiveRecord::Schema.define(version: 2020_05_27_124511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,12 @@ ActiveRecord::Schema.define(version: 2020_04_01_112639) do
     t.index ["deleted_at"], name: "index_event_places_on_deleted_at"
     t.index ["event_id"], name: "index_event_places_on_event_id"
     t.index ["place_id"], name: "index_event_places_on_place_id"
+  end
+
+  create_table "event_statuses", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "event_users", force: :cascade do |t|
@@ -177,6 +183,12 @@ ActiveRecord::Schema.define(version: 2020_04_01_112639) do
     t.index ["event_id"], name: "index_talks_on_event_id"
     t.index ["partner_id"], name: "index_talks_on_partner_id"
     t.index ["user_id"], name: "index_talks_on_user_id"
+  end
+
+  create_table "user_statuses", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
