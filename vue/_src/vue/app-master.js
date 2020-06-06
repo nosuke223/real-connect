@@ -9,11 +9,10 @@ import _ from "lodash";
 import router from "./router/system_admin-router.js";
 import { request, setAuthorizationToken } from "./lib/request.js";
 import filters from "./lib/filters";
-import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
+import Vuetify from "vuetify";
 
 Vue.use(VueCookie);
-Vue.use(BootstrapVue);
-Vue.use(IconsPlugin);
+Vue.use(Vuetify);
 Vue.use(VueLazyload, {
   throttleWait: 400,
   error: "/_assets/img/common/not-found.svg",
@@ -144,6 +143,11 @@ const app = new Vue({
     soundInit() {},
   },
   filters,
+  vuetify: new Vuetify({
+    icons: {
+      iconfont: "mdi",
+    },
+  }),
 });
 
 // const fixedElem = document.querySelector('.ios-fixed-focus')

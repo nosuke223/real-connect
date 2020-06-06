@@ -112,11 +112,11 @@ const css = () => {
 }
 
 // ----------------------------------------
-// BootStrap（コンパイルSCSS）
+// Vuetify（コンパイルSCSS）
 // ----------------------------------------
 
-const bootstrap = () => {
-  return src(SRC + "/scss/layout/bootstrap*.scss", { sourcemaps: true })
+const vuetify = () => {
+  return src(SRC + "/scss/layout/vuetify.scss", { sourcemaps: true })
     .pipe(plumber({ errorHandler: notify.onError("<%= error.message %>") }))
     .pipe(sassGlob())
     .pipe(
@@ -125,7 +125,7 @@ const bootstrap = () => {
       })
     )
     .pipe(autoprefixer())
-    .pipe(dest(DST_ASSETS + "/css/bootstrap", { sourcemaps: "./__maps" }))
+    .pipe(dest(DST_ASSETS + "/css/vuetify", { sourcemaps: "./__maps" }))
     .pipe(browser.stream());
 };
 
@@ -136,6 +136,7 @@ const bootstrap = () => {
 const js = (target) => {
   return browserify({'entries': [SRC+'/vue/'+target+'.js']},{debug:false})
     .transform(babelify)
+    .require('vue/dist/vue.common.js',{expose: 'vue'})
     .bundle()
     .on('error', notify.onError('<%= error.message %>'))
     .pipe(source(target+'.js'))
@@ -272,5 +273,5 @@ const watchFiles = (done) => {
 // NPM コマンド用のエクスポート
 // ========================================
 
-exports.default = parallel(parallel(appUser,appAdmin,appMaster), css, pug_html, images, files, favicon, fonts, pwa, bootstrap)
+exports.default = parallel(parallel(appUser,appAdmin,appMaster), css, pug_html, images, files, favicon, fonts, pwa, vuetify)
 exports.server = series(browsersync, watchFiles)

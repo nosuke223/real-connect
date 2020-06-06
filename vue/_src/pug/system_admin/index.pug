@@ -8,16 +8,17 @@ block js
   script(src="/_assets/js/app-master.js")
 
 block link
-  link( rel="stylesheet" href="/_assets/css/bootstrap/bootstrap-vue.css" )
+  link( rel="stylesheet" href="/_assets/css/vuetify/vuetify.css" )
   link( rel="stylesheet" href="/_assets/css/theme.css" )
 
 block content
 
   .l-pane-container.l-block-behind
-    router-view(
-      :user-data='userData'
-      :events='events'
-    )
+    v-app
+      router-view(
+        :user-data='userData'
+        :events='events'
+      )
 
   // ↓ Block
   .l-block-container

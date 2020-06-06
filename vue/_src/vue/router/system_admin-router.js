@@ -5,6 +5,7 @@ import index from "../components/system_admin/index.vue";
 import eventStatusIndex from "../components/system_admin/event_statuses/index.vue";
 import eventStatusCreate from "../components/system_admin/event_statuses/create.vue";
 import eventStatusEdit from "../components/system_admin/event_statuses/edit.vue";
+import eventStatusShow from "../components/system_admin/event_statuses/show.vue";
 
 Vue.use(Router);
 
@@ -23,6 +24,10 @@ export default new Router({
     {
       path: "/system_admin/event_statuses/create",
       component: eventStatusCreate,
+    },
+    {
+      path: "/system_admin/event_statuses/:id",
+      component: eventStatusShow,
     },
     {
       path: "/system_admin/event_statuses/edit/:id",

@@ -5,21 +5,17 @@
         // ↓ BEGIN Block Content
         .p-block-content-container
           v-col(cols="12")
-            CommonForm(btnTitle="更新" cardTitle="イベントステータス修正" @submit="updateResource")
-              div(slot="fields")
-                v-text-field(v-model="event_status.name" required :rules="nameRules" )
+            .d-flex.justify-end
+              v-btn.mr-2(text color="primary" dark @click="gotoEdit") 編集
+              v-btn(text color="error" dark @click="deleteResource") 削除
+            p 名前: {{ event_status.name }}
                 
 </template>
 
 <script>
-import CommonForm from "../utils/commonForm.vue";
-import { notNullRule } from "../utils/validation.js";
 import ApiRequest from "../../../api/base.js";
 
 export default {
-  components: {
-    CommonForm,
-  },
   data() {
     return {
       event_status: {
@@ -27,11 +23,6 @@ export default {
         name: "",
       },
     };
-  },
-  computed: {
-    nameRules() {
-      return [(v) => notNullRule(v)];
-    },
   },
   mounted() {
     this.fetchResource();
@@ -44,15 +35,19 @@ export default {
         this.event_status.name = response.data.name;
       }
     },
-    async updateResource() {
+    async deleteResource() {
+      const result = confirm("削除してよろしいですか");
+      if (!result) return;
       const request = new ApiRequest("event_statuses", this.$cookie);
-      const { response, error } = await request.update(
-        this.event_status.id,
-        this.event_status
-      );
+      const { response, error } = await request.destroy(this.event_status.id);
       if (!error) {
         this.$router.push("/system_admin/event_statuses");
       }
+    },
+    gotoEdit() {
+      this.$router.push(
+        `/system_admin/event_statuses/edit/${this.event_status.id}`
+      );
     },
   },
 };

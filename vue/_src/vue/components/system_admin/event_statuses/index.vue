@@ -4,33 +4,38 @@
       .p-scrollable
         // ↓ BEGIN Block Content
         .p-block-content-container
-          b-col(cols="12")
-              h1 イベントステータス一覧
-              b-card
-                b-table( striped hover :items="items" @row-clicked="gotoEdit" :fields="fields" )
-              b-btn(variant="success" @click="gotoCreate") 新規作成
+          v-col(cols="12")
+            ItemTable(:items="items" :headers="headers" btnTitle="新規作成" tableTitle="イベントステータス一覧" @rowClicked="gotoShow" @btnClicked="gotoCreate")
                 
 </template>
 
 <script>
+import ItemTable from "../utils/itemTable.vue";
+import ApiRequest from "../../../api/base.js";
+
 export default {
+  components: {
+    ItemTable,
+  },
   data() {
     return {
-      items: [
-        { id: 1, name: "ステータス1" },
-        { id: 2, name: "ステータス2" },
-        { id: 3, name: "ステータス3" },
-        { id: 4, name: "ステータス4" },
-      ],
-      fields: [
-        { key: "id", sortable: true },
-        { key: "name", sortable: true },
+      items: [],
+      headers: [
+        { text: "ID", value: "id" },
+        { text: "名前", value: "name" },
       ],
     };
   },
+  async mounted() {
+    const request = new ApiRequest("event_statuses", this.$cookie);
+    const { response, error } = await request.index();
+    if (!error) {
+      this.items = response.data;
+    }
+  },
   methods: {
-    gotoEdit(record, index) {
-      this.$router.push(`/system_admin/event_statuses/edit/${record.id}`);
+    gotoShow(data) {
+      this.$router.push(`/system_admin/event_statuses/${data.id}`);
     },
     gotoCreate() {
       this.$router.push("/system_admin/event_statuses/create");
