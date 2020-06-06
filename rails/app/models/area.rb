@@ -6,6 +6,7 @@
 #  deleted_at :datetime
 #  name       :string
 #  prefecture :integer
+#  zipcode    :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

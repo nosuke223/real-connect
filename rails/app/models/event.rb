@@ -2,15 +2,22 @@
 #
 # Table name: events
 #
-#  id            :bigint(8)        not null, primary key
-#  check_in_code :string
-#  deleted_at    :datetime
-#  end_time      :datetime
-#  name          :string
-#  start_time    :datetime
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  area_id       :integer
+#  id                :bigint(8)        not null, primary key
+#  capacity          :string
+#  check_in_code     :string
+#  deleted_at        :datetime
+#  detail            :string
+#  end_time          :datetime
+#  name              :string
+#  organizer_name    :string
+#  organizer_type    :integer
+#  start_time        :datetime
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  area_id           :integer
+#  event_status_id   :integer
+#  organize_place_id :integer
+#  organize_user_id  :integer
 #
 # Indexes
 #

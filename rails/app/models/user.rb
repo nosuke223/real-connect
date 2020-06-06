@@ -22,6 +22,7 @@
 #  encrypted_password     :string           default(""), not null
 #  failed_attempts        :integer          default(0), not null
 #  fashion                :string
+#  full_name              :string
 #  gender                 :integer
 #  height                 :integer
 #  hobbies                :string
@@ -36,6 +37,7 @@
 #  reset_password_token   :string
 #  role                   :integer
 #  sign_in_count          :integer          default(0), not null
+#  telephone              :string
 #  tobacco                :boolean
 #  unconfirmed_email      :string
 #  unlock_token           :string
@@ -44,6 +46,7 @@
 #  area_id                :integer
 #  current_place_id       :integer
 #  last_place_id          :integer
+#  user_status_id         :integer
 #
 # Indexes
 #

@@ -2,15 +2,17 @@
 #
 # Table name: messages
 #
-#  id         :bigint(8)        not null, primary key
-#  body       :string
-#  deleted_at :datetime
-#  image      :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  event_id   :integer          not null
-#  partner_id :integer          not null
-#  sender_id  :integer          not null
+#  id               :bigint(8)        not null, primary key
+#  body             :string
+#  deleted_at       :datetime
+#  image            :string
+#  partner_nickname :string
+#  sender_nickname  :string
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  event_id         :integer          not null
+#  partner_id       :integer          not null
+#  sender_id        :integer          not null
 #
 # Indexes
 #

@@ -18,11 +18,13 @@
 #  is_thu_holiday    :boolean          default(FALSE), not null
 #  is_tue_holiday    :boolean          default(FALSE), not null
 #  is_wed_holiday    :boolean          default(FALSE), not null
+#  last_payment_at   :datetime
 #  logo_image        :string
 #  mon_end_at        :time
 #  mon_start_at      :time
 #  name              :string
 #  note              :string
+#  payment_flag      :boolean
 #  place_users_count :integer          default(0), not null
 #  sat_end_at        :time
 #  sat_start_at      :time

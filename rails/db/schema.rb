@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_27_124511) do
+ActiveRecord::Schema.define(version: 2020_06_05_152456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,7 +35,17 @@ ActiveRecord::Schema.define(version: 2020_05_27_124511) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.string "zipcode"
     t.index ["deleted_at"], name: "index_areas_on_deleted_at"
+  end
+
+  create_table "event_check_in_histories", force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "checked_in_at"
+    t.datetime "checked_out_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "event_places", force: :cascade do |t|
@@ -77,6 +87,13 @@ ActiveRecord::Schema.define(version: 2020_05_27_124511) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.integer "event_status_id"
+    t.integer "organizer_type"
+    t.integer "organize_place_id"
+    t.integer "organize_user_id"
+    t.string "organizer_name"
+    t.string "detail"
+    t.string "capacity"
     t.index ["deleted_at"], name: "index_events_on_deleted_at"
   end
 
@@ -89,11 +106,22 @@ ActiveRecord::Schema.define(version: 2020_05_27_124511) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
+    t.string "sender_nickname"
+    t.string "partner_nickname"
     t.index ["created_at"], name: "index_messages_on_created_at"
     t.index ["deleted_at"], name: "index_messages_on_deleted_at"
     t.index ["event_id"], name: "index_messages_on_event_id"
     t.index ["partner_id"], name: "index_messages_on_partner_id"
     t.index ["sender_id"], name: "index_messages_on_sender_id"
+  end
+
+  create_table "place_check_in_histories", force: :cascade do |t|
+    t.integer "place_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "checked_in_at"
+    t.datetime "checked_out_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "place_users", force: :cascade do |t|
@@ -150,6 +178,8 @@ ActiveRecord::Schema.define(version: 2020_05_27_124511) do
     t.string "zipcode", limit: 8
     t.string "address2"
     t.string "address3"
+    t.boolean "payment_flag"
+    t.datetime "last_payment_at"
     t.index ["area_id"], name: "index_places_on_area_id"
     t.index ["deleted_at"], name: "index_places_on_deleted_at"
     t.index ["owner_id"], name: "index_places_on_owner_id"
@@ -166,6 +196,20 @@ ActiveRecord::Schema.define(version: 2020_05_27_124511) do
 
   create_table "regions", force: :cascade do |t|
     t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "system_bbs_infos", force: :cascade do |t|
+    t.string "detail", default: "", null: false
+    t.boolean "display_flag"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "system_bbs_news", force: :cascade do |t|
+    t.string "detail", default: "", null: false
+    t.boolean "display_flag"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -233,6 +277,9 @@ ActiveRecord::Schema.define(version: 2020_05_27_124511) do
     t.datetime "deleted_at"
     t.integer "current_place_id"
     t.integer "last_place_id"
+    t.integer "user_status_id"
+    t.string "full_name"
+    t.string "telephone"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email"
