@@ -1,4 +1,4 @@
-version: '3'
+version: "3"
 services:
   # りあこね管理画面（Rails）
   admin_db:
@@ -24,5 +24,16 @@ services:
       DATABASE_PORT: 5432
       DATABASE_USER: postgres
       DATABASE_PASSWORD: pass
+  system_admin_front:
+    build: ./system_admin
+    volumes:
+      - ./system_admin:/usr/src/app
+    ports:
+      - 3001:8080
+    tty: true
+    command: /bin/ash -c "yarn serve"
+    stdin_open: true
+    depends_on:
+      - admin_web
 volumes:
   postgres:

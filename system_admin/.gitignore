@@ -1,11 +1,6 @@
-rails/vendor/*
-
-vue/nodemodules
-vue/dest
-
 .DS_Store
-system_admin/node_modules
-system_admin/dist
+node_modules
+/dist
 
 # local env files
 .env.local
