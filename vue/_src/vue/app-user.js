@@ -2329,6 +2329,8 @@ const app = new Vue({
           event_id: this.currentEventID,
           partner_id: this.currentPartnerID,
           body: this.send_message,
+          sender_nickname: this.userData.nickname,
+          partner_nickname: this.currentPartner.nickname,
           token: this.$cookie.get('Authorization')
         })
         // this.send_message = ''

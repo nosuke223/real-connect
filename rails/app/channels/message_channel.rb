@@ -21,9 +21,17 @@ class MessageChannel < ApplicationCable::Channel
     current_user = find_user_by_jwt(data['token'])
     partner_user = User.find(data['partner_id'])
 
-    Message.create({ event_id: data['event_id'], partner_id: data['partner_id'], body: data['body'] }.merge!(
-      sender: current_user
-    ))
+    Message.create(
+      {
+        event_id: data['event_id'],
+        partner_id: data['partner_id'],
+        body: data['body'],
+        sender_nickname: data['sender_nickname'],
+        partner_nickname: data['partner_nickname']
+      }.merge!(
+        sender: current_user
+      )
+    )
  
     MessageChannel.broadcast_to(current_user, { type: 'message', event_id: data['event_id'], partner_id: partner_user.id, message: data['body'] })
     MessageChannel.broadcast_to(partner_user, { type: 'message', event_id: data['event_id'], partner_id: current_user.id, message: data['body'] })
