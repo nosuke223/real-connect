@@ -1,9 +1,9 @@
 <template lang="pug">
   v-col(cols="12")
-    CommonForm(btnTitle="作成" cardTitle="システム管理者ログイン" @submit="requestLogin")
+    CommonForm(btnTitle="ログイン" cardTitle="システム管理者ログイン" @submit="requestLogin")
       div(slot="fields")
         v-text-field(v-model="email" required :rules="emailRules" label="email" )
-        v-text-field(v-model="password" required :rules="nameRules" label="password" )     
+        v-text-field(type="password" v-model="password" required :rules="nameRules" label="password" )     
 </template>
 
 <script>

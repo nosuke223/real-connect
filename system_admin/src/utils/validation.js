@@ -3,5 +3,5 @@ export const notNullRule = (value) => {
 };
 
 export const emailFormatRule = (value) => {
-  return /.+@.+\.\w+/.test(value) || "メールのアドレスの形式が正しくありません";
+  return /.+@.+\.\w+/.test(value) || "メールアドレスの形式が正しくありません";
 };
