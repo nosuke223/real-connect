@@ -63,7 +63,7 @@ module.exports.flick = () => {
           let targetTab = $(currentTab).next('.p-pane-tab__item')
           if ( targetTab.length ) {
             targetTab.trigger('click')
-            console.log('次のタブがある');
+            // console.log('次のタブがある');
           } else {
             currentTab.trigger('click')
           }

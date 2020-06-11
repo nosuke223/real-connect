@@ -752,7 +752,6 @@ const app = new Vue({
           }
         })
         .then(function() {
-          console.log('SUCCESS')
           this.changeEmail.process = 'finished'
           setTimeout(() => {
             this.changeEmail.dialog = false
@@ -767,8 +766,6 @@ const app = new Vue({
           }, 21000)
         }.bind(this))
         .catch(function(error) {
-          console.log(error.response.data);
-          console.log('FAILED')
           this.changeEmail.notice[0] = error.response.data.error.message
           this.changeEmail.process = 'error'
         }.bind(this))
@@ -883,7 +880,6 @@ const app = new Vue({
           }
         })
         .then(function() {
-          console.log('SUCCESS')
           this.changePassword.process = 'finished'
           setTimeout(() => {
             this.changePassword.dialog = false
@@ -899,8 +895,6 @@ const app = new Vue({
           }, 7000)
         }.bind(this))
         .catch(function(error) {
-          console.log(error.response.data);
-          console.log('FAILED')
           this.changePassword.notice[0] = error.response.data.error.message
           this.changePassword.process = 'error'
         }.bind(this))
@@ -947,7 +941,6 @@ const app = new Vue({
         this.userResponce = response
         if (background) {
           this.setUserData(response,true)
-          console.log('バックグラウンド更新:getUserData()');
         } else {
           this.setUserData(response)
         }
@@ -956,7 +949,6 @@ const app = new Vue({
         status.completed = true
       }.bind(this))
       .catch(function(error) {
-        console.log(error)
         this.$cookie.delete('Authorization')
         this.loaded = true
         status.content = 'ユーザー情報の取得に失敗しました'
@@ -1035,7 +1027,6 @@ const app = new Vue({
         status.completed = true
       }.bind(this))
       .catch(function(error) {
-        console.error(error)
         status.content = '都道府県と登録エリアリソースの取得に失敗しました'
         status.error = true
         status.completed = false
@@ -1108,7 +1099,6 @@ const app = new Vue({
 
       }.bind(this))
       .catch(function(error) {
-        console.error(error)
         this.areaListLoad = false
       }.bind(this))
     },
@@ -1180,7 +1170,6 @@ const app = new Vue({
           // ▲ ▲ ▲ 会場の移動 プルダウン表示データの作製
         }.bind(this))
         .catch(function(error) {
-          console.error(error)
           this.placeListLoad = false
         }.bind(this))
       } else {
@@ -1254,7 +1243,6 @@ const app = new Vue({
           // ▲ ▲ ▲ 会場の移動 プルダウン表示データの作製
         }.bind(this))
         .catch(function(error) {
-          console.error(error)
           this.placeListLoad = false
         }.bind(this))
       } else {
@@ -1331,7 +1319,6 @@ const app = new Vue({
 
       }.bind(this))
       .catch(function(error) {
-        console.error(error)
         this.areaListLoad = false
       }.bind(this))
     },
@@ -1392,10 +1379,7 @@ const app = new Vue({
 
       // エリア・会場のいずれも変更がされている時に処理を実行
       if (ERR.area==false&&this.areaChangeData.err.place==false) {
-        // console.log('OK');
         this.prefectureAreaChange(A.pref,A.area,A.place)
-      } else {
-        // console.log('NG');
       }
     },
 
@@ -1424,8 +1408,8 @@ const app = new Vue({
     },
 
     placeSelect() {
-      console.log(e);
-      console.log(e.value);
+      // console.log(e);
+      // console.log(e.value);
     },
 
     // ------------------------------
@@ -1461,7 +1445,7 @@ const app = new Vue({
         id = this.audio.updated
       }
       if (id=='off') {
-        console.log('soundPlay:off');
+        // console.log('soundPlay:off');
       } else {
         let audio = document.getElementById(id)
         audio.volume = this.audio.volume
@@ -1492,7 +1476,6 @@ const app = new Vue({
         'log': '',
       }
       if (this.isAvailable==true) {
-        console.log('メッセージチャンネルに接続されています');
         status.content = 'メッセージチャンネルに接続されています'
         status.error = false
         status.completed = true
@@ -1506,7 +1489,6 @@ const app = new Vue({
         connected: () => {
           // サブスクリプションがサーバー上で使用できる状態になると
           // 呼び出されます。
-          console.log('メッセージチャンネルに接続されました');
           status.content = 'メッセージチャンネルに接続されました'
           status.error = false
           status.completed = true
@@ -1523,7 +1505,6 @@ const app = new Vue({
         },
         disconnected: () => {
           // WebSocket接続が閉じられたときに呼び出されます。
-          console.log('メッセージチャンネルから切断されました');
           status.content = 'メッセージチャンネルから切断されました'
           status.error = true
           status.completed = false
@@ -1531,7 +1512,6 @@ const app = new Vue({
         },
         rejected: () => {
           // サブスクリプションがサーバーによって拒否されたときに呼び出されます。
-          console.log('メッセージチャンネルから接続が拒否されました');
           status.content = 'メッセージチャンネルから接続が拒否されました'
           status.error = true
           status.completed = false
@@ -1724,12 +1704,10 @@ const app = new Vue({
             setTimeout(() => {
               this.talkListUpdate(targetEventId,false)
             }, 3000);
-            console.log('一致');
           } else {
             // 現在閲覧中のイベント外でのメッセージの送受信の場合
             // ------------------------------
             // 全トークデータ上では反映済みなので、ここで更新を行う必要はない
-            console.log('不一致');
           }
         }
       }
@@ -1832,7 +1810,7 @@ const app = new Vue({
             }
           }.bind(data))
           .catch(function(error) {
-            console.error(err)
+            // console.error(err)
           }.bind(data))
 
           if (this.currentEventID==data.event_id) {
@@ -1969,7 +1947,7 @@ const app = new Vue({
         this.currentPlaceID = placeId
       }.bind(this))
       .catch(function(error) {
-        console.log(error)
+        // console.log(error)
       }.bind(this))
     },
 
@@ -2054,7 +2032,7 @@ const app = new Vue({
           // 通知を非表示
           this.hideReceive()
         }).catch((err) => {
-          console.error(err)
+          // console.error(err)
         })
       }
     },
@@ -2091,8 +2069,6 @@ const app = new Vue({
           this.getPlace(this.areaChangeData.area_id)
         }
       }
-
-      console.log(response.data.nickname);
 
       this.loginForm.input = false
       this.loginForm.pendingRegist = false
@@ -2359,7 +2335,7 @@ const app = new Vue({
           this.unreadCount()
         }.bind(this))
         .catch(function(error) {
-          console.error(error)
+          // console.error(error)
         }.bind(this))
 
         // 2. フロントエンド側
@@ -2478,7 +2454,6 @@ const app = new Vue({
 
           }.bind(this))
           .catch(function(error) {
-            console.error(error)
             this.talkroomLoad = false
             targetTalkRoom.is_loading = false
             targetTalkRoom.is_error = true
@@ -2788,7 +2763,6 @@ const app = new Vue({
           }
         }.bind(this))
         .catch(function(error) {
-          console.error(error)
           this.talkroomLoad = false
           targetTalkRoom.is_loading = false
           targetTalkRoom.is_error = true
@@ -2976,7 +2950,7 @@ const app = new Vue({
 
       if (code||place||fashion) {
         // どれかがエラーのとき
-        console.log('入力エラー')
+        // console.log('入力エラー')
       } else {
         // ------------------------------
         // 全て正常に入力・選択されているとき
@@ -3202,7 +3176,6 @@ const app = new Vue({
           this.setUserData(response)
         }.bind(this))
         .catch(function(error) {
-          console.log(error)
           this.userLogInLoad = false
           this.loginForm.msg = error.response.data.error.message;
           this.loginForm.debug = "API POST Err : sessions"
@@ -3355,7 +3328,6 @@ const app = new Vue({
         this.placeList()
       }.bind(this))
       .catch(function(error) {
-        console.error(error)
         this.userLogInLoad = false
         this.loginForm.msg = "エラーが発生しました。もう一度お試し下さい。"
         this.loginForm.debug = "API GET Err : events"
@@ -3408,7 +3380,6 @@ const app = new Vue({
         status.completed = true
       }.bind(this))
       .catch(function(error) {
-        console.error(error)
         this.userLogInLoad = false
         this.loginForm.msg = "エラーが発生しました。もう一度お試し下さい。"
         this.loginForm.debug = "API GET Err : events/past"
@@ -3466,7 +3437,6 @@ const app = new Vue({
           status.completed = true
         }.bind(this))
         .catch(function(error) {
-          console.error(error)
           this.userLogInLoad = false
           this.loginForm.msg = "エラーが発生しました。もう一度お試し下さい。"
           this.loginForm.debug = "API GET Err : users/places"
@@ -3552,7 +3522,6 @@ const app = new Vue({
         this.getUsers(index,item,this.talklistData,statusCount)
       }.bind(this))
       .catch(function(error) {
-        console.error(error)
         this.userLogInLoad = false
         this.loginForm.msg = "エラーが発生しました。もう一度お試し下さい。"
         this.loginForm.debugDefault += "events/:"+eventid+"/talks, "
@@ -3705,7 +3674,6 @@ const app = new Vue({
 
       }.bind(this))
       .catch(function(error) {
-        console.error(error)
         this.userLogInLoad = false
         this.loginForm.msg = "エラーが発生しました。もう一度お試し下さい。"
         this.loginForm.debugDefault += "events/:"+eventid+"/users, "
@@ -4142,7 +4110,6 @@ const app = new Vue({
           }
         })
         .then(function() {
-          console.log('SUCCESS')
           // ユーザーデータの更新
           this.userData = _.clone(PROFILE)
           // 送信用データのリセット
@@ -4230,8 +4197,6 @@ const app = new Vue({
 
         }.bind(this))
         .catch(function(error) {
-          console.log(error.response.data);
-          console.log('FAILED')
           this.showToast('不明なエラー','プロフィールの更新が失敗しました。もう一度お試し下さい。','3000')
           // clearTimeout(updateNotice)
         }.bind(this))
@@ -4562,8 +4527,6 @@ const app = new Vue({
       } else {
         this.messageBrCount = 0
       }
-      console.log($('#autoHeightInput'))
-      console.log($('#autoHeightInput').scrollHeight)
     },
 
     // ------------------------------
