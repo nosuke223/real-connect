@@ -112,24 +112,6 @@ const css = () => {
 }
 
 // ----------------------------------------
-// Vuetify（コンパイルSCSS）
-// ----------------------------------------
-
-const vuetify = () => {
-  return src(SRC + "/scss/layout/vuetify.scss", { sourcemaps: true })
-    .pipe(plumber({ errorHandler: notify.onError("<%= error.message %>") }))
-    .pipe(sassGlob())
-    .pipe(
-      sass({
-        outputStyle: "compressed",
-      })
-    )
-    .pipe(autoprefixer())
-    .pipe(dest(DST_ASSETS + "/css/vuetify", { sourcemaps: "./__maps" }))
-    .pipe(browser.stream());
-};
-
-// ----------------------------------------
 // JS
 // ----------------------------------------
 
@@ -148,9 +130,6 @@ const appUser = () => {
 }
 const appAdmin = () => {
   return js('app-admin')
-}
-const appMaster = () => {
-  return js('app-master')
 }
 
 // ----------------------------------------
@@ -261,7 +240,7 @@ const watchFiles = (done) => {
 
   watch(['**/*.json',SRC+'/**/*.pug']).on('change', series(pug_html))
   watch(SRC+'/**/*.scss').on('change', series(css))
-  watch(SRC+'/vue/**/*').on('change', series(parallel(appUser,appAdmin,appMaster)))
+  watch(SRC+'/vue/**/*').on('change', series(parallel(appUser,appAdmin)))
   watch(SRC+'/img/**/*.+(jpg|jpeg|png|gif|svg)',series(images))
   watch(SRC+'/**/*.ico').on('change', series(favicon))
   watch(SRC+'/files/**/*',series(files))
@@ -273,5 +252,5 @@ const watchFiles = (done) => {
 // NPM コマンド用のエクスポート
 // ========================================
 
-exports.default = parallel(parallel(appUser,appAdmin,appMaster), css, pug_html, images, files, favicon, fonts, pwa, vuetify)
+exports.default = parallel(parallel(appUser,appAdmin), css, pug_html, images, files, favicon, fonts, pwa)
 exports.server = series(browsersync, watchFiles)

@@ -63,7 +63,6 @@
     "vue-touch": "2.0.0-beta.4",
     "vueify": "9.4.1",
     "vuejs-datepicker": "1.6.2",
-    "vuetify": "2.2.30",
     "vuex": "3.1.1"
   },
   "browserify": {
