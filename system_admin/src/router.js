@@ -4,6 +4,7 @@ import ApiRequest from "@/api/base";
 import VueCookie from "vue-cookie";
 import HelloWorld from "./components/HelloWorld";
 import Login from "./components/login";
+import areaRouter from "./router/area";
 import eventStatusRouter from "./router/event_status";
 import userStatusRouter from "./router/user_status";
 import billingManagementRouter from "./router/billing_management";
@@ -13,6 +14,7 @@ Vue.use(VueRouter);
 const routes = [
   { path: "/", component: HelloWorld },
   { path: "/login", component: Login },
+  ...areaRouter,
   ...eventStatusRouter,
   ...userStatusRouter,
   ...billingManagementRouter,

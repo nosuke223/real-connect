@@ -10,6 +10,14 @@
             <v-list-item-title>Top</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item link to="/areas">
+          <v-list-item-action>
+            <v-icon>mdi-map</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>エリア管理</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
         <v-list-group prepend-icon="mdi-cog-outline">
           <template v-slot:activator>
             <v-list-item-title>ステータス管理</v-list-item-title>

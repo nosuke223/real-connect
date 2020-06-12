@@ -55,10 +55,7 @@ Rails.application.routes.draw do
 
       resources :prefectures, only: [:index]
 
-      resources :areas, only: %i[index] do
-        collection do
-          get :prefectures
-        end
+      resources :areas, only: %i[index show create update destroy] do
       end
 
       resources :talks, only: %i[] do
