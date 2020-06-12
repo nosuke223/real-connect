@@ -60,21 +60,16 @@ article#pane1.l-pane.is-visible
               label.c-checkbox.p-placedetail__chechbox
                 input(type='checkbox' name='place' v-model='switchPlace' @change='placeSwitch()' :disabled='placeDetail.id==userData.current_place_id&&switchPlaceID.before==""')
                 span.c-checkbox__mirror
-                span(v-if='placeDetail.id==userData.current_place_id') この会場にいます
-                span(v-else) この会場に移動する
+                span(v-if='placeDetail.id==userData.current_place_id') この会場からチェックアウト
+                span(v-else) この会場にチェックイン
             button.p-placedetail__plase-change(@click='placeIn(placeDetail.id)' :class='{"is-current":placeDetail.id==userData.current_place_id}')
               i.glyph.glyph-check-circle.u-color--secondary.animated.bounceIn(v-if='placeDetail.id==userData.current_place_id')
               i.glyph.glyph-sign-out-alt(v-else)
-              span(v-if='placeDetail.id==userData.current_place_id') この会場にいます
-              span(v-else) この会場に移動する
+              span(v-if='placeDetail.id==userData.current_place_id') この会場からチェックアウト
+              span(v-else) この会場にチェックイン
 
             .p-bottomfixbutton__item(v-for='item in noweventlist.slice().reverse()')
               p 開催時間（開始{{item.start_time|time}}〜終了{{item.end_time|time}}）
               button.p-placedetail__button.u-bg--secondary(@click='setPlaceTalk(item.id,placeDetail.id)')
-                span(v-if='noweventlist.length > 1')
-                  | この会場の
-                  em(v-if='item.name') {{item.name}}
-                  em(v-else) イベント（ID:{{item.id}}）
-                  | のメンバー
-                span(v-else) この会場のメンバー一覧へ
+                span メンバー一覧へ
         // ↑ END Tab Target Content
