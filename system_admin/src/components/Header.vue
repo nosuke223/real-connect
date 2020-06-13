@@ -81,7 +81,7 @@ export default {
     async requestLogout() {
       const result = confirm("ログアウトしますか?");
       if (!result) return;
-      const request = new ApiRequest("sessions", this.$cookie);
+      const request = new ApiRequest("sessions", this.$cookie, "api/v1");
       const { error } = await request.requestWrapper("delete", "sessions");
       if (!error) {
         this.$cookie.delete("Authorization");

@@ -37,6 +37,7 @@ router.beforeEach(async (to, _from, next) => {
     next();
   } else {
     next({ path: "/login" });
+    alert("認証に失敗しました。お手数ですがログインし直してください。");
   }
 });
 

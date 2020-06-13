@@ -59,6 +59,7 @@
 #
 
 class User < ApplicationRecord
+  include CommonModule
   acts_as_paranoid
   mount_uploader :avatar_image, UserAvatarImageUploader
   mount_uploader :cover_image, UserCoverImageUploader

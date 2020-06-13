@@ -80,6 +80,18 @@ Rails.application.routes.draw do
         resources :events, only: %i[index]
         resources :places, only: %i[update]
       end
+
+      #
+      # システム管理者用のAPI
+      #
+      namespace :system_admins do
+        resources :users, only: %i[index]
+        resources :areas, only: %i[index show create update destroy]
+        resources :event_statuses, only: %i[index show create update destroy]
+        resources :user_statuses, only: %i[index show create update destroy]
+        resources :prefectures, only: [:index]
+      end
+
     end
   end
 

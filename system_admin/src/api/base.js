@@ -2,18 +2,20 @@ import axios from "axios";
 const domain = "http://localhost:8080";
 
 const apiInstance = axios.create({
-  baseURL: `${domain}/api/v1`,
   timeout: 5000,
 });
 
 export default class ApiRequest {
-  constructor(resource, cookie) {
+  // resource 取得したいリソースの名称 http://localhost:3001/api/v1/sytem_admins/users のusersに当たる
+  // urlNamseSpace urlのドメインの後のリソース名称までの名前空間部分のurl api/v1/sytem_admins にあたる
+  constructor(resource, cookie, urlNameSpace = "api/v1/system_admins") {
     this.resource = resource || undefined;
     if (cookie && cookie.get("Authorization")) {
       apiInstance.defaults.headers.common["Authorization"] = cookie.get(
         "Authorization"
       );
     }
+    apiInstance.defaults.baseURL = `${domain}/${urlNameSpace}`;
     this.HTTPMethods = {
       GET: "get",
       POST: "post",

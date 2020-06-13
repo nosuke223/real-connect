@@ -28,6 +28,18 @@ class Api::V1::UsersController < Api::BaseController
     render_empty(:no_content)
   end
 
+  #
+  # 一般ユーザー一覧情報を返却する
+  #
+  # GET /api/v1/users/collection
+  #
+  def collection
+    users = User.where(role: params[:role])
+    render json: users.as_json(
+      include: [:area]
+    )
+  end
+
   private
 
   def user_update_params

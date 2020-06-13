@@ -31,7 +31,7 @@ export default {
   },
   methods: {
     async requestLogin() {
-      const request = new ApiRequest("sessions");
+      const request = new ApiRequest("sessions", "", "api/v1");
       const body = {
         email: this.email,
         password: this.password,
@@ -42,6 +42,8 @@ export default {
           expires: "1M",
         });
         this.$router.push("/");
+      } else {
+        alert("認証に失敗しました");
       }
     },
   },
