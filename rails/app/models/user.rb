@@ -31,7 +31,6 @@
 #  last_sign_in_ip        :string
 #  locked_at              :datetime
 #  nickname               :string
-#  prefecture             :integer
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
@@ -46,6 +45,7 @@
 #  area_id                :integer
 #  current_place_id       :integer
 #  last_place_id          :integer
+#  prefecture_id          :bigint(8)
 #  user_status_id         :integer
 #
 # Indexes
@@ -217,6 +217,7 @@ class User < ApplicationRecord
   has_many :talks
   has_many :own_places, class_name: 'Place', foreign_key: 'owner_id'
   belongs_to :area, optional: true
+  belongs_to :prefecture, class_name: :Prefecture , foreign_key: :prefecture_id , primary_key: :id, optional: true
 
   #
   # イベントにチェックイン
@@ -264,6 +265,21 @@ class User < ApplicationRecord
     self.update!(confirmation_sent_at: now)
   end
 
+  #
+  # enumの値の選択値を連想配列で返す
+  # returnx { role => [ {text: '一般ユーザー', value: 'user'},... ] }
+  def self.get_selection_value
+    columns = ['role', 'age', 'blood', 'gender', 'income', 'education']
+    selection_object = {}
+    columns.each do |column|
+      selection_value = User.send("#{column}s_i18n").to_a.map do |elm| 
+        { text: elm[1], value: elm[0] }
+      end
+      selection_object["#{column}"] = selection_value 
+    end
+    return selection_object
+  end
+  
   protected
 
   def confirmation_required?

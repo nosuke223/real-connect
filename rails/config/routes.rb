@@ -85,7 +85,11 @@ Rails.application.routes.draw do
       # システム管理者用のAPI
       #
       namespace :system_admins do
-        resources :users, only: %i[index]
+        resources :users, only: %i[index show create update destroy] do
+          collection do 
+            get :selections
+          end
+        end
         resources :areas, only: %i[index show create update destroy]
         resources :event_statuses, only: %i[index show create update destroy]
         resources :user_statuses, only: %i[index show create update destroy]
