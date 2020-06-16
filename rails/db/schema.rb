@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_11_114906) do
+ActiveRecord::Schema.define(version: 2020_06_14_150447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -227,6 +227,68 @@ ActiveRecord::Schema.define(version: 2020_06_11_114906) do
     t.index ["event_id"], name: "index_talks_on_event_id"
     t.index ["partner_id"], name: "index_talks_on_partner_id"
     t.index ["user_id"], name: "index_talks_on_user_id"
+  end
+
+  create_table "temp_areas", force: :cascade do |t|
+    t.string "name"
+    t.integer "prefecture_id"
+    t.datetime "deleted_at"
+    t.string "zipcode"
+    t.string "application_comment"
+    t.integer "application_status"
+    t.string "application_email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deleted_at"], name: "index_temp_areas_on_deleted_at"
+  end
+
+  create_table "temp_places", force: :cascade do |t|
+    t.integer "owner_id"
+    t.string "name"
+    t.integer "area_id"
+    t.string "address1"
+    t.string "telephone"
+    t.string "url"
+    t.string "logo_image"
+    t.string "cover_image"
+    t.string "store_type"
+    t.string "description"
+    t.string "note"
+    t.integer "seat_status"
+    t.time "sun_start_at"
+    t.time "sun_end_at"
+    t.boolean "is_sun_holiday"
+    t.time "mon_start_at"
+    t.time "mon_end_at"
+    t.boolean "is_mon_holiday"
+    t.time "tue_start_at"
+    t.time "tue_end_at"
+    t.boolean "is_tue_holiday"
+    t.time "wed_start_at"
+    t.time "wed_end_at"
+    t.boolean "is_wed_holiday"
+    t.time "thu_start_at"
+    t.time "thu_end_at"
+    t.boolean "is_thu_holiday"
+    t.time "fri_start_at"
+    t.time "fri_end_at"
+    t.boolean "is_fri_holiday"
+    t.time "sat_start_at"
+    t.time "sat_end_at"
+    t.boolean "is_sat_holiday"
+    t.datetime "deleted_at"
+    t.integer "place_users_count"
+    t.string "zipcode"
+    t.string "address2"
+    t.string "address3"
+    t.boolean "payment_flag"
+    t.datetime "last_payment_at"
+    t.string "application_comment"
+    t.integer "application_status"
+    t.string "application_email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deleted_at"], name: "index_temp_places_on_deleted_at"
   end
 
   create_table "user_statuses", force: :cascade do |t|
