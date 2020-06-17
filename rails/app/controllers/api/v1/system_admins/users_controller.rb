@@ -9,9 +9,9 @@ class Api::V1::SystemAdmins::UsersController < Api::V1::SystemAdmins::BaseContro
   # GET /api/v1/sytem_admins/users
   #
   def index
-    users = User.where(role: 1000).order(updated_at: 'desc')
+    users = User.where(role: params[:role]).order(updated_at: 'desc')
     render json: users.as_json(
-      include: [:area]
+      include: [:area, :own_places]
     )
   end
   # ユーザー詳細を返却する
@@ -21,7 +21,7 @@ class Api::V1::SystemAdmins::UsersController < Api::V1::SystemAdmins::BaseContro
   def show
     render json: @user.as_json(
       include: [
-        :area, :prefecture
+        :area, :prefecture, :own_places
       ]
     ).merge(
       age_display: User.ages_i18n.dig(@user.age),
@@ -35,7 +35,10 @@ class Api::V1::SystemAdmins::UsersController < Api::V1::SystemAdmins::BaseContro
   # POST /api/v1/system_admins/users
   def create
     user = User.new(user_params)
-    user.skip_confirmation!
+    unless params[:password].blank?
+      user.password = params[:password]
+    end
+    user.skip_reconfirmation!
     if user.save(validate: false)
       render json:user
     else
@@ -45,12 +48,12 @@ class Api::V1::SystemAdmins::UsersController < Api::V1::SystemAdmins::BaseContro
 
   # PATCH/PUT /api/v1/system_admins//1
   def update
-    # パスワードが空文字の場合更新しない
-    if user_params[:password].blank?
-      user_params.except(:password)
-    end
     @user.assign_attributes(user_params)
-    @user.skip_confirmation!
+    # パスワードが空文字の場合更新しない
+    unless params[:password].blank?
+      @user.password = params[:password]
+    end
+    @user.skip_reconfirmation!
     if @user.save(validate: false)
       render json: @user
     else
@@ -80,6 +83,7 @@ class Api::V1::SystemAdmins::UsersController < Api::V1::SystemAdmins::BaseContro
   # Strong Parameter
   def user_params
     columns = User.column_symbolized_names
+    columns.push(:password, :password_confirmation)
     params.require(:user).permit(*columns)
   end
   

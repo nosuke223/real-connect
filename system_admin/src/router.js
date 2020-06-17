@@ -5,6 +5,7 @@ import VueCookie from "vue-cookie";
 import HelloWorld from "./components/HelloWorld";
 import Login from "./components/login";
 import userRouter from "./router/user";
+import ownerRouter from "./router/owner";
 import areaRouter from "./router/area";
 import eventStatusRouter from "./router/event_status";
 import userStatusRouter from "./router/user_status";
@@ -16,6 +17,7 @@ const routes = [
   { path: "/", component: HelloWorld },
   { path: "/login", component: Login },
   ...userRouter,
+  ...ownerRouter,
   ...areaRouter,
   ...eventStatusRouter,
   ...userStatusRouter,

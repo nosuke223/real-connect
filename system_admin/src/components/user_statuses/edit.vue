@@ -27,7 +27,7 @@ export default {
       return [(v) => notNullRule(v)];
     },
   },
-  mounted() {
+  created() {
     this.fetchResource();
   },
   methods: {
