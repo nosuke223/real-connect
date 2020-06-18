@@ -1,6 +1,6 @@
 <template lang="pug">
   v-col(cols="12")
-    CommonForm(btnTitle="作成" cardTitle="ユーザーステータス作成" @submit="createResource")
+    CommonForm(btnTitle="作成" cardTitle="ユーザーステータス作成" @submit="createResource" @cancel="cancel")
       div(slot="fields")
         v-text-field(v-model="user_status.name" required :rules="nameRules" )
 </template>
@@ -33,7 +33,16 @@ export default {
       const { error } = await request.create(this.user_status);
       if (!error) {
         this.$router.push("/user_statuses");
+      } else {
+        if (error.response.data) {
+          alert(error.response.data.join("\n"));
+        } else {
+          alert("保存に失敗しました");
+        }
       }
+    },
+    cancel() {
+      this.$router.push("/user_statuses");
     },
   },
 };

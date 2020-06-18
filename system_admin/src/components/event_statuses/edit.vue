@@ -1,6 +1,6 @@
 <template lang="pug">
   v-col(cols="12")
-    CommonForm(btnTitle="更新" cardTitle="イベントステータス修正" @submit="updateResource")
+    CommonForm(btnTitle="更新" cardTitle="イベントステータス修正" @submit="updateResource" @cancel="cancel")
       div(slot="fields")
         v-text-field(v-model="event_status.name" required :rules="nameRules" )
 </template>
@@ -27,7 +27,7 @@ export default {
       return [(v) => notNullRule(v)];
     },
   },
-  mounted() {
+  created() {
     this.fetchResource();
   },
   methods: {
@@ -46,7 +46,16 @@ export default {
       );
       if (!error) {
         this.$router.push("/event_statuses");
+      } else {
+        if (error.response.data) {
+          alert(error.response.data.join("\n"));
+        } else {
+          alert("保存に失敗しました");
+        }
       }
+    },
+    cancel() {
+      this.$router.push(`/event_statuses/${this.event_status.id}`);
     },
   },
 };

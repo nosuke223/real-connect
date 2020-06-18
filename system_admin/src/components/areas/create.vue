@@ -1,6 +1,6 @@
 <template lang="pug">
   v-col(cols="12")
-    CommonForm(btnTitle="作成" cardTitle="エリア作成" @submit="createResource")
+    CommonForm(btnTitle="作成" cardTitle="エリア作成" @submit="createResource" @cancel="cancel")
       div(slot="fields")
         v-text-field(v-model="area.name" required :rules="nameRules" label="エリア名" )
         v-select(v-model="area.prefecture" item-text="name" item-value="code" :items="prefectures" label="都道府県" clearable )
@@ -35,7 +35,7 @@ export default {
       return [(v) => zipCodeRule(v)];
     },
   },
-  mounted() {
+  created() {
     this.fetchPrefectures();
   },
   methods: {
@@ -58,7 +58,16 @@ export default {
       const { error } = await request.create(requestBody);
       if (!error) {
         this.$router.push("/areas");
+      } else {
+        if (error.response.data) {
+          alert(error.response.data.join("\n"));
+        } else {
+          alert("保存に失敗しました");
+        }
       }
+    },
+    cancel() {
+      this.$router.push(`/areas`);
     },
   },
 };

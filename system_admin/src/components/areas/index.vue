@@ -18,11 +18,10 @@ export default {
         { text: "ID", value: "id" },
         { text: "名前", value: "name" },
         { text: "都道府県", value: "prefecture.name" },
-        { text: "〒 郵便番号", value: "zipcode" },
       ],
     };
   },
-  async mounted() {
+  async created() {
     const request = new ApiRequest("areas", this.$cookie);
     const { response, error } = await request.index();
     if (!error) {

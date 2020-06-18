@@ -1,6 +1,6 @@
 <template lang="pug">
   v-col(cols="12")
-    CommonForm(btnTitle="更新" cardTitle="ユーザーステータス修正" @submit="updateResource")
+    CommonForm(btnTitle="更新" cardTitle="ユーザーステータス修正" @submit="updateResource" @cancel="cancel")
       div(slot="fields")
         v-text-field(v-model="user_status.name" required :rules="nameRules" )
 </template>
@@ -46,7 +46,16 @@ export default {
       );
       if (!error) {
         this.$router.push("/user_statuses");
+      } else {
+        if (error.response.data) {
+          alert(error.response.data.join("\n"));
+        } else {
+          alert("保存に失敗しました");
+        }
       }
+    },
+    cancel() {
+      this.$router.push(`/user_statuses/${this.id}`);
     },
   },
 };

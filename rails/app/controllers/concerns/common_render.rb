@@ -8,6 +8,10 @@ module CommonRender
     render json: {}, status: status
   end
 
+  def render_valid_error(messages)
+    render json: messages, status: 400
+  end
+
   private
 
   def remove_unused_headers_for_api

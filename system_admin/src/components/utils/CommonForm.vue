@@ -6,6 +6,7 @@
           v-form(ref="form" @submit.prevent="submitEvent")
             slot(name="fields")
             v-btn(type="submit" color="primary" block ) {{ btnTitle }}
+            v-btn(type="button" color="error" block class="mt-3" @click="cancel" ) キャンセル
 
 </template>
 
@@ -26,6 +27,9 @@ export default {
       if (this.$refs.form.validate()) {
         this.$emit("submit");
       }
+    },
+    cancel() {
+      this.$emit("cancel");
     },
   },
 };

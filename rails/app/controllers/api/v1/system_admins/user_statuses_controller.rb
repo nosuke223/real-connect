@@ -21,7 +21,7 @@ class Api::V1::SystemAdmins::UserStatusesController < Api::V1::SystemAdmins::Bas
     if @user_status.save
       render json:@user_status
     else
-      render_empty(500)
+      render_valid_error(@user_status.errors.full_messages)
     end
   end
 
@@ -31,7 +31,7 @@ class Api::V1::SystemAdmins::UserStatusesController < Api::V1::SystemAdmins::Bas
     if @user_status.update(user_status_params)
       render json: @user_status
     else
-      render_empty(500)
+      render_valid_error(@user_status.errors.full_messages)
     end
   end
 

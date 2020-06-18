@@ -29,7 +29,7 @@ class Api::V1::SystemAdmins::AreasController < Api::V1::SystemAdmins::BaseContro
     if @area.save
       render json:@area.as_json
     else
-      render_empty(500)
+      render_valid_error(@area.errors.full_messages)
     end
   end
 
@@ -39,7 +39,7 @@ class Api::V1::SystemAdmins::AreasController < Api::V1::SystemAdmins::BaseContro
     if @area.update(area_params)
       render json: @area.as_json
     else
-      render_empty(500)
+      render_valid_error(@area.errors.full_messages)
     end
   end
 

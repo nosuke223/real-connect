@@ -20,7 +20,7 @@ export default {
       ],
     };
   },
-  async mounted() {
+  async created() {
     const request = new ApiRequest("user_statuses", this.$cookie);
     const { response, error } = await request.index();
     if (!error) {

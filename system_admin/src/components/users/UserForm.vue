@@ -1,6 +1,6 @@
 <template lang="pug">
   v-col(cols="12")
-    CommonForm(btnTitle="作成" cardTitle="ユーザー作成" @submit="createResource")
+    CommonForm(btnTitle="作成" cardTitle="ユーザー作成" @submit="createResource" @cancel="cancel")
       div(slot="fields")
         v-text-field(:value="email" required :rules="emailRules" label="メールアドレス" @change="updateValue('email', $event)")
         v-text-field(:value="password" type="password" required label="パスワード" @change="updateValue('password', $event)" hint="空白なら保存しません")
@@ -186,6 +186,13 @@ export default {
         this.areas = response.data.map((record) => {
           return { text: record.name, value: record.id };
         });
+      }
+    },
+    cancel() {
+      if (this.$route.params.id) {
+        this.$router.push(`/users/${this.$route.params.id}`);
+      } else {
+        this.$router.push(`/users`);
       }
     },
   },

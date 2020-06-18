@@ -21,7 +21,7 @@ class Api::V1::SystemAdmins::EventStatusesController < Api::V1::SystemAdmins::Ba
     if @event_status.save
       render json:@event_status
     else
-      render_empty(500)
+      render_valid_error(@event_status.errors.full_messages)
     end
   end
 
@@ -31,7 +31,7 @@ class Api::V1::SystemAdmins::EventStatusesController < Api::V1::SystemAdmins::Ba
     if @event_status.update(event_status_params)
       render json: @event_status
     else
-      render_empty(500)
+      render_valid_error(@event_status.errors.full_messages)
     end
   end
 
