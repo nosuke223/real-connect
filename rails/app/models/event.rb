@@ -26,6 +26,7 @@
 
 class Event < ApplicationRecord
   acts_as_paranoid
+  include CommonModule
 
   # -------------------------------------------------------------------------------
   # Relations
@@ -36,8 +37,15 @@ class Event < ApplicationRecord
   has_many :event_users
   has_many :users, through: :event_users
   has_many :talks
+  belongs_to :event_status, optional: true
 
   accepts_nested_attributes_for :places, :allow_destroy => true
+
+  # -------------------------------------------------------------------------------
+  # validation
+  # -------------------------------------------------------------------------------
+
+  validates :name, presence: true
 
   # -------------------------------------------------------------------------------
   # Callbacks

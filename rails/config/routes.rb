@@ -91,6 +91,7 @@ Rails.application.routes.draw do
           end
         end
         resources :areas, only: %i[index show create update destroy]
+        resources :events, only: %i[index show create update destroy]
         resources :event_statuses, only: %i[index show create update destroy]
         resources :user_statuses, only: %i[index show create update destroy]
         resources :prefectures, only: [:index]

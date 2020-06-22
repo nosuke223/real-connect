@@ -6,6 +6,7 @@ import HelloWorld from "./components/HelloWorld";
 import Login from "./components/login";
 import userRouter from "./router/user";
 import ownerRouter from "./router/owner";
+import eventRouter from "./router/event";
 import areaRouter from "./router/area";
 import eventStatusRouter from "./router/event_status";
 import userStatusRouter from "./router/user_status";
@@ -18,6 +19,7 @@ const routes = [
   { path: "/login", component: Login },
   ...userRouter,
   ...ownerRouter,
+  ...eventRouter,
   ...areaRouter,
   ...eventStatusRouter,
   ...userStatusRouter,
