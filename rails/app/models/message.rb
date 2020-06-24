@@ -25,6 +25,7 @@
 
 class Message < ApplicationRecord
   acts_as_paranoid
+  include CommonModule
 
   # -------------------------------------------------------------------------------
   # Enumerables

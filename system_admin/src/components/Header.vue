@@ -34,6 +34,14 @@
             <v-list-item-title>イベント管理</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item link to="/messages">
+          <v-list-item-action>
+            <v-icon>mdi-chat</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>メッセージ管理</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
         <v-list-item link to="/areas">
           <v-list-item-action>
             <v-icon>mdi-map</v-icon>
