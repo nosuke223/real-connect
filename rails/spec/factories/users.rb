@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :user do
     nickname { Faker::Name.name }
     sequence(:email) { |n| "test#{n}@example.com" }
-    password 'password'
+    password { 'password' }
+    password_confirmation { 'password' }
 
     height { rand(140..190) }
     gender { User.genders.keys.sample }
@@ -14,8 +17,8 @@ FactoryBot.define do
     business { Faker::Job.title }
     birthplace { Faker::Address.country }
 
-    sequence(:attracted_type) { |n|
-      %w(
+    sequence(:attracted_type) do |_n|
+      %w[
         頼もしい
         清潔感がある
         優しい
@@ -24,9 +27,10 @@ FactoryBot.define do
         話してて楽しい
         普通の人
         趣味が合う
-      ).sample }
-    hobbies { |n|
-      %w(
+      ].sample
+    end
+    hobbies do |_n|
+      %w[
         スポーツ
         映画
         読書
@@ -35,9 +39,10 @@ FactoryBot.define do
         カメラ
         ドライブ
         ボルダリング
-      ).sample }
-    fashion { |n|
-      %w(
+      ].sample
+    end
+    fashion do |_n|
+      %w[
         カジュアル
         ジャージ
         白Tシャツ
@@ -46,7 +51,8 @@ FactoryBot.define do
         ストリート
         浴衣
         アメカジ
-      ).sample }
+      ].sample
+    end
     alcohol { Faker::Boolean.boolean }
     tobacco { Faker::Boolean.boolean }
 
@@ -56,13 +62,13 @@ FactoryBot.define do
     end
 
     trait :owner do
-      role :owner
+      role { :owner }
       sequence(:email) { |n| "test+owner#{n}@example.com" }
     end
 
     trait :admin do
-      role :admin
-      sequence(:email) { |n| "admin@example.com" }
+      role { :admin }
+      sequence(:email) { |_n| 'admin@example.com' }
     end
   end
 end
