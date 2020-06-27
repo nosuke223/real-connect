@@ -69,12 +69,7 @@ class MessageChannel < ApplicationCable::Channel
   #
   def change_area(data)
     current_user = find_user_by_jwt(data['token'])
-    current_user.update(area_id: data['area_id'])
-    current_user.place_checkin(data['place_id'])
-
-    current_user.events.now(data['area_id']).each do |event|
-      MessageChannel.broadcast_to(event, { type: 'place_checkedin_user', user_id: current_user.id, place_id: data['place_id'] })
-    end
+    current_user.update_attribute(:area_id, data['area_id'])
   end
 
   private

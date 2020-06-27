@@ -3,7 +3,7 @@ transition(name='v-modal' appear v-if='modal.areaChange')
     .p-modal__overlay.u-mode-bg--overlay(@click.self='closeModal("areaChange")')
       section.p-modal__inner.u-mode-bg--light.p-card.v-modal-content
         header.p-card__header.has-round-button
-          h2 登録エリアの変更
+          h2 エリアの変更
           button.p-card__round-button.u-bg--primary.p-modal__close(@click='closeModal("areaChange")') ✕
         .p-card__body.u-text
           section
@@ -23,7 +23,7 @@ transition(name='v-modal' appear v-if='modal.areaChange')
                     .p-load-text__item.p-load-text__item--1
                     .p-load-text__item.p-load-text__item--2
                     .p-load-text__item.p-load-text__item--3
-                select.c-select__item(v-model='areaChangeData.area_id' name='area' @change='changeArea()')
+                select.c-select__item(v-model='areaChangeData.area_id' name='area')
                   //- (1)API通信時の空白
                   option(:value='areaChangeData.area_id' v-if='areaListLoad' disabled)
                   //- 選択可能なエリア一覧のオプション
@@ -31,23 +31,6 @@ transition(name='v-modal' appear v-if='modal.areaChange')
             .p-check-in__err.u-text__center.u-flex--ce-ce(v-if='areaChangeData.err.area')
               i.glyph.glyph-exclamation-circle
               | エリアが未選択、または変更されていません。
-
-          section
-            h2 移動する会場を選択して下さい
-            .input-field
-              label.c-select
-                .c-select-load(v-if='placeListLoad')
-                  .p-load-text
-                    .p-load-text__item.p-load-text__item--1
-                    .p-load-text__item.p-load-text__item--2
-                    .p-load-text__item.p-load-text__item--3
-                select.c-select__item(v-model='areaChangeData.place_id' name='place_id')
-                  //- (1)API通信時の空白
-                  option(:value='areaChangeData.place_id' v-if='placeListLoad' disabled) 
-                  option(v-for='option in areaChangeData.placeList' :value='option.value' :disabled='option.disabled') {{ option.text }}
-            .p-check-in__err.u-text__center.u-flex--ce-ce(v-if='areaChangeData.err.place')
-              i.glyph.glyph-exclamation-circle
-              | 会場が未選択、または変更されていません。
 
         footer.p-card__footer.p-card__footer--fluid
           .u-fluid-button.u-bg--primary

@@ -73,7 +73,7 @@
               .p-load-text__item.p-load-text__item--1
               .p-load-text__item.p-load-text__item--2
               .p-load-text__item.p-load-text__item--3
-          select.c-select__item(v-model='newReg.area_id' name='area' @change='registerArea()')
+          select.c-select__item(v-model='newReg.area_id' name='area')
             //- (1)API通信時の空白
             option(:value='newReg.area_id' v-if='areaListLoad' disabled)
             //- 選択可能なエリア一覧のオプション
@@ -81,23 +81,6 @@
       //- .p-check-in__err.u-text__center.u-flex--ce-ce(v-if='newReg.err.area')
         i.glyph.glyph-exclamation-circle
         | エリアが未選択、または変更されていません。
-
-    //- section
-      h3
-        span.c-require--free 任意
-        | 店舗・会場
-      .input-field
-        label.c-select
-          .c-select-load(v-if='placeListLoad')
-            .p-load-text
-              .p-load-text__item.p-load-text__item--1
-              .p-load-text__item.p-load-text__item--2
-              .p-load-text__item.p-load-text__item--3
-          select.c-select__item(v-model='newReg.place_id' name='current_place_id')
-            //- (1)API通信時の空白
-            option(:value='newReg.place_id' v-if='placeListLoad' disabled) 
-            option(v-for='option in newReg.placeList' :value='option.value' :disabled='option.disabled') {{ option.text }}
-
     section
       h3
         span.c-require 必須

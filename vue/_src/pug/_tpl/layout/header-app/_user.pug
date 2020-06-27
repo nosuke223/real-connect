@@ -36,9 +36,9 @@ header(role="banner").l-header.l-header--app.u-mode-bg
             input#headerFashion(type='text' name='fashion' autocomplete='off' placeholder='入力してください' v-model='userDataTemporary.fashion' @blur='updateProfile()')
             button#headerSave(type='submit' name='') 保存
         .p-header-app__button-area
-          .p-header-app__button( data-menu='account' )
-            i.glyph.glyph-account
-            | アカウント
+          .p-header-app__button(@click='modal.areaChange=true')
+            i.glyph.glyph-map-pin
+            | エリアの変更
           .p-header-app__button(@click='logoutUser()')
             i.glyph.glyph-sign-out-alt
             | ログアウト

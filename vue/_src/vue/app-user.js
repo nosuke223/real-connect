@@ -164,11 +164,8 @@ const app = new Vue({
         prefecture: null,
         area_id: null,
         areaList: [],
-        place_id: null,
-        placeList: [],
         err: {
           area: false,
-          place: false,
         },
       },
 
@@ -419,7 +416,6 @@ const app = new Vue({
       // ------------------------------
       // 会場リスト格納用
       placelist: [],
-      placelistTmp: [],
 
       // ------------------------------
       // トークルーム表示用データ
@@ -596,7 +592,6 @@ const app = new Vue({
       // areaListAll: [],
       areaList: [],
       areaListLoad: false,
-      placeListLoad: false,
 
     }
   },
@@ -1104,156 +1099,8 @@ const app = new Vue({
     },
 
     // ------------------------------
-    // エリア（プルダウン等）の変更時
-    // ------------------------------
-    changeArea() {
-      let areaId = this.areaChangeData.area_id
-      this.getPlace(areaId)
-    },
-
-    // ------------------------------
-    // エリア（プルダウン等）の変更時
-    // ------------------------------
-    registerArea() {
-      let areaId = this.newReg.area_id
-      this.placeListLoad = true
-      if (areaId>0) {
-        // エリアが登録されている時だけ処理させる
-        axios({
-          method: 'GET',
-          url: BASE_URL + '/places',
-          headers: {
-            Authorization: this.$cookie.get('Authorization')
-          },
-          params: {
-            area_id: areaId,
-          },
-        })
-        .then(function(response) {
-          this.placeListLoad = false
-          // ▼ ▼ ▼ 会場の移動 プルダウン表示データの作製
-          let placeList = response.data
-          let listData = []
-          let blankData = {
-            'text': '会場を選択してください',
-            'value': null,
-            'disabled': true,
-          }
-          placeList.forEach((item, index) => {
-            listData[index] = {}
-            listData[index].text = item.name
-            listData[index].value = item.id
-            listData[index].area_id = areaId
-          })
-          let selectedPlaceId = this.newReg.place_id
-          let targetPlace = placeList.filter(function(el){
-            return el.id == selectedPlaceId
-          })
-          if (targetPlace.length==0) {
-            // 選択中の会場がそのエリアになければ
-            blankData = {
-              'text': '会場を選択してください',
-              'value': selectedPlaceId,
-              'disabled': true,
-            }
-          }
-          if (placeList.length==0) {
-            // 選択中のエリアに会場自体がそもそもなければ
-            blankData = {
-              'text': '現在選択中のエリアに会場はありません',
-              'value': selectedPlaceId,
-              'disabled': true,
-            }
-          }
-          listData.unshift(blankData)
-          this.newReg.placeList = listData
-          // ▲ ▲ ▲ 会場の移動 プルダウン表示データの作製
-        }.bind(this))
-        .catch(function(error) {
-          this.placeListLoad = false
-        }.bind(this))
-      } else {
-        // エリアが未登録のユーザー
-      }
-
-    },
-
-    // ------------------------------
-    // エリア（プルダウン等）の変更時
-    // ------------------------------
-    changePlace() {
-      // this.placeCheckIn(this.userDataTemporary.current_place_id)
-    },
-
-    // ------------------------------
-    // エリアIDから会場一覧を取得
-    // ------------------------------
-    getPlace(areaId) {
-      this.placeListLoad = true
-      if (areaId>0) {
-        // エリアが登録されている時だけ処理させる
-        axios({
-          method: 'GET',
-          url: BASE_URL + '/places',
-          params: {
-            area_id: areaId,
-          },
-        })
-        .then(function(response) {
-          // 会場変更用データを更新
-          this.placelistTmp = response.data
-          this.placeListLoad = false
-
-          // ▼ ▼ ▼ 会場の移動 プルダウン表示データの作製
-          let placeList = response.data
-          let listData = []
-          let blankData = {
-            'text': '会場を選択してください',
-            'value': null,
-            'disabled': true,
-          }
-          placeList.forEach((item, index) => {
-            listData[index] = {}
-            listData[index].text = item.name
-            listData[index].value = item.id
-            listData[index].area_id = areaId
-          })
-          let selectedPlaceId = this.areaChangeData.place_id
-          let targetPlace = placeList.filter(function(el){
-            return el.id == selectedPlaceId
-          })
-          if (targetPlace.length==0) {
-            // 選択中の会場がそのエリアになければ
-            blankData = {
-              'text': '会場を選択してください',
-              'value': selectedPlaceId,
-              'disabled': true,
-            }
-          }
-          if (placeList.length==0) {
-            // 選択中のエリアに会場自体がそもそもなければ
-            blankData = {
-              'text': '現在選択中のエリアに会場はありません',
-              'value': selectedPlaceId,
-              'disabled': true,
-            }
-          }
-          listData.unshift(blankData)
-          this.areaChangeData.placeList = listData
-          // ▲ ▲ ▲ 会場の移動 プルダウン表示データの作製
-        }.bind(this))
-        .catch(function(error) {
-          this.placeListLoad = false
-        }.bind(this))
-      } else {
-        // エリアが未登録のユーザー
-      }
-    },
-
-    // ------------------------------
     // 都道府県に属しているエリアの取得
     // ------------------------------
-    // areaChangeData
     getAreaList(val) {
       let before = _.clone(this.userData.prefecture)
       this.areaListLoad = true
@@ -1334,93 +1181,24 @@ const app = new Vue({
     },
 
     // ------------------------------
-    // 登録エリア変更ダイアログ上の処理
+    // エリア変更の処理
     // ------------------------------
     areaChange() {
-      let B = {
-        'area': this.userData.area_id,
-        'place': this.userData.current_place_id,
-      }
-      let A = {
-        'pref': this.areaChangeData.prefecture,
-        'area': this.areaChangeData.area_id,
-        'place': this.areaChangeData.place_id,
-      }
-      let ERR = {
-        'area': false,
-        'place': false,
-      }
+      const currentAreaId = this.userData.area_id
+      const selectedAreaId = this.areaChangeData.area_id
 
-      // エリアの変更が行われていない場合
-      if (A.area==B.area||A.area==''||A.area==null) {
-        ERR.area = true
+      if (selectedAreaId==currentAreaId||selectedAreaId==''||selectedAreaId==null) {
+        // エリアの変更が行われていない場合はエラーを表示
         this.areaChangeData.err.area = true
       } else {
+        // エリアの変更がされている時に処理を実行
         this.areaChangeData.err.area = false
-      }
-
-      // 会場の変更が行われていない場合
-      if (A.place==B.place||A.place==''||A.place==null) {
-        ERR.place = true
-        this.areaChangeData.err.place = true
-      } else {
-        let match = 0
-        this.areaChangeData.placeList.forEach((item, index) => {
-          if (index>0&&item.value==A.place) { match++ }
-        })
-        if (match>0) {
-          // 選択した会場が選択したエリアの中にある場合
-          this.areaChangeData.err.place = false
-        } else {
-          // 選択した会場が選択したエリアの中にない場合
-          this.areaChangeData.err.place = true
-        }
-      }
-
-      // エリア・会場のいずれも変更がされている時に処理を実行
-      if (ERR.area==false&&this.areaChangeData.err.place==false) {
-        this.prefectureAreaChange(A.pref,A.area,A.place)
-      }
-    },
-
-    // ------------------------------
-    // 登録エリアの変更や設定で使用する
-    // ------------------------------
-    prefectureAreaChange(PREF,AREA,PLACE) {
-
-
-      // 県・エリアの変更はプロフ更新API
-      let data = new FormData();
-      let USERDATA = {
-        "prefecture": PREF,
-        "area_id": AREA,
-        // "current_place_id": PLACE,
-      }
-      Object.keys(USERDATA).forEach((key,index) => {
-        data.append(key, USERDATA[key])
-      })
-
-      this.placeAreaChange(AREA,PLACE)
-
-      setTimeout(() => {
+        this.messageChannel.perform('change_area', {
+          area_id: selectedAreaId,
+          token: this.$cookie.get('Authorization')
+        });
         this.reload()
-      }, 2000)
-    },
-
-    placeSelect() {
-      // console.log(e);
-      // console.log(e.value);
-    },
-
-    // ------------------------------
-    // エリアと会場の変更
-    // ------------------------------
-    placeAreaChange(areaID,placeID) {
-      this.messageChannel.perform('change_area', {
-        area_id: areaID,
-        place_id: placeID,
-        token: this.$cookie.get('Authorization')
-      });
+      }
     },
 
     // ------------------------------
@@ -2046,7 +1824,6 @@ const app = new Vue({
       // ▼ ▼ ▼ エリア変更用
       this.areaChangeData.prefecture = _.clone(response.data.prefecture)
       this.areaChangeData.area_id = _.clone(response.data.area_id)
-      this.areaChangeData.place_id = _.clone(response.data.current_place_id)
       // 都道府県を取得
       if (background!=true) {
         // バックグラウンド更新ではない時
@@ -2062,11 +1839,6 @@ const app = new Vue({
         if (!this.$cookie.get('Authorization')) {
           // レスポンスのヘッダーのオーソリゼーション
           this.$cookie.set('Authorization', response.headers.authorization,　{ expires: '1M' });
-          // 会場を取得
-          this.getPlace(this.areaChangeData.area_id)
-        } else {
-          // 会場を取得
-          this.getPlace(this.areaChangeData.area_id)
         }
       }
 
@@ -3424,7 +3196,6 @@ const app = new Vue({
         .then(function(response) {
           // 会場表示用データを更新
           this.placelist = response.data
-          this.placelistTmp = _.clone(this.placelist)
           this.pastEventList()
           this.loaded = true
           this.loadErr = {
