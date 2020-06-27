@@ -11,6 +11,7 @@ import messageRouter from "./router/message";
 import areaRouter from "./router/area";
 import eventStatusRouter from "./router/event_status";
 import userStatusRouter from "./router/user_status";
+import tempAreaRouter from "./router/temp_area";
 import billingManagementRouter from "./router/billing_management";
 
 Vue.use(VueRouter);
@@ -25,6 +26,7 @@ const routes = [
   ...areaRouter,
   ...eventStatusRouter,
   ...userStatusRouter,
+  ...tempAreaRouter,
   ...billingManagementRouter,
 ];
 

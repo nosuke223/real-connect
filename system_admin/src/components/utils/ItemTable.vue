@@ -24,7 +24,7 @@ export default {
     },
     btnTitle: {
       type: String,
-      required: true,
+      required: false,
     },
   },
   methods: {

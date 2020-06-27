@@ -65,6 +65,16 @@
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
+        <v-list-group prepend-icon="mdi-text-box-check-outline">
+          <template v-slot:activator>
+            <v-list-item-title>申請管理</v-list-item-title>
+          </template>
+          <v-list-item link to="/temp_areas">
+            <v-list-item-content>
+              <v-list-item-title>エリア申請管理</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-group>
         <v-list-item link to="/billing_management">
           <v-list-item-action>
             <v-icon>mdi-credit-card-check-outline</v-icon>

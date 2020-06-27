@@ -1,28 +1,30 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   devise_for :users, ActiveAdmin::Devise.config
   devise_for :users, skip: :all
 
   mount ActionCable.server => '/cable'
-  
+
   devise_scope :user do
     resource :registration,
-      defaults: { format: :json },
-      only: %i(create destroy),
-      path: 'api/v1/registrations',
-      controller: 'api/v1/registrations'
+             defaults: { format: :json },
+             only: %i[create destroy],
+             path: 'api/v1/registrations',
+             controller: 'api/v1/registrations'
 
     resource :sessions,
-      defaults: { format: :json },
-      only: %i[create destroy],
-      path: 'api/v1/sessions',
-      controller: 'api/v1/sessions'
+             defaults: { format: :json },
+             only: %i[create destroy],
+             path: 'api/v1/sessions',
+             controller: 'api/v1/sessions'
 
     resource :passwords,
-      defaults: { format: :json },
-      only: %i(create update),
-      path: 'api/v1/passwords',
-      controller: 'api/v1/passwords'
+             defaults: { format: :json },
+             only: %i[create update],
+             path: 'api/v1/passwords',
+             controller: 'api/v1/passwords'
   end
 
   namespace :api, defaults: { format: :json } do
@@ -44,7 +46,7 @@ Rails.application.routes.draw do
           get :past
         end
       end
-      
+
       resources :places, only: %i[index] do
         member do
           post :checkin
@@ -86,25 +88,27 @@ Rails.application.routes.draw do
       #
       namespace :system_admins do
         resources :users, only: %i[index show create update destroy] do
-          collection do 
+          collection do
             get :selections
           end
         end
         resources :messages, only: %i[index show create update destroy]
         resources :areas, only: %i[index show create update destroy]
+        resources :temp_areas, only: %i[index show create update destroy] do
+          collection do
+            post :approval
+          end
+        end
         resources :events, only: %i[index show create update destroy]
         resources :event_statuses, only: %i[index show create update destroy]
         resources :user_statuses, only: %i[index show create update destroy]
         resources :prefectures, only: [:index]
       end
-
     end
   end
 
   get '/confirmations', to: 'confirmations#show'
   get '/passwords/reset', to: 'passwords#reset'
 
-  if Rails.env.development?
-    mount LetterOpenerWeb::Engine, at: "/letter_opener"
-  end
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
 end

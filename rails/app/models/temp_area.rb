@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: temp_areas
@@ -20,4 +22,16 @@
 
 class TempArea < ApplicationRecord
   acts_as_paranoid
+  include CommonModule
+
+  # -------------------------------------------------------------------------------
+  # Relations
+  # -------------------------------------------------------------------------------
+  belongs_to :prefecture, class_name: :Prefecture, foreign_key: :prefecture_id, primary_key: :id, optional: true
+
+  # -------------------------------------------------------------------------------
+  # validation
+  # -------------------------------------------------------------------------------
+  validates :name, presence: true
+  validates :zipcode, allow_blank: true, format: { with: /\A[0-9]{3}[0-9]{4}\z/ }
 end
