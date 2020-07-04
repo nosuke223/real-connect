@@ -48,6 +48,7 @@ class Api::V1::SystemAdmins::TempAreasController < Api::V1::SystemAdmins::BaseCo
   # DELETE /temp_areaes/1
   # DELETE /temp_areaes/1.json
   def destroy
+    TempAreaMailer.send_reject_application(@temp_area).deliver
     @temp_area.destroy
   end
 
@@ -60,6 +61,7 @@ class Api::V1::SystemAdmins::TempAreasController < Api::V1::SystemAdmins::BaseCo
                      zipcode: attributes.dig('zipcode')
                    })
       TempArea.transaction do
+        TempAreaMailer.send_approve(@temp_area).deliver
         @temp_area.destroy!
       end
     end

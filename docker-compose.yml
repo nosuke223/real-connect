@@ -24,6 +24,13 @@ services:
       DATABASE_PORT: 5432
       DATABASE_USER: postgres
       DATABASE_PASSWORD: pass
+  smtp:
+    image: schickling/mailcatcher
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+    depends_on:
+      - admin_web
   system_admin_front:
     build: ./system_admin
     volumes:
