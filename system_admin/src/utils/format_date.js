@@ -10,3 +10,14 @@ export const formatDateTime = (strDateTime) => {
   const minutes = ("0" + dateTime.getMinutes()).slice(-2);
   return `${year}-${month}-${day} ${hour}:${minutes}`;
 };
+
+export const formatDate = (strDateTe) => {
+  if (!strDateTe) {
+    return "";
+  }
+  const date = new Date(strDateTe);
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  return `${year}-${month}-${day}`;
+};

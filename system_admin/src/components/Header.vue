@@ -75,6 +75,21 @@
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
+        <v-list-group prepend-icon="mdi-newspaper-plus">
+          <template v-slot:activator>
+            <v-list-item-title>お知らせ管理</v-list-item-title>
+          </template>
+          <v-list-item link to="/system_bbs_news">
+            <v-list-item-content>
+              <v-list-item-title>news管理</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item link to="/system_bbs_infos">
+            <v-list-item-content>
+              <v-list-item-title>info管理</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-group>
         <v-list-item link to="/billing_management">
           <v-list-item-action>
             <v-icon>mdi-credit-card-check-outline</v-icon>
