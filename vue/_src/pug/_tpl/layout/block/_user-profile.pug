@@ -1,6 +1,6 @@
 article#user-profile.l-block( data-layer='2' )
   header.l-pane__header.p-pane-control
-    .p-pane-control__button( data-block='user-profile' @click='updateProfile()' )
+    .p-pane-control__button( data-block='user-profile' @click='cancelUpdateProfile()' )
       i.glyph ＜
     .p-pane-control__heading
       span.p-pane-control__title プロフィール
@@ -176,5 +176,8 @@ article#user-profile.l-block( data-layer='2' )
                     option(value='annual300m') 2 〜 3 億円
                     option(value='annual500m') 3 〜 5 億円
                     option(value='higher') 5 億円以上
+        .p-block-content
+          button.u-bg--primary(@click='updateProfile()') 編集
+          button.u-bg--primary(@click='cancelUpdateProfile()') キャンセル
 
       // ↑ END Block Content

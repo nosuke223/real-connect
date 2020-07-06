@@ -21,7 +21,7 @@ nav.p-pc-menu
         .p-pc-menu-account__input
           input#pcMenuFashion(type='text' name='fashion' autocomplete='off' placeholder='入力してください' v-model='userDataTemporary.fashion' @blur='updateProfile()')
           button#pcMenuSave OK
-    ul.p-pc-menu__list(@click='updateProfile()')
+    ul.p-pc-menu__list(@click='cancelUpdateProfile()')
       li.p-pc-menu__item( data-menu='back')
         i.glyph.glyph-brand-logo
         | トーク
@@ -36,7 +36,7 @@ nav.p-pc-menu
         | アプリ設定
     h3.p-pc-menu__subtitle
       span.p-pc-menu__badge 利用にあたって
-    ul.p-pc-menu__list(@click='updateProfile()')
+    ul.p-pc-menu__list(@click='cancelUpdateProfile()')
       //- li.p-pc-menu__item( data-menu='info' )
         i.glyph.glyph-bell
         | お知らせ
@@ -54,7 +54,7 @@ nav.p-pc-menu
         | 問題を報告
     //- h3.p-pc-menu__subtitle
       span.p-pc-menu__badge アプリケーション情報
-    //- ul.p-pc-menu__list(@click='updateProfile()')
+    //- ul.p-pc-menu__list(@click='cancelUpdateProfile()')
       li.p-pc-menu__item( data-menu='version' )
         i.glyph.glyph-version
         | バージョン情報
@@ -63,7 +63,7 @@ nav.p-pc-menu
         | ライセンス情報
     h3.p-pc-menu__subtitle
       span.p-pc-menu__badge ユーザー操作
-    ul.p-pc-menu__list(@click='updateProfile()')
+    ul.p-pc-menu__list(@click='cancelUpdateProfile()')
       li.p-pc-menu__item(@click='reload()')
         i.glyph.glyph-preset03
         | 再読み込み

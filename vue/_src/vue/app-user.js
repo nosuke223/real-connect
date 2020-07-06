@@ -3975,6 +3975,43 @@ const app = new Vue({
     },
 
     // ------------------------------
+    // プロフィールの更新をキャンセル
+    // ------------------------------
+    cancelUpdateProfile() {
+      // 送信用データのリセット
+      this.userDataTemporary = _.clone(this.userData)
+
+      // 【ユーザーデータ内の画像をリセット】
+      try {
+        // 1. アバター画像を変更している時
+        if (this.avatar_image_preview != "") {
+          let file = _.clone(this.userDataTemporary).avatar_image
+          let reader = new FileReader()
+          let vm = this
+          reader.onload = (e) => {
+            vm.userData.avatar_image = e.target.result
+            vm.userDataTemporary.avatar_image = e.target.result
+          }
+          reader.readAsDataURL(file)
+        }
+        // 2. カバー画像を変更している時
+        if (this.cover_image_preview != "") {
+          let file = _.clone(this.userDataTemporary).cover_image
+          let reader = new FileReader()
+          let vm = this
+          reader.onload = (e) => {
+            vm.userData.cover_image = e.target.result
+            vm.userDataTemporary.cover_image = e.target.result
+          }
+          reader.readAsDataURL(file)
+        }
+      } finally {
+        this.avatar_image_preview = ""
+        this.cover_image_preview = ""
+      }
+    },
+
+    // ------------------------------
     // デバッグ用
     // ------------------------------
     LOG(value) {
