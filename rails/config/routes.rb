@@ -98,6 +98,17 @@ Rails.application.routes.draw do
           collection do
             post :approval
           end
+          member do
+            delete :reject_application
+          end
+        end
+        resources :temp_places, only: %i[index show create update destroy] do
+          collection do
+            post :approval
+          end
+          member do
+            delete :reject_application
+          end
         end
         resources :events, only: %i[index show create update destroy]
         resources :event_statuses, only: %i[index show create update destroy]

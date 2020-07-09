@@ -11,6 +11,24 @@ export const formatDateTime = (strDateTime) => {
   return `${year}-${month}-${day} ${hour}:${minutes}`;
 };
 
+export const formatTime = (strDateTime) => {
+  if (!strDateTime) {
+    return "";
+  }
+  const dateTime = new Date(strDateTime);
+  const hour = ("0" + dateTime.getHours()).slice(-2);
+  const minutes = ("0" + dateTime.getMinutes()).slice(-2);
+  return `${hour}:${minutes}`;
+};
+
+export const isHoliday = (bool) => {
+  if (!bool) {
+    return "";
+  } else {
+    return "お休み";
+  }
+};
+
 export const formatDate = (strDateTe) => {
   if (!strDateTe) {
     return "";

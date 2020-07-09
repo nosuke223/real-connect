@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: temp_places
@@ -56,4 +58,12 @@
 
 class TempPlace < ApplicationRecord
   acts_as_paranoid
+  include CommonModule
+  belongs_to :area
+
+  # -------------------------------------------------------------------------------
+  # validation
+  # -------------------------------------------------------------------------------
+  validates :application_comment, presence: true
+  validates :application_email, presence: true
 end

@@ -74,6 +74,11 @@
               <v-list-item-title>エリア申請管理</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <v-list-item link to="/temp_places">
+            <v-list-item-content>
+              <v-list-item-title>店舗申請管理</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </v-list-group>
         <v-list-group prepend-icon="mdi-newspaper-plus">
           <template v-slot:activator>

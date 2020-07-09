@@ -12,6 +12,7 @@ import areaRouter from "./router/area";
 import eventStatusRouter from "./router/event_status";
 import userStatusRouter from "./router/user_status";
 import tempAreaRouter from "./router/temp_area";
+import tempPlaceRouter from "./router/temp_place";
 import systemBbsInfoRouter from "./router/system_bbs_info";
 import systemBbsNewsRouter from "./router/system_bbs_news";
 import billingManagementRouter from "./router/billing_management";
@@ -29,6 +30,7 @@ const routes = [
   ...eventStatusRouter,
   ...userStatusRouter,
   ...tempAreaRouter,
+  ...tempPlaceRouter,
   ...systemBbsInfoRouter,
   ...systemBbsNewsRouter,
   ...billingManagementRouter,

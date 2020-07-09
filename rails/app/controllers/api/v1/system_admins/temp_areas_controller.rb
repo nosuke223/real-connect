@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::SystemAdmins::TempAreasController < Api::V1::SystemAdmins::BaseController
-  before_action :set_temp_area, only: %i[show update destroy approval]
+  before_action :set_temp_area, only: %i[show update destroy approval reject_application]
 
   #
   # 地域一覧を返す
@@ -48,21 +48,47 @@ class Api::V1::SystemAdmins::TempAreasController < Api::V1::SystemAdmins::BaseCo
   # DELETE /temp_areaes/1
   # DELETE /temp_areaes/1.json
   def destroy
-    TempAreaMailer.send_reject_application(@temp_area).deliver
     @temp_area.destroy
   end
 
   def approval
     attributes = @temp_area.attributes
     Area.transaction do
-      Area.create!({
-                     name: attributes.dig('name'),
-                     prefecture_id: attributes.dig('prefecture_id'),
-                     zipcode: attributes.dig('zipcode')
-                   })
+      Area.create!(
+        {
+          name: attributes.dig('name'),
+          prefecture_id: attributes.dig('prefecture_id'),
+          zipcode: attributes.dig('zipcode')
+        }
+      )
       TempArea.transaction do
         TempAreaMailer.send_approve(@temp_area).deliver
         @temp_area.destroy!
+        SystemBbsInfo.transaction do
+          SystemBbsInfo.create!(
+            {
+              detail: "#{@temp_area.name}エリアが承認されました",
+              display_flag: true,
+              display_date: Date.today
+            }
+          )
+        end
+      end
+    end
+  end
+
+  def reject_application
+    SystemBbsInfo.transaction do
+      SystemBbsInfo.create!(
+        {
+          detail: "#{@temp_area.name}エリアが承認されませんでした",
+          display_flag: true,
+          display_date: Date.today
+        }
+      )
+      TempArea.transaction do
+        TempAreaMailer.send_reject_application(@temp_area).deliver
+        @temp_area.destroy
       end
     end
   end

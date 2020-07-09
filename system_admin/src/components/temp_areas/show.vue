@@ -65,12 +65,17 @@ export default {
       const result = confirm("却下してよろしいですか");
       if (!result) return;
       const request = new ApiRequest("temp_areas", this.$cookie);
-      const { error } = await request.destroy(this.tempArea.id);
+      const { error } = await request.requestWrapper(
+        "delete",
+        `temp_areas/${this.tempArea.id}/reject_application`
+      );
       if (!error) {
         this.$router.push("/temp_areas");
       }
     },
     async approval() {
+      const result = confirm("承認してよろしいですか");
+      if (!result) return;
       const request = new ApiRequest("temp_areas", this.$cookie);
       const requestBody = { id: this.tempArea.id };
       const { error } = await request.requestWrapper(
