@@ -137,11 +137,11 @@ const appAdmin = () => {
 // ----------------------------------------
 
 const IMGMIN_OPTION = [
-  mozjpeg({
-    quality: 70,
-  }),
+  // mozjpeg({
+  //   quality: 70,
+  // }),
   imagemin.gifsicle(),
-  imagemin.jpegtran(),
+  // imagemin.jpegtran(),
   imagemin.optipng(),
 ]
 
