@@ -202,6 +202,9 @@ const pwa = () => {
 // ----------------------------------------
 
 const BS_OPTION = {
+  ui: {
+      port: 3001
+  },
   server: {
     baseDir: [
       DST,

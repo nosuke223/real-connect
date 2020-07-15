@@ -21,8 +21,8 @@ let BASE_URL = 'https://real-connect.herokuapp.com/api/v1';
 let CABLE_URL = 'wss:real-connect.herokuapp.com/cable';
 
 if (document.domain=='localhost') {
-  BASE_URL = 'http://localhost:8080/api/v1';
-  CABLE_URL = 'ws:localhost:8080/cable';
+  BASE_URL = 'http://localhost/api/v1';
+  CABLE_URL = 'ws:localhost/cable';
 }
 
 let cable = ActionCable.createConsumer(CABLE_URL);

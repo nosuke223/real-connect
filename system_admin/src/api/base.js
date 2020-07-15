@@ -1,12 +1,12 @@
 import axios from "axios";
-const domain = "http://localhost:8080";
+const domain = "http://localhost";
 
 const apiInstance = axios.create({
   timeout: 5000,
 });
 
 export default class ApiRequest {
-  // resource 取得したいリソースの名称 http://localhost:3001/api/v1/sytem_admins/users のusersに当たる
+  // resource 取得したいリソースの名称 http://localhost/api/v1/sytem_admins/users のusersに当たる
   // urlNamseSpace urlのドメインの後のリソース名称までの名前空間部分のurl api/v1/sytem_admins にあたる
   constructor(resource, cookie, urlNameSpace = "api/v1/system_admins") {
     this.resource = resource || undefined;

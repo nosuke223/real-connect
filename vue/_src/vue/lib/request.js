@@ -3,7 +3,7 @@ import axios from 'axios'
 let BASE_URL = 'https://real-connect.herokuapp.com/api/v1';
 
 if (document.domain=='localhost') {
-  BASE_URL = 'http://localhost:8080/api/v1';
+  BASE_URL = 'http://localhost/api/v1';
 }
 
 // const BASE_URL = 'http://localhost:4000/api/v1';

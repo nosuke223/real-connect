@@ -16,7 +16,7 @@ services:
     volumes:
       - ./rails:/app
     ports:
-      - 8080:8080
+      - 8080:80
     depends_on:
       - admin_db
     environment:
@@ -36,11 +36,32 @@ services:
     volumes:
       - ./system_admin:/usr/src/app
     ports:
-      - 3001:8080
+      - 3002:80
     tty: true
     command: /bin/ash -c "yarn serve"
     stdin_open: true
     depends_on:
       - admin_web
+  user_front:
+    build: ./vue
+    volumes:
+      - ./vue:/app
+    ports:
+      - 3000:80
+      - 3001:80
+    privileged: true
+    tty: true
+    stdin_open: true
+    command: /bin/sh -c "npm rebuild && npm start"
+  reverse-proxy:
+    image: nginx
+    volumes:
+      - ./reverse-proxy/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+    depends_on:
+      - admin_web
+      - system_admin_front
+      - user_front
 volumes:
   postgres:
