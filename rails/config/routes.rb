@@ -94,6 +94,7 @@ Rails.application.routes.draw do
         end
         resources :messages, only: %i[index show create update destroy]
         resources :areas, only: %i[index show create update destroy]
+        resources :places, only: %i[index show create update destroy]
         resources :temp_areas, only: %i[index show create update destroy] do
           collection do
             post :approval

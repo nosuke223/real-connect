@@ -50,6 +50,14 @@
             <v-list-item-title>エリア管理</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item link to="/places">
+          <v-list-item-action>
+            <v-icon>mdi-store</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>店舗管理</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
         <v-list-group prepend-icon="mdi-cog-outline">
           <template v-slot:activator>
             <v-list-item-title>ステータス管理</v-list-item-title>

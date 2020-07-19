@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: places
@@ -55,9 +57,10 @@
 
 class Place < ApplicationRecord
   acts_as_paranoid
+  include CommonModule
   mount_uploader :logo_image, PlaceLogoImageUploader
   mount_uploader :cover_image, PlaceCoverImageUploader
-  
+
   # -------------------------------------------------------------------------------
   # Relations
   # -------------------------------------------------------------------------------
@@ -68,14 +71,12 @@ class Place < ApplicationRecord
   has_many :event_places
   has_many :events, through: :event_places
 
-
   # -------------------------------------------------------------------------------
   # Enumerables
   # -------------------------------------------------------------------------------
   enum seat_status: {
     open: 1000, # 空席あり
-    few:  2000, # もうすぐ満席
-    full: 3000  # 満席
+    few: 2000, # もうすぐ満席
+    full: 3000 # 満席
   }
-
 end

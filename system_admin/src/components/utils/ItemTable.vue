@@ -1,9 +1,9 @@
 <template lang="pug">
-    v-card
-      v-card-title {{ tableTitle }}
-      .d-flex.justify-end.ma-2
-        v-btn(text small color="primary" dark @click="emitBtnClicked") {{ btnTitle }}
-      v-data-table(:headers="headers" :items="items" no-data-text="表示するデータが有りません" @click:row="emitRowClicked")
+  div
+    p.headline {{ tableTitle }}
+    .d-flex.justify-end.ma-2
+      v-btn(color="primary" @click="emitBtnClicked") {{ btnTitle }}
+    v-data-table(:headers="headers" :items="items" no-data-text="表示するデータが有りません" @click:row="emitRowClicked" class="color-header")
       
 </template>
 

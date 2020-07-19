@@ -8,6 +8,7 @@ import userRouter from "./router/user";
 import ownerRouter from "./router/owner";
 import eventRouter from "./router/event";
 import messageRouter from "./router/message";
+import placeRouter from "./router/place";
 import areaRouter from "./router/area";
 import eventStatusRouter from "./router/event_status";
 import userStatusRouter from "./router/user_status";
@@ -26,6 +27,7 @@ const routes = [
   ...ownerRouter,
   ...eventRouter,
   ...messageRouter,
+  ...placeRouter,
   ...areaRouter,
   ...eventStatusRouter,
   ...userStatusRouter,

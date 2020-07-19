@@ -22,3 +22,9 @@ export default {
   }),
 };
 </script>
+
+<style>
+.color-header thead {
+  background-color: #52c2d0;
+}
+</style>
