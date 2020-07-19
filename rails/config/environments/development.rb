@@ -69,4 +69,8 @@ Rails.application.configure do
   ActionCable.server.config.disable_request_forgery_protection = true
 
   config.web_console.whitelisted_ips = '172.22.0.1'
+
+  CarrierWave.configure do |config|
+    config.asset_host = 'http://localhost:8080'
+  end
 end
