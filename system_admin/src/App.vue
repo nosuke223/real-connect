@@ -24,6 +24,10 @@ export default {
 </script>
 
 <style>
+.v-application--wrap {
+  background-color: #efebe9;
+  color: #555555;
+}
 .color-header thead {
   background-color: #52c2d0;
 }

@@ -59,11 +59,11 @@
 class TempPlace < ApplicationRecord
   acts_as_paranoid
   include CommonModule
+  mount_base64_uploader :logo_image, PlaceLogoImageUploader
   belongs_to :area
 
   # -------------------------------------------------------------------------------
   # validation
   # -------------------------------------------------------------------------------
-  validates :application_comment, presence: true
   validates :application_email, presence: true
 end

@@ -96,6 +96,10 @@ GEM
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
+    carrierwave-base64 (2.8.1)
+      carrierwave (>= 0.8.0)
+      mime-types (~> 3.0)
+      mimemagic (~> 0.3.2)
     carrierwave-imageoptimizer (1.4.0)
       carrierwave (>= 0.8, < 2.0)
       image_optimizer (~> 1.6)
@@ -438,6 +442,7 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   carrierwave
+  carrierwave-base64
   carrierwave-imageoptimizer
   coffee-rails (~> 4.2)
   counter_culture

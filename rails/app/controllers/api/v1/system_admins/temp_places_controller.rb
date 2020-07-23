@@ -2,6 +2,7 @@
 
 class Api::V1::SystemAdmins::TempPlacesController < Api::V1::SystemAdmins::BaseController
   before_action :set_temp_place, only: %i[show update destroy approval reject_application]
+  skip_before_action :authenticate_system_admin!, only: %i[create]
 
   #
   # GET /api/v1/sytem_admins/temp_places
@@ -45,7 +46,21 @@ class Api::V1::SystemAdmins::TempPlacesController < Api::V1::SystemAdmins::BaseC
 
   def approval
     no_reuired_colomuns = %w[
-      id created_at updated_at deleted_at application_email application_comment application_status
+      id
+      created_at
+      updated_at
+      deleted_at
+      application_email
+      application_comment
+      application_status
+      is_fri_holiday
+      is_mon_holiday
+      is_sat_holiday
+      is_sun_holiday
+      is_thu_holiday
+      is_tue_holiday
+      is_wed_holiday
+      place_users_count
     ]
     attributes = @temp_place.attributes
     attributes['seat_status'] = 'open'
@@ -56,22 +71,24 @@ class Api::V1::SystemAdmins::TempPlacesController < Api::V1::SystemAdmins::BaseC
       email: @temp_place.application_email,
       password: @temp_place.application_email
     }
-    Place.transaction do
-      Place.create!(attributes)
-      User.transaction do
-        User.new(user_columns).save!(validate: false) unless User.with_deleted.find_by(email: user_columns.dig(:email))
-        SystemBbsInfo.transaction do
-          SystemBbsInfo.create!(
-            {
-              detail: "店舗：#{@temp_place.name}が承認されました",
-              display_flag: true,
-              display_date: Date.today
-            }
-          )
-          TempPlace.transaction do
-            TempPlaceMailer.send_approve(@temp_place).deliver
-            @temp_place.destroy!
-          end
+    User.transaction do
+      owner = User.new(user_columns)
+      owner.save!(validate: false) unless User.with_deleted.find_by(email: user_columns.dig(:email))
+      attributes['owner_id'] = owner.id
+      Place.transaction do
+        Place.create!(attributes)
+      end
+      SystemBbsInfo.transaction do
+        SystemBbsInfo.create!(
+          {
+            detail: "店舗：#{@temp_place.name}が承認されました",
+            display_flag: true,
+            display_date: Date.today
+          }
+        )
+        TempPlace.transaction do
+          TempPlaceMailer.send_approve(@temp_place).deliver
+          @temp_place.destroy!
         end
       end
     end

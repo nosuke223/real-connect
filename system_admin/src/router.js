@@ -17,6 +17,7 @@ import tempPlaceRouter from "./router/temp_place";
 import systemBbsInfoRouter from "./router/system_bbs_info";
 import systemBbsNewsRouter from "./router/system_bbs_news";
 import billingManagementRouter from "./router/billing_management";
+import placeApplicationtRouter from "./router/place_application";
 
 Vue.use(VueRouter);
 
@@ -36,6 +37,7 @@ const routes = [
   ...systemBbsInfoRouter,
   ...systemBbsNewsRouter,
   ...billingManagementRouter,
+  ...placeApplicationtRouter,
 ];
 
 const router = new VueRouter({
@@ -45,7 +47,12 @@ const router = new VueRouter({
 
 /* eslint no-unused-vars: 0 */
 // クッキーに認証情報がない・あるが正常なクッキー情報でない場合は、login画面へリダイレクト
+// 店舗申請画面はログイン認証不要
 router.beforeEach(async (to, _from, next) => {
+  if (to.path === "/place_application/create") {
+    next();
+    return;
+  }
   const result = await isLogin();
   if (result && to.path !== "/login") {
     next();

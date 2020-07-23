@@ -114,16 +114,20 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-app-bar app color="red" dense dark>
+    <v-app-bar app color="teal lighten-2" dense dark>
       <v-app-bar-nav-icon
         @click.stop="drawer = !drawer"
         v-if="!isLoginPage"
       ></v-app-bar-nav-icon>
-      <v-toolbar-title class="cft c-logo__text"
+      <span class="c-logo__symbol glyph glyph-brand-logo" />
+      <v-toolbar-title class="cft c-logo__text" v-if="!isLoginPage"
         >Real-Connect システム管理画面</v-toolbar-title
       >
+      <v-toolbar-title class="cft c-logo__text" v-else
+        >Real-Connect</v-toolbar-title
+      >
       <v-spacer></v-spacer>
-      <v-btn icon @click="requestLogout">
+      <v-btn icon @click="requestLogout" v-if="!isLoginPage">
         <v-icon>mdi-export</v-icon>
       </v-btn>
     </v-app-bar>
@@ -144,7 +148,10 @@ export default {
   }),
   computed: {
     isLoginPage() {
-      return this.$route.path === "/login";
+      return (
+        this.$route.path === "/login" ||
+        this.$route.path === "/place_application/create"
+      );
     },
   },
   methods: {
@@ -161,22 +168,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.cft {
-  font-family: "cft-fonts";
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: auto;
-  font-style: normal;
-  font-variant: normal;
-  line-height: 1;
-}
-
-.c-logo__text {
-  font-weight: normal;
-  white-space: nowrap;
-  font-size: 24px;
-  letter-spacing: 1px;
-}
-</style>

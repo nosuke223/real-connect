@@ -1,6 +1,8 @@
-class Api::V1::SystemAdmins::AreasController < Api::V1::SystemAdmins::BaseController
+# frozen_string_literal: true
 
-  before_action :set_area, only: [:show, :update, :destroy]
+class Api::V1::SystemAdmins::AreasController < Api::V1::SystemAdmins::BaseController
+  before_action :set_area, only: %i[show update destroy]
+  skip_before_action :authenticate_system_admin!, only: %i[index]
 
   #
   # 地域一覧を返す
@@ -14,6 +16,7 @@ class Api::V1::SystemAdmins::AreasController < Api::V1::SystemAdmins::BaseContro
       render json: Area.all.as_json(include: :prefecture)
     end
   end
+
   #
   # 地域詳細を返す
   #
@@ -27,7 +30,7 @@ class Api::V1::SystemAdmins::AreasController < Api::V1::SystemAdmins::BaseContro
   def create
     @area = Area.new(area_params)
     if @area.save
-      render json:@area.as_json
+      render json: @area.as_json
     else
       render_valid_error(@area.errors.full_messages)
     end
@@ -59,5 +62,4 @@ class Api::V1::SystemAdmins::AreasController < Api::V1::SystemAdmins::BaseContro
     columns = Area.column_symbolized_names
     params.require(:area).permit(*columns)
   end
-
 end

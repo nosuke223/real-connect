@@ -4,6 +4,7 @@ import vuetify from "./plugins/vuetify";
 import DatetimePicker from "vuetify-datetime-picker";
 import router from "./router";
 import VueCookie from "vue-cookie";
+import "./assets/sass/style.scss";
 
 Vue.config.productionTip = false;
 Vue.use(VueCookie);

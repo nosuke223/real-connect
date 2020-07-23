@@ -2,7 +2,7 @@
   div
     p.headline {{ tableTitle }}
     .d-flex.justify-end.ma-2
-      v-btn(color="primary" @click="emitBtnClicked") {{ btnTitle }}
+      v-btn(color="primary" @click="emitBtnClicked" v-if="btnTitle") {{ btnTitle }}
     v-data-table(:headers="headers" :items="items" no-data-text="表示するデータが有りません" @click:row="emitRowClicked" class="color-header")
       
 </template>
