@@ -31,12 +31,23 @@ services:
       - "1025:1025"
     depends_on:
       - admin_web
+  user_and_admin_front:
+    image: node:10.16.0
+    volumes:
+      - ./vue:/app
+    ports:
+      - 3000:3000
+      - 3001:3001
+    tty: true
+    stdin_open: true
+    working_dir: /app
+    command: /bin/sh -c "npm rebuild && npm install && npm start"
   system_admin_front:
     build: ./system_admin
     volumes:
       - ./system_admin:/usr/src/app
     ports:
-      - 3001:8080
+      - 3002:3002
     tty: true
     command: /bin/ash -c "yarn serve"
     stdin_open: true
