@@ -2,11 +2,18 @@
 
 class Api::V1::SystemAdmins::SystemBbsInfosController < Api::V1::SystemAdmins::BaseController
   before_action :set_system_bbs_info, only: %i[show edit update destroy]
+  skip_before_action :authenticate_system_admin!, only: %i[index]
 
   # GET /system_bbs_infos
   # GET /system_bbs_infos.json
   def index
-    system_bbs_infos = SystemBbsInfo.all
+    if params[:display_flag]
+      to    = Time.current.at_beginning_of_day
+      from  = to - 1.month
+      system_bbs_infos = SystemBbsInfo.where(display_flag: params[:display_flag]).order(display_date: 'desc').where(updated_at: from...to)
+    else
+      system_bbs_infos = SystemBbsInfo.all
+    end
     render json: system_bbs_infos
   end
 

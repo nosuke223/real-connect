@@ -111,7 +111,11 @@ Rails.application.routes.draw do
             delete :reject_application
           end
         end
-        resources :events, only: %i[index show create update destroy]
+        resources :events, only: %i[index show create update destroy] do
+          member do
+            get :detail_with_messages
+          end
+        end
         resources :event_statuses, only: %i[index show create update destroy]
         resources :user_statuses, only: %i[index show create update destroy]
         resources :system_bbs_infos, only: %i[index show create update destroy]

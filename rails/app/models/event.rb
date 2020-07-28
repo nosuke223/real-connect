@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: events
@@ -37,9 +39,10 @@ class Event < ApplicationRecord
   has_many :event_users
   has_many :users, through: :event_users
   has_many :talks
+  has_many :messages, -> { order('created_at ASC') }
   belongs_to :event_status, optional: true
 
-  accepts_nested_attributes_for :places, :allow_destroy => true
+  accepts_nested_attributes_for :places, allow_destroy: true
 
   # -------------------------------------------------------------------------------
   # validation
@@ -55,11 +58,11 @@ class Event < ApplicationRecord
   # -------------------------------------------------------------------------------
   # Scopes
   # -------------------------------------------------------------------------------
-  scope :now, -> (area_id = nil) {
+  scope :now, lambda { |area_id = nil|
     now = Time.zone.now
-    
-    events = self
-      .eager_load(:event_users)
+
+    events =
+      eager_load(:event_users)
       .where('start_time <= ?', now)
       .where('end_time >= ?', now)
 
@@ -67,26 +70,26 @@ class Event < ApplicationRecord
     events
   }
 
-  scope :past, -> (area_id) {
+  scope :past, lambda { |area_id|
     now = Time.zone.now
-    self
-      .eager_load(:event_users)
+
+    eager_load(:event_users)
       .where(area_id: area_id)
       .where('end_time <= ?', now)
       .where('end_time >= ?', now.yesterday)
   }
 
   def male_count
-    event_users.select { |eu| eu.male? }.count
+    event_users.select(&:male?).count
   end
 
   def female_count
-    event_users.select { |eu| eu.female? }.count
+    event_users.select(&:female?).count
   end
 
   private
 
   def set_check_in_code
-    self.check_in_code ||= (('A'..'Z').to_a).sample(4).join
+    self.check_in_code ||= ('A'..'Z').to_a.sample(4).join
   end
 end

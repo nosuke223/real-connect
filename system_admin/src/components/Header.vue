@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer v-model="drawer" app v-if="!isLoginPage">
+    <v-navigation-drawer v-model="drawer" app v-if="isLoginRequiredPages">
       <v-list dense>
         <v-list-item link to="/">
           <v-list-item-action>
@@ -117,17 +117,17 @@
     <v-app-bar app color="teal lighten-2" dense dark>
       <v-app-bar-nav-icon
         @click.stop="drawer = !drawer"
-        v-if="!isLoginPage"
+        v-if="isLoginRequiredPages"
       ></v-app-bar-nav-icon>
       <span class="c-logo__symbol glyph glyph-brand-logo" />
-      <v-toolbar-title class="cft c-logo__text" v-if="!isLoginPage"
+      <v-toolbar-title class="cft c-logo__text" v-if="isLoginRequiredPages"
         >Real-Connect システム管理画面</v-toolbar-title
       >
       <v-toolbar-title class="cft c-logo__text" v-else
         >Real-Connect</v-toolbar-title
       >
       <v-spacer></v-spacer>
-      <v-btn icon @click="requestLogout" v-if="!isLoginPage">
+      <v-btn icon @click="requestLogout" v-if="isLoginRequiredPages">
         <v-icon>mdi-export</v-icon>
       </v-btn>
     </v-app-bar>
@@ -147,10 +147,13 @@ export default {
     drawer: false,
   }),
   computed: {
-    isLoginPage() {
-      return (
-        this.$route.path === "/login" ||
-        this.$route.path === "/place_application/create"
+    // ログイン必要な画面かどうか判定
+    isLoginRequiredPages() {
+      const path = this.$route.path;
+      return !(
+        path === "/login" ||
+        path === "/place_application/create" ||
+        /^(\/bulletin_board)/.test(path)
       );
     },
   },
