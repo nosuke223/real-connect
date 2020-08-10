@@ -191,6 +191,10 @@ This is the same as tracking-code before renewal.（2019-01）
               <a class="l-navigation__link" href="<?php echo esc_url( home_url() ); ?>/contact/">お問合せ</a>
             </li>
             <li class="l-navigation__item">
+              <?php $APPLICTE_PLACE = $production ? "hostname" : "http://localhost:3002"  ?>
+              <a class="l-navigation__link" href="<?php echo($APPLICTE_PLACE); ?>/place_application/create" target="_blank">店舗申請フォーム</a>
+            </li>
+            <li class="l-navigation__item">
               <a class="c-button--primary l-navigation__button" href="https://real-connect.jp/user/" target="_blank"><i class="glyph glyph-sign-in-alt"></i>ログイン</a>
             </li>
             <li class="l-navigation__item">

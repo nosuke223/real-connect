@@ -53,5 +53,36 @@ services:
     stdin_open: true
     depends_on:
       - admin_web
+  wordpress_db:
+    image: mysql:5.7
+    container_name: "wordpress_db"
+    volumes:
+      - "./wordpress_db:/var/lib/mysql"
+    networks:
+      - wordpress_network
+    env_file: .env
+    ports:
+      - "13306:3306"
+  wordpress:
+    image: wordpress:latest
+    container_name: "wordpress"
+    volumes:
+      - "./wordpress/themes:/var/www/html/wp-content/themes/"
+      - "./wordpress/plugins:/var/www/html/wp-content/plugins/"
+      - "./wordpress/uploads:/var/www/html/wp-content/uploads/"
+    ports:
+      - "8000:80"
+    depends_on:
+      - wordpress_db
+    environment:
+      WORDPRESS_DB_HOST: "wordpress_db:3306"
+    env_file: .env
+    networks:
+      - wordpress_network
+
+networks:
+  wordpress_network:
+
 volumes:
   postgres:
+  wordpress_db:

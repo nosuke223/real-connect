@@ -1,5 +1,10 @@
 <footer class="l-footer">
-
+<?php if ($_SERVER[ "HTTP_HOST" ] == 'real-connect.jp') {
+  $production = true;
+} else {
+  $production = false;
+};
+?>
   <nav class="l-footer__nav c-container">
     <h2 class="c-logo l-footer__logo">
       <a class="c-logo__body" href="<?php echo esc_url( home_url() ); ?>/">
@@ -32,6 +37,10 @@
         </li>
         <li class="l-footer-nav__item">
           <a class="l-footer-nav__link" href="<?php echo esc_url( home_url() ); ?>/terms-of-service/">サービス利用規約</a>
+        </li>
+        <li class="l-footer-nav__item">
+        <?php $APPLICTE_PLACE = $production ? "hostname" : "http://localhost:3002"  ?>
+          <a class="l-footer-nav__link" href="<?php echo($APPLICTE_PLACE); ?>/place_application/create" target="_blank">店舗申請フォーム</a>
         </li>
         <li class="l-footer-nav__item">
           <a class="l-footer-nav__link" href="<?php echo esc_url( home_url() ); ?>/contact/">お問合せ</a>

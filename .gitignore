@@ -25,3 +25,11 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+# wordpress
+wordpress/themes/twentynineteen
+wordpress/themes/twentyseventeen
+wordpress/themes/twentytwenty
+wordpress/plugins/siteguard
+wordpress/plugins/hello.php
+*.log
+wordpress_db/
