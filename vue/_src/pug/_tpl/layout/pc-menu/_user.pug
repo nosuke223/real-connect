@@ -14,7 +14,7 @@ nav.p-pc-menu
           img(:src='userData.avatar_image' v-else)
         span.p-avatar.p-pc-menu-account__avatar(v-else v-html='defaultAvatar(userData.nickname,userData.id)')
         h2.p-username.p-pc-menu-account__username {{userData.nickname}}
-      .p-pc-menu-account__detail
+      //- .p-pc-menu-account__detail
         .p-pc-menu-account__label
           i.glyph.glyph-fashion
           | 今日のファッション

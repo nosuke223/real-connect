@@ -20,6 +20,8 @@ class UserSerializer < ActiveModel::Serializer
   attribute :prefecture, unless: :deleted?
   attribute :current_place_id, unless: :deleted?
   attribute :last_place_id, unless: :deleted?
+  attribute :full_name, unless: :deleted?
+  attribute :telephone, unless: :deleted?
   attribute :is_deleted
 
   def deleted?

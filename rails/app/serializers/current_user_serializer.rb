@@ -22,7 +22,9 @@ class CurrentUserSerializer < ActiveModel::Serializer
     :fashion,
     :is_confirmed,
     :current_place_id,
-    :last_place_id
+    :last_place_id,
+    :full_name,
+    :telephone
 
   has_many :own_places, serializer: PlaceDetailSerializer, if: :owner?
 

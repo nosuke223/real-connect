@@ -230,6 +230,8 @@ const app = new Vue({
         nickname: "",
         avatar_image: "",
         cover_image: "",
+        full_name: "",
+        telephone: "",
         fashion: "",
         area_id: "",
         current_place_id: "",
@@ -505,7 +507,7 @@ const app = new Vue({
       checkinErr: {
         code: false,
         place: false,
-        fashion: false,
+        // fashion: false,
         placeErr: false,
       },
       checkinLoad: false,
@@ -2691,7 +2693,8 @@ const app = new Vue({
       // エラーの処理
       // （データの checkinErr の各オプションを更新）
       // ------------------------------
-      let code = false, place = false, fashion = false
+      // let code = false, place = false, fashion = false
+      let code = false, place = false
 
       // 1. コードが入力されているか判別
       if (this.checkincode=="") {
@@ -2711,16 +2714,17 @@ const app = new Vue({
         place = false
       }
 
-      // 3. ファッションが入力されているか判別
-      if (this.userData.fashion=="") {
-        this.checkinErr.fashion = true
-        fashion = true
-      } else {
-        this.checkinErr.fashion = false
-        fashion = false
-      }
+      // // 3. ファッションが入力されているか判別
+      // if (this.userData.fashion=="") {
+      //   this.checkinErr.fashion = true
+      //   fashion = true
+      // } else {
+      //   this.checkinErr.fashion = false
+      //   fashion = false
+      // }
 
-      if (code||place||fashion) {
+      // if (code||place||fashion) {
+      if (code||place) {
         // どれかがエラーのとき
         // console.log('入力エラー')
       } else {

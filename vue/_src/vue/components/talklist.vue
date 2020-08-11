@@ -24,10 +24,13 @@ section.p-talk-list.p-talk-list--slide(:class='{"is-current-place":is_current_pl
       small.p-talk-list__small(v-if='partner.id!=0') {{partner.age|format_age}} {{partner.blood}}型
         i.glyph.glyph-male(v-if='partner.gender=="male"')
         i.glyph.glyph-female(v-else-if='partner.gender=="female"')
-    .p-talk-list__fashion(v-if='partner.fashion')
+    //- .p-talk-list__fashion(v-if='partner.fashion')
       i.glyph.glyph-fashion
       span {{partner.fashion}}
-    .p-talk-list__fashion(v-else-if='partner.id==0')
+    //- .p-talk-list__fashion(v-else-if='partner.id==0')
+      i.glyph.glyph-exclamation-circle
+      span 退会済みユーザー
+    .p-talk-list__fashion(v-if='partner.id==0')
       i.glyph.glyph-exclamation-circle
       span 退会済みユーザー
 

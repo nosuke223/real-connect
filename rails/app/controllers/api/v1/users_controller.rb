@@ -46,7 +46,8 @@ class Api::V1::UsersController < Api::BaseController
     params.permit(
       :email, :nickname, :avatar_image, :cover_image, :area_id, :height, :age, :prefecture, :area_id,
       :blood, :gender, :income, :education, :alcohol, :tobacco, :business, :birthplace,
-      :birthplace, :attracted_type, :hobbies, :fashion, :password, :password_confirmation
+      :birthplace, :attracted_type, :hobbies, :fashion, :password, :password_confirmation,
+      :full_name, :telephone
     )
   end
 end

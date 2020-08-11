@@ -30,7 +30,22 @@ article#user-profile.l-block( data-layer='2' )
               img.is_preview(:src='cover_image_preview' v-if='cover_image_preview')
               img.is_origin(:src='userData.cover_image' v-else-if='userDataTemporary.cover_image')
               img.is_default(:src='"/_assets/img/default_svg/default-"+ String(userData.id).slice(-2) +".svg"' v-else)
+
           section
+            h3 氏名
+            .input-field
+              input(type='text' name='full_name' autocomplete='off' placeholder='入力してください' v-model='userDataTemporary.full_name')
+              i.glyph.glyph-pen
+              i.glyph.glyph-check-circle.u-color--primary01
+
+          section
+            h3 電話番号
+            .input-field
+              input(type='text' name='telephone' autocomplete='off' placeholder='入力してください' v-model='userDataTemporary.telephone')
+              i.glyph.glyph-pen
+              i.glyph.glyph-check-circle.u-color--primary01
+
+          //- section
             h3 今日のファッション
             p 会場であなたを見つけやすくするために、今のあなたのファッションをわかりやすく記入しよう！髪型や持ち物を記入してもOK！
             .input-field
@@ -38,7 +53,7 @@ article#user-profile.l-block( data-layer='2' )
               i.glyph.glyph-pen
               i.glyph.glyph-check-circle.u-color--primary01
 
-          section
+          //- section
             h3 エリアの変更
             p エリアを変更すると、以前のエリアに戻るまで移動前のエリアからのメッセージを閲覧することができなくなります。
             button.u-bg--primary(@click='modal.areaChange=true') エリアの変更

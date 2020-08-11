@@ -28,10 +28,10 @@ transition(name='v-modal' appear v-if='modal.checkIn')
           .p-check-in__err.u-text__center.u-flex--ce-ce(v-if='checkinErr.place')
             i.glyph.glyph-exclamation-circle
             | 会場が未選択です
-          label.c-input
+          //- label.c-input
             i.glyph.glyph-fashion
             input.c-input__item(type='text' name='' placeholder='今日のファッション' v-model='userData.fashion')
-          .p-check-in__err.u-text__center.u-flex--ce-ce(v-if='checkinErr.fashion')
+          //- .p-check-in__err.u-text__center.u-flex--ce-ce(v-if='checkinErr.fashion')
             i.glyph.glyph-exclamation-circle
             | 服装が未入力です
           transition(name='v-progress' appear v-if='checkinLoad')

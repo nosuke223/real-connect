@@ -14,7 +14,7 @@ transition(name='v-modal' appear v-if='modal.userDetail')
             img(v-lazy='"/_assets/img/default_svg/default-"+ String(userDetail.id).slice(-2) +".svg"' v-else)
         .p-card__body.u-text.p-profile
           .p-profile__situation
-            p.p-profile__situation-item
+            //- p.p-profile__situation-item
               i.glyph.glyph-fashion
               span {{userDetail.fashion}}
             p.p-profile__situation-item
