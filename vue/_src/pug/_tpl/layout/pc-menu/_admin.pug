@@ -15,7 +15,7 @@ nav.p-pc-menu
           .p-pc-menu-account__toggle(@click='requestUpdateOwnPlace({seat_status: "open"})' :class='{"is-active":userData.own_places.seat_status === "open"}') あり
           .p-pc-menu-account__toggle(@click='requestUpdateOwnPlace({seat_status: "few"})' :class='{"is-active":userData.own_places.seat_status === "few"}') 空少
           .p-pc-menu-account__toggle(@click='requestUpdateOwnPlace({seat_status: "full"})' :class='{"is-active":userData.own_places.seat_status === "full"}') 満席
-    .p-pc-menu-code(v-if='userData.own_places')
+    //- .p-pc-menu-code(v-if='userData.own_places')
       .p-pc-menu-code__label 現在のチェックインコード
       div(v-for="event in events")
         a.p-pc-menu-code__code(v-bind:href="'/admin/code/?check_in_code=' + event.check_in_code" target='_blank')

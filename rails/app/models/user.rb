@@ -222,9 +222,10 @@ class User < ApplicationRecord
   #
   # イベントにチェックイン
   #
-  def event_checkin(event, code)
+  # def event_checkin(event, code)
+  def event_checkin(event)
     raise ActiveRecord::RecordInvalid unless confirmed_user?
-    raise ActiveRecord::RecordInvalid if event.check_in_code != code
+    # raise ActiveRecord::RecordInvalid if event.check_in_code != code
     self.event_users.create(event_id: event.id, gender: self.gender)
   end
 

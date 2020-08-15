@@ -6,8 +6,8 @@ transition(name='v-modal' appear v-if='modal.checkIn')
           h2 チェックイン
           button.p-card__round-button.p-modal__close.u-bg--primary(@click='closeModal("checkIn")') ✕
         .p-card__body.u-text.p-check-in
-          input.p-check-in__code(type='text' pattern='^[0-9A-Z]+$' maxlength='4' name='' placeholder='CODE' autocomplete='off' autocorrect='off' autocapitalize='characters' v-model='checkincode')
-          .p-check-in__err.u-text__center.u-flex--ce-ce(v-if='checkinErr.code')
+          //- input.p-check-in__code(type='text' pattern='^[0-9A-Z]+$' maxlength='4' name='' placeholder='CODE' autocomplete='off' autocorrect='off' autocapitalize='characters' v-model='checkincode')
+          //- .p-check-in__err.u-text__center.u-flex--ce-ce(v-if='checkinErr.code')
             i.glyph.glyph-exclamation-circle
             | コードが違います
           //- .

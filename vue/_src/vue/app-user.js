@@ -500,12 +500,12 @@ const app = new Vue({
       },
 
       // ------------------------------
-      // チェックインコード
+      // イベントへのチェックインモーダル用
       // ------------------------------
       checkinTargetEvent: '',
-      checkincode: '',
+      // checkincode: '',
       checkinErr: {
-        code: false,
+        // code: false,
         place: false,
         // fashion: false,
         placeErr: false,
@@ -1548,7 +1548,7 @@ const app = new Vue({
 
         // ペインの移動・チェックインコードのクリア
         this.pane(2,500)
-        this.checkincode = ""
+        // this.checkincode = ""
 
       } else {
         // ------------------------------
@@ -2694,16 +2694,16 @@ const app = new Vue({
       // （データの checkinErr の各オプションを更新）
       // ------------------------------
       // let code = false, place = false, fashion = false
-      let code = false, place = false
+      let place = false
 
-      // 1. コードが入力されているか判別
-      if (this.checkincode=="") {
-        this.checkinErr.code = true
-        code = true
-      } else {
-        this.checkinErr.code = false
-        code = false
-      }
+      // // 1. コードが入力されているか判別
+      // if (this.checkincode=="") {
+      //   this.checkinErr.code = true
+      //   code = true
+      // } else {
+      //   this.checkinErr.code = false
+      //   code = false
+      // }
 
       // 2. 会場が選択されているか判別
       if (this.nowPlaceID=="") {
@@ -2724,7 +2724,7 @@ const app = new Vue({
       // }
 
       // if (code||place||fashion) {
-      if (code||place) {
+      if (place) {
         // どれかがエラーのとき
         // console.log('入力エラー')
       } else {
@@ -2734,13 +2734,13 @@ const app = new Vue({
         // 1. イベントへのチェックイン
         // ------------------------------
         this.checkinLoad = true
-        // 大文字に変換
-        this.checkincode = this.checkincode.toUpperCase()
+        // // 大文字に変換
+        // this.checkincode = this.checkincode.toUpperCase()
         this.checkinErr.placeErr = false
 
         this.messageChannel.perform('checkin_event', {
           event_id: targetEvent,
-          code: this.checkincode,
+          // code: this.checkincode,
           place_id: this.nowPlaceID,
           token: this.$cookie.get('Authorization')
         });

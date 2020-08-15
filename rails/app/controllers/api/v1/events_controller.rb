@@ -46,7 +46,8 @@ class Api::V1::EventsController < Api::BaseController
   #
   def checkin
     event = Event.find(params[:id])
-    current_user.event_checkin(event, params[:code])
+    # current_user.event_checkin(event, params[:code])
+    current_user.event_checkin(event)
     current_user.place_checkin(params[:place_id])
     render_empty(:ok)
   end

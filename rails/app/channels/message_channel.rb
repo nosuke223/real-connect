@@ -44,7 +44,8 @@ class MessageChannel < ApplicationCable::Channel
     current_user = find_user_by_jwt(data['token'])
  
     event = Event.find(data['event_id'])
-    current_user.event_checkin(event, data['code'])
+    # current_user.event_checkin(event, data['code'])
+    current_user.event_checkin(event)
     stream_for event
 
     current_user.place_checkin(data['place_id'])
