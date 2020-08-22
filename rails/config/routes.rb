@@ -35,7 +35,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :events, only: %i[index] do
+      resources :events, only: %i[index create] do
         member do
           get :users
           get :talks
@@ -79,8 +79,10 @@ Rails.application.routes.draw do
             get :collection
           end
         end
-        resources :events, only: %i[index]
-        resources :places, only: %i[update]
+        resources :events, only: %i[index create]
+        resources :places, only: %i[index update]
+        resources :event_statuses, only: %i[index]
+        resources :areas, only: %i[index]
       end
 
       #

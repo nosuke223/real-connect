@@ -14,6 +14,7 @@ import ActionCable from 'actioncable'
 import VueCookie from 'vue-cookie'
 import VueTouch from 'vue-touch'
 import VueLazyload from 'vue-lazyload'
+import Datepicker from "vuejs-datepicker";
 import {TweenMax} from 'gsap'
 import _ from 'lodash'
 
@@ -82,6 +83,7 @@ let accordion = {
             </div>\
           </div>',
     },
+    Datepicker
   },
   methods: {
     isOpenedAccordion: function (key) {
@@ -594,7 +596,31 @@ const app = new Vue({
       // areaListAll: [],
       areaList: [],
       areaListLoad: false,
-
+      // ------------------------------
+      // イベント作成
+      // ------------------------------
+      eventPage: {
+        event_status: null,
+        start_time: new Date(),
+        start_time_hour: '00',
+        start_time_minute: '00',
+        end_time: new Date(),
+        end_time_hour: '00',
+        end_time_minute: '00',
+        name: '',
+        detail: '',
+        capacity: '',
+        event_status_id: null,
+        eventStatuses: [],
+        eventTimePrefixes: ['start', 'end'],
+        prefectureId: null,
+        areaId: null,
+        from: 20,
+        to: 20,
+        areas: [],
+        placeId: null,
+        places: []
+      },
     }
   },
 
@@ -611,6 +637,8 @@ const app = new Vue({
       // // 2. 都道府県を取得
       // this.getPrefecture()
       // ▲ getUserData → setUserData の API 内で実行
+      // イベント作成に利用するイベントステータスの取得
+      this.requestFetchEventStatuses();
     } else {
       // 画面作製のAPI進行状況を非表示にする
       this.prossessData.show = false
@@ -4099,6 +4127,119 @@ const app = new Vue({
       }
 
     },
+    // ------------------------------
+    // イベント種別を取得する
+    // ------------------------------
+    async requestFetchEventStatuses() {
+      const response = await axios({
+        method: 'GET',
+        url: BASE_URL + '/event_statuses',
+        headers: {
+          Authorization: this.$cookie.get('Authorization')
+        }
+      });
+      if (!response.error) {
+        this.eventPage.eventStatuses = response.data;
+      }
+    },
+    // ------------------------------
+    // イベント作成で選択した都道府県のエリア一覧を取得する
+    // ------------------------------
+    async requestFetchAreas() {
+      const response = await axios({
+        method: 'GET',
+        url: BASE_URL + '/areas',
+        headers: {
+          Authorization: this.$cookie.get('Authorization')
+        },
+        params: {
+          prefecture: this.eventPage.prefectureId,
+        },
+      });
+      if (!response.error) {
+        if (response.data.length > 0) {
+          this.eventPage.areas = response.data;
+        } else {
+          alert('選択された都道府県には地域が登録されていません');
+          this.eventPage.prefectureId = null;
+        }
+      }
+    },
+    // ------------------------------
+    // イベント作成で選択したエリア一覧の店舗一覧を取得する
+    // ------------------------------
+    async requestFetchPlaces() {
+      const response = await axios({
+        method: 'GET',
+        url: BASE_URL + '/places',
+        headers: {
+          Authorization: this.$cookie.get('Authorization')
+        },
+        params: {
+          area_id: this.eventPage.areaId,
+        },
+      });
+      if (!response.error) {
+        if (response.data.length > 0) {
+          this.eventPage.places = response.data;
+        } else {
+          alert('選択された地域には店舗が登録されていません');
+          this.eventPage.areaId = null;
+        }
+      }
+    },
+    // ------------------------------
+    // イベント情報の作成リクエスト
+    // ------------------------------
+    async requestPostEvent(){
+      // 必須入力値チェックを入れる
+      const event = this.eventPage;
+      let startTime;
+      let endTime;
+      event.eventTimePrefixes.forEach((prefix) => {
+        const eventDate = moment(event[`${prefix}_time`]).format("YYYY-MM-DD");
+        const hour = event[`${prefix}_time_hour`];
+        const minute = event[`${prefix}_time_minute`];
+        const dateTime = moment(`${eventDate} ${hour}:${minute}`);
+        if (prefix === "start") {
+          startTime = dateTime.format("YYYY-MM-DD HH:mm:ss");
+        } else {
+          endTime = dateTime.format("YYYY-MM-DD HH:mm:ss");
+        }
+      });
+      const data = {
+        event_status_id: event.event_status_id,
+        start_time: startTime,
+        end_time: endTime,
+        name: event.name,
+        detail: event.detail,
+        capacity: event.capacity,
+        organizer_name: this.userData.nickname,
+        organizer_type: 1000,
+        organize_user_id: this.userData.id,
+        area_id: this.eventPage.areaId,
+        from: this.eventPage.from,
+        to: this.eventPage.to,
+        organize_place_id: this.eventPage.placeId
+      };
+      try {
+        const response = await axios({
+          method: 'POST',
+          url: BASE_URL + '/events',
+          headers: {
+            Authorization: this.$cookie.get('Authorization')
+          },
+          data: {
+            event: data
+          }
+        });
+        alert("イベントの立ち上げが完了しました");
+        this.reload();
+      } catch (e) {
+        const error = e.response.data.join("\n");
+        alert(error);
+      }
+    }
   },
 
   beforeMount() {

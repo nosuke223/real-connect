@@ -36,6 +36,9 @@ article#menu.l-block( data-layer='1' )
             li.p-menu-nav__item( data-block='setting' )
               i.glyph.glyph-tool
               | アプリ設定
+            li.p-menu-nav__item( data-block='event' )
+              i.glyph.glyph-bullhorn
+              | イベント作成
           h3.p-menu-nav__subtitle 利用にあたって
           ul.p-menu-nav__list
             //- li.p-menu-nav__item( data-block='info' )
@@ -55,12 +58,12 @@ article#menu.l-block( data-layer='1' )
               | 問題を報告
           //- h3.p-menu-nav__subtitle アプリケーション情報
           //- ul.p-menu-nav__list
-            //- li.p-menu-nav__item( data-block='version' )
-              i.glyph.glyph-version
-              | バージョン情報
-            li.p-menu-nav__item( data-block='license' )
-              i.glyph.glyph-ribbon
-              | ライセンス情報
+          //- li.p-menu-nav__item( data-block='version' )
+            i.glyph.glyph-version
+            | バージョン情報
+          li.p-menu-nav__item( data-block='license' )
+            i.glyph.glyph-ribbon
+            | ライセンス情報
           h3.p-menu-nav__subtitle その他
           ul.p-menu-nav__list
             li.p-menu-nav__item(@click='reload()')

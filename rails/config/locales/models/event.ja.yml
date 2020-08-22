@@ -8,7 +8,7 @@ ja:
         name: イベント名
         area: 地域
         users: 参加したユーザー
-        places: 場所
+        places: 場所・店舗
         check_in_code: チェックインコード
         start_time: 開始日時
         end_time: 終了日時

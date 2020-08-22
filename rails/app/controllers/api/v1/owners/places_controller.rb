@@ -1,4 +1,14 @@
 class Api::V1::Owners::PlacesController < Api::V1::Owners::BaseController
+
+  # エリアIDを指定して店舗の一覧を取得する
+  #
+  # GET /api/v1/owners/places
+  # 
+  def index
+    places = Place.where(area_id: params[:area_id])
+    render json: places
+  end
+
   #
   # 所有している店舗・場所の現在のイベント取得する
   #

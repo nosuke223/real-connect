@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: events
@@ -10,10 +9,12 @@
 #  deleted_at        :datetime
 #  detail            :string
 #  end_time          :datetime
+#  from              :integer
 #  name              :string
 #  organizer_name    :string
 #  organizer_type    :integer
 #  start_time        :datetime
+#  to                :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  area_id           :integer

@@ -1,0 +1,113 @@
+article#event.l-block( data-layer='2' )
+  header.l-pane__header.p-pane-control
+    .p-pane-control__button( data-block='back' )
+      i.glyph ＜
+    .p-pane-control__heading
+      span.p-pane-control__title アカウント
+  section.l-pane__body
+    .p-scrollable
+      // ↓ BEGIN Block Content
+      .p-block-content-container
+        .p-block-content.p-block-content--full
+          .p-editor-content
+            section
+              h3 種別
+                p イベントの種別を選択してください
+                .input-field
+                  label.c-select
+                    select.c-select__item(v-model="eventPage.event_status_id")
+                      template(v-if="eventPage.eventStatuses.length > 0")
+                        option(v-for="eventStatus of eventPage.eventStatuses" :value="eventStatus.id" :key="eventStatus.id") {{eventStatus.name}}
+                    i.glyph.glyph-cart-right
+            section
+              h3 イベント日時
+                p 開始日を入力してください
+                .input-field
+                  datepicker(
+                    v-model="eventPage.start_time"
+                    format='yyyy-MM-dd'
+                  )
+                p 終了日を入力してください
+                .input-field
+                  datepicker(
+                    v-model="eventPage.end_time"
+                    format='yyyy-MM-dd'
+                  )
+                .c-opentime-field(v-for="prefix in eventPage.eventTimePrefixes")
+                  div
+                    p(v-if="prefix === 'start'") 開始時刻
+                    p(v-else) 終了時刻
+                  .c-opentime-field__body
+                    .c-opentime-field__select
+                      .c-opentime-field__select-group
+                        select.c-select-default(v-model="eventPage[prefix + '_time_hour']")
+                          option(value='' disabled) --
+                          - for (h = 0; h < 18; h++)
+                            - h = ( '00' + h ).slice( -2 )
+                            option(value=h) #{h}
+                          option(value='18' selected) 18
+                          - for (h = 19; h < 24; h++)
+                            - h = ( '00' + h ).slice( -2 )
+                            option(value=h) #{h}
+                        select.c-select-default(v-model="eventPage[prefix + '_time_minute']")
+                          option(value='' disabled) --
+                          - for (m = 0; m < 12; m++)
+                            - let m_ = m * 5
+                            - m_ = ( '00' + m_ ).slice( -2 )
+                            option(value=m_) #{m_}
+            section
+              h3 募集年代
+              p 募集する年代を選択してください
+              .input-field
+                input(type='number' name='from' autocomplete='off' placeholder='入力してください' v-model='eventPage.from' )
+                i.glyph.glyph-pen
+                i.glyph.glyph-check-circle.u-color--primary01
+              p 歳から
+              .input-field
+                input(type='number' name='to' autocomplete='off' placeholder='入力してください' v-model='eventPage.to' )
+                i.glyph.glyph-pen
+                i.glyph.glyph-check-circle.u-color--primary01
+              p 歳まで
+            section
+              h3 募集人数
+                p 募集人数を入力してください
+                .input-field
+                  input(type='text' name='capacity' autocomplete='off' placeholder='入力してください' v-model='eventPage.capacity' )
+                  i.glyph.glyph-pen
+                  i.glyph.glyph-check-circle.u-color--primary01
+            section
+              h3 イベント名
+              p イベントのタイトルを入力してください
+              .input-field
+                input(type='text' name='name' autocomplete='off' placeholder='入力してください' v-model='eventPage.name' )
+                i.glyph.glyph-pen
+                i.glyph.glyph-check-circle.u-color--primary01
+            section
+              h3 イベント注意事項
+              p イベントの注意事項を入力してください
+              .input-field
+                textarea(name='detail' placeholder='入力してください' v-model='eventPage.detail')
+                i.glyph.glyph-pen
+                i.glyph.glyph-check-circle.u-color--primary01
+            section
+              h3 店舗選択
+              p 都道府県を選択してください
+              .input-field
+                label.c-select
+                  select.c-select__item(v-model="eventPage.prefectureId" @change="requestFetchAreas")
+                    option(v-for="elm of prefecture" :value="elm.id" :key="elm.id") {{elm.name}}
+                  i.glyph.glyph-cart-right
+              p 地域を選択してください
+              .input-field
+                label.c-select
+                  select.c-select__item(v-model="eventPage.areaId" @change="requestFetchPlaces")
+                    option(v-for="area of eventPage.areas" :value="area.id" :key="area.id") {{area.name}}
+                  i.glyph.glyph-cart-right
+              p 店舗を選択してください
+              .input-field
+                label.c-select
+                  select.c-select__item(v-model="eventPage.placeId")
+                    option(v-for="place of eventPage.places" :value="place.id" :key="place.id") {{place.name}}
+                  i.glyph.glyph-cart-right
+            .p-block-content
+              button.u-bg--primary(@click='requestPostEvent()') 保存する

@@ -9,6 +9,26 @@ class Api::V1::EventsController < Api::BaseController
     render json: events
   end
 
+  # POST /api/v1/events
+  def create
+    @event = Event.new(event_params)
+    Event.transaction do
+      @event.save!
+      event_place = EventPlace.new({
+        event_id: @event.id,
+        place_id: params.dig(:event, :organize_place_id)
+      })
+      EventPlace.transaction do
+        event_place.save!
+        render json: @event.as_json(
+          include: %i[area event_status users]
+        )
+      end
+    end
+  rescue => e
+    render_valid_error(e.message.split())
+  end
+
   #
   # 過去のイベント一覧を返す
   #
@@ -50,5 +70,13 @@ class Api::V1::EventsController < Api::BaseController
     current_user.event_checkin(event)
     current_user.place_checkin(params[:place_id])
     render_empty(:ok)
+  end
+
+  private
+
+  # Strong Parameter
+  def event_params
+    columns = Event.column_symbolized_names
+    params.require(:event).permit(*columns)
   end
 end

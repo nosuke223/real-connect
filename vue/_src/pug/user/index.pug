@@ -7,14 +7,12 @@ append required
 block content
 
   // ↓ BEGIN Page Content
-
   // ↓ Pane
   .l-pane-container.l-block-behind
     include /_tpl/layout/pane/_pane1
     include /_tpl/layout/pane/_pane2
     include /_tpl/layout/pane/_pane3
   // ↑ Pane
-
   // ↓ Block
   .l-block-container
     include /_tpl/layout/block/menu/_user
@@ -24,17 +22,16 @@ block content
     //- include /_tpl/layout/block/_info
     include /_tpl/layout/block/_terms
     include /_tpl/layout/block/_privacy
+    include /_tpl/layout/block/_event
     //- include /_tpl/layout/block/_help
     //- include /_tpl/layout/block/_feedback
     //- include /_tpl/layout/block/_version
     //- include /_tpl/layout/block/_release
     //- include /_tpl/layout/block/_license
   // ↑ Block
-
   // ↓ Sidebar
   include /_tpl/layout/pc-menu/_user
   // ↑ Sidebar
-
   // ↓ Modals
   //- include /_tpl/layout/modal/_pc-notice
   //- include /_tpl/layout/modal/_modal-demo
@@ -46,11 +43,9 @@ block content
   include /_tpl/layout/modal/_area-change
   include /_tpl/layout/modal/_delete-account
   // ↑ Modals
-
   // ↓ Other Parts
   include /_tpl/object/_load-status
   // ↑ Other Parts
-
   transition(name='v-toast' appear v-if='toast.show')
     article.c-toast
       .c-toast__frame

@@ -6,6 +6,7 @@ import profile from '../components/admin/profile.vue'
 import account from '../components/admin/account.vue'
 import terms from '../components/admin/terms.vue'
 import privacy from '../components/admin/privacy.vue'
+import event from '../components/admin/event.vue';
 
 Vue.use(Router)
 
@@ -31,6 +32,10 @@ export default new Router({
     {
       path: '/admin/privacy',
       component: privacy
+    },
+    {
+      path: '/admin/event',
+      component: event,
     },
   ]
 });

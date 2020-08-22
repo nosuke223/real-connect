@@ -44,7 +44,7 @@
 // ========================================
 
 @mixin gradUI($c01L,$c01R,$c02L,$c02R) {
-  input[type="text"],input[type="tel"],input[type="password"],input[type="email"],textarea {
+  input[type="text"],input[type="tel"],input[type="password"],input[type="email"],input[type="number"],textarea {
     caret-color: $c01L;
   }
 
@@ -155,6 +155,7 @@
     input[type="tel"],
     input[type="password"],
     input[type="email"],
+    input[type="number"],
     textarea {
       &:focus {
         border-color: $c01L;
@@ -188,6 +189,7 @@
   input[type="tel"],
   input[type="password"],
   input[type="email"],
+  input[type="number"],
   textarea {
     caret-color: $fontColor;
   }
@@ -359,6 +361,7 @@
     input[type="tel"],
     input[type="password"],
     input[type="email"],
+    input[type="number"],
     textarea {
       &:focus {
         border-color: $accent01;
