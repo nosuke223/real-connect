@@ -13,6 +13,11 @@
             v-alert.mb-0(border="bottom" colored-border type="info" color="success") Info
             InfoLists(:items="systemBbsInfos")
           v-tab-item
+            div.ma-2
+              v-btn(dark slot="activator" color="teal accent-4" small rounded @click="showDialog()") エリアを絞り込む
+              AreaSearch(ref="dialog" @selectedArea="fetchEvents")
+            div.ma-2(v-if="selectedArea.name")
+              v-chip.ma-1(small) {{selectedArea.name}}
             EventLists(:events="events")
       v-card-actions
         v-btn(color="primary" text to="/place_application/create" target="_blank" rel="noopener") 店舗新規登録
@@ -24,6 +29,7 @@
 import ApiRequest from "@/api/base";
 import InfoLists from "./InfoLists";
 import EventLists from "./EventLists";
+import AreaSearch from "./AreaSearch";
 import { formatDateTime } from "@/utils/format_date";
 import { countParticipant } from "@/utils/event";
 
@@ -31,6 +37,7 @@ export default {
   components: {
     InfoLists,
     EventLists,
+    AreaSearch
   },
   data() {
     return {
@@ -38,12 +45,12 @@ export default {
       systemBbsNews: [],
       tab: null,
       events: [],
+      selectedArea: {}
     };
   },
   created() {
     this.fetchBbsInfos();
     this.fetchBbsNews();
-    this.fetchEvents();
   },
   methods: {
     async fetchBbsInfos() {
@@ -53,10 +60,10 @@ export default {
       );
       const { response, error } = await request.index();
       if (!error) {
-        this.systemBbsInfos = response.data.map((record) => {
+        this.systemBbsInfos = response.data.map(record => {
           return {
             title: record.display_date,
-            text: record.detail,
+            text: record.detail
           };
         });
       }
@@ -68,20 +75,24 @@ export default {
       );
       const { response, error } = await request.index();
       if (!error) {
-        this.systemBbsNews = response.data.map((record) => {
+        this.systemBbsNews = response.data.map(record => {
           return {
             title: record.display_date,
-            text: record.detail,
+            text: record.detail
           };
         });
       }
     },
-    async fetchEvents() {
-      const request = new ApiRequest("events", this.$cookie);
+    async fetchEvents(areaObj) {
+      this.selectedArea = areaObj;
+      const request = new ApiRequest(
+        `events?area_id=${areaObj.id}`,
+        this.$cookie
+      );
       const { response, error } = await request.index();
       if (!error) {
         const data = response.data;
-        data.map((record) => {
+        data.map(record => {
           record.start_time = formatDateTime(record.start_time);
           record.end_time = formatDateTime(record.end_time);
           const { male, female } = countParticipant(record.users);
@@ -92,6 +103,9 @@ export default {
         this.events = data;
       }
     },
-  },
+    showDialog() {
+      this.$refs.dialog.open();
+    }
+  }
 };
 </script>

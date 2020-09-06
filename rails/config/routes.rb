@@ -70,6 +70,7 @@ Rails.application.routes.draw do
 
       resources :user_statuses, only: %i[index show create update destroy]
 
+      resources :regions, only: %i[index]
       #
       # 店舗管理者用のAPI
       #

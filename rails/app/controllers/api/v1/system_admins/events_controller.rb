@@ -5,7 +5,11 @@ class Api::V1::SystemAdmins::EventsController < Api::V1::SystemAdmins::BaseContr
   skip_before_action :authenticate_system_admin!, only: %i[index detail_with_messages]
   # GET /event
   def index
-    events = Event.all.order(updated_at: 'desc')
+    events = if params[:area_id]
+               Event.where(area_id: params[:area_id])
+             else
+               Event.all.order(updated_at: 'desc')
+             end
     render json: events.as_json(
       include: %i[area event_status users]
     )

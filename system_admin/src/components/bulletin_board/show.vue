@@ -14,7 +14,7 @@
         div(v-if="event.messages && event.messages.length === 0")
           v-card-text.text-h6 まだトークが投稿されていません
         v-card-actions
-          v-btn.white--text(color="success" @click="gotoIndex" small) 戻る
+          v-btn.white--text(color="success" @click="gotoIndex" small) 閉じる
 </template>
 
 <script>
@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       event: {},
-      id: this.$route.params.id,
+      id: this.$route.params.id
     };
   },
   async created() {
@@ -37,7 +37,7 @@ export default {
     if (!error) {
       let messages = [];
       if (response.data.messages) {
-        messages = response.data.messages.map((record) => {
+        messages = response.data.messages.map(record => {
           record.created_at = formatDateTime(record.created_at);
           return record;
         });
@@ -50,8 +50,8 @@ export default {
   },
   methods: {
     gotoIndex() {
-      this.$router.push("/bulletin_board");
-    },
-  },
+      window.close();
+    }
+  }
 };
 </script>
