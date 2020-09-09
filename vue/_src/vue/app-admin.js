@@ -43,7 +43,6 @@ const app = new Vue({
        */
       userData: {},
       events: {},
-
       /**
        * フォームのデータ
        */
@@ -67,10 +66,10 @@ const app = new Vue({
       }
     }
   },
-  mounted() {
+  async mounted() {
     if (this.$cookie.get('Authorization')) {
-      this.requestFetchUser();
-      this.requestFetchEvents();
+      await this.requestFetchUser();
+      await this.requestFetchEvents();
     }
   },
   methods: {
@@ -84,6 +83,8 @@ const app = new Vue({
         // 管理する店舗がない → 一般ユーザー
         if (!this.userData.own_places) {
           // location.href = '/user/'
+        } else {
+          this.userData.selectedPlace = Object.assign({}, this.userData.own_places[this.userData.own_places.length - 1]);
         }
       } else {
         // ログアウト処理
@@ -131,38 +132,61 @@ const app = new Vue({
     /**
      * ログインユーザーの情報を取得する
      */
-    requestFetchUser() {
-      request('GET', '/users')
-      .then((result) => {
-        if (result.error) {
-          this.handleRequestError(result.error);
-          this.setCurrentUserData(null);
-        } else {
-          this.setCurrentUserData(result.data);
-        }
-      })
+    async requestFetchUser() {
+      try {
+        const result = await request('GET', '/users');
+        this.setCurrentUserData(result.data);
+      } catch(error) {
+        this.handleRequestError(error);
+        this.setCurrentUserData(null);
+      }
     },
     /**
      * 開催中のイベントを取得
      */
-    requestFetchEvents() {
-      request('GET', '/owners/events')
-      .then((result) => {
+    async requestFetchEvents() {
+      try {
+        const place_id = this.userData.selectedPlace.id;
+        const result = await request('GET', `/owners/events?place_id=${place_id}`);
         this.events = result.data;
-      })
+      } catch(error) {
+        this.handleRequestError(error);
+      }
     },
     /**
      * 場所の情報の更新
      */
     requestUpdateOwnPlace(data) {
-      request('PUT', '/owners/places/' + this.userData.own_places.id, { data })
+      request('PUT', '/owners/places/' + this.userData.selectedPlace.id, { data })
       .then((result) => {
         if (result.error) {
           this.handleRequestError(result.error);
         } else {
-          this.userData.own_places = result.data;
+          this.userData.selectedPlace = result.data;
         }
       })
+    },
+    /**
+     * 場所・店舗の情報の取得
+     */
+    async requestFetchPlace() {
+      try {
+        const result = await request('GET', '/owners/places/' + this.userData.selectedPlace.id);
+        this.userData.selectedPlace = result.data;
+        // 現在のページがダッシュボード以外の場合はダッシュボードへ戻る
+        const topPaths = [
+          '/admin/',
+          '/admin'
+        ]
+        if (!topPaths.includes(this.$route.path)) {
+          this.$router.push('/admin/');
+        } else {
+          this.userData = Object.assign({}, this.userData);
+        }
+        await this.requestFetchEvents();
+      } catch(error) {
+        this.handleRequestError(error);
+      }
     },
     soundInit() {},
   },

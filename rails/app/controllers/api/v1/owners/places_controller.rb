@@ -9,6 +9,13 @@ class Api::V1::Owners::PlacesController < Api::V1::Owners::BaseController
     render json: places
   end
 
+  # GET /api/v1/owners/places/:id
+  # 
+  def show
+    place = Place.find(params[:id])
+    render json: place
+  end
+
   #
   # 所有している店舗・場所の現在のイベント取得する
   #

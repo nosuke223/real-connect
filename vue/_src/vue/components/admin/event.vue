@@ -177,10 +177,10 @@ export default {
           organizer_name: this.userData.nickname,
           organizer_type: 2000,
           organize_user_id: this.userData.id,
-          area_id: this.userData.own_places.area_id,
+          area_id: this.userData.selectedPlace.area_id,
           from: this.event.from,
           to: this.event.to,
-          organize_place_id: this.userData.own_places.id
+          organize_place_id: this.userData.selectedPlace.id
         }
       };
       request("POST", "/owners/events", { data }).then((result) => {

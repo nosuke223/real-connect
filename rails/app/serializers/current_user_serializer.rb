@@ -53,8 +53,7 @@ class CurrentUserSerializer < ActiveModel::Serializer
     object.area_id
   end
 
-  # TODO 一旦ひとつ
   def own_places
-    object.own_places.last
+    object.own_places
   end
 end

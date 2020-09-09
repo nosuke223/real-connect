@@ -81,7 +81,7 @@ Rails.application.routes.draw do
           end
         end
         resources :events, only: %i[index create]
-        resources :places, only: %i[index update]
+        resources :places, only: %i[index show update]
         resources :event_statuses, only: %i[index]
         resources :areas, only: %i[index]
       end

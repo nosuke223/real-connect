@@ -189,7 +189,7 @@ export default {
      * フォーム用データを設定
      */
     setFormData() {
-      this.ownPlaceFormData = _.clone(this.userData.own_places);
+      this.ownPlaceFormData = _.clone(this.userData.selectedPlace);
 
       // select用に営業時間のデータを調整
       this.weekdays.forEach(weekday => {
@@ -269,7 +269,7 @@ export default {
         if (result.error) {
           this.handleRequestError(result.error);
         } else {
-          this.userData.own_places = result.data;
+          this.userData.selectedPlace = result.data;
           alert('更新が完了しました')
         }
       })

@@ -3,19 +3,23 @@ nav.p-pc-menu
     h2.p-pc-menu__title MAIN MENU
     button.p-pc-menu__button
       i.glyph.glyph-bars
-  .p-pc-menu__body(v-if='userData.own_places')
+  .p-pc-menu__body(v-if='userData.selectedPlace')
     .p-account.p-pc-menu-account
       .p-account__title.p-pc-menu-account__title
         figure.p-avatar.p-avatar--rect.p-pc-menu-account__avatar
-          img(:src="userData.own_places.logo_image")
-        h2.p-username.p-pc-menu-account__username {{ userData.own_places.name }}
+          img(:src="userData.selectedPlace.logo_image")
+        .input-field
+          label.c-select
+            select.c-select__item(v-model="userData.selectedPlace.id" @change="requestFetchPlace()")
+              template(v-if="userData.own_places.length > 0")
+                option(v-for="place of userData.own_places" :value="place.id" :key="place.id + place.name") {{place.name}}
       .p-pc-menu-account__detail
         .p-pc-menu-account__label 現在の空席状況
         .p-pc-menu-account__toggle-container.u-bg--primary
-          .p-pc-menu-account__toggle(@click='requestUpdateOwnPlace({seat_status: "open"})' :class='{"is-active":userData.own_places.seat_status === "open"}') あり
-          .p-pc-menu-account__toggle(@click='requestUpdateOwnPlace({seat_status: "few"})' :class='{"is-active":userData.own_places.seat_status === "few"}') 空少
-          .p-pc-menu-account__toggle(@click='requestUpdateOwnPlace({seat_status: "full"})' :class='{"is-active":userData.own_places.seat_status === "full"}') 満席
-    //- .p-pc-menu-code(v-if='userData.own_places')
+          .p-pc-menu-account__toggle(@click='requestUpdateOwnPlace({seat_status: "open"})' :class='{"is-active":userData.selectedPlace.seat_status === "open"}') あり
+          .p-pc-menu-account__toggle(@click='requestUpdateOwnPlace({seat_status: "few"})' :class='{"is-active":userData.selectedPlace.seat_status === "few"}') 空少
+          .p-pc-menu-account__toggle(@click='requestUpdateOwnPlace({seat_status: "full"})' :class='{"is-active":userData.selectedPlace.seat_status === "full"}') 満席
+    //- .p-pc-menu-code(v-if='userData.selectedPlace')
       .p-pc-menu-code__label 現在のチェックインコード
       div(v-for="event in events")
         a.p-pc-menu-code__code(v-bind:href="'/admin/code/?check_in_code=' + event.check_in_code" target='_blank')

@@ -7,7 +7,7 @@ class Api::V1::Owners::EventsController < Api::V1::Owners::BaseController
   # GET /api/v1/owners/events
   #
   def index
-    place = current_user.own_places.last
+    place = current_user.own_places.find(params[:place_id])
     render json: place.events.now
   end
 
