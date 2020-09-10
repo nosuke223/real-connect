@@ -39,8 +39,11 @@
           <a class="l-footer-nav__link" href="<?php echo esc_url( home_url() ); ?>/terms-of-service/">サービス利用規約</a>
         </li>
         <li class="l-footer-nav__item">
-        <?php $APPLICTE_PLACE = $production ? "hostname" : "http://localhost:3002"  ?>
-          <a class="l-footer-nav__link" href="<?php echo($APPLICTE_PLACE); ?>/place_application/create" target="_blank">店舗申請フォーム</a>
+        <?php $APP_HOST = $production ? "hostname" : "http://localhost:3002"  ?>
+          <a class="l-footer-nav__link" href="<?php echo($APP_HOST); ?>/place_application/create" target="_blank">店舗申請フォーム</a>
+        </li>
+        <li class="l-footer-nav__item">
+          <a class="l-footer-nav__link" href="<?php echo($APP_HOST); ?>/bulletin_board?tab=event" target="_blank">イベント掲示板</a>
         </li>
         <li class="l-footer-nav__item">
           <a class="l-footer-nav__link" href="<?php echo esc_url( home_url() ); ?>/contact/">お問合せ</a>

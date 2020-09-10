@@ -4,15 +4,15 @@
       v-card-title.headline 街deつながる&trade;全国会議
       v-card-subtitle powerd by りあこね&trade;
       v-tabs(v-model="tab")
-        v-tab お知らせ
-        v-tab 掲示板
+        v-tab(href="#tab_info") お知らせ
+        v-tab(href="#tab_event") 掲示板
         v-tabs-items(v-model="tab")
-          v-tab-item
+          v-tab-item(value="tab_info")
             v-alert.mb-0(border="bottom" colored-border type="info" icon="mdi-new-box") News
             InfoLists(:items="systemBbsNews")
             v-alert.mb-0(border="bottom" colored-border type="info" color="success") Info
             InfoLists(:items="systemBbsInfos")
-          v-tab-item
+          v-tab-item(value="tab_event")
             div.ma-2
               v-btn(dark slot="activator" color="teal accent-4" small rounded @click="showDialog()") エリアを絞り込む
               AreaSearch(ref="dialog" @selectedArea="fetchEvents")
@@ -43,7 +43,7 @@ export default {
     return {
       systemBbsInfos: [],
       systemBbsNews: [],
-      tab: null,
+      tab: "tab_info",
       events: [],
       selectedArea: {}
     };
@@ -51,6 +51,7 @@ export default {
   created() {
     this.fetchBbsInfos();
     this.fetchBbsNews();
+    this.selectTab();
   },
   methods: {
     async fetchBbsInfos() {
@@ -101,6 +102,14 @@ export default {
           return record;
         });
         this.events = data;
+      }
+    },
+    selectTab() {
+      const tab = this.$route.query.tab;
+      if (tab === "info") {
+        this.tab = "tab_info";
+      } else if (tab === "event") {
+        this.tab = "tab_event";
       }
     },
     showDialog() {
