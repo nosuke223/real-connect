@@ -15,8 +15,8 @@ export default {
     return {
       items: [],
       headers: [
-        { text: "ID", value: "id" },
-        { text: "名前", value: "name" },
+        { text: "イベントステータスID", value: "id" },
+        { text: "イベントステータス名", value: "name" },
       ],
     };
   },

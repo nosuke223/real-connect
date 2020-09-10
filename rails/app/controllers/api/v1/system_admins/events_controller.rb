@@ -25,6 +25,8 @@ class Api::V1::SystemAdmins::EventsController < Api::V1::SystemAdmins::BaseContr
   # POST /events
   def create
     @event = Event.new(event_params)
+    @event.organizer_name = current_user.nickname
+    @event.organize_user_id = current_user.id
     if @event.save
       render json: @event.as_json(
         include: %i[area event_status users]
@@ -36,12 +38,14 @@ class Api::V1::SystemAdmins::EventsController < Api::V1::SystemAdmins::BaseContr
 
   # PATCH/PUT /events/1
   def update
-    if @event.update(event_params)
-      render json: @event.as_json(
-        include: %i[area event_status users]
-      )
-    else
-      render_valid_error(@event.errors.full_messages)
+    if @event.organizer_type == 3000
+      if @event.update(event_params)
+        render json: @event.as_json(
+          include: %i[area event_status users]
+        )
+      else
+        render_valid_error(@event.errors.full_messages)
+      end
     end
   end
 

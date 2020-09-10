@@ -62,6 +62,7 @@ export default {
         start_time: new Date(),
         end_time: new Date(),
         event_status_id: 0,
+        organizer_type: 3000
       },
     };
   },

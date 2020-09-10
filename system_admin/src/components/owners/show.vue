@@ -1,8 +1,6 @@
 <template lang="pug">
   v-col(cols="12")
     .d-flex.justify-end
-      v-btn.mr-2(color="primary" fab dark @click="gotoEdit")
-        v-icon mdi-pencil
       v-btn(color="error" fab dark @click="deleteResource")
         v-icon mdi-delete
     p.headline 店舗ユーザー詳細
@@ -69,9 +67,6 @@ export default {
       if (!error) {
         this.$router.push("/owners");
       }
-    },
-    gotoEdit() {
-      this.$router.push(`/owners/${this.owner.id}/edit`);
     },
   },
 };

@@ -1,7 +1,7 @@
 <template lang="pug">
   v-col(cols="12")
     .d-flex.justify-end
-      v-btn.mr-2(color="primary" fab dark @click="gotoEdit")
+      v-btn.mr-2(color="primary" fab dark @click="gotoEdit" v-if="isAdminCreate")
         v-icon mdi-pencil
       v-btn(color="error" fab dark @click="deleteResource")
         v-icon mdi-delete
@@ -9,23 +9,15 @@
     v-divider
     div.title
       v-row
-        v-col(xs="12" sm="12" md="6")
+        v-col(cols="12")
+          p イベントID:{{event.id}}
           p 名前:{{event.name}}
+          p イベント詳細:{{event.detail}}
+          p 募集人数:{{event.capacity}}
           p エリア名:{{displayAreaName}}
-          p 詳細:{{event.detail}}
-          p 参加可能人数:{{event.capacity}}
-          p 男性参加者:{{event.male}}人
-          p 女性参加者:{{event.female}}人
-          p チェックインコード:{{event.checkInCode}}
           p 開始日:{{event.startTime}}
           p 終了日:{{event.endTime}}
-          p ステータス:{{displayEventStatusName}}
-        v-col(xs="12" sm="12" md="6")
-          p 参加したユーザー
-          ul(v-if="event.users")
-            div(v-for="user in event.users" :key="user.id")
-              router-link(:to="'/users/' + user.id")
-                li {{user.nickname}}
+          p 主催者種別:{{displayOrganizerType}}
 </template>
 
 <script>
@@ -49,7 +41,8 @@ export default {
         users: [],
         male: 0,
         female: 0,
-      },
+        organizer_type: 0
+      }
     };
   },
   created() {
@@ -70,6 +63,25 @@ export default {
         return "";
       }
     },
+    displayOrganizerType() {
+      const type = this.event.organizer_type;
+      if (type === 1000) {
+        return "ユーザー";
+      } else if (type === 2000) {
+        return "オーナー";
+      } else if (type === 3000) {
+        return "システム管理者";
+      } else {
+        return "";
+      }
+    },
+    isAdminCreate() {
+      if (this.event.organizer_type === 3000) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   },
   methods: {
     async fetchResource() {
@@ -85,6 +97,7 @@ export default {
         this.event.eventStatus = data.event_status;
         this.event.detail = data.detail;
         this.event.organizerName = data.organizer_name;
+        this.event.organizer_type = data.organizer_type;
         this.event.capacity = data.capacity;
         this.event.users = data.users;
         const { male, female } = countParticipant(data.users);
@@ -102,7 +115,7 @@ export default {
     },
     gotoEdit() {
       this.$router.push(`/events/${this.event.id}/edit`);
-    },
-  },
+    }
+  }
 };
 </script>

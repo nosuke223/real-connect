@@ -49,7 +49,7 @@ services:
     ports:
       - 3002:3002
     tty: true
-    command: /bin/ash -c "yarn serve"
+    command: /bin/ash -c "yarn install && yarn serve"
     stdin_open: true
     depends_on:
       - admin_web

@@ -8,8 +8,8 @@ export const emailFormatRule = (value) => {
 // 空白でなければ半角数字7桁を許容
 export const zipCodeRule = (value) => {
   return (
-    /^[0-9]{3}-[0-9]{4}$/.test(value) ||
+    /^[0-9]{3}[0-9]{4}$/.test(value) ||
     !value ||
-    "郵便番号の形式が正しくありません"
+    "郵便番号は「-」なしの7桁で入力してください"
   );
 };

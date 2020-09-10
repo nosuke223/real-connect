@@ -1,6 +1,6 @@
 <template lang="pug">
   v-col(cols="12")
-    ItemTable(:items="items" :headers="headers" btnTitle="新規作成" tableTitle="メッセージ一覧" @rowClicked="gotoShow" @btnClicked="gotoCreate")
+    ItemTable(:items="items" :headers="headers"  tableTitle="メッセージ一覧" @rowClicked="gotoShow")
 </template>
 
 <script>
@@ -15,11 +15,11 @@ export default {
     return {
       items: [],
       headers: [
-        { text: "ID", value: "id" },
+        { text: "メッセージID", value: "id" },
         { text: "イベント名", value: "event.name" },
         { text: "メッセージ内容", value: "body" },
-        { text: "送信者", value: "sender.email" },
-        { text: "受信者", value: "partner.email" },
+        { text: "パートナー名", value: "partner_nickname" },
+        { text: "送信者名", value: "sender_nickname" },
       ],
     };
   },
@@ -33,9 +33,6 @@ export default {
   methods: {
     gotoShow(data) {
       this.$router.push(`/messages/${data.id}`);
-    },
-    gotoCreate() {
-      this.$router.push("/messages/create");
     },
   },
 };

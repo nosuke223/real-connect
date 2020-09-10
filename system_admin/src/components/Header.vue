@@ -2,14 +2,6 @@
   <div>
     <v-navigation-drawer v-model="drawer" app v-if="isLoginRequiredPages">
       <v-list dense>
-        <v-list-item link to="/">
-          <v-list-item-action>
-            <v-icon>mdi-home</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Top</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
         <v-list-item link to="/users">
           <v-list-item-action>
             <v-icon>mdi-account</v-icon>

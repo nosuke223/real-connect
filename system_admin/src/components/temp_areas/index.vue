@@ -15,8 +15,10 @@ export default {
     return {
       items: [],
       headers: [
-        { text: "ID", value: "id" },
-        { text: "名前", value: "name" },
+        { text: "仮エリアID", value: "id" },
+        { text: "エリア名", value: "name" },
+        { text: "申請コメント", value: "application_comment" },
+        { text: "申請メールアドレス", value: "application_email" },
         { text: "都道府県", value: "prefecture.name" },
       ],
     };

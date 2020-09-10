@@ -7,7 +7,8 @@
         v-icon mdi-delete
     p.headline ユーザーステータス詳細
     v-divider
-    p 名前: {{ user_status.name }}
+    p ユーザーステータスID: {{ user_status.id }}
+    p ユーザーステータス名: {{ user_status.name }}
 </template>
 
 <script>

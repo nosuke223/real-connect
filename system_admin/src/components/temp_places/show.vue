@@ -8,11 +8,14 @@
     div.title
       v-row
         v-col(cols="12")
+          p 仮店舗ID: {{ tempPlace.id }}
           p 店舗名: {{ tempPlace.name }}
           p 電話番号: {{ tempPlace.telephone }}
+          p 郵便番号: {{ tempPlace.zipcode }}
           p 住所: {{ displayAddress }}
           p エリア: {{ displayArea }}
-          p メールアドレス: {{ tempPlace.application_email }}
+          p 申請コメント: {{ tempPlace.application_comment }}
+          p 申請メールアドレス: {{ tempPlace.application_email }}
 </template>
 
 <script>

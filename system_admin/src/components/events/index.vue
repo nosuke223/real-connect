@@ -7,24 +7,22 @@
 import ItemTable from "../utils/ItemTable";
 import ApiRequest from "@/api/base";
 import { formatDateTime } from "@/utils/format_date";
-import { countParticipant } from "@/utils/event";
 
 export default {
   components: {
-    ItemTable,
+    ItemTable
   },
   data() {
     return {
       items: [],
       headers: [
-        { text: "ID", value: "id" },
+        { text: "イベントID", value: "id" },
         { text: "イベント名", value: "name" },
-        { text: "チェックインコード", value: "check_in_code" },
-        { text: "男性人数", value: "male" },
-        { text: "女性人数", value: "female" },
+        { text: "募集人数", value: "capacity" },
+        { text: "主催者種別", value: "organizer_type" },
         { text: "開始時間", value: "start_time" },
-        { text: "終了時間", value: "end_time" },
-      ],
+        { text: "終了時間", value: "end_time" }
+      ]
     };
   },
   async created() {
@@ -32,12 +30,11 @@ export default {
     const { response, error } = await request.index();
     if (!error) {
       const data = response.data;
-      data.map((record) => {
+      data.map(record => {
         record.start_time = formatDateTime(record.start_time);
         record.end_time = formatDateTime(record.end_time);
-        const { male, female } = countParticipant(record.users);
-        record.male = `${male}人`;
-        record.female = `${female}人`;
+        // 主催者種別
+        record.organizer_type = this.convertOrganizerType(record.organizer_type);
         return record;
       });
       this.items = data;
@@ -50,6 +47,17 @@ export default {
     gotoCreate() {
       this.$router.push("/events/create");
     },
-  },
+    convertOrganizerType(type) {
+      if (type === 1000) {
+        return "ユーザー";
+      } else if (type === 2000) {
+        return "オーナー";
+      } else if (type === 3000) {
+        return "システム管理者";
+      } else {
+        return "";
+      }
+    }
+  }
 };
 </script>

@@ -7,14 +7,14 @@ class Api::V1::SystemAdmins::MessagesController < Api::V1::SystemAdmins::BaseCon
   def index
     messages = Message.all.order(updated_at: 'desc')
     render json: messages.as_json(
-      include: %i[event sender partner]
+      include: %i[event]
     )
   end
 
   # GET /messages/:id
   def show
     render json: @message.as_json(
-      include: %i[event sender partner]
+      include: %i[event]
     )
   end
 

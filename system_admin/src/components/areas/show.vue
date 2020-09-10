@@ -8,7 +8,8 @@
     p.headline エリア詳細
     v-divider
     div.title
-      p 名前: {{ area.name }}
+      p エリアID: {{ area.id }}
+      p エリア名: {{ area.name }}
       p 都道府県: {{ displayPrefecture }}
       p 〒郵便番号: {{ displayZipCode }}
 </template>

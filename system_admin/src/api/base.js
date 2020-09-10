@@ -1,8 +1,9 @@
 import axios from "axios";
+import jsonpAdapter from "axios-jsonp";
 const domain = "http://localhost:8080";
 
 const apiInstance = axios.create({
-  timeout: 5000,
+  timeout: 5000
 });
 
 export default class ApiRequest {
@@ -21,7 +22,7 @@ export default class ApiRequest {
       POST: "post",
       PUT: "put",
       PATCH: "patch",
-      DELETE: "delete",
+      DELETE: "delete"
     };
   }
   async baseRequest(HTTPMethods, resource, body) {
@@ -64,5 +65,31 @@ export default class ApiRequest {
   destroy(id) {
     const uri = `${this.resource}/${id}/`;
     return this.requestWrapper(this.HTTPMethods.DELETE, uri);
+  }
+
+  // zipcodeから住所取得（外部API JSONP利用）
+  async getAddress(zipcode) {
+    let api = axios.create();
+    let { response, error } = [null, null];
+    try {
+      response = await api({
+        url: "https://zipcloud.ibsnet.co.jp/api/search",
+        method: "get",
+        adapter: jsonpAdapter,
+        params: {
+          zipcode
+        }
+      });
+      // 外部APIからエラーメッセージがある場合(形式不正等)
+      if (response.data.message) {
+        error = response.data.message;
+      // 形式不正はないが結果が0件の場合
+      } else if (!response.data.results) {
+        error = "郵便番号から住所を取得できませんでした";
+      }
+    } catch (e) {
+      error = e;
+    }
+    return { response, error };
   }
 }

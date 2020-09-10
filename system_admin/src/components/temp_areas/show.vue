@@ -6,9 +6,10 @@
     p.headline エリア申請詳細
     v-divider
     div.title
-      p 申請者メールアドレス: {{ tempArea.applicationEmail }}
+      p 仮エリアID: {{ tempArea.id }}
+      p 申請メールアドレス: {{ tempArea.applicationEmail }}
       p 申請コメント: {{ tempArea.applicationComment }}
-      p 名前: {{ tempArea.name }}
+      p エリア名: {{ tempArea.name }}
       p 都道府県: {{ displayPrefecture }}
       p 〒郵便番号: {{ displayZipCode }}
 </template>

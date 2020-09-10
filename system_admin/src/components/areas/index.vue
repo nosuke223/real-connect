@@ -1,6 +1,6 @@
 <template lang="pug">
   v-col(cols="12")
-    ItemTable(:items="items" :headers="headers" btnTitle="新規作成" tableTitle="エリア一覧" @rowClicked="gotoShow" @btnClicked="gotoCreate")
+    ItemTable(:items="items" :headers="headers" tableTitle="エリア一覧" @rowClicked="gotoShow" )
 </template>
 
 <script>
@@ -15,8 +15,9 @@ export default {
     return {
       items: [],
       headers: [
-        { text: "ID", value: "id" },
-        { text: "名前", value: "name" },
+        { text: "エリアID", value: "id" },
+        { text: "エリア名", value: "name" },
+        { text: "郵便番号", value: "zipcode" },
         { text: "都道府県", value: "prefecture.name" },
       ],
     };

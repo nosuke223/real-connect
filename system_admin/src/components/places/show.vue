@@ -1,19 +1,27 @@
 <template lang="pug">
   v-col(cols="12")
     .d-flex.justify-end
-      v-btn.mr-2(color="primary" fab dark @click="gotoEdit")
-        v-icon mdi-pencil
       v-btn(color="error" fab dark @click="deleteResource")
         v-icon mdi-delete
-    p.headline 店舗申請詳細
+    p.headline 店舗詳細
     v-divider
     div.title
       v-row
-        v-col(cols="12")
+        v-col(xs="12" sm="12" md="6")
+          v-avatar(size="84" v-if="place.logo_image && place.logo_image.url")
+            v-img(:src="place.logo_image.url")
+          p 店舗ID: {{ place.id }}
           p 店舗名: {{ place.name }}
+          p 郵便番号: {{ place.zipcode }}
           p 住所: {{ displayAddress }}
           p URL: {{ place.url }}
+          p オーナー名: {{ displayOwnerName }}
+          p エリア名: {{ displayAreaName }}
           p 店舗説明: {{ place.description }}
+        v-col(xs="12" sm="12" md="6")
+          v-card(max-width="434" class="mx-auto my-2" tile)
+            v-img(:src="place.cover_image.url" max-width="100%" v-if="place.cover_image && place.cover_image.url")
+        v-col(cols="12")
           v-data-table(:items="items"
             :headers="headers"
             hide-default-footer
@@ -91,6 +99,22 @@ export default {
       ].filter((v) => v);
       return addressArray.join("");
     },
+    displayOwnerName() {
+      const owner = this.place.owner;
+      if (owner && owner.full_name) {
+        return owner.full_name;
+      } else {
+        return '';
+      }
+    },
+    displayAreaName() {
+      const area = this.place.area;
+      if (area && area.name) {
+        return area.name;
+      } else {
+        return '';
+      }
+    }
   },
   methods: {
     async fetchResource() {

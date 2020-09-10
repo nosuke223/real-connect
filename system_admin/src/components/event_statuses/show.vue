@@ -7,7 +7,8 @@
         v-icon mdi-delete
     p.headline イベントステータス詳細
     v-divider
-    p 名前: {{ event_status.name }}
+    p イベントステータスID: {{ event_status.id }}
+    p イベントステータス名: {{ event_status.name }}
 </template>
 
 <script>

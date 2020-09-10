@@ -15,9 +15,12 @@ export default {
     return {
       items: [],
       headers: [
-        { text: "ID", value: "id" },
-        { text: "名前", value: "name" },
-        { text: "申請者メールアドレス", value: "application_email" },
+        { text: "仮店舗ID", value: "id" },
+        { text: "店舗名", value: "name" },
+        { text: "郵便番号", value: "zipcode" },
+        { text: "都道府県", value: "address1" },
+        { text: "申請コメント", value: "application_comment" },
+        { text: "申請メールアドレス", value: "application_email" },
       ],
     };
   },
