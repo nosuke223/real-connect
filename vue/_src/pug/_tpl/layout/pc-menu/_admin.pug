@@ -8,11 +8,12 @@ nav.p-pc-menu
       .p-account__title.p-pc-menu-account__title
         figure.p-avatar.p-avatar--rect.p-pc-menu-account__avatar
           img(:src="userData.selectedPlace.logo_image")
-        .input-field
+        .input-field(v-if="userData.own_places.length > 1")
           label.c-select
             select.c-select__item(v-model="userData.selectedPlace.id" @change="requestFetchPlace()")
-              template(v-if="userData.own_places.length > 0")
-                option(v-for="place of userData.own_places" :value="place.id" :key="place.id + place.name") {{place.name}}
+              option(v-for="place of userData.own_places" :value="place.id" :key="place.id + place.name") {{place.name}}
+        h2.p-username.p-menu-account__username(v-else-if="userData.own_places.length === 1") {{ userData.selectedPlace.name }}
+
       .p-pc-menu-account__detail
         .p-pc-menu-account__label 現在の空席状況
         .p-pc-menu-account__toggle-container.u-bg--primary

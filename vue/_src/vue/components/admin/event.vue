@@ -93,8 +93,9 @@
                     textarea(name='detail' placeholder='入力してください' v-model='event.detail')
                     i.glyph.glyph-pen
                     i.glyph.glyph-check-circle.u-color--primary01
-                .p-block-content
+                .p-block-content.submit-button-area
                   button.u-bg--primary(@click='requestPostEvent()') 保存する
+                  button.u-bg--primary(@click='goBackTop()' style="margin-left: 15px;") キャンセル
 
 </template>
 
@@ -193,7 +194,13 @@ export default {
           this.$router.push("/admin");
         }
       });
-    }
+    },
+    /**
+     * キャンセルボタン押下時
+     */
+    goBackTop() {
+      this.$router.push('/admin');
+    },
   },
 };
 </script>

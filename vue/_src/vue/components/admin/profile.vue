@@ -102,32 +102,38 @@
               h3 店舗・会場の基本情報
 
               section
+                h3 郵便番号
+                .input-field
+                  input(type='text' name='zipcode' autocomplete='off' placeholder='入力してください' v-model='ownPlaceFormData.zipcode' @change="requestFetchAddress()")
+                  i.glyph.glyph-pen
+                  i.glyph.glyph-check-circle.u-color--primary01
+              
+              section
+                h3 所在地(都道府県)
+                .input-field
+                  input(type='text' name='address1' autocomplete='off' v-model='ownPlaceFormData.address1' disabled)
+
+              section
+                h3 市区町村
+                .input-field
+                  input(type='text' name='address2' autocomplete='off' v-model='ownPlaceFormData.address2' disabled)
+
+              section
+                h3 番地以降
+                .input-field
+                  input(type='text' name='address3' autocomplete='off' placeholder='入力してください' v-model='ownPlaceFormData.address3')
+                  i.glyph.glyph-pen
+                  i.glyph.glyph-check-circle.u-color--primary01
+
+              section
                 h3 エリア
                 p 会場が属するエリアを選択してください。
                 .input-field
                   label.c-select
-                    select.c-select__item(name='area')
-                      option(value='' selected disabled) エリアを選択してください
-                      option(value='ar001') 福岡市 中央区エリア
-                      option(value='ar002') 福岡市 博多区エリア
-
-              section
-                h3 所在地
-                p ※都道府県名は不要です。
-
-              section
-                h3 市区町村 番地
-                .input-field
-                  input(type='text' name='address1' autocomplete='off' placeholder='入力してください' v-model='ownPlaceFormData.address')
-                  i.glyph.glyph-pen
-                  i.glyph.glyph-check-circle.u-color--primary01
-
-              section
-                h3 建物名、階数、部屋番号など（任意）
-                .input-field
-                  input(type='text' name='address2' autocomplete='off' placeholder='入力してください' v-model='ownPlaceFormData.building')
-                  i.glyph.glyph-pen
-                  i.glyph.glyph-check-circle.u-color--primary01
+                    select.c-select__item(name='area' v-model="ownPlaceFormData.area_id")
+                      template(v-if="areas")
+                        option(value='' selected disabled) エリアを選択してください
+                        option(v-for="area in areas" :value="area.id") {{ area.name }}
 
               section
                 h3 電話番号
@@ -139,23 +145,24 @@
               section
                 h3 公式サイトURL
                 .input-field
-                  input(type='text' name='site' autocomplete='off' placeholder='入力してください' v-model='ownPlaceFormData.url')
+                  input(type='text' name='url' autocomplete='off' placeholder='入力してください' v-model='ownPlaceFormData.url')
                   i.glyph.glyph-pen
                   i.glyph.glyph-check-circle.u-color--primary01
 
               section
                 h3 備考
                 .input-field
-                  textarea(name='remarks' placeholder='入力してください' v-model='ownPlaceFormData.note')
+                  textarea(name='note' placeholder='入力してください' v-model='ownPlaceFormData.note')
                   i.glyph.glyph-pen
                   i.glyph.glyph-check-circle.u-color--primary01
 
-          .p-block-content
+          .p-block-content.submit-button-area
             button.u-bg--primary(@click='onClickUpdateButton()') 更新する
+            button.u-bg--primary(@click='goBackTop()' style="margin-left: 15px;") キャンセル
 </template>
 
 <script>
-import { request } from '../../lib/request.js'
+import { request, getAddress } from '../../lib/request.js'
 import filters from '../../lib/filters.js'
 import _ from 'lodash'
 import moment from 'moment'
@@ -165,8 +172,9 @@ export default {
     'userData',
     'handleRequestError',
   ],
-  mounted() {
-    this.requestFetchUser();
+  async mounted() {
+    await this.requestFetchUser();
+    await this.requestFetchCandidateAreas();
   },
   data() {
     return {
@@ -182,6 +190,7 @@ export default {
       weekdayJPs: {'sun': '日', 'mon': '月', 'tue': '火', 'wed': '水', 'thu': '木', 'fri': '金', 'sat': '土'},
       logo_image_preview: null,
       cover_image_preview: null,
+      areas: []
     }
   },
   methods: {
@@ -256,12 +265,24 @@ export default {
       this.requestUpdateOwnPlace(data);
     },
     /**
+     * キャンセルボタン押下時
+     */
+    goBackTop() {
+      this.$router.push('/admin');
+    },
+    /**
      * 場所の情報を更新する
      */
-    requestUpdateOwnPlace(ownPlaceData) {
+    async requestUpdateOwnPlace(ownPlaceData) {
+      if (!ownPlaceData.area_id) {
+        alert('エリアを選択してください');
+        return;
+      }
       const data = new FormData();
       Object.keys(ownPlaceData).forEach((key, index) => {
-        data.append(key, ownPlaceData[key])
+        if (ownPlaceData[key] !== null) {
+          data.append(key, ownPlaceData[key]);
+        }
       });
 
       request('PUT', '/owners/places/' + ownPlaceData.id, { data })
@@ -271,23 +292,56 @@ export default {
         } else {
           this.userData.selectedPlace = result.data;
           alert('更新が完了しました')
+          this.$router.push('/admin');
         }
       })
     },
-
     /**
      * ログインユーザーの情報を取得する
      */
-    requestFetchUser() {
-      request('GET', '/users')
-      .then((result) => {
-        if (result.error) {
-        } else {
-          this.user = result.data;
-          this.setFormData();
-        }
-      })
+    async requestFetchUser() {
+      try {
+        const result = await request('GET', '/users');
+        this.user = result.data;
+        this.setFormData();
+      } catch(e) {
+        alert('データの取得に失敗しました');
+      }
     },
+    /**
+     * 設定可能候補エリアリストを取得する
+     */
+    async requestFetchCandidateAreas() {
+      try {
+        if (!this.ownPlaceFormData.address1) return;
+        const result = await request('GET', `/owners/areas/candidate_areas?pref_name=${this.ownPlaceFormData.address1}`);
+        if (result.data.length > 0) {
+          this.areas = result.data;
+        } else {
+          alert('設定中の都道府県にエリアが登録されていません');
+        }
+      } catch(e) {
+        alert('データの取得に失敗しました');
+      }
+    },
+    /**
+     * 郵便番号から住所を取得する
+     */
+    async requestFetchAddress() {
+      if (!this.ownPlaceFormData.zipcode) return;
+      const { response, error } = await getAddress(this.ownPlaceFormData.zipcode);
+      if (!error) {
+        const result = response.data.results[0];
+        this.ownPlaceFormData.address1 = result.address1;
+        this.ownPlaceFormData.address2 = result.address2;
+        this.ownPlaceFormData.address3 = result.address3;
+        this.ownPlaceFormData.area_id = null;
+        this.areas = [];
+        await this.requestFetchCandidateAreas();
+      } else {
+        alert(error);
+      }
+    }
   },
   filters,
 }

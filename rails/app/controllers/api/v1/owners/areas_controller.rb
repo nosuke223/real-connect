@@ -16,6 +16,21 @@ class Api::V1::Owners::AreasController < Api::V1::Owners::BaseController
     end
   end
 
+  #
+  # 設定可能な候補エリアの一覧を取得
+  #
+  # GET /api/v1/sytem_admins/candidate_areas
+  #
+  def candidate_areas
+    prefecture = Prefecture.find_by(name: params[:pref_name])
+    if prefecture
+      candidate_areas = prefecture.areas
+      render json: candidate_areas
+    else
+      render_empty(500)
+    end
+  end
+
 
   private
 

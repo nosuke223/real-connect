@@ -1,4 +1,5 @@
 import axios from 'axios'
+import jsonpAdapter from 'axios-jsonp'
 
 let BASE_URL = 'https://real-connect.herokuapp.com/api/v1';
 
@@ -122,4 +123,32 @@ export async function request(
   }
 
   return handleResponse(response);
+}
+
+/**
+ * 郵便番号での住所検索（外部API）
+ */
+export async function getAddress(zipcode) {
+  let api = axios.create();
+  let { response, error } = [null, null];
+  try {
+    response = await api({
+      url: "https://zipcloud.ibsnet.co.jp/api/search",
+      method: "get",
+      adapter: jsonpAdapter,
+      params: {
+        zipcode
+      }
+    });
+    // 外部APIからエラーメッセージがある場合(形式不正等)
+    if (response.data.message) {
+      error = response.data.message;
+    // 形式不正はないが結果が0件の場合
+    } else if (!response.data.results) {
+      error = "郵便番号から住所を取得できませんでした";
+    }
+  } catch (e) {
+    error = e;
+  }
+  return { response, error };
 }

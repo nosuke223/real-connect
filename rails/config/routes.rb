@@ -83,7 +83,11 @@ Rails.application.routes.draw do
         resources :events, only: %i[index create]
         resources :places, only: %i[index show update]
         resources :event_statuses, only: %i[index]
-        resources :areas, only: %i[index]
+        resources :areas, only: %i[index] do
+          collection do
+            get :candidate_areas
+          end
+        end
       end
 
       #
