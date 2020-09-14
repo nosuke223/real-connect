@@ -20,12 +20,12 @@ transition(name='v-modal' appear v-if='modal.checkIn')
           //-     $this.value = str;
           //-   }
           //-   </script>
-          label.c-select
+          //- label.c-select
             //- select.c-select__item.p-check-in__place(v-model='userData.current_place')
             select.c-select__item.p-check-in__place(v-model='nowPlaceID')
               option(value='' selected disabled) 会場を選択してください
               option(:value='item.id' v-for='item in placelist') {{item.name}}
-          .p-check-in__err.u-text__center.u-flex--ce-ce(v-if='checkinErr.place')
+          //- .p-check-in__err.u-text__center.u-flex--ce-ce(v-if='checkinErr.place')
             i.glyph.glyph-exclamation-circle
             | 会場が未選択です
           //- label.c-input
@@ -34,9 +34,16 @@ transition(name='v-modal' appear v-if='modal.checkIn')
           //- .p-check-in__err.u-text__center.u-flex--ce-ce(v-if='checkinErr.fashion')
             i.glyph.glyph-exclamation-circle
             | 服装が未入力です
+          label.c-select
+            select.c-select__item.p-check-in__place(v-model='selectedUserStatusId')
+              option(value='' selected disabled) ステータスを選択してください
+              option(:value='item.id' v-for='item in userStatusList') {{item.name}}
+          .p-check-in__err.u-text__center.u-flex--ce-ce(v-if='checkinErr.userStatus')
+            i.glyph.glyph-exclamation-circle
+            | ステータスが未選択です
           transition(name='v-progress' appear v-if='checkinLoad')
             .p-progress-bar
-          transition(name='v-progress' appear v-if='checkinErr.placeErr')
+          transition(name='v-progress' appear v-if='checkinErr.err')
             .p-check-in__err.u-text__center.u-flex--ce-ce
               i.glyph.glyph-exclamation-circle
               span Error: もう一度お試し下さい

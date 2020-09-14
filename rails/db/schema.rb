@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_17_131554) do
+ActiveRecord::Schema.define(version: 2020_08_22_143522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,15 +39,6 @@ ActiveRecord::Schema.define(version: 2020_08_17_131554) do
     t.index ["deleted_at"], name: "index_areas_on_deleted_at"
   end
 
-  create_table "event_check_in_histories", force: :cascade do |t|
-    t.integer "event_id", null: false
-    t.integer "user_id", null: false
-    t.datetime "checked_in_at"
-    t.datetime "checked_out_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "event_places", force: :cascade do |t|
     t.integer "event_id"
     t.integer "place_id"
@@ -73,6 +64,7 @@ ActiveRecord::Schema.define(version: 2020_08_17_131554) do
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.integer "gender"
+    t.integer "age"
     t.index ["deleted_at"], name: "index_event_users_on_deleted_at"
     t.index ["event_id"], name: "index_event_users_on_event_id"
     t.index ["user_id"], name: "index_event_users_on_user_id"
@@ -117,15 +109,6 @@ ActiveRecord::Schema.define(version: 2020_08_17_131554) do
     t.index ["sender_id"], name: "index_messages_on_sender_id"
   end
 
-  create_table "place_check_in_histories", force: :cascade do |t|
-    t.integer "place_id", null: false
-    t.integer "user_id", null: false
-    t.datetime "checked_in_at"
-    t.datetime "checked_out_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "place_users", force: :cascade do |t|
     t.integer "place_id"
     t.integer "user_id"
@@ -133,6 +116,7 @@ ActiveRecord::Schema.define(version: 2020_08_17_131554) do
     t.datetime "updated_at", null: false
     t.datetime "deleted_at"
     t.integer "age"
+    t.integer "gender"
     t.index ["created_at"], name: "index_place_users_on_created_at"
     t.index ["deleted_at"], name: "index_place_users_on_deleted_at"
     t.index ["place_id"], name: "index_place_users_on_place_id"

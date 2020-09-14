@@ -334,6 +334,12 @@ const app = new Vue({
       userDetail: [],
 
       // ------------------------------
+      // マスターデータ格納用
+      // ------------------------------
+      // ユーザーステータスリスト
+      userStatusList: [],
+
+      // ------------------------------
       // ペイン1のタブ切り替え用データ
       // ------------------------------
       // アクティブのタブの初期値
@@ -508,11 +514,13 @@ const app = new Vue({
       // checkincode: '',
       checkinErr: {
         // code: false,
-        place: false,
+        // place: false,
         // fashion: false,
-        placeErr: false,
+        userStatus: false,
+        err: false,
       },
       checkinLoad: false,
+      selectedUserStatusId: '',
 
       // ------------------------------
       // 会場絞り込み用のデータ
@@ -637,8 +645,6 @@ const app = new Vue({
       // // 2. 都道府県を取得
       // this.getPrefecture()
       // ▲ getUserData → setUserData の API 内で実行
-      // イベント作成に利用するイベントステータスの取得
-      this.requestFetchEventStatuses();
     } else {
       // 画面作製のAPI進行状況を非表示にする
       this.prossessData.show = false
@@ -940,6 +946,30 @@ const app = new Vue({
       this.messageFocus = false
     },
 
+    // ------------------------------
+    // マスターデータの取得
+    // ------------------------------
+    getMasterData() {
+      // ユーザーステータスの取得
+      axios({
+        method: 'GET',
+        url: BASE_URL + '/user_statuses',
+        headers: {
+          Authorization: this.$cookie.get('Authorization')
+        }
+      })
+      .then(function(response) {
+        this.userStatusList = response.data
+      }.bind(this))
+      .catch(function(error) {
+        this.$cookie.delete('Authorization')
+        this.loaded = true
+      }.bind(this))
+
+      // イベント作成に利用するイベントステータスの取得
+      this.requestFetchEventStatuses();
+    },
+
     getUserData(background) {
       // ------------------------------
       // 1.ユーザー情報の取得を試す
@@ -1207,6 +1237,8 @@ const app = new Vue({
       let nowPlaceId = this.userData.current_place_id
       if (placeId != nowPlaceId) {
         this.placeCheckIn(placeId)
+      } else {
+        this.checkOut()
       }
     },
 
@@ -1338,6 +1370,10 @@ const app = new Vue({
             // 3. 場所の移動を受信
             case 'place_checkedin_user':
               this.receiveMove(data)
+              break;
+            // 4. チェックアウトを受信
+            case 'checkout_user':
+              this.receiveCheckout(data)
               break;
             default:
               break;
@@ -1571,7 +1607,7 @@ const app = new Vue({
 
         // ローダー・エラー通知・モーダルの非表示
         this.checkinLoad = false
-        this.checkinErr.placeErr = false
+        this.checkinErr.err = false
         this.closeModal('checkIn')
 
         // ペインの移動・チェックインコードのクリア
@@ -1741,6 +1777,71 @@ const app = new Vue({
     },
 
     // ------------------------------
+    // リアルタイム関連 4. チェックアウトを受信
+    // [-] アプリ内に通知
+    // ------------------------------
+    receiveCheckout(data) {
+      // 自分がチェックアウトした場合はリロードする
+      if(data.user_id === this.userData.id) {
+        this.showNotice('チェックアウトしました','','2000')
+        this.reload();
+        return;
+      }
+
+      // ユーザー名
+      let userName = 'ユーザーID:'+data.user_id
+      this.userListDefault.forEach((item, index) => {
+        let movedUserData = this.userListDefault[index].data.filter(function(el){
+          return el.id == data.user_id
+        })
+        if (movedUserData.length) {
+          userName = movedUserData[0].nickname
+          let lastPlaceId = _.clone(movedUserData[0].current_place_id)
+          movedUserData[0].last_place_id = lastPlaceId
+          setTimeout(() => {
+            movedUserData[0].current_place_id = ''
+            movedUserData[0].current_place_name = '会場未設定または見つかりません'
+          }, 100);
+        }
+      })
+      this.talklistData.forEach((item, index) => {
+        let target = this.talklistData[index].data.filter(function(el){
+          return el.partner.id == data.user_id
+        })
+        if (target.length) {
+          let lastPlaceId = _.clone(target[0].partner.current_place_id)
+          target[0].partner.last_place_id = lastPlaceId
+          setTimeout(() => {
+            target[0].partner.current_place_id = ''
+            target[0].is_moved = true
+            this.talkListFilterPlace()
+            target[0].is_current_place = false
+          }, 100);
+        }
+      })
+      this.talklist.forEach((item, index) => {
+        if (this.talklist[index].partner.id==data.user_id) {
+          let target = this.talklist[index]
+          let lastPlaceId = _.clone(target.partner.current_place_id)
+          target.partner.last_place_id = lastPlaceId
+          setTimeout(() => {
+            target.partner.current_place_id = ''
+            target.is_moved = true
+            // いま閲覧中の会場かどうか
+            target.is_current_place = false
+            // エリア外の会場かどうか
+            target.is_other_area = false
+            this.talkListFilterPlace()
+          }, 100);
+        }
+      })
+
+      this.unreadCount()
+
+      this.showNotice(userName+'さんがチェックアウトしました','','2000')
+    },
+
+    // ------------------------------
     // 現在の会場の設定（新規登録時のみ）
     // ------------------------------
     placeSetting(placeId) {
@@ -1764,6 +1865,15 @@ const app = new Vue({
     // ------------------------------
     placeCheckIn(placeId) {
       this.placeCheckInAtEvent(placeId)
+    },
+
+    // ------------------------------
+    // チェックアウト
+    // ------------------------------
+    checkOut() {
+      this.messageChannel.perform('checkout_event_and_place', {
+        token: this.$cookie.get('Authorization')
+      });
     },
 
     // ------------------------------
@@ -1872,6 +1982,9 @@ const app = new Vue({
         }
       }
 
+      // マスターデータを取得する
+      this.getMasterData()
+
       this.loginForm.input = false
       this.loginForm.pendingRegist = false
       this.loginForm.newRegist = false
@@ -1902,8 +2015,6 @@ const app = new Vue({
         this.loaded = true
         this.loginForm.pendingRegist = true
       }
-
-
     },
 
     // ------------------------------
@@ -2722,7 +2833,7 @@ const app = new Vue({
       // （データの checkinErr の各オプションを更新）
       // ------------------------------
       // let code = false, place = false, fashion = false
-      let place = false
+      let userStatus = false
 
       // // 1. コードが入力されているか判別
       // if (this.checkincode=="") {
@@ -2733,14 +2844,14 @@ const app = new Vue({
       //   code = false
       // }
 
-      // 2. 会場が選択されているか判別
-      if (this.nowPlaceID=="") {
-        this.checkinErr.place = true
-        place = true
-      } else {
-        this.checkinErr.place = false
-        place = false
-      }
+      // // 2. 会場が選択されているか判別
+      // if (this.nowPlaceID=="") {
+      //   this.checkinErr.place = true
+      //   place = true
+      // } else {
+      //   this.checkinErr.place = false
+      //   place = false
+      // }
 
       // // 3. ファッションが入力されているか判別
       // if (this.userData.fashion=="") {
@@ -2751,8 +2862,17 @@ const app = new Vue({
       //   fashion = false
       // }
 
+      // ステータスが選択されているか判別
+      if (this.selectedUserStatusId=="") {
+        this.checkinErr.userStatus = true
+        userStatus = true
+      } else {
+        this.checkinErr.userStatus = false
+        userStatus = false
+      }
+
       // if (code||place||fashion) {
-      if (place) {
+      if (userStatus) {
         // どれかがエラーのとき
         // console.log('入力エラー')
       } else {
@@ -2764,12 +2884,13 @@ const app = new Vue({
         this.checkinLoad = true
         // // 大文字に変換
         // this.checkincode = this.checkincode.toUpperCase()
-        this.checkinErr.placeErr = false
+        this.checkinErr.err = false
+        this.nowPlaceID = this.noweventlistTmp[0].organize_place_id
 
         this.messageChannel.perform('checkin_event', {
           event_id: targetEvent,
           // code: this.checkincode,
-          place_id: this.nowPlaceID,
+          user_status_id: this.selectedUserStatusId,
           token: this.$cookie.get('Authorization')
         });
       }

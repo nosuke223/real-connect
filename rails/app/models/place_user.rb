@@ -5,6 +5,7 @@
 #  id         :bigint(8)        not null, primary key
 #  age        :integer
 #  deleted_at :datetime
+#  gender     :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  place_id   :integer
@@ -30,6 +31,11 @@ class PlaceUser < ApplicationRecord
     thirty:  3, # 30代
     fourty:  4, # 40代
     fifty:  5 # 50代
+  }
+
+  enum gender: {
+    male: 1, # 男性
+    female: 2 #女性
   }
 
   # -------------------------------------------------------------------------------

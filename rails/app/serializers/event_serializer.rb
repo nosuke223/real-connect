@@ -5,7 +5,8 @@ class EventSerializer < ActiveModel::Serializer
     :end_time,
     :is_checked_in,
     :male_count,
-    :female_count
+    :female_count,
+    :organize_place_id
 
   attribute :check_in_code, if: :current_user_owner?
 

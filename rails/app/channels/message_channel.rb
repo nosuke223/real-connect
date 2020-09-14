@@ -45,12 +45,10 @@ class MessageChannel < ApplicationCable::Channel
  
     event = Event.find(data['event_id'])
     # current_user.event_checkin(event, data['code'])
-    current_user.event_checkin(event)
+    current_user.event_checkin(event, data['user_status_id'])
     stream_for event
 
-    current_user.place_checkin(data['place_id'])
-
-    MessageChannel.broadcast_to(event, { type: 'event_checkedin_user', event_id: event.id, user: current_user, place_id: data['place_id'] })
+    MessageChannel.broadcast_to(event, { type: 'event_checkedin_user', event_id: event.id, user: current_user, place_id: event.organize_place_id })
   end
 
   #
@@ -62,6 +60,20 @@ class MessageChannel < ApplicationCable::Channel
     
     current_user.events.now(current_user.area_id).each do |event|
       MessageChannel.broadcast_to(event, { type: 'place_checkedin_user', user_id: current_user.id, place_id: data['place_id'] })
+    end
+  end
+
+  #
+  # 会場およびイベントからチェックアウト
+  #
+  def checkout_event_and_place(data)
+    current_user = find_user_by_jwt(data['token'])
+    events = current_user.events.now(current_user.area_id)
+
+    current_user.checkout()
+
+    events.each do |event|
+      MessageChannel.broadcast_to(event, { type: 'checkout_user', user_id: current_user.id })
     end
   end
 

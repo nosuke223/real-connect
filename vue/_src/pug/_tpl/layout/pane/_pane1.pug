@@ -41,6 +41,10 @@ article#pane1.l-pane.is-visible
 
       .p-pane-target(:id='pane1[1].id' :class='{"is-visible":currentId1==pane1[1].id}')
         // ↓ BEGIN Tab Target Content
+        .p-block-content-container
+          .p-block-content
+            button(@click='checkOut()') チェックアウト
+
         .c-label 現在開催中のイベント
         noweventlist(:noweventlistchild='noweventlist' :key='item.id' @talk-list-update-child='talkListUpdate(item.id)' v-bind='item' v-for='(item, index) in noweventlist.slice().reverse()')
         .p-no-result(v-if='noweventlist.length==0') 現在開催中のイベントはありません。

@@ -3,6 +3,7 @@
 # Table name: event_users
 #
 #  id             :bigint(8)        not null, primary key
+#  age            :integer
 #  checked_out_at :datetime
 #  deleted_at     :datetime
 #  gender         :integer
@@ -33,5 +34,13 @@ class EventUser < ApplicationRecord
   enum gender: {
     male: 1,  # 男性
     female: 2 #女性
+  }
+
+  enum age: {
+    early_twenty: 1, # 20代前半
+    late_twenty: 2, # 20代後半
+    thirty:  3, # 30代
+    fourty:  4, # 40代
+    fifty:  5 # 50代
   }
 end

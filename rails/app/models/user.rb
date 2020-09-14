@@ -223,10 +223,38 @@ class User < ApplicationRecord
   # イベントにチェックイン
   #
   # def event_checkin(event, code)
-  def event_checkin(event)
+  def event_checkin(event, user_status_id)
     raise ActiveRecord::RecordInvalid unless confirmed_user?
     # raise ActiveRecord::RecordInvalid if event.check_in_code != code
-    self.event_users.create(event_id: event.id, gender: self.gender)
+
+    # すでにチェックインしている会場およびイベントがあればすべてチェックアウト
+    self.checkout_all_places
+    self.checkout_all_events
+
+    # イベントにチェックイン
+    self.event_users.create(
+      event_id: event.id,
+      gender: self.gender,
+      age: self.age
+    )
+
+    # イベントに紐づく店舗があれば
+    if event.organize_place_id
+      # イベントに紐づく店舗にチェックイン
+      self.place_users.create(
+        place_id: event.organize_place_id,
+        age: self.age,
+        gender: self.gender
+      )
+      # ユーザが今いる店舗と前にいた店舗の情報を更新
+      self.update(
+        current_place_id: event.organize_place_id,
+        last_place_id: self.current_place_id || self.last_place_id
+      )
+    end
+
+    # ステータスを更新
+    self.update(user_status_id: user_status_id)
   end
 
   #
@@ -235,16 +263,57 @@ class User < ApplicationRecord
   def place_checkin(place_id)
     raise ActiveRecord::RecordInvalid unless confirmed_user?
 
+    # すでにチェックインしている会場およびイベントがあればすべてチェックアウト
+    self.checkout_all_places
+    self.checkout_all_events
+
+    # 店舗にチェックイン
     self.place_users.create(
       place_id: place_id,
-      age: self.age
+      age: self.age,
+      gender: self.gender
     )
 
-    # 非正規化
+    # ユーザが今いる店舗と前にいた店舗の情報を更新
     self.update(
       current_place_id: place_id,
-      last_place_id: self.current_place_id
+      last_place_id: self.current_place_id || self.last_place_id
     )
+  end
+
+  #
+  # チェックアウト
+  #
+  def checkout
+    raise ActiveRecord::RecordInvalid unless confirmed_user?
+
+    # すでにチェックインしている会場およびイベントがあればすべてチェックアウト
+    self.checkout_all_places
+    self.checkout_all_events
+
+    # ユーザが今いる店舗と前にいた店舗の情報を更新
+    self.update(
+      current_place_id: nil,
+      last_place_id: self.current_place_id || self.last_place_id
+    )
+  end
+
+  #
+  # すべての店舗からチェックアウト
+  #
+  def checkout_all_places
+    self.place_users && self.place_users.each do |place_user|
+      place_user.destroy
+    end
+  end
+
+  #
+  # すべてのイベントからチェックアウト
+  #
+  def checkout_all_events
+    self.event_users && self.event_users.each do |event_user|
+      event_user.destroy
+    end
   end
 
   #
