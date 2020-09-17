@@ -24,11 +24,10 @@
               i.glyph.glyph-map-marked-alt
               | {{currentAreaName}}
             br
-            a.p-profile__address(:href='"https://www.google.co.jp/maps/search/"+placeDetail.address+placeDetail.building' target='_blank' v-if='placeDetail.address')
+            a.p-profile__address(:href='"https://www.google.co.jp/maps/search/"+displayPlaceAddress' target='_blank' v-if='displayPlaceAddress')
               i.glyph.glyph-map-marker
               span
-                em {{placeDetail.address}}
-                em(v-if='placeDetail.building') {{placeDetail.building}}
+                em {{displayPlaceAddress}}
         tr
           th 現在の空席状況
           td

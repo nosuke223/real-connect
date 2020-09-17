@@ -4702,6 +4702,18 @@ const app = new Vue({
   computed: {
     progressRateAnimated() {
       return this.progressRateTweened.toFixed(1)
+    },
+    displayPlaceAddress() {
+      if (this.placeDetail && this.placeDetail.address1) {
+        let addressArray = [
+          this.placeDetail.address1,
+          this.placeDetail.address2,
+          this.placeDetail.address3
+        ];
+        return addressArray.join('');
+      } else {
+        return '';
+      }
     }
   },
 
