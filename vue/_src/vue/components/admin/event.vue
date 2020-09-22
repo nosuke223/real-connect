@@ -3,7 +3,7 @@
       header.l-pane__header.p-pane-control.u-mode-bg--ltSM
         .p-pane-control__heading
           span.p-pane-control__logo.cft.u-visible--ltSM Real-Connect Admin
-          span.p-pane-control__title.u-visible--gtMD イベント作成
+          span.p-pane-control__title.u-visible--gtMD {{pageTitle}}
         .p-pane-control__button( data-block='admin-profile' )
           i.glyph.glyph-account
         .p-pane-control__button( data-block='menu' )
@@ -80,8 +80,8 @@
                     i.glyph.glyph-pen
                     i.glyph.glyph-check-circle.u-color--primary01
                 section
-                  h3 イベントタイトル
-                  p イベントのタイトルを入力してください
+                  h3 イベント名
+                  p イベント名を入力してください
                   .input-field
                     input(type='text' name='name' autocomplete='off' placeholder='入力してください' v-model='event.name' )
                     i.glyph.glyph-pen
@@ -116,6 +116,7 @@ export default {
       /**
        * モデル用データ
        */
+      id: this.$route.params.id,
       event: {
         event_status: null,
         start_time: new Date(),
@@ -131,23 +132,45 @@ export default {
         from: 20,
         to: 20
       },
-      // TODO:仕様の確認後要変更
       eventStatuses: [],
       eventTimePrefixes: ["start", "end"]
     };
   },
+  computed: {
+    pageTitle() {
+      let title;
+      if (this.id) {
+        title = 'イベント編集';
+      } else {
+        title = 'イベント作成';
+      }
+      return title;
+    }
+  },
   async created() {
-    this.requestFetchEventStatuses();
+    await this.requestFetchEventStatuses();
+    if (this.id) {
+      this.requestFetchEvent();
+    }
   },
   methods: {
     /**
      * イベントステータスの一覧を取得する
      */
     requestFetchEventStatuses() {
-      request("GET", "/system_admins/event_statuses").then((result) => {
+      request("GET", "/owners/event_statuses").then((result) => {
         if (result.error) {
         } else {
           this.eventStatuses = result.data;
+        }
+      });
+    },
+    requestFetchEvent() {
+      request("GET", `/owners/events/${this.$route.params.id}`).then((result) => {
+        if (result.error) {
+        } else {
+          this.event = result.data;
+          this.timeFormat();
         }
       });
     },
@@ -184,22 +207,46 @@ export default {
           organize_place_id: this.userData.selectedPlace.id
         }
       };
-      request("POST", "/owners/events", { data }).then((result) => {
-        if (result.error) {
-          let erros = {};
-          erros.messages = result.error.result.join("\n");
-          this.handleRequestError(erros);
-        } else {
-          alert("イベントの立ち上げが完了しました");
-          this.$router.push("/admin");
-        }
-      });
+      if (this.id) {
+        request("PUT", `/owners/events/${this.id}`, { data }).then((result) => {
+          if (result.error) {
+            let erros = {};
+            erros.messages = result.error.result.join("\n");
+            this.handleRequestError(erros);
+          } else {
+            alert("イベントの更新が完了しました");
+            this.$router.push("/admin");
+          }
+        });
+      } else {
+        request("POST", "/owners/events", { data }).then((result) => {
+          if (result.error) {
+            let erros = {};
+            erros.messages = result.error.result.join("\n");
+            this.handleRequestError(erros);
+          } else {
+            alert("イベントの作成が完了しました");
+            this.$router.push("/admin");
+          }
+        });
+      }
     },
     /**
      * キャンセルボタン押下時
      */
     goBackTop() {
       this.$router.push('/admin');
+    },
+    /**
+     * 開始時刻・終了時刻を時・分に分解して保持
+     */
+    timeFormat() {
+      this.eventTimePrefixes.forEach((prefix) => {
+        if (this.event[`${prefix}_time`]) {
+          this.event[`${prefix}_time_hour`] = filters.hours(this.event[`${prefix}_time`]);
+          this.event[`${prefix}_time_minute`] = filters.minutes(this.event[`${prefix}_time`]);
+        }
+      });
     },
   },
 };

@@ -22,6 +22,12 @@ export default {
   time(time) {
     return moment(time).format('HH:mm')
   },
+  hours(time) {
+    return moment(time).format('HH')
+  },
+  minutes(time) {
+    return moment(time).format('mm')
+  },
   format_datetime(datetime) {
     return moment(datetime).format('YYYY/MM/DD HH:mm')
   },

@@ -148,7 +148,7 @@ const app = new Vue({
       try {
         const place_id = this.userData.selectedPlace.id;
         const result = await request('GET', `/owners/events?place_id=${place_id}`);
-        this.events = result.data;
+        this.events = result.data.events;
       } catch(error) {
         this.handleRequestError(error);
       }

@@ -80,7 +80,7 @@ Rails.application.routes.draw do
             get :collection
           end
         end
-        resources :events, only: %i[index create]
+        resources :events, only: %i[index show create update destroy]
         resources :places, only: %i[index show update]
         resources :event_statuses, only: %i[index]
         resources :areas, only: %i[index] do
