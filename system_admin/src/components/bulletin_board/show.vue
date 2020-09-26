@@ -14,7 +14,7 @@
         div(v-if="event.messages && event.messages.length === 0")
           v-card-text.text-h6 まだトークが投稿されていません
         v-card-actions
-          v-btn.white--text(color="success" @click="gotoIndex" small) 閉じる
+          v-btn(color="secondary" outlined @click="goBack") 戻る
 </template>
 
 <script>
@@ -49,8 +49,8 @@ export default {
     }
   },
   methods: {
-    gotoIndex() {
-      window.close();
+    goBack() {
+      this.$router.go(-1);
     }
   }
 };

@@ -17,7 +17,7 @@
           p エリア名:{{displayAreaName}}
           p 開始日:{{event.startTime}}
           p 終了日:{{event.endTime}}
-          p 主催者種別:{{displayOrganizerType}}
+          p 主催者種別:{{event.organizerTypeName}}
 </template>
 
 <script>
@@ -41,7 +41,7 @@ export default {
         users: [],
         male: 0,
         female: 0,
-        organizer_type: 0
+        organizerTypeName: ''
       }
     };
   },
@@ -63,20 +63,8 @@ export default {
         return "";
       }
     },
-    displayOrganizerType() {
-      const type = this.event.organizer_type;
-      if (type === 1000) {
-        return "ユーザー";
-      } else if (type === 2000) {
-        return "オーナー";
-      } else if (type === 3000) {
-        return "システム管理者";
-      } else {
-        return "";
-      }
-    },
     isAdminCreate() {
-      if (this.event.organizer_type === 3000) {
+      if (this.event.organizerTypeName === "システム管理者") {
         return true;
       } else {
         return false;
@@ -97,7 +85,7 @@ export default {
         this.event.eventStatus = data.event_status;
         this.event.detail = data.detail;
         this.event.organizerName = data.organizer_name;
-        this.event.organizer_type = data.organizer_type;
+        this.event.organizerTypeName = data.organizer_type_name;
         this.event.capacity = data.capacity;
         this.event.users = data.users;
         const { male, female } = countParticipant(data.users);

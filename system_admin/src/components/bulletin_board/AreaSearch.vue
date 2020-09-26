@@ -104,8 +104,11 @@ export default {
     hideAreaSearch() {
       this.$emit("selectedArea", this.selectArea);
       this.areas = [];
-      this.selectArea = {};
+      this.$router.push(
+        `/bulletin_board?tab=event&area_id=${this.selectArea.id}&area_name=${this.selectArea.name}`
+      );
       this.close();
+      this.selectArea = {};
     }
   }
 };

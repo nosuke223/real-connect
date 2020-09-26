@@ -19,7 +19,7 @@ export default {
         { text: "イベントID", value: "id" },
         { text: "イベント名", value: "name" },
         { text: "募集人数", value: "capacity" },
-        { text: "主催者種別", value: "organizer_type" },
+        { text: "主催者種別", value: "organizer_type_name" },
         { text: "開始時間", value: "start_time" },
         { text: "終了時間", value: "end_time" }
       ]
@@ -33,8 +33,6 @@ export default {
       data.map(record => {
         record.start_time = formatDateTime(record.start_time);
         record.end_time = formatDateTime(record.end_time);
-        // 主催者種別
-        record.organizer_type = this.convertOrganizerType(record.organizer_type);
         return record;
       });
       this.items = data;
@@ -47,17 +45,6 @@ export default {
     gotoCreate() {
       this.$router.push("/events/create");
     },
-    convertOrganizerType(type) {
-      if (type === 1000) {
-        return "ユーザー";
-      } else if (type === 2000) {
-        return "オーナー";
-      } else if (type === 3000) {
-        return "システム管理者";
-      } else {
-        return "";
-      }
-    }
   }
 };
 </script>

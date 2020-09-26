@@ -10,16 +10,15 @@ class Api::V1::SystemAdmins::EventsController < Api::V1::SystemAdmins::BaseContr
              else
                Event.all.order(updated_at: 'desc')
              end
-    render json: events.as_json(
-      include: %i[area event_status users]
-    )
+    if params[:now] == 'true'
+      events = events.now
+    end
+    render json: events, each_serializer: EventSerializer
   end
 
   # GET /events/:id
   def show
-    render json: @event.as_json(
-      include: %i[area event_status users]
-    )
+    render json: @event, serializer: EventSerializer
   end
 
   # POST /events

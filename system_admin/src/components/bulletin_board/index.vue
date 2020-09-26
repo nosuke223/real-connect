@@ -14,10 +14,10 @@
             InfoLists(:items="systemBbsInfos")
           v-tab-item(value="tab_event")
             div.ma-2
-              v-btn(dark slot="activator" color="teal accent-4" small rounded @click="showDialog()") エリアを絞り込む
+              v-btn(dark slot="activator" color="teal accent-4" rounded @click="showDialog()") エリアを絞り込む
               AreaSearch(ref="dialog" @selectedArea="fetchEvents")
             div.ma-2(v-if="selectedArea.name")
-              v-chip.ma-1(small) {{selectedArea.name}}
+              v-chip.ma-1(label outlined close color="secondary" @click:close="resetArea") {{selectedArea.name}}
             EventLists(:events="events")
       v-card-actions
         v-btn(color="primary" text to="/place_application/create" target="_blank" rel="noopener") 店舗新規登録
@@ -31,7 +31,6 @@ import InfoLists from "./InfoLists";
 import EventLists from "./EventLists";
 import AreaSearch from "./AreaSearch";
 import { formatDateTime } from "@/utils/format_date";
-import { countParticipant } from "@/utils/event";
 
 export default {
   components: {
@@ -52,6 +51,13 @@ export default {
     this.fetchBbsInfos();
     this.fetchBbsNews();
     this.selectTab();
+    let area = {id: null}
+    if (this.$route.query.area_id) {
+      area.id = this.$route.query.area_id;
+      area.name = this.$route.query.area_name;
+      this.selectedArea = area;
+    }
+    this.fetchEvents(area);
   },
   methods: {
     async fetchBbsInfos() {
@@ -86,8 +92,14 @@ export default {
     },
     async fetchEvents(areaObj) {
       this.selectedArea = areaObj;
+      let uri = "";
+      if (areaObj.id) {
+        uri = `events?area_id=${areaObj.id}&now=true`;
+      } else {
+        uri = 'events?now=true';
+      }
       const request = new ApiRequest(
-        `events?area_id=${areaObj.id}`,
+        uri,
         this.$cookie
       );
       const { response, error } = await request.index();
@@ -96,9 +108,6 @@ export default {
         data.map(record => {
           record.start_time = formatDateTime(record.start_time);
           record.end_time = formatDateTime(record.end_time);
-          const { male, female } = countParticipant(record.users);
-          record.male = `${male}人`;
-          record.female = `${female}人`;
           return record;
         });
         this.events = data;
@@ -114,6 +123,11 @@ export default {
     },
     showDialog() {
       this.$refs.dialog.open();
+    },
+    async resetArea() {
+      this.selectedArea = {};
+      await this.fetchEvents({id: null});
+      this.$router.push('/bulletin_board?tab=event');
     }
   }
 };

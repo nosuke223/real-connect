@@ -12,9 +12,19 @@ class EventSerializer < ActiveModel::Serializer
     :event_status_id,
     :from,
     :to,
-    :detail
+    :detail,
+    :area_id
+  
+  class EventStatusSerializer < ActiveModel::Serializer
+    attributes :id,
+      :name
+  end
 
   attribute :check_in_code, if: :current_user_owner?
+  belongs_to :area, serializer: AreaSerializer
+  belongs_to :event_status, serializer: EventStatusSerializer
+  has_many :users, serializer: CurrentUserSerializer
+
 
   def current_user_owner?
     current_user.owner?
