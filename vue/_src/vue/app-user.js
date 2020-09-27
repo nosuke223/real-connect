@@ -193,7 +193,7 @@ const app = new Vue({
 
       // 通信のデバッグ
       prossessData: {
-        show: true,
+        show: false,
         item: [],
       },
       // 最後のデフォルトデータの読み込み完了の判別
