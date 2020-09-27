@@ -1,5 +1,5 @@
 <template lang="pug">
-  article#pane-dashboard.l-pane.l-pane--full.is-visible
+  article#pane-dashboard.l-pane.l-pane--full.is-visible(v-if="userData && userData.selectedPlace")
 
     header.l-pane__header.p-pane-control.u-mode-bg--ltSM
       .p-pane-control__heading
@@ -53,8 +53,8 @@
                   td.p-event-data__start_time.p_event_data.p-event-data__label {{event.start_time|format_datetime}}
                   td.p-event-data__end_time.p_event_data.p-event-data__label {{event.end_time|format_datetime}}
                   td
-                    button.u-bg--secondary(@click.stop="deleteEvent(event.id)") 削除
-              button.u-bg--secondary(@click="goToCreate()") イベント作成
+                    button.u-bg--error(@click.stop="deleteEvent(event.id)") 削除
+              button(@click="goToCreate()") イベント作成
       // ↑ END Block Content
 </template>
 

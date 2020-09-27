@@ -51,6 +51,18 @@ $accentDk:     darken($accent, $range);
 $accentSt:   saturate($accent, $range);
 $accentDs: desaturate($accent, $range);
 
+$secondary:                       #b0bec5;
+$secondaryLt:    lighten($secondary, $range);
+$secondaryDk:     darken($secondary, $range);
+$secondarySt:   saturate($secondary, $range);
+$secondaryDs: desaturate($secondary, $range);
+
+$error:                       #D50000;
+$errorLt:    lighten($error, $range);
+$errorDk:     darken($error, $range);
+$errorSt:   saturate($error, $range);
+$errorDs: desaturate($error, $range);
+
 // --------------------------------------------------
 // Gray-scale color
 // --------------------------------------------------

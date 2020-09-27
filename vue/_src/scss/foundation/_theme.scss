@@ -6,12 +6,12 @@ body.is-color {
 
   // カンパニュラ
   &--cp {
-    @include gradUI($male,$female,$cs01Lt,$male);
+    @include gradUI($male,$female,$cs01Lt,$male, $secondaryDs, $errorDs);
   }
 
   // コールドチェア
   &--cc {
-    @include gradUI($male,$cs01Lt,$accentLt,$cs01Lt);
+    @include gradUI($male,$cs01Lt,$accentLt,$cs01Lt, $secondaryLt, $errorLt);
   }
 
 }

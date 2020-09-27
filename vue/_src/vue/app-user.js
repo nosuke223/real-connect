@@ -3119,19 +3119,19 @@ const app = new Vue({
         axios({
           method: 'DELETE',
           url: BASE_URL + '/sessions',
-          data: {
+          headers: {
             Authorization: this.$cookie.get('Authorization')
           }
         })
         .then(function() {
-          this.userData = null
-          this.$cookie.delete('Authorization')
+          this.userData = {};
+          this.$cookie.delete('Authorization');
           location.href = '/user/'
         }.bind(this))
         .catch(function() {
-          this.userData = null
-          this.$cookie.delete('Authorization')
-          location.href = '/user/'
+          this.userData = {};
+          this.$cookie.delete('Authorization');
+          location.href = '/user/';
         }.bind(this))
       }
     },

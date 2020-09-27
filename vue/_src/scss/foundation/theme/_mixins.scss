@@ -43,7 +43,7 @@
 // Gradient UI
 // ========================================
 
-@mixin gradUI($c01L,$c01R,$c02L,$c02R) {
+@mixin gradUI($c01L,$c01R,$c02L,$c02R,$c03,$c04) {
   input[type="text"],input[type="tel"],input[type="password"],input[type="email"],input[type="number"],textarea {
     caret-color: $c01L;
   }
@@ -57,7 +57,11 @@
   }
 
   .u-bg--secondary {
-    background-image: linear-gradient(to right, $c02L 0%, $c02R 100%);
+    background-image: linear-gradient(to right, $c03 0%, $c03 100%) !important;
+  }
+
+  .u-bg--error {
+    background-image: linear-gradient(to right, $c04 0%, $c04 100%) !important;
   }
 
   .u-color {

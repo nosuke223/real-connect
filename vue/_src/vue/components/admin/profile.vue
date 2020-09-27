@@ -158,7 +158,7 @@
 
           .p-block-content.submit-button-area
             button.u-bg--primary(@click='onClickUpdateButton()') 更新する
-            button.u-bg--primary(@click='goBackTop()' style="margin-left: 15px;") キャンセル
+            button.u-bg--secondary(@click='goBackTop()' style="margin-left: 15px;") キャンセル
 </template>
 
 <script>

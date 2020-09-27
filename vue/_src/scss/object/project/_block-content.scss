@@ -186,6 +186,12 @@
     font-weight: 500;
     background: $accent;
     color: $truewhite;
+    &.u-bg--secondary {
+      background: $secondary;
+    }
+    &.u-bg--error {
+      background: $error;
+    }
   }
 
   .glyph-check-circle,

@@ -84,7 +84,7 @@
                 button.u-bg--primary(@click='openModal("deleteAccount")') 退会手続きへ進む
               section
                 h4 ログアウト
-                button.u-bg--primary(@click='onClickLogout()') ログアウト
+                button.u-bg--error(@click='onClickLogout()') ログアウト
 </template>
 
 <script>

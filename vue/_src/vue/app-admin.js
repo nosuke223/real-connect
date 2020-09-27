@@ -69,7 +69,9 @@ const app = new Vue({
   async mounted() {
     if (this.$cookie.get('Authorization')) {
       await this.requestFetchUser();
-      await this.requestFetchEvents();
+      if (this.userData) {
+        await this.requestFetchEvents();
+      }
     }
   },
   methods: {
@@ -125,7 +127,8 @@ const app = new Vue({
         request('DELETE', '/sessions')
         .then(() => {
           this.loading = false
-          this.setCurrentUserData(null);
+          this.setCurrentUserData({});
+          location.href = '/admin/login';
         })
       }
     },
@@ -145,6 +148,7 @@ const app = new Vue({
      * 開催中のイベントを取得
      */
     async requestFetchEvents() {
+      if (!this.userData.selectedPlace) return;
       try {
         const place_id = this.userData.selectedPlace.id;
         const result = await request('GET', `/owners/events?place_id=${place_id}`);
