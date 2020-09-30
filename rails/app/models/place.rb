@@ -72,6 +72,18 @@ class Place < ApplicationRecord
   has_many :events, through: :event_places
 
   # -------------------------------------------------------------------------------
+  # Validation
+  # -------------------------------------------------------------------------------
+  validates :is_fri_holiday, presence: true
+  validates :is_mon_holiday, presence: true
+  validates :is_sat_holiday, presence: true
+  validates :is_sun_holiday, presence: true
+  validates :is_thu_holiday, presence: true
+  validates :is_tue_holiday, presence: true
+  validates :is_wed_holiday, presence: true
+  validates :seat_status, presence: true
+  validates :place_users_count, presence: true
+  # -------------------------------------------------------------------------------
   # Enumerables
   # -------------------------------------------------------------------------------
   enum seat_status: {

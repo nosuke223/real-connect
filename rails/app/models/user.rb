@@ -187,6 +187,9 @@ class User < ApplicationRecord
   validates :avatar_image, presence: true, if: :confirmed_user?
   # validates :fashion, presence: true, if: :confirmed_user?
   validates :area, presence: true, if: :confirmed_user?
+  validates :email, presence: true
+  validates :sign_in_count, presence: true
+  validates :failed_attempts, presence: true
   validates :gender, presence: true, if: :confirmed_user?
   validates :blood, presence: true, if: :confirmed_user?
   validates :age, presence: true, if: :confirmed_user?

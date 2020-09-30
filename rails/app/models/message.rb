@@ -43,6 +43,13 @@ class Message < ApplicationRecord
   belongs_to :partner, class_name: 'User', foreign_key: 'partner_id'
 
   # -------------------------------------------------------------------------------
+  # Validation
+  # -------------------------------------------------------------------------------
+  validates :event_id, presence: true
+  validates :sender_id, presence: true
+  validates :partner_id, presence: true
+
+  # -------------------------------------------------------------------------------
   # Callbacks
   # -------------------------------------------------------------------------------
   after_save :update_talks

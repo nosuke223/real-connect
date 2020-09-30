@@ -30,7 +30,12 @@ class Talk < ApplicationRecord
   belongs_to :user
   belongs_to :partner, class_name: 'User', foreign_key: 'partner_id'
   belongs_to :last_message, class_name: 'Message', foreign_key: 'last_message_id'
-
+  # -------------------------------------------------------------------------------
+  # Validation
+  # -------------------------------------------------------------------------------
+  validates :event_id, presence: true
+  validates :partner_id, presence: true
+  validates :user_id, presence: true
   # -------------------------------------------------------------------------------
   # Methods
   # -------------------------------------------------------------------------------
