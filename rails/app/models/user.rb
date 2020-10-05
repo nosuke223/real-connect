@@ -188,6 +188,7 @@ class User < ApplicationRecord
   # validates :fashion, presence: true, if: :confirmed_user?
   validates :area, presence: true, if: :confirmed_user?
   validates :email, presence: true
+  validates :encrypted_password, presence: true
   validates :sign_in_count, presence: true
   validates :failed_attempts, presence: true
   validates :gender, presence: true, if: :confirmed_user?
