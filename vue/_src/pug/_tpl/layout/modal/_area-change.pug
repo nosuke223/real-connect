@@ -7,12 +7,20 @@ transition(name='v-modal' appear v-if='modal.areaChange')
           button.p-card__round-button.u-bg--primary.p-modal__close(@click='closeModal("areaChange")') ✕
         .p-card__body.u-text
           section
+            h2 地方を選択して下さい
+            .input-field
+              label.c-select
+                select.c-select__item(v-model='areaChangeData.region' name='region' @change='changeRegion()')
+                  option(:value='{}' selected) 全地方
+                  option(:value='item' v-for='item in regionList') {{item.name}}
+
+          section
             h2 都道府県を選択して下さい
             .input-field
               label.c-select
                 select.c-select__item(v-model='areaChangeData.prefecture' name='prefecture' @change='changePrefecture()')
-                  option(value='null' selected disabled) 都道府県を選択してください
-                  option(:value='item.code' v-for='item in prefecture') {{item.name}}
+                  option(:value='null' selected disabled) 都道府県を選択してください
+                  option(:value='item.code' v-for='item in areaChangeData.prefectureList') {{item.name}}
 
           section
             h2 エリアを選択して下さい
@@ -23,7 +31,7 @@ transition(name='v-modal' appear v-if='modal.areaChange')
                     .p-load-text__item.p-load-text__item--1
                     .p-load-text__item.p-load-text__item--2
                     .p-load-text__item.p-load-text__item--3
-                select.c-select__item(v-model='areaChangeData.area_id' name='area')
+                select.c-select__item(v-model='areaChangeData.area_id' name='area' :disabled="!areaChangeData.prefecture")
                   //- (1)API通信時の空白
                   option(:value='areaChangeData.area_id' v-if='areaListLoad' disabled)
                   //- 選択可能なエリア一覧のオプション

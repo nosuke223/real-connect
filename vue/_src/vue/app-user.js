@@ -163,6 +163,8 @@ const app = new Vue({
       // エリア変更用の一時データ
       // ------------------------------
       areaChangeData: {
+        region: {},
+        prefectureList: [],
         prefecture: null,
         area_id: null,
         areaList: [],
@@ -338,6 +340,8 @@ const app = new Vue({
       // ------------------------------
       // ユーザーステータスリスト
       userStatusList: [],
+      // 地方リスト
+      regionList: [],
 
       // ------------------------------
       // ペイン1のタブ切り替え用データ
@@ -966,6 +970,22 @@ const app = new Vue({
         this.loaded = true
       }.bind(this))
 
+      // 地方データの取得
+      axios({
+        method: 'GET',
+        url: BASE_URL + '/regions',
+        headers: {
+          Authorization: this.$cookie.get('Authorization')
+        }
+      })
+      .then(function(response) {
+        this.regionList = response.data
+      }.bind(this))
+      .catch(function(error) {
+        this.$cookie.delete('Authorization')
+        this.loaded = true
+      }.bind(this))
+
       // イベント作成に利用するイベントステータスの取得
       this.requestFetchEventStatuses();
     },
@@ -1077,6 +1097,7 @@ const app = new Vue({
       })
       .then(function(response) {
         this.prefecture = response.data
+        this.$set(this.areaChangeData, 'prefectureList', response.data)
         status.content = '都道府県と登録エリアリソースを取得しました'
         status.error = false
         status.completed = true
@@ -1091,10 +1112,25 @@ const app = new Vue({
     },
 
     // ------------------------------
+    // 地方プルダウンの変更時
+    // ------------------------------
+    changeRegion() {
+      if (this.areaChangeData.region.prefectures) {
+        this.$set(this.areaChangeData, 'prefectureList', this.areaChangeData.region.prefectures)
+      } else {
+        this.$set(this.areaChangeData, 'prefectureList', this.prefecture)
+      }
+
+      this.$set(this.areaChangeData, 'prefecture', null)
+      this.$set(this.areaChangeData, 'area_id', null)
+    },
+
+    // ------------------------------
     // 都道府県プルダウンの変更時
     // ------------------------------
     changePrefecture() {
       this.getAreaList(this.areaChangeData.prefecture)
+      this.$set(this.areaChangeData, 'area_id', null)
     },
 
     // ------------------------------
