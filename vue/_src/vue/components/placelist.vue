@@ -80,7 +80,8 @@ export default {
       this.$emit('childs-event')
     },
     adminDetailActiveC() {
-      this.$emit('modaladmindatail-child')
+      // 廃止
+      // this.$emit('modaladmindatail-child')
     },
     // ------------------------------
     // アバター見つからない時に10初期とイニシャルを表示

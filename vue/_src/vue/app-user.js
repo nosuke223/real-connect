@@ -353,7 +353,7 @@ const app = new Vue({
       pane1: [
         {
           id: 'place',
-          label: 'place',
+          label: 'store',
         },
         {
           id: 'event',
