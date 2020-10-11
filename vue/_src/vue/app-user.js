@@ -411,6 +411,10 @@ const app = new Vue({
       // ------------------------------
       currentAreaId: '',
       currentAreaName: '',
+      areaDetailPrefectureName: '',
+      areaDetailAreaName: '',
+      areaDetailMaleCount: 0,
+      areaDetailFemaleCount: 0,
 
       // ------------------------------
       // イベントリスト表示用データ
@@ -2064,6 +2068,12 @@ const app = new Vue({
       })
       if (areaData.length) {
         currentAreaName = areaData[0].name
+        this.areaDetailPrefectureName = areaData[0].prefecture.name
+        this.areaDetailAreaName = areaData[0].name
+      } else {
+        this.areaDetailPrefectureName = ''
+        this.areaDetailAreaName = ''
+
       }
       this.currentAreaId = currentAreaId
       this.currentAreaName = currentAreaName
@@ -4474,6 +4484,8 @@ const app = new Vue({
     // ------------------------------
     // 男女比（会場ごと）
     // ------------------------------
+    let areaMaleCount = 0
+    let areaFemaleCount = 0
     Array.prototype.getLastVal = function (){
       return this[this.length -1]
     }
@@ -4509,6 +4521,10 @@ const app = new Vue({
           // 同じ時
           this.placelist[index].gender_range = 'equal'
         }
+
+        // エリア全体の男女比
+        areaMaleCount += maleCount
+        areaFemaleCount += femaleCount
       } else {
         // いなかったら男性・女性のカウントをゼロに
         this.placelist[index].male_count = 0
@@ -4516,6 +4532,8 @@ const app = new Vue({
         this.placelist[index].gender_range = 'equal'
       }
     })
+    this.areaDetailMaleCount = areaMaleCount
+    this.areaDetailFemaleCount = areaFemaleCount
 
     // ------------------------------
     // 現在のチェックイン会場へのアイコン

@@ -63,6 +63,9 @@
   &.placedetail {
     color: transparent;
   }
+  &.place, &.event, &.placedetail {
+    top: $paneHeaderH + $paneHeaderH - 15px;
+  }
 
   // Pane2
   &.all          {.append {left: calc( 100% / 3 * 0 );}}

@@ -154,3 +154,30 @@ $breakPoint: #{$painMaxW*3+$menuW};
 
   // &__remain {}
 }
+
+#pane1 .l-pane__body {
+  padding-top: $paneHeaderH + $paneHeaderH - 15px;
+  height: calc( 100% - #{$paneHeaderH} - #{$paneHeaderH} + 15px );
+  transition: padding-top .15s ease-in-out;
+
+  @include ltSM {
+    padding-top: $paneHeaderH - 20px;
+
+    .is-msg-focus.ios & {
+      padding-top: $paneHeaderH + $paneHeaderH - 20px;
+    }
+
+    .is-msg-focus.ios.ios-standalone & {
+      padding-top: $paneHeaderH - 10px + $paneHeaderH - 20px;
+      bottom: 10px;
+    }
+  };
+
+  &.is-visible-tab {
+    padding-top: $paneHeaderH + $paneHeaderH - 15px + $paneHeaderH - 15px;
+
+    @include ltSM {
+      padding-top: $paneHeaderH - 15px + $paneHeaderH - 20px;
+    };
+  }
+}

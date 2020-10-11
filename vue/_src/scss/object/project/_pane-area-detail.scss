@@ -1,0 +1,17 @@
+.p-pane-area-detail {
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  height: $paneHeaderH - 15px;
+  line-height: $paneHeaderH - 15px;
+  top: $paneHeaderH;
+  left: 0;
+  font-size: 12px;
+  background: inherit;
+  @include flex(ce,ce,false);
+
+  @include ltSM {
+    border: none;
+    line-height: $paneHeaderH - 20px;
+  };
+}

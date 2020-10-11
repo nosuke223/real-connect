@@ -6,6 +6,9 @@ article#pane1.l-pane.is-visible
       i.glyph.glyph-account
     .p-pane-control__button( data-block='menu' )
       i.glyph ︙
+    .p-pane-area-detail
+      template(v-if='areaDetailPrefectureName') {{areaDetailPrefectureName}}&nbsp;{{areaDetailAreaName}}&nbsp;&nbsp;男女比&nbsp;{{areaDetailMaleCount}}名：{{areaDetailFemaleCount}}名
+      template(v-else) エリアが選択されていません
     // ↓ BEGIN Tab Trigger
     .p-pane-tab(:class='currentId1')
       .p-pane-tab__item.u-uppercase(v-for='(item, index) in pane1' @click='changeTab1(item.id)' :class='{"is-active":active1(item.id)}' :currentId1child='currentId1' :data-tab='item.id') {{item.label}}
@@ -25,7 +28,7 @@ article#pane1.l-pane.is-visible
         section.p-pane-notice(v-if='userData.area_id==null')
           p 登録エリアが未設定です。
           p
-            | プロフィールからエリアを登録して下さい。
+            | メニューからエリアを選択して下さい。
             br
             | なお、エリア情報の変更やエリアの削除によって、以前エリアを登録したにも関わらず本メッセージが表示される場合があります。
 
