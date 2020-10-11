@@ -74,13 +74,13 @@ class Place < ApplicationRecord
   # -------------------------------------------------------------------------------
   # Validation
   # -------------------------------------------------------------------------------
-  validates :is_fri_holiday, presence: true
-  validates :is_mon_holiday, presence: true
-  validates :is_sat_holiday, presence: true
-  validates :is_sun_holiday, presence: true
-  validates :is_thu_holiday, presence: true
-  validates :is_tue_holiday, presence: true
-  validates :is_wed_holiday, presence: true
+  validates :is_fri_holiday, inclusion: [true, false]
+  validates :is_mon_holiday, inclusion: [true, false]
+  validates :is_sat_holiday, inclusion: [true, false]
+  validates :is_sun_holiday, inclusion: [true, false]
+  validates :is_thu_holiday, inclusion: [true, false]
+  validates :is_tue_holiday, inclusion: [true, false]
+  validates :is_wed_holiday, inclusion: [true, false]
   validates :seat_status, presence: true
   validates :place_users_count, presence: true
   # -------------------------------------------------------------------------------

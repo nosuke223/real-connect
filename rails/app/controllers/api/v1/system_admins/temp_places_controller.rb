@@ -53,27 +53,32 @@ class Api::V1::SystemAdmins::TempPlacesController < Api::V1::SystemAdmins::BaseC
       application_email
       application_comment
       application_status
-      is_fri_holiday
-      is_mon_holiday
-      is_sat_holiday
-      is_sun_holiday
-      is_thu_holiday
-      is_tue_holiday
-      is_wed_holiday
       place_users_count
     ]
     attributes = @temp_place.attributes
-    attributes['seat_status'] = 'open'
     no_reuired_colomuns.each do |column|
       attributes.delete(column)
     end
+    # 店舗必須入力値の仮埋め
+    attributes[:is_sun_holiday] = false
+    attributes[:is_mon_holiday] = false
+    attributes[:is_tue_holiday] = false
+    attributes[:is_wed_holiday] = false
+    attributes[:is_thu_holiday] = false
+    attributes[:is_fri_holiday] = false
+    attributes[:is_sat_holiday] = false
+    attributes[:place_users_count] = false
+    attributes[:seat_status] = 'open'
     user_columns = {
       email: @temp_place.application_email,
       password: @temp_place.application_email
     }
     User.transaction do
-      owner = User.new(user_columns)
-      owner.save!(validate: false) unless User.with_deleted.find_by(email: user_columns.dig(:email))
+      owner = User.with_deleted.find_by(email: user_columns.dig(:email))
+      unless owner
+        owner = User.new(user_columns)
+        owner.save!(validate: false)
+      end
       attributes['owner_id'] = owner.id
       Place.transaction do
         Place.create!(attributes)
@@ -99,7 +104,7 @@ class Api::V1::SystemAdmins::TempPlacesController < Api::V1::SystemAdmins::BaseC
       SystemBbsInfo.create!(
         {
           detail: "店舗：#{@temp_place.name}が承認されませんでした",
-          display_flag: true,
+          display_flag: false,
           display_date: Date.today
         }
       )

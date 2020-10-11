@@ -68,7 +68,7 @@ class Api::V1::SystemAdmins::TempAreasController < Api::V1::SystemAdmins::BaseCo
           SystemBbsInfo.create!(
             {
               detail: "#{@temp_area.name}エリアが承認されました",
-              display_flag: true,
+              display_flag: false,
               display_date: Date.today
             }
           )
@@ -82,7 +82,7 @@ class Api::V1::SystemAdmins::TempAreasController < Api::V1::SystemAdmins::BaseCo
       SystemBbsInfo.create!(
         {
           detail: "#{@temp_area.name}エリアが承認されませんでした",
-          display_flag: true,
+          display_flag: false,
           display_date: Date.today
         }
       )

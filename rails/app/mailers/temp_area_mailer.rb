@@ -4,7 +4,7 @@ class TempAreaMailer < ApplicationMailer
   def send_approve(temp_area)
     @temp_area = temp_area
     mail(
-      subject: '申請を承認しました。',
+      subject: 'りあこね新規エリア登録　承認ご通知',
       to: @temp_area.application_email, &:text
     )
   end
@@ -12,7 +12,7 @@ class TempAreaMailer < ApplicationMailer
   def send_reject_application(temp_area)
     @temp_area = temp_area
     mail(
-      subject: '申請を却下しました。',
+      subject: 'りあこね新規エリア登録について',
       to: @temp_area.application_email, &:text
     )
   end
