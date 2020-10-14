@@ -25,6 +25,16 @@ article#menu.l-block( data-layer='1' )
 
       .p-menu-nav
         section
+          ul.p-menu-nav__list
+            li.p-menu-nav__item(@click='modal.areaChange=true')
+              i.glyph.glyph-map-pin
+              | エリアの変更
+            li.p-menu-nav__item( data-block='event' )
+              i.glyph.glyph-bullhorn
+              | イベント作成
+            li.p-menu-nav__item(@click='checkOut()')
+              i.glyph.glyph-sign-out-alt
+              | チェックアウト
           h3.p-menu-nav__subtitle 各種設定
           ul.p-menu-nav__list
             li.p-menu-nav__item( data-block='user-profile' )
@@ -36,9 +46,6 @@ article#menu.l-block( data-layer='1' )
             li.p-menu-nav__item( data-block='setting' )
               i.glyph.glyph-tool
               | アプリ設定
-            li.p-menu-nav__item( data-block='event' )
-              i.glyph.glyph-bullhorn
-              | イベント作成
           h3.p-menu-nav__subtitle 利用にあたって
           ul.p-menu-nav__list
             //- li.p-menu-nav__item( data-block='info' )
