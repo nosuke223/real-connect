@@ -4080,91 +4080,93 @@ const app = new Vue({
           }
         })
         .then(function() {
-          // ユーザーデータの更新
-          this.userData = _.clone(PROFILE)
-          // 送信用データのリセット
-          this.userDataTemporary = _.clone(this.userData)
+          // // ユーザーデータの更新
+          // this.userData = _.clone(PROFILE)
+          // // 送信用データのリセット
+          // this.userDataTemporary = _.clone(this.userData)
 
-          // 【ユーザーデータ内の画像を送信用データの画像で置換】
-          // 1. アバター画像を変更している時
-          if (this.avatar_image_preview != "") {
-            let file = _.clone(PROFILE).avatar_image
-            let reader = new FileReader()
-            let vm = this
-            reader.onload = (e) => {
-              vm.userData.avatar_image = e.target.result
-              vm.userDataTemporary.avatar_image = e.target.result
-            }
-            reader.readAsDataURL(file)
-          }
+          // // 【ユーザーデータ内の画像を送信用データの画像で置換】
+          // // 1. アバター画像を変更している時
+          // if (this.avatar_image_preview != "") {
+          //   let file = _.clone(PROFILE).avatar_image
+          //   let reader = new FileReader()
+          //   let vm = this
+          //   reader.onload = (e) => {
+          //     vm.userData.avatar_image = e.target.result
+          //     vm.userDataTemporary.avatar_image = e.target.result
+          //   }
+          //   reader.readAsDataURL(file)
+          // }
 
-          // 2. カバー画像を変更している時
-          if (this.cover_image_preview != "") {
-            let file = _.clone(PROFILE).cover_image
-            let reader = new FileReader()
-            let vm = this
-            reader.onload = (e) => {
-              vm.userData.cover_image = e.target.result
-              vm.userDataTemporary.cover_image = e.target.result
-            }
-            reader.readAsDataURL(file)
-          }
+          // // 2. カバー画像を変更している時
+          // if (this.cover_image_preview != "") {
+          //   let file = _.clone(PROFILE).cover_image
+          //   let reader = new FileReader()
+          //   let vm = this
+          //   reader.onload = (e) => {
+          //     vm.userData.cover_image = e.target.result
+          //     vm.userDataTemporary.cover_image = e.target.result
+          //   }
+          //   reader.readAsDataURL(file)
+          // }
 
-          // 3. トーク一覧の中の自分のデータも更新
-          this.talklistTmp.forEach((item, index) => {
-            let myId = this.userData.id
-            let myData
-            let myDataObj = this.talklistTmp[index].data.partner.filter(function(el){
-              return el.id == myId
-            })
-            if (myDataObj.length) {
-              myData = myDataObj[0]
+          // // 3. トーク一覧の中の自分のデータも更新
+          // this.talklistTmp.forEach((item, index) => {
+          //   let myId = this.userData.id
+          //   let myData
+          //   let myDataObj = this.talklistTmp[index].data.partner.filter(function(el){
+          //     return el.id == myId
+          //   })
+          //   if (myDataObj.length) {
+          //     myData = myDataObj[0]
 
-              Object.keys(myData).forEach((key,index_) => {
-                // myData[key] = _.clone(PROFILE)[key]
-                myData[key] = _.clone(this.userData)[key]
-              })
-              // アバターを再代入
-              if (this.avatar_image_preview != "") {
-                let file = _.clone(this.userData).avatar_image
-                let reader = new FileReader()
-                let vm = this
-                reader.onload = (e) => {
-                  myData.avatar_image = e.target.result
-                }
-                reader.readAsDataURL(file)
-              }
-              // カバー画像を再代入
-              if (this.cover_image_preview != "") {
-                let file = _.clone(this.userData).cover_image
-                let reader = new FileReader()
-                let vm = this
-                reader.onload = (e) => {
-                  myData.cover_image = e.target.result
-                }
-                reader.readAsDataURL(file)
-              }
-              // 場所の名称を再代入
-              let placeID = myData.current_place_id
-              let placeData = this.placelist.filter(function(el){
-                return el.id == placeID
-              })
-              myData.current_place_name = placeData[0].name
-            }
-          })
+          //     Object.keys(myData).forEach((key,index_) => {
+          //       // myData[key] = _.clone(PROFILE)[key]
+          //       myData[key] = _.clone(this.userData)[key]
+          //     })
+          //     // アバターを再代入
+          //     if (this.avatar_image_preview != "") {
+          //       let file = _.clone(this.userData).avatar_image
+          //       let reader = new FileReader()
+          //       let vm = this
+          //       reader.onload = (e) => {
+          //         myData.avatar_image = e.target.result
+          //       }
+          //       reader.readAsDataURL(file)
+          //     }
+          //     // カバー画像を再代入
+          //     if (this.cover_image_preview != "") {
+          //       let file = _.clone(this.userData).cover_image
+          //       let reader = new FileReader()
+          //       let vm = this
+          //       reader.onload = (e) => {
+          //         myData.cover_image = e.target.result
+          //       }
+          //       reader.readAsDataURL(file)
+          //     }
+          //     // 場所の名称を再代入
+          //     let placeID = myData.current_place_id
+          //     let placeData = this.placelist.filter(function(el){
+          //       return el.id == placeID
+          //     })
+          //     myData.current_place_name = placeData[0].name
+          //   }
+          // })
 
-          this.avatar_image_preview = ""
-          this.cover_image_preview = ""
+          // this.avatar_image_preview = ""
+          // this.cover_image_preview = ""
 
-          this.toast = {
-            show: false,
-            title: "",
-            lead: "",
-          }
+          // this.toast = {
+          //   show: false,
+          //   title: "",
+          //   lead: "",
+          // }
 
-          // ユーザーデータの更新（バックグラウンド更新）
-          this.getUserData(true)
+          // // ユーザーデータの更新（バックグラウンド更新）
+          // this.getUserData(true)
 
+          this.showToast('プロフィールの更新が完了しました', '', 3000);
+          this.reload();
         }.bind(this))
         .catch(function(error) {
           this.showToast('不明なエラー','プロフィールの更新が失敗しました。もう一度お試し下さい。','3000')
@@ -4176,6 +4178,11 @@ const app = new Vue({
     // ------------------------------
     // プロフィールの更新をキャンセル
     // ------------------------------
+    onClickCancelUpdateProfileButton() {
+      this.cancelUpdateProfile();
+      // 前の画面に戻るボタンのクリックイベントを無理やり呼ぶ
+      $("#user-profile .p-pane-control__button").nodes[0].click();
+    },
     cancelUpdateProfile() {
       // 送信用データのリセット
       this.userDataTemporary = _.clone(this.userData)
