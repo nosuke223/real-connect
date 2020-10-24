@@ -3,7 +3,7 @@
     header.l-pane__header.p-pane-control.u-mode-bg--ltSM
       .p-pane-control__heading
         span.p-pane-control__logo.cft.u-visible--ltSM Real-Connect Admin
-        span.p-pane-control__title.u-visible--gtMD アカウント
+        span.p-pane-control__title.u-visible--gtMD 登録情報の変更
       .p-pane-control__button( data-block='admin-profile' )
         i.glyph.glyph-account
       .p-pane-control__button( data-block='menu' )

@@ -25,15 +25,27 @@ nav.p-pc-menu
       li.p-pc-menu__item( data-menu='back')
         i.glyph.glyph-brand-logo
         | トーク
+    h3.p-pc-menu__subtitle
+      span.p-pc-menu__badge メニュー
+    ul.p-pc-menu__list(@click='cancelUpdateProfile()')
+      li.p-pc-menu__item(@click='modal.areaChange=true')
+        i.glyph.glyph-map-pin
+        | エリアの変更
+      li.p-pc-menu__item( data-menu='event' )
+        i.glyph.glyph-bullhorn
+        | イベント作成
+      li.p-pc-menu__item(@click='checkOut()')
+        i.glyph.glyph-sign-out-alt
+        | チェックアウト
+    h3.p-pc-menu__subtitle
+      span.p-pc-menu__badge 各種設定
+    ul.p-pc-menu__list(@click='cancelUpdateProfile()')
       li.p-pc-menu__item( data-menu='user-profile' )
         i.glyph.glyph-account
         | プロフィール
       li.p-pc-menu__item( data-menu='account' )
         i.glyph.glyph-gear
-        | アカウント
-      li.p-pc-menu__item( data-menu='event' )
-        i.glyph.glyph-bullhorn
-        | イベント作成
+        | 登録情報の変更
       li.p-pc-menu__item( data-menu='setting')
         i.glyph.glyph-tool
         | アプリ設定
@@ -65,7 +77,7 @@ nav.p-pc-menu
         i.glyph.glyph-ribbon
         | ライセンス情報
     h3.p-pc-menu__subtitle
-      span.p-pc-menu__badge ユーザー操作
+      span.p-pc-menu__badge その他
     ul.p-pc-menu__list(@click='cancelUpdateProfile()')
       li.p-pc-menu__item(@click='reload()')
         i.glyph.glyph-preset03

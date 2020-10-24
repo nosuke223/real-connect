@@ -25,6 +25,8 @@ nav.p-pc-menu
       div(v-for="event in events")
         a.p-pc-menu-code__code(v-bind:href="'/admin/code/?check_in_code=' + event.check_in_code" target='_blank')
           span {{ event.check_in_code }}
+    h3.p-pc-menu__subtitle
+      span.p-pc-menu__badge 各種設定
     ul.p-pc-menu__list
       router-link.p-pc-menu__item(to='/admin' data-menu='back')
         i.glyph.glyph-dashboard
@@ -34,7 +36,7 @@ nav.p-pc-menu
         | 店舗・会場情報
       router-link.p-pc-menu__item(to='/admin/account' data-menu='account')
         i.glyph.glyph-gear
-        | アカウント
+        | 登録情報の変更
       //- li.p-pc-menu__item( data-menu='setting' )
         i.glyph.glyph-tool
         | アプリ設定

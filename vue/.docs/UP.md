@@ -146,7 +146,7 @@ PCで表示されている左サイドバーのメニューのソース。
 - `/_tpl/layout/block/menu/_admin.pug`  
   メニュー（管理画面とマスターで使用）※こちらもスマホでのみ表示される。
 - `/_tpl/layout/block/_account.pug`  
-  アカウント（ユーザー画面で使用）
+  登録情報の変更（ユーザー画面で使用）
 - `/_tpl/layout/block/_admin-profile.pug`  
   店舗・会場情報（管理画面で使用）
 - `/_tpl/layout/block/_feedback.pug`  
