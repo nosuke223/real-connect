@@ -1415,6 +1415,11 @@ const app = new Vue({
             case 'checkout_user':
               this.receiveCheckout(data)
               break;
+            // 5. 各種データの更新を受信
+            case 'reload_data':
+              this.defaultData()
+              this.eventListUpdate()
+              break;
             default:
               break;
           }
@@ -1673,6 +1678,12 @@ const app = new Vue({
           let placeData = this.placelist.filter(function(el){
             return el.id == data.place_id
           })
+          // 男女のカウントを増やす
+          if (data['user']['gender']=='male') {
+            targetEvent.male_count++
+          } else {
+            targetEvent.female_count++
+          }
           // 2. 会場名を取得
           let placeName = '未設定'
           if (placeData.length) {
@@ -1801,6 +1812,7 @@ const app = new Vue({
 
       this.unreadCount()
 
+      // TODO 同じエリア内にいるユーザが移動するたびに通知が出てしまう。ユーザ数が増えると通知がうるさくなるため仕様を検討したほうがいい
       if(data.user_id === this.userData.id) {
         // ------------------------------
         // 1. 自分が移動した場合
@@ -1821,13 +1833,6 @@ const app = new Vue({
     // [-] アプリ内に通知
     // ------------------------------
     receiveCheckout(data) {
-      // 自分がチェックアウトした場合はリロードする
-      if(data.user_id === this.userData.id) {
-        this.showNotice('チェックアウトしました','','2000')
-        this.reload();
-        return;
-      }
-
       // ユーザー名
       let userName = 'ユーザーID:'+data.user_id
       this.userListDefault.forEach((item, index) => {
@@ -1913,7 +1918,9 @@ const app = new Vue({
     checkOut() {
       this.messageChannel.perform('checkout_event_and_place', {
         token: this.$cookie.get('Authorization')
-      });
+      })
+      this.showNotice('チェックアウトしました', '', 2000)
+      this.reload()
     },
 
     // ------------------------------

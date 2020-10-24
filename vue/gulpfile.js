@@ -214,6 +214,7 @@ const BS_OPTION = {
   },
   startPath: '__content/index.html',
   reloadOnRestart: true,
+  ghostMode: false,
 }
 
 const browsersync = (done) => {

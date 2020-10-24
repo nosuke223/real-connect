@@ -11,6 +11,10 @@ class MessageChannel < ApplicationCable::Channel
       current_user.events.now(current_user.area_id).each do |event|
         stream_for event
       end
+      if current_user.area_id
+        area = Area.find(current_user.area_id)
+        stream_for area
+      end
     end
   end
 
@@ -49,6 +53,10 @@ class MessageChannel < ApplicationCable::Channel
     stream_for event
 
     MessageChannel.broadcast_to(event, { type: 'event_checkedin_user', event_id: event.id, user: current_user, place_id: event.organize_place_id })
+
+    # 男女比等の表示が変わるためエリア内にいるユーザのデータを更新
+    area = Area.find(current_user.area_id)
+    MessageChannel.broadcast_to(area, { type: 'reload_data' })
   end
 
   #
@@ -58,9 +66,11 @@ class MessageChannel < ApplicationCable::Channel
     current_user = find_user_by_jwt(data['token'])
     current_user.place_checkin(data['place_id'])
     
-    current_user.events.now(current_user.area_id).each do |event|
-      MessageChannel.broadcast_to(event, { type: 'place_checkedin_user', user_id: current_user.id, place_id: data['place_id'] })
-    end
+    area = Area.find(current_user.area_id)
+    MessageChannel.broadcast_to(area, { type: 'place_checkedin_user', user_id: current_user.id, place_id: data['place_id'] })
+
+    # 男女比等の表示が変わるためエリア内にいるユーザのデータを更新
+    MessageChannel.broadcast_to(area, { type: 'reload_data' })
   end
 
   #
@@ -75,13 +85,29 @@ class MessageChannel < ApplicationCable::Channel
     events.each do |event|
       MessageChannel.broadcast_to(event, { type: 'checkout_user', user_id: current_user.id })
     end
+
+    # 男女比等の表示が変わるためエリア内にいるユーザのデータを更新
+    area = Area.find(current_user.area_id)
+    MessageChannel.broadcast_to(area, { type: 'reload_data' })
   end
 
   #
-  # 会場移動
+  # エリア移動
   #
   def change_area(data)
     current_user = find_user_by_jwt(data['token'])
+
+    # チェックインしている店舗やイベントがあればチェックアウトする
+    events = current_user.events.now(current_user.area_id)
+    current_user.checkout()
+    events.each do |event|
+      MessageChannel.broadcast_to(event, { type: 'checkout_user', user_id: current_user.id })
+    end
+
+    # 移動前のエリアにいるユーザのデータを更新
+    area = Area.find(current_user.area_id)
+    MessageChannel.broadcast_to(area, { type: 'reload_data' })
+
     current_user.update_attribute(:area_id, data['area_id'])
   end
 
