@@ -11,21 +11,18 @@ $ docker-compose up -d
 ```
 
 ### 2. 管理画面アカウント&ダミーデータ投入方法
-- `rails/app/models/user.rb`の174 ~ 191行目をコメントアウト(バリデーションを無効化)
+- `rails/app/models/user.rb`の178 ~ 199行目あたりをコメントアウト(バリデーションを無効化)
 - 以下コマンドを実行
 ```
-$ docker-compose run admin_web sh -c 'bin/rake db:create db:migrate db:seed && bin/rake app:dev:admin && bin/rake app:dev:sample'
+$ docker-compose run admin_web sh -c 'bin/rake db:create db:migrate db:seed && bin/rake app:dev:admin && bin/rake app:dev:sample && bin/rake import:regions && bin/rake import:prefectures'
 ```
+- `rails/app/models/user.rb`の178 ~ 199行目あたりのコメントアウトを解除(バリデーションをもとに戻す)
 
-### 3. りあこねnpmパッケージインストール&サーバー立ち上げ
-```
-$ node -v
-# 開発時のnodeバージョンは「v10.16.0」
-
-$ cd vue
-$ npm install
-$ npm start
-```
+### 3. WordPressの初期設定
+- http://localhost:8000 にアクセスしwordpressの操作を実施（任意のものでok）
+- wordpress管理画面にログインして 外観>テーマ選択&プラグインを全て有効化する
+- 別途送付するSQLファイルをwordpressのDBに適用する
+- http://localhost:8000 にアクセスしてヘッダー・フッターから店舗申請フォームに移動できることを確認する
 
 ## 確認URL
 
@@ -41,5 +38,5 @@ $ npm start
 
 ### りあこね管理画面
 - URL : `http://localhost:3000/admin`
-- メールアドレス : `admin@example.com`
+- 店舗管理者メールアドレス : `test+owner1@example.com`
 - 管理者PASS: : `password`
