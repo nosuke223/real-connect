@@ -26,8 +26,8 @@ $ docker-compose run admin_web sh -c 'bin/rake db:create db:migrate db:seed && b
 
 ## 確認URL
 
-### 管理画面 ※一度ログインするとログアウトできない（Cookieを削除するしかない）
-- URL : `http://localhost:8080/admin`
+### 管理画面
+- URL : `http://localhost:3002/login`
 - 管理者メールアドレス : `admin@example.com`
 - 管理者PASS: : `password`
 
