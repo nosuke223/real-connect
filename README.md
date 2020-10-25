@@ -26,17 +26,26 @@ $ docker-compose run admin_web sh -c 'bin/rake db:create db:migrate db:seed && b
 
 ## 確認URL
 
-### 管理画面
-- URL : `http://localhost:3002/login`
-- 管理者メールアドレス : `admin@example.com`
-- 管理者PASS: : `password`
-
-### りあこね
+### りあこね（ユーザ用のアプリ）
 - URL : `http://localhost:3000/user`
 - メールアドレス : `test1@example.com` (test1 ~ 10まである)
 - 管理者PASS: : `password`
 
-### りあこね管理画面
+### りあこね管理画面（店舗管理者用のアプリ）
 - URL : `http://localhost:3000/admin`
 - 店舗管理者メールアドレス : `test+owner1@example.com`
 - 管理者PASS: : `password`
+
+### システム管理画面（システム管理者が見る画面）
+- URL : `http://localhost:3002/login`
+- 管理者メールアドレス : `admin@example.com`
+- 管理者PASS: : `password`
+
+### りあこねホームページ（WordPress）
+- URL : http://localhost:8000/
+
+### 開発環境用MailCatcher（開発環境で送信したメールは実際のメールアドレスにには送信されずにここで確認できる）
+- URL : http://localhost:1080/
+
+### 開発環境用Browsersyncの設定画面
+- URL : http://localhost:3001/
