@@ -1,4 +1,12 @@
 <div class="l-sidebar u-hidden--ltXS">
+<?php
+if ($_SERVER[ "HTTP_HOST" ] == 'real-connect.jp') {
+  $production = true;
+} else {
+  $production = false;
+};
+$USER_APP_HOST = $production ? "https://real-connect.jp" : "http://localhost:3000";
+?>
   <nav class="p-page-list">
     <h2 class="p-page-list__title">
       <a class="p-page-list__label" href="<?php echo esc_url( home_url() ); ?>">
@@ -30,11 +38,11 @@
       </li>
     </ul>
     <div class="p-page-list__button-container">
-      <a class="c-button--primary p-page-list__button" href="https://real-connect.jp/user/" target="_blank">
+      <a class="c-button--primary p-page-list__button" href="<?php echo($USER_APP_HOST); ?>/user/" target="_blank">
         <i class="glyph glyph-sign-in-alt"></i>
         ログイン
       </a>
-      <a class="c-button--grad p-page-list__button" href="https://real-connect.jp/user/?mode=register" target="_blank">
+      <a class="c-button--grad p-page-list__button" href="<?php echo($USER_APP_HOST); ?>/user/?mode=register" target="_blank">
         <i class="glyph glyph-id-badge"></i>
         新規登録
       </a>

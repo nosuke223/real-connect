@@ -237,6 +237,7 @@ const app = new Vue({
         full_name: "",
         telephone: "",
         fashion: "",
+        prefecture_id: "",
         area_id: "",
         current_place_id: "",
         gender: "",
@@ -1149,7 +1150,7 @@ const app = new Vue({
         //   Authorization: this.$cookie.get('Authorization')
         // },
         params: {
-          prefecture: this.newReg.prefecture,
+          prefecture: this.newReg.prefecture_id,
         },
       })
       .then(function(response) {
@@ -4708,7 +4709,7 @@ const app = new Vue({
     },
 
     newReg(new_, old) {
-      this.getAreaList(this.newReg.prefecture)
+      this.getAreaList(this.newReg.prefecture_id)
     },
 
     // ------------------------------

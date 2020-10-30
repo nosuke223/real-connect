@@ -7,7 +7,8 @@ class PasswordsController < ApplicationController
   # GET /passwords/reset
   #
   def reset
-    redirect_url = "https://real-connect.jp/user/reset_password?reset_password_token=#{params[:reset_password_token]}"
+    host = Rails.env.production? ? 'https://real-connect.jp' : 'https://localhost:3000'
+    redirect_url = "#{host}/user/reset_password?reset_password_token=#{params[:reset_password_token]}"
     redirect_to redirect_url
   end
 end

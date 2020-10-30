@@ -6,7 +6,8 @@ class ConfirmationsController < ApplicationController
   #
   def show
     user = User.confirm_by_token(params[:confirmation_token])
-    redirect_to 'https://real-connect.jp/user' if user.user?
-    redirect_to 'https://real-connect.jp/admin' if user.owner?
+    host = Rails.env.production? ? 'https://real-connect.jp' : 'https://localhost:3000'
+    redirect_to "#{host}/user" if user.user?
+    redirect_to "#{host}/admin" if user.owner?
   end
 end

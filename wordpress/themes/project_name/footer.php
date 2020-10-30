@@ -1,9 +1,12 @@
 <footer class="l-footer">
-<?php if ($_SERVER[ "HTTP_HOST" ] == 'real-connect.jp') {
+<?php
+if ($_SERVER[ "HTTP_HOST" ] == 'real-connect.jp') {
   $production = true;
 } else {
   $production = false;
 };
+$APP_HOST = $production ? "https://real-connect.jp" : "http://localhost:3002";
+$USER_APP_HOST = $production ? "https://real-connect.jp" : "http://localhost:3000";
 ?>
   <nav class="l-footer__nav c-container">
     <h2 class="c-logo l-footer__logo">
@@ -39,7 +42,6 @@
           <a class="l-footer-nav__link" href="<?php echo esc_url( home_url() ); ?>/terms-of-service/">サービス利用規約</a>
         </li>
         <li class="l-footer-nav__item">
-        <?php $APP_HOST = $production ? "hostname" : "http://localhost:3002"  ?>
           <a class="l-footer-nav__link" href="<?php echo($APP_HOST); ?>/place_application/create" target="_blank">店舗申請フォーム</a>
         </li>
         <li class="l-footer-nav__item">
@@ -49,10 +51,10 @@
           <a class="l-footer-nav__link" href="<?php echo esc_url( home_url() ); ?>/contact/">お問合せ</a>
         </li>
         <li class="l-footer-nav__item">
-          <a class="l-footer-nav__link" href="https://real-connect.jp/user/" target="_blank">ログイン</a>
+          <a class="l-footer-nav__link" href="<?php echo($USER_APP_HOST); ?>/user/" target="_blank">ログイン</a>
         </li>
         <li class="l-footer-nav__item">
-          <a class="l-footer-nav__link" href="https://real-connect.jp/user/?mode=register" target="_blank">新規登録</a>
+          <a class="l-footer-nav__link" href="<?php echo($USER_APP_HOST); ?>/user/?mode=register" target="_blank">新規登録</a>
         </li>
       </ul>
     </div>
