@@ -44,6 +44,7 @@ const routes = [
 const router = new VueRouter({
   routes,
   mode: "history",
+  base: "/system_admin/"
 });
 
 /* eslint no-unused-vars: 0 */

@@ -37,7 +37,7 @@ $ docker-compose run admin_web sh -c 'bin/rake db:create db:migrate db:seed && b
 - 管理者PASS: : `password`
 
 ### システム管理画面（システム管理者が見る画面）
-- URL : `http://localhost:3002/login`
+- URL : `http://localhost:3002/system_admin`
 - 管理者メールアドレス : `admin@example.com`
 - 管理者PASS: : `password`
 
