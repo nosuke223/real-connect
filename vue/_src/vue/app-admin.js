@@ -213,9 +213,9 @@ window.addEventListener('scroll', function(e) {
 // ------------------------------
 // localhost 判別でクラス付与
 // ------------------------------
-if (document.domain=='localhost') {
+// if (document.domain=='localhost') {
   $('body').addClass('is-localhost')
-}
+// }
 
 require('./modules/_editor').editor();
 require('./modules/_objectFit').ofi();

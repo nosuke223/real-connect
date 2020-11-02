@@ -52,7 +52,7 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
-  config.action_mailer.default_url_options = { host: 'localhost', port: 8080 }
+  config.action_mailer.default_url_options = { host: 'realconnect.ddns.net', port: 8080 }
   # config.action_mailer.delivery_method = :letter_opener_web
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { :address => "smtp", :port => 1025 }
@@ -65,12 +65,12 @@ Rails.application.configure do
     Bullet.rails_logger = true
   end
 
-  config.action_cable.allowed_request_origins = [ 'localhost' ]
+  config.action_cable.allowed_request_origins = [ 'realconnect.ddns.net' ]
   ActionCable.server.config.disable_request_forgery_protection = true
 
   config.web_console.whitelisted_ips = '172.22.0.1'
 
   CarrierWave.configure do |config|
-    config.asset_host = 'http://localhost:8080'
+    config.asset_host = 'http://realconnect.ddns.net:8080'
   end
 end

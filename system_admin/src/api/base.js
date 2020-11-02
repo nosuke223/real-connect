@@ -1,6 +1,6 @@
 import axios from "axios";
 import jsonpAdapter from "axios-jsonp";
-const domain = "http://localhost:8080";
+const domain = "http://realconnect.ddns.net:8080";
 
 const apiInstance = axios.create({
   timeout: 5000

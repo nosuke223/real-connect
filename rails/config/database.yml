@@ -16,7 +16,7 @@ default: &default
   port: <%= ENV.fetch('DATABASE_PORT') { 5432 } %>
   username: <%= ENV.fetch('DATABASE_USER') { 'root' } %>
   password: <%= ENV.fetch('DATABASE_PASSWORD') { '' } %>
-  host: <%= ENV.fetch('DATABASE_HOST') { 'localhost' } %>
+  host: <%= ENV.fetch('DATABASE_HOST') { 'realconnect.ddns.net' } %>
   # charset:  utf8mb4
   # encoding: utf8mb4
   # collation: utf8mb4_unicode_ci

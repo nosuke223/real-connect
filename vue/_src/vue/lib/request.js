@@ -7,6 +7,10 @@ if (document.domain=='localhost') {
   BASE_URL = 'http://localhost:8080/api/v1';
 }
 
+if (document.domain=='realconnect.ddns.net') {
+  BASE_URL = 'http://realconnect.ddns.net:8080/api/v1';
+}
+
 // const BASE_URL = 'http://localhost:4000/api/v1';
 
 let authorizationToken = null;

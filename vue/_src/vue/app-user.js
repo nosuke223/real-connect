@@ -26,6 +26,11 @@ if (document.domain=='localhost') {
   CABLE_URL = 'ws:localhost:8080/cable';
 }
 
+if (document.domain=='realconnect.ddns.net') {
+  BASE_URL = 'http://realconnect.ddns.net:8080/api/v1';
+  CABLE_URL = 'ws:realconnect.ddns.net:8080/cable';
+}
+
 let cable = ActionCable.createConsumer(CABLE_URL);
 
 Vue.prototype.$cable = cable;
@@ -185,7 +190,8 @@ const app = new Vue({
       // ------------------------------
       // localhost のチェック用
       // ------------------------------
-      isLocalhost: document.domain=='localhost',
+      // isLocalhost: document.domain=='localhost',
+      isLocalhost: true,
 
       // ------------------------------
       // デバッグ
@@ -4919,9 +4925,9 @@ window.addEventListener('keydown', (e) => {
 // ------------------------------
 // localhost 判別でクラス付与
 // ------------------------------
-if (document.domain=='localhost') {
+// if (document.domain=='localhost') {
   $('body').addClass('is-localhost')
-}
+// }
 
 require('./modules/_editor').editor();
 require('./modules/_objectFit').ofi();
