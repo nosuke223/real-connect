@@ -144,9 +144,9 @@ export default {
       const path = this.$route.path;
       return !(
         path === "/login" ||
-        "/place_application/create" ||
-        "/area_application/create" ||
-        /^(\/bulletin_board)/.test(path)
+        path === "/place_application/create" ||
+        path === "/area_application/create" ||
+        path === /^(\/bulletin_board)/.test(path)
       );
     },
   },
