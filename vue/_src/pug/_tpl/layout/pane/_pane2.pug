@@ -33,7 +33,7 @@ article#pane2.l-pane.is-pushed
           p 閲覧のみ
           p このイベントは終了しているため、メッセージの送信はできません
           .p-pane-notice__remain 閲覧時間 {{currentEvent.rem_view}}
-        TalkList(:talklistchild='talklist' :key='item.user_id' @filtertalk-child='filterTalk(item.user_id,false,true,item.id)' @modaluserdatail-child='modalUserDatail(item.user_id)' v-bind='item' v-for='item in talklist.slice().reverse()' :class='item.partner.gender')
+        TalkList(:talklistchild='talklist' :key='"talk-" + index + "-" + item.user_id' @filtertalk-child='filterTalk(item.user_id,false,true,item.id)' @modaluserdatail-child='modalUserDatail(item.user_id)' v-bind='item' v-for='(item, index) in talklist.slice().reverse()' :class='item.partner.gender')
 
         section.p-talk-list.p-talk-list--notice.all(:class='{"is-visible":noResultTalk.all}') 見つかりませんでした。
         section.p-talk-list.p-talk-list--notice.male(:class='{"is-visible":noResultTalk.male}') 男性は見つかりませんでした。
