@@ -23,7 +23,7 @@ article#pane1.l-pane.is-visible
 
       .p-pane-target(:id='pane1[0].id' :class='{"is-visible":currentId1==pane1[0].id}')
         // ↓ BEGIN Tab Target Content
-        placelist(:placelistchild='placelist' :key='item.id + item.name' v-bind='item' v-for='item in placelist' @childs-event='placeDetailActive(item.id)' @modaladmindatail-child='modalAdminDatail(item.id)')
+        placelist(:placelistchild='placelist' :key='"place-" + item.id' v-bind='item' v-for='item in placelist' @childs-event='placeDetailActive(item.id)' @modaladmindatail-child='modalAdminDatail(item.id)')
 
         section.p-pane-notice(v-if='userData.area_id==null')
           p 登録エリアが未設定です。
@@ -45,11 +45,11 @@ article#pane1.l-pane.is-visible
       .p-pane-target(:id='pane1[1].id' :class='{"is-visible":currentId1==pane1[1].id}')
         // ↓ BEGIN Tab Target Content
         .c-label 現在開催中のイベント
-        noweventlist(:noweventlistchild='noweventlist' :key='item.id' @talk-list-update-child='talkListUpdate(item.id)' v-bind='item' v-for='(item, index) in noweventlist.slice().reverse()')
+        noweventlist(:noweventlistchild='noweventlist' :key='"nowevent-" + item.id' @talk-list-update-child='talkListUpdate(item.id)' v-bind='item' v-for='(item, index) in noweventlist.slice().reverse()')
         .p-no-result(v-if='noweventlist.length==0') 現在開催中のイベントはありません。
 
         .c-label 過去に参加したイベント
-        pasteventlist(:pasteventlistchild='pasteventlist' :key='item.name' @talk-list-update-child='talkListUpdate(item.id)' v-bind='item' v-for='(item, index) in alleventlist.slice().reverse()')
+        pasteventlist(:pasteventlistchild='pasteventlist' :key='"pastevent-" + item.id' @talk-list-update-child='talkListUpdate(item.id)' v-bind='item' v-for='(item, index) in alleventlist.slice().reverse()')
         // ↑ END Tab Target Content
 
       .p-pane-target(:id='pane1[2].id' :class='{"is-visible":currentId1==pane1[2].id}' :data-eventcount='noweventlist.length')
