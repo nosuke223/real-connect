@@ -184,7 +184,7 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, on: :create
   validates :password_confirmation, presence: true, on: :update, allow_blank: true
   validates :nickname, presence: true, if: :confirmed_user?
-  validates :avatar_image, presence: true, if: :confirmed_user?
+  # validates :avatar_image, presence: true, if: :confirmed_user?
   # validates :fashion, presence: true, if: :confirmed_user?
   validates :area, presence: true, if: :confirmed_user?
   validates :email, presence: true
