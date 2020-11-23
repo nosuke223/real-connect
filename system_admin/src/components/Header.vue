@@ -145,7 +145,8 @@ export default {
       return !(
         path === "/login" ||
         path === "/place_application/create" ||
-        /^(\/bulletin_board)/.test(path)
+        path === "/area_application/create" ||
+        path === /^(\/bulletin_board)/.test(path)
       );
     },
   },

@@ -53,7 +53,8 @@ const router = new VueRouter({
 router.beforeEach(async (to, _from, next) => {
   if (
     to.path === "/place_application/create" ||
-    /^(\/bulletin_board)/.test(to.path)
+    to.path === "/area_application/create" ||
+    to.path === /^(\/bulletin_board)/.test(to.path)
   ) {
     next();
     return;
