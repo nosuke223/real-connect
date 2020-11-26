@@ -17,6 +17,7 @@ import systemBbsInfoRouter from "./router/system_bbs_info";
 import systemBbsNewsRouter from "./router/system_bbs_news";
 import billingManagementRouter from "./router/billing_management";
 import placeApplicationtRouter from "./router/place_application";
+import areaApplicationtRouter from "./router/area_application";
 import bulletinBoard from "./router/bulletin_board";
 
 Vue.use(VueRouter);
@@ -38,6 +39,7 @@ const routes = [
   ...systemBbsNewsRouter,
   ...billingManagementRouter,
   ...placeApplicationtRouter,
+  ...areaApplicationtRouter,
   ...bulletinBoard,
 ];
 
@@ -49,7 +51,7 @@ const router = new VueRouter({
 
 /* eslint no-unused-vars: 0 */
 // クッキーに認証情報がない・あるが正常なクッキー情報でない場合は、login画面へリダイレクト
-// 店舗申請画面/掲示板画面はログイン認証不要
+// 店舗申請画面/エリア申請画面/掲示板画面はログイン認証不要
 router.beforeEach(async (to, _from, next) => {
   if (
     to.path === "/place_application/create" ||

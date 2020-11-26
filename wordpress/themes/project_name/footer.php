@@ -42,10 +42,13 @@ $USER_APP_HOST = $production ? "https://real-connect.jp" : "http://localhost:300
           <a class="l-footer-nav__link" href="<?php echo esc_url( home_url() ); ?>/terms-of-service/">サービス利用規約</a>
         </li>
         <li class="l-footer-nav__item">
-          <a class="l-footer-nav__link" href="<?php echo($APP_HOST); ?>/system_admin/place_application/create" target="_blank">店舗申請フォーム</a>
+          <a class="l-footer-nav__link" href="<?php echo($APP_HOST); ?>/system_admin/place_application/create" target="_blank">店舗申請</a>
         </li>
         <li class="l-footer-nav__item">
-          <a class="l-footer-nav__link" href="<?php echo($APP_HOST); ?>/system_admin/bulletin_board?tab=event" target="_blank">イベント掲示板</a>
+          <a class="l-footer-nav__link" href="<?php echo($APP_HOST); ?>/system_admin/area_application/create" target="_blank">エリア申請</a>
+        </li>
+        <li class="l-footer-nav__item">
+          <a class="l-footer-nav__link" href="<?php echo($APP_HOST); ?>/system_admin/bulletin_board?tab=event" target="_blank">掲示板</a>
         </li>
         <li class="l-footer-nav__item">
           <a class="l-footer-nav__link" href="<?php echo esc_url( home_url() ); ?>/contact/">お問合せ</a>

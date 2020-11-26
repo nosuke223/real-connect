@@ -26,6 +26,10 @@ namespace :app do
           }
         end
       end
+
+      (1..47).each do |n|
+        FactoryBot.create(:area, name: '仮エリア', prefecture_id: n)
+      end
     end
   end
 end

@@ -1,21 +1,20 @@
 <template lang="pug">
   v-col(cols="12")
-    PlaceForm(@createResource="createResource" formTitle="店舗申請フォーム" btnTitle="申請")      
+    AreaForm(@createResource="createResource" formTitle="エリア申請フォーム" btnTitle="申請")      
 </template>
 
 <script>
-import PlaceForm from "./PlaceForm";
+import AreaForm from "./AreaForm";
 import ApiRequest from "@/api/base";
 
 export default {
   components: {
-    PlaceForm,
+    AreaForm,
   },
   methods: {
     async createResource(data) {
-      const request = new ApiRequest("temp_places", this.$cookie);
+      const request = new ApiRequest("temp_areas", this.$cookie);
       let requestBody = data;
-      requestBody.address1 = data.address1.text;
       const { error } = await request.create(requestBody);
       if (!error) {
         alert("申請が完了しました。");
