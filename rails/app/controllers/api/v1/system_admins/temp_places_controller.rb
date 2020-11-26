@@ -18,7 +18,7 @@ class Api::V1::SystemAdmins::TempPlacesController < Api::V1::SystemAdmins::BaseC
     render json: @temp_place.as_json(include: :area)
   end
 
-  # POST /temp_placees
+  # POST /temp_places
   def create
     @temp_place = TempPlace.new(temp_place_params)
     if @temp_place.save
@@ -28,8 +28,8 @@ class Api::V1::SystemAdmins::TempPlacesController < Api::V1::SystemAdmins::BaseC
     end
   end
 
-  # PATCH/PUT /temp_placees/1
-  # PATCH/PUT /temp_placees/1.json
+  # PATCH/PUT /temp_places/1
+  # PATCH/PUT /temp_places/1.json
   def update
     if @temp_place.update(temp_place_params)
       render json: @temp_place.as_json
@@ -38,8 +38,8 @@ class Api::V1::SystemAdmins::TempPlacesController < Api::V1::SystemAdmins::BaseC
     end
   end
 
-  # DELETE /temp_placees/1
-  # DELETE /temp_placees/1.json
+  # DELETE /temp_places/1
+  # DELETE /temp_places/1.json
   def destroy
     @temp_place.destroy
   end

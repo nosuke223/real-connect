@@ -19,6 +19,7 @@ export default {
       const { error } = await request.create(requestBody);
       if (!error) {
         alert("申請が完了しました。");
+        location.reload();
       } else {
         if (error.response.data) {
           alert(error.response.data.join("\n"));

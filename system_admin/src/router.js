@@ -16,8 +16,8 @@ import tempPlaceRouter from "./router/temp_place";
 import systemBbsInfoRouter from "./router/system_bbs_info";
 import systemBbsNewsRouter from "./router/system_bbs_news";
 import billingManagementRouter from "./router/billing_management";
-import placeApplicationRouter from "./router/place_application";
-import areaApplicationRouter from "./router/area_application";
+import placeApplicationtRouter from "./router/place_application";
+import areaApplicationtRouter from "./router/area_application";
 import bulletinBoard from "./router/bulletin_board";
 
 Vue.use(VueRouter);
@@ -38,8 +38,8 @@ const routes = [
   ...systemBbsInfoRouter,
   ...systemBbsNewsRouter,
   ...billingManagementRouter,
-  ...placeApplicationRouter,
-  ...areaApplicationRouter,
+  ...placeApplicationtRouter,
+  ...areaApplicationtRouter,
   ...bulletinBoard,
 ];
 

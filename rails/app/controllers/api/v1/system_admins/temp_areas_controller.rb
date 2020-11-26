@@ -2,6 +2,7 @@
 
 class Api::V1::SystemAdmins::TempAreasController < Api::V1::SystemAdmins::BaseController
   before_action :set_temp_area, only: %i[show update destroy approval reject_application]
+  skip_before_action :authenticate_system_admin!, only: %i[create]
 
   #
   # 地域一覧を返す
@@ -25,9 +26,9 @@ class Api::V1::SystemAdmins::TempAreasController < Api::V1::SystemAdmins::BaseCo
     render json: @temp_area.as_json(include: :prefecture)
   end
 
-  # POST /temp_areaes
+  # POST /temp_areas
   def create
-    @temp_area = temp_area.new(temp_area_params)
+    @temp_area = TempArea.new(temp_area_params)
     if @temp_area.save
       render json: @temp_area.as_json
     else
@@ -35,8 +36,8 @@ class Api::V1::SystemAdmins::TempAreasController < Api::V1::SystemAdmins::BaseCo
     end
   end
 
-  # PATCH/PUT /temp_areaes/1
-  # PATCH/PUT /temp_areaes/1.json
+  # PATCH/PUT /temp_areas/1
+  # PATCH/PUT /temp_areas/1.json
   def update
     if @temp_area.update(temp_area_params)
       render json: @temp_area.as_json
@@ -45,8 +46,8 @@ class Api::V1::SystemAdmins::TempAreasController < Api::V1::SystemAdmins::BaseCo
     end
   end
 
-  # DELETE /temp_areaes/1
-  # DELETE /temp_areaes/1.json
+  # DELETE /temp_areas/1
+  # DELETE /temp_areas/1.json
   def destroy
     @temp_area.destroy
   end

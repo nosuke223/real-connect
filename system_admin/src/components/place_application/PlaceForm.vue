@@ -17,7 +17,7 @@
         v-text-field(
           v-model="formProps.application_email"
           label="申請メールアドレス"
-          :rules="emailRuels"
+          :rules="emailRules"
           prepend-icon="mdi-email"
         )
         v-text-field(
@@ -129,9 +129,9 @@ export default {
       return [v => notNullRule(v.value)];
     },
     zipCodeRules() {
-      return [v => zipCodeRule(v)];
+      return [v => notNullRule(v), v => zipCodeRule(v)];
     },
-    emailRuels() {
+    emailRules() {
       return [v => notNullRule(v), v => emailFormatRule(v)];
     }
   },
