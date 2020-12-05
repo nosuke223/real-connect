@@ -5,7 +5,7 @@ if ($_SERVER[ "HTTP_HOST" ] == 'real-connect.jp') {
 } else {
   $production = false;
 };
-$USER_APP_HOST = $production ? "https://real-connect.jp" : "http://localhost:3000";
+$USER_APP_HOST = $production ? "https://real-connect.jp" : "http://realconnect.ddns.net:3000";
 ?>
   <nav class="p-page-list">
     <h2 class="p-page-list__title">

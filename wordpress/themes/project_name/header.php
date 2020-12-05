@@ -55,8 +55,8 @@ if (!is_user_logged_in()) {
 } else {
   $guest = false;
 };
-$APP_HOST = $production ? "https://real-connect.jp" : "http://localhost:3002";
-$USER_APP_HOST = $production ? "https://real-connect.jp" : "http://localhost:3000";
+$APP_HOST = $production ? "https://real-connect.jp" : "http://realconnect.ddns.net:3002";
+$USER_APP_HOST = $production ? "https://real-connect.jp" : "http://realconnect.ddns.net:3000";
 ?>
 <?php
 // 本番環境かつWPにログインしていないユーザのみ、
