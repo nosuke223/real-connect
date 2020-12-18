@@ -56,7 +56,7 @@ router.beforeEach(async (to, _from, next) => {
   if (
     to.path === "/place_application/create" ||
     to.path === "/area_application/create" ||
-    to.path === /^(\/bulletin_board)/.test(to.path)
+    /^(\/bulletin_board)/.test(to.path)
   ) {
     next();
     return;
