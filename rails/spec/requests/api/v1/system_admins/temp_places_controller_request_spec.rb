@@ -43,7 +43,7 @@ RSpec.describe Api::V1::SystemAdmins::TempPlacesController, type: :request do
         "is_sat_holiday": false,
         "deleted_at": nil,
         "place_users_count": 2,
-        "zipcode": '339-1066',
+        "zipcode": '3391066',
         "address2": '潮村',
         "address3": '546 高岡Square',
         "payment_flag": nil,

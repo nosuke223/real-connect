@@ -11,7 +11,7 @@ FactoryBot.define do
         Bar New Nature
         いかや クラーケン
       ).sample }
-    zipcode { Faker::Address.postcode }
+    zipcode { Faker::Address.postcode.delete('-') }
     address1 { Faker::Address.state }
     address2 { Faker::Address.city }
     address3 { Faker::Address.street_address }

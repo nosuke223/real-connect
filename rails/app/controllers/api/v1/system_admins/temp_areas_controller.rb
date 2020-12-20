@@ -75,6 +75,7 @@ class Api::V1::SystemAdmins::TempAreasController < Api::V1::SystemAdmins::BaseCo
           )
         end
       end
+      render json: ""
     end
   end
 
@@ -92,6 +93,7 @@ class Api::V1::SystemAdmins::TempAreasController < Api::V1::SystemAdmins::BaseCo
         @temp_area.destroy
       end
     end
+    render json: ""
   end
 
   private
