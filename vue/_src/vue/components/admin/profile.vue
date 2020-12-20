@@ -290,9 +290,15 @@ export default {
         if (result.error) {
           this.handleRequestError(result.error);
         } else {
-          this.userData.selectedPlace = result.data;
-          alert('更新が完了しました')
+          // this.userData.selectedPlace = result.data;
+          // this.userData.own_places.forEach((item, index) => {
+          //   if(item.id == ownPlaceData.id) {
+          //     this.userData.own_places[index].name = ownPlaceData.name;
+          //   }
+          // });
+          alert('更新が完了しました');
           this.$router.push('/admin');
+          window.location.reload();
         }
       })
     },
