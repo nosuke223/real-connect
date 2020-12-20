@@ -82,6 +82,7 @@ export default {
         `temp_places/${this.tempPlace.id}/reject_application`
       );
       if (!error) {
+        alert("店舗の申請を却下しました。");
         this.$router.push("/temp_places");
       }
     },
@@ -96,6 +97,7 @@ export default {
         requestBody
       );
       if (!error) {
+        alert("店舗の申請を承認しました。");
         this.$router.push("/temp_places");
       }
     },

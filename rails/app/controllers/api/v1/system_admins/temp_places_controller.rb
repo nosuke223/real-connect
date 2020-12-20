@@ -96,6 +96,7 @@ class Api::V1::SystemAdmins::TempPlacesController < Api::V1::SystemAdmins::BaseC
           @temp_place.destroy!
         end
       end
+      render json: ""
     end
   end
 
@@ -113,6 +114,7 @@ class Api::V1::SystemAdmins::TempPlacesController < Api::V1::SystemAdmins::BaseC
         @temp_place.destroy
       end
     end
+    render json: ""
   end
 
   private

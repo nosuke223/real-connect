@@ -71,6 +71,7 @@ export default {
         `temp_areas/${this.tempArea.id}/reject_application`
       );
       if (!error) {
+        alert("エリアの申請を却下しました。");
         this.$router.push("/temp_areas");
       }
     },
@@ -85,6 +86,7 @@ export default {
         requestBody
       );
       if (!error) {
+        alert("エリアの申請を承認しました。");
         this.$router.push("/temp_areas");
       }
     },

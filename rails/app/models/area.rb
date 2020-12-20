@@ -30,5 +30,5 @@ class Area < ApplicationRecord
   # validation
   # -------------------------------------------------------------------------------
   validates :name, presence: true
-  validates :zipcode, allow_blank: true, format: {with: /\A[0-9]{3}-[0-9]{4}\z/}
+  validates :zipcode, allow_blank: true, format: {with: /\A[0-9]{3}[0-9]{4}\z/}
 end
