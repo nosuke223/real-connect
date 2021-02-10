@@ -183,6 +183,12 @@ This is the same as tracking-code before renewal.（2019-01）
                 HOME
               </a>
             </li>
+            <li class="l-navigation__item u-visible--ltSM">
+              <a class="l-navigation__link" style="color: red; font-weight: bold;" href="<?php echo($APP_HOST); ?>/system_admin/place_application/create" target="_blank">店舗申請</a>
+            </li>
+            <li class="l-navigation__item u-visible--ltSM">
+              <a class="l-navigation__link" style="color: red; font-weight: bold;" href="<?php echo($APP_HOST); ?>/system_admin/area_application/create" target="_blank">エリア申請</a>
+            </li>
             <li class="l-navigation__item">
               <a class="l-navigation__link" href="<?php echo esc_url( home_url() ); ?>/privacy-policy/">個人情報保護方針</a>
             </li>
@@ -192,10 +198,10 @@ This is the same as tracking-code before renewal.（2019-01）
             <li class="l-navigation__item">
               <a class="l-navigation__link" href="<?php echo esc_url( home_url() ); ?>/contact/">お問合せ</a>
             </li>
-            <li class="l-navigation__item">
+            <li class="l-navigation__item u-visible--gtMD">
               <a class="l-navigation__link" href="<?php echo($APP_HOST); ?>/system_admin/place_application/create" target="_blank">店舗申請</a>
             </li>
-            <li class="l-navigation__item">
+            <li class="l-navigation__item u-visible--gtMD">
               <a class="l-navigation__link" href="<?php echo($APP_HOST); ?>/system_admin/area_application/create" target="_blank">エリア申請</a>
             </li>
             <li class="l-navigation__item">
