@@ -57,6 +57,25 @@ class Event < ApplicationRecord
   before_save :set_check_in_code
 
   # -------------------------------------------------------------------------------
+  # Enumerables
+  # -------------------------------------------------------------------------------
+  enum from: {
+    early_twenty: 1, # 20代前半
+    late_twenty: 2, # 20代後半
+    thirty:  3, # 30代
+    fourty:  4, # 40代
+    fifty:  5 # 50代
+  }, _prefix: true
+
+  enum to: {
+    early_twenty: 1, # 20代前半
+    late_twenty: 2, # 20代後半
+    thirty:  3, # 30代
+    fourty:  4, # 40代
+    fifty:  5 # 50代
+  }, _prefix: true
+
+  # -------------------------------------------------------------------------------
   # Scopes
   # -------------------------------------------------------------------------------
   scope :now, lambda { |area_id = nil|
