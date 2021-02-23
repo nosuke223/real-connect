@@ -16,3 +16,18 @@ ja:
         female_count: 女性数
         created_at: 登録日時
         updated_at: 更新日時
+
+  enums:
+    event:
+      from:
+        early_twenty: 20代前半
+        late_twenty: 20代後半
+        thirty: 30代
+        fourty: 40代
+        fifty: 50代
+      to:
+        early_twenty: 20代前半
+        late_twenty: 20代後半
+        thirty: 30代
+        fourty: 40代
+        fifty: 50代

@@ -63,15 +63,25 @@
                   h3 募集年代
                   p 募集する年代を選択してください
                   .input-field
-                    input(type='number' name='from' autocomplete='off' placeholder='入力してください' v-model='event.from' )
-                    i.glyph.glyph-pen
-                    i.glyph.glyph-check-circle.u-color--primary01
-                  p 歳から
+                    label.c-select
+                      select.c-select__item(name='from' v-model='event.from')
+                        option(value='' disabled) 年齢層を選択してください
+                        option(value='early_twenty') 20代前半
+                        option(value='late_twenty') 20代後半
+                        option(value='thirty') 30代
+                        option(value='fourty') 40代
+                        option(value='fifty') 50代
+                  p から
                   .input-field
-                    input(type='number' name='to' autocomplete='off' placeholder='入力してください' v-model='event.to' )
-                    i.glyph.glyph-pen
-                    i.glyph.glyph-check-circle.u-color--primary01
-                  p 歳まで
+                    label.c-select
+                      select.c-select__item(name='to' v-model='event.to')
+                        option(value='' disabled) 年齢層を選択してください
+                        option(value='early_twenty') 20代前半
+                        option(value='late_twenty') 20代後半
+                        option(value='thirty') 30代
+                        option(value='fourty') 40代
+                        option(value='fifty') 50代
+                  p まで
                 section
                   h3 募集人数
                   p 募集人数を入力してください
