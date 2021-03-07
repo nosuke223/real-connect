@@ -19,7 +19,9 @@ export default {
         { text: "エリア名", value: "name" },
         { text: "申請コメント", value: "application_comment" },
         { text: "申請メールアドレス", value: "application_email" },
+        { text: "〒郵便番号", value: "zipcode" },
         { text: "都道府県", value: "prefecture.name" },
+        { text: "市区町村", value: "municipality" },
       ],
     };
   },

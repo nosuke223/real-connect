@@ -17,8 +17,9 @@ export default {
       headers: [
         { text: "エリアID", value: "id" },
         { text: "エリア名", value: "name" },
-        { text: "郵便番号", value: "zipcode" },
+        { text: "〒郵便番号", value: "zipcode" },
         { text: "都道府県", value: "prefecture.name" },
+        { text: "市区町村", value: "municipality" },
       ],
     };
   },

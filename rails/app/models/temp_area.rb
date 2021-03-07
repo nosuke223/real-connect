@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: temp_areas
@@ -9,6 +8,7 @@
 #  application_email   :string
 #  application_status  :integer
 #  deleted_at          :datetime
+#  municipality        :string
 #  name                :string
 #  zipcode             :string
 #  created_at          :datetime         not null

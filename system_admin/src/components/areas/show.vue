@@ -10,8 +10,9 @@
     div.title
       p エリアID: {{ area.id }}
       p エリア名: {{ area.name }}
-      p 都道府県: {{ displayPrefecture }}
       p 〒郵便番号: {{ displayZipCode }}
+      p 都道府県: {{ displayPrefecture }}
+      p 市区町村: {{ area.municipality }}
 </template>
 
 <script>
@@ -25,6 +26,7 @@ export default {
         name: "",
         prefecture: {},
         zipcode: 0,
+        municipality: "",
       },
     };
   },
