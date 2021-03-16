@@ -2,7 +2,7 @@ article#pane2.l-pane.is-pushed
   header.l-pane__header.p-pane-control.u-mode-bg--ltSM
     .p-pane-control__button( data-pane='1' )
       i.glyph ＜
-    .p-pane-control__heading(v-if='currentEvent.start_time')
+    .p-pane-control__heading(v-if='!isPlaceTalkroom && currentEvent.start_time')
       //- span.p-pane-control__title(v-if='currentEvent.name') {{currentEvent.name}}
       span.p-pane-control__title {{currentEvent.start_time|format_date_label}}
       span.p-pane-control__notice(v-if='currentEvent.remain')
@@ -24,7 +24,7 @@ article#pane2.l-pane.is-pushed
       .p-talk-place-select
         span.c-badge.p-talk-place-select__badge.u-bg--secondary.animated.bounceIn(v-if='behind_unread>0') {{behind_unread}}
         label.c-select
-          select.c-select__item.p-check-in__place(v-model='currentPlaceID')
+          select.c-select__item.p-check-in__place(v-model='currentPlaceID' :disabled='placeSelectDisabled')
             option(value='' selected) すべての会場
             option(:value='item.id' v-for='item in placelist') {{item.current_unread_badge}}{{item.name}}
 
