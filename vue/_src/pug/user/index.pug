@@ -200,7 +200,7 @@ block content
       .c-notice__frame
         v-touch.c-notice__inner.u-text(@swipeleft='hideReceive()')
           em.c-notice__label {{receive.label}}
-          h2.p-account.c-notice__account(@click='messageTap(receive.event_id,receive.id)')
+          h2.p-account.c-notice__account(@click='messageTap(receive.event_id,receive.id,receive.place_id)')
             .p-account__title
               figure.p-avatar(v-if='receive.avatar_image')
                 img(v-lazy='receive.avatar_image')
@@ -209,10 +209,10 @@ block content
               .p-username.c-notice__username
                 | {{receive.nickname}}
                 small.p-username__small(v-if='receive.age') {{receive.age|format_age}} ─ {{receive.blood}}型 ─ {{receive.gender|format_gender}}
-          p.c-notice__message-body(@click='messageTap(receive.event_id,receive.id)')
+          p.c-notice__message-body(@click='messageTap(receive.event_id,receive.id,receive.place_id)')
             i.glyph.glyph-brand-logo
             span.u-ellipsis {{receive.body}}
-          .c-notice__annotation(v-if='receive.annotation.length' @click='messageTap(receive.event_id,receive.id)')
+          .c-notice__annotation(v-if='receive.annotation.length' @click='messageTap(receive.event_id,receive.id,receive.place_id)')
             p(v-for='item in receive.annotation')
               i.glyph.glyph-exclamation-circle
               | {{item.body}}

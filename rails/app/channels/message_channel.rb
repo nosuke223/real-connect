@@ -42,6 +42,29 @@ class MessageChannel < ApplicationCable::Channel
   end
 
   #
+  # メッセージを作成（店舗でのトーク用）
+  #
+  def create_place_message(data)
+    current_user = find_user_by_jwt(data['token'])
+    partner_user = User.find(data['partner_id'])
+
+    PlaceMessage.create(
+      {
+        place_id: data['place_id'],
+        partner_id: data['partner_id'],
+        body: data['body'],
+        sender_nickname: data['sender_nickname'],
+        partner_nickname: data['partner_nickname']
+      }.merge!(
+        sender: current_user
+      )
+    )
+ 
+    MessageChannel.broadcast_to(current_user, { type: 'place_message', place_id: data['place_id'], partner_id: partner_user.id, message: data['body'] })
+    MessageChannel.broadcast_to(partner_user, { type: 'place_message', place_id: data['place_id'], partner_id: current_user.id, message: data['body'] })
+  end
+
+  #
   # イベントチェックイン
   #
   def checkin_event(data)

@@ -41,9 +41,9 @@ article#pane3.l-pane.is-pushed
     transition(name='v-sending' v-if='sending')
       .p-sending-loader
         .p-progress-bar.p-progress-bar--xs
-    .p-pane-message(@click='scrollDown()' v-if='currentPartner.data' :class='{"is-focus":messageFocus}')
-      textarea#autoHeightInput.p-pane-message__textarea(name="name" rows="8" cols="200" v-model='send_message'  v-if='currentPartner.data.past==false' :data-height='messageBrCount' @focus='textareaFocus()' @blur='textareaBlur()')
-      input#messageSend(type="submit" name="" value="➤" @click='messageSend()' v-if='currentPartner.data.past==false')
-      .p-pane-message__past-notice(v-if='currentPartner.data.past==true' @click='showToast("閲覧のみ","このイベントは終了しているため、メッセージの送信はできません","3000")')
+    .p-pane-message(@click='scrollDown()' v-if='isPlaceTalkroom|| currentPartner.data' :class='{"is-focus":messageFocus}')
+      textarea#autoHeightInput.p-pane-message__textarea(name="name" rows="8" cols="200" v-model='send_message'  v-if='isPlaceTalkroom || (currentPartner.data && currentPartner.data.past==false)' :data-height='messageBrCount' @focus='textareaFocus()' @blur='textareaBlur()')
+      input#messageSend(type="submit" name="" value="➤" @click='messageSend()' v-if='isPlaceTalkroom || (currentPartner.data && currentPartner.data.past==false)')
+      .p-pane-message__past-notice(v-if='currentPartner.data && currentPartner.data.past==false' @click='showToast("閲覧のみ","このイベントは終了しているため、メッセージの送信はできません","3000")')
         i.glyph.glyph-exclamation-circle
         span メッセージの送信はできません

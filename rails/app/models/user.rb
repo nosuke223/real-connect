@@ -219,6 +219,7 @@ class User < ApplicationRecord
   has_many :events, through: :event_users
   has_many :places, through: :place_users
   has_many :talks
+  has_many :place_talks
   has_many :own_places, class_name: 'Place', foreign_key: 'owner_id'
   belongs_to :area, optional: true
   belongs_to :prefecture, class_name: :Prefecture , foreign_key: :prefecture_id , primary_key: :id, optional: true

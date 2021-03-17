@@ -49,11 +49,14 @@ Rails.application.routes.draw do
 
       resources :places, only: %i[index] do
         member do
+          get :users
+          get :talks
           post :checkin
         end
       end
 
       resource :messages, only: %i[show create]
+      resource :place_messages, only: %i[show create]
 
       resources :prefectures, only: [:index]
 
@@ -61,6 +64,12 @@ Rails.application.routes.draw do
       end
 
       resources :talks, only: %i[] do
+        member do
+          put :read
+        end
+      end
+
+      resources :place_talks, only: %i[] do
         member do
           put :read
         end
