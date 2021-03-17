@@ -70,6 +70,8 @@ class Place < ApplicationRecord
   has_many :users, through: :place_users
   has_many :event_places
   has_many :events, through: :event_places
+  has_many :place_talks
+  has_many :place_messages, -> { order('created_at ASC') }
 
   # -------------------------------------------------------------------------------
   # Validation

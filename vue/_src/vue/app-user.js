@@ -345,6 +345,11 @@ const app = new Vue({
       userDetail: [],
 
       // ------------------------------
+      // 場所ごとのユーザーリスト格納用
+      // ------------------------------
+      placeUserList: [],
+
+      // ------------------------------
       // マスターデータ格納用
       // ------------------------------
       // ユーザーステータスリスト
@@ -460,6 +465,9 @@ const app = new Vue({
       talkroomPage: 1,
       talkroomPageLoad: false,
 
+      // 店舗のトークルームかどうかのフラグ（falseの場合イベントのトークルーム）
+      isPlaceTalkroom: false,
+
       // ------------------------------
       // 現在表示されているトークユーザ
       // ------------------------------
@@ -514,6 +522,7 @@ const app = new Vue({
         show: false,
         id: "",
         event_id: "",
+        place_id: "",
         label: "",
         avatar_image: "",
         nickname: "",
@@ -560,6 +569,7 @@ const app = new Vue({
         after: '',
       },
       behind_unread: 0,
+      placeSelectDisabled: true, // メンバーリストでの店舗の切り替えは実質なくなったので常にtrue
 
       // ------------------------------
       // トークルーム
@@ -1432,6 +1442,10 @@ const app = new Vue({
             case 'message':
               this.receiveMessage(data)
               break;
+            // 1-2. メッセージを受信（店舗でのトーク）
+            case 'place_message':
+              this.receivePlaceMessage(data)
+              break;
             // 2. イベント参加者を受信
             case 'event_checkedin_user':
               this.receiveJoin(data)
@@ -1527,9 +1541,9 @@ const app = new Vue({
         }, 700);
         this.sending = false
         // 送信内容と受信内容が一致した場合、送信内容を空に
-        if (data.message==this.send_message) {
-          this.send_message = ''
-        }
+        // if (data.message==this.send_message) {
+        //   this.send_message = ''
+        // }
       } else {
         // ------------------------------
         // 2. 送信者のトークルームが表示されていない場合
@@ -1559,6 +1573,7 @@ const app = new Vue({
         let content = {
           id: data.partner_id,
           event_id: data.event_id,
+          place_id: data.place_id,
           label: "New Message",
           avatar_image: "",
           nickname: 'エリア外ユーザ（ユーザID'+data.partner_id+'）',
@@ -1634,6 +1649,84 @@ const app = new Vue({
     },
 
     // ------------------------------
+    // リアルタイム関連
+    // ------------------------------
+    // リアルタイム関連 1-2. メッセージ送受信（店舗でのトーク）
+    // [-] 開いている場合はトークルームの更新
+    // [-] 別の画面のときはアプリ内通知
+    // [-] 未読数の追加（開いている場合は未読ゼロに）の処理
+    // ------------------------------
+    receivePlaceMessage(data) {
+      // 来たデータのパートナーID
+      let partnerId = data['partner_id']
+      let targetPlaceId = data.place_id
+
+      // いま見てるトークルームの相手と、
+      // 受信したデータのパートナーIDが一致するかどうか
+      // 一致していたら・・・
+      if (this.isPlaceTalkroom && this.currentPartnerID == partnerId && this.currentPlaceID == targetPlaceId) {
+        // ------------------------------
+        // 1. 送信者のトークルームが表示されている場合
+        // ------------------------------
+        // 1.1. 既読にする
+        this.markRead(this.currentTalkID)
+        // 1.2. メッセージを読み込む
+        this.filterTalk(partnerId,null)
+        // 1.3. 音を鳴らす
+        setTimeout(() => {
+          this.soundPlay('updated')
+        }, 700);
+        this.sending = false
+      } else {
+        // ------------------------------
+        // 2. 送信者のトークルームが表示されていない場合
+        // ------------------------------
+        // 2.1. データに関連する情報を整理
+        let partner = []
+        let partnerAll = this.placeUserList.filter(function(el){
+          return el.place_id == data.place_id
+        })
+        if (partnerAll.length) {
+          partner = partnerAll[0].data.filter(function(el){
+            return el.id == data.partner_id
+          })
+        }
+
+        let content = {
+          id: data.partner_id,
+          event_id: null,
+          place_id: data.place_id,
+          label: "New Message",
+          avatar_image: "",
+          nickname: 'エリア外ユーザ（ユーザID'+data.partner_id+'）',
+          age: "",
+          gender: "",
+          blood: "",
+          body: data.message,
+          annotation: [],
+        }
+        if (partner.length) {
+          content.avatar_image = partner[0].avatar_image
+          content.nickname = partner[0].nickname
+          content.age = partner[0].age
+          content.gender = partner[0].gender
+          content.blood = partner[0].blood
+        }
+        // 2.2. 音を鳴らす
+        this.soundPlay('notice')
+        // 2.3. メッセージ受信の通知を出す
+        this.showReceive(content,5000)
+
+        this.behindUnread()
+      }
+
+      this.unreadCount()
+      setTimeout(() => {
+        this.placeTalkListUpdate(targetPlaceId,false)
+      }, 3000);
+    },
+
+    // ------------------------------
     // リアルタイム関連 2. イベント参加者を受信
     // [-] アプリ内に通知
     // [-] トーク一覧にデータを追加
@@ -1684,6 +1777,7 @@ const app = new Vue({
         this.checkinErr.err = false
         this.closeModal('checkIn')
 
+        this.isPlaceTalkroom = false
         // ペインの移動・チェックインコードのクリア
         this.pane(2,500)
         // this.checkincode = ""
@@ -1849,6 +1943,7 @@ const app = new Vue({
         this.currentPlaceID = data.place_id
         this.userData.current_place_id = data.place_id
         this.showNotice(placeName+'に移動しました','','2000')
+        this.setPlaceTalk(data.place_id)
       } else {
         // ------------------------------
         // 2. 別のユーザーが移動した場合
@@ -1959,80 +2054,86 @@ const app = new Vue({
     // ------------------------------
     // 新着メッセージの通知をタップした時
     // ------------------------------
-    messageTap(eventId,partnerId) {
-      let before = this.currentEvent.id
-      let after = eventId
-      let partner = []
-      let targetUserData = this.userListDefault.filter(function(el){
-        return el.event_id == eventId
-      })
-      if (targetUserData.length) {
-        partner = targetUserData[0].data.filter(function(el){
-          return el.id == partnerId
+    messageTap(eventId,partnerId,placeId) {
+      if (eventId) {
+        let before = this.currentEvent.id
+        let after = eventId
+        let partner = []
+        let targetUserData = this.userListDefault.filter(function(el){
+          return el.event_id == eventId
         })
-      }
+        if (targetUserData.length) {
+          partner = targetUserData[0].data.filter(function(el){
+            return el.id == partnerId
+          })
+        }
 
-      let content = ''
-      if (partner.length==0) {
-        // 通知が来たイベントがエリア外のイベントの場合
-        content += 'エリア外のイベントからのメッセージです。このトークを表示する場合は、メニューから登録エリアを変更して下さい'
-        this.hideReceive()
-        setTimeout(() => {
-          this.showToast('閲覧できません',content,'10000')
-        }, 100);
-      } else {
-        // 通知が来たイベントが自分のいるエリア内のイベントの場合
-        if (this.currentEvent.id>0) {
-          // 現在表示しているイベントがある場合
-          // （つまりいま閲覧しているトーク一蘭がある場合）
-          if (before!=after||this.currentPlaceID!=partner[0].current_place_id) {
-            // 受信したメッセージのイベントと、閲覧中のイベントが異なる場合
-            // または、いま閲覧中の会場と相手の会場が違う場合
-            if (before!=after) {
+        let content = ''
+        if (partner.length==0) {
+          // 通知が来たイベントがエリア外のイベントの場合
+          content += 'エリア外のイベントからのメッセージです。このトークを表示する場合は、メニューから登録エリアを変更して下さい'
+          this.hideReceive()
+          setTimeout(() => {
+            this.showToast('閲覧できません',content,'10000')
+          }, 100);
+        } else {
+          // 通知が来たイベントが自分のいるエリア内のイベントの場合
+          if (this.currentEvent.id>0) {
+            // 現在表示しているイベントがある場合
+            // （つまりいま閲覧しているトーク一蘭がある場合）
+            if (before!=after||this.currentPlaceID!=partner[0].current_place_id) {
               // 受信したメッセージのイベントと、閲覧中のイベントが異なる場合
-              let beforeEventName = this.currentEvent.name
-              if (beforeEventName=="") {
-                beforeEventName = moment(this.currentEvent.start_time).format('MM/DD')
-                // beforeEventName = 'イベントID:'+before
+              // または、いま閲覧中の会場と相手の会場が違う場合
+              if (before!=after) {
+                // 受信したメッセージのイベントと、閲覧中のイベントが異なる場合
+                let beforeEventName = this.currentEvent.name
+                if (beforeEventName=="") {
+                  beforeEventName = moment(this.currentEvent.start_time).format('MM/DD')
+                  // beforeEventName = 'イベントID:'+before
+                }
+                let afterEventData = this.alleventlist.filter(function(el){
+                  return el.id == eventId
+                })[0]
+                let afterEventName = afterEventData.name
+                if (afterEventName=="") {
+                  afterEventName = moment(afterEventData.start_time).format('MM/DD')
+                }
+                content += '・現在閲覧中のイベントは'+ afterEventName +'に変更されました'
               }
-              let afterEventData = this.alleventlist.filter(function(el){
-                return el.id == eventId
-              })[0]
-              let afterEventName = afterEventData.name
-              if (afterEventName=="") {
-                afterEventName = moment(afterEventData.start_time).format('MM/DD')
-              }
-              content += '・現在閲覧中のイベントは'+ afterEventName +'に変更されました'
             }
           }
+          if (this.currentPlaceID!=partner[0].current_place_id) {
+            content += '・現在閲覧中の会場は'+ partner[0].current_place_name +'に変更されました'
+            this.currentPlaceID=partner[0].current_place_id
+          }
+          if (content!='') {
+            this.showToast('注意',content,'10000')
+          }
         }
-        if (this.currentPlaceID!=partner[0].current_place_id) {
-          content += '・現在閲覧中の会場は'+ partner[0].current_place_name +'に変更されました'
-          this.currentPlaceID=partner[0].current_place_id
-        }
-        if (content!='') {
-          this.showToast('注意',content,'10000')
-        }
-
-        // ------------------------------
-        // トークルームを移動させる
-        // ------------------------------
-        let talkRoomMove = new Promise((resolve, reject) => {
-          // まずはいまのトーク一覧を受信したメッセージが属するイベントに属するトーク一覧に更新しておく
-          resolve(this.talkListUpdate(eventId))
-        })
-        talkRoomMove.then(() => {
-          // 1秒後にトークルームを表示する
-          setTimeout(() => {
-            this.filterTalk(partnerId,eventId,true)
-          }, 1000);
-        }).then(() => {
-          // 通知を非表示
-          this.hideReceive()
-        }).catch((err) => {
-          // console.error(err)
-        })
       }
+
+      // ------------------------------
+      // トークルームを移動させる
+      // ------------------------------
+      let talkRoomMove = new Promise((resolve, reject) => {
+        // まずはいまのトーク一覧を受信したメッセージが属するイベントに属するトーク一覧に更新しておく
+        if (eventId) {
+          resolve(this.talkListUpdate(eventId))
+        } else {
+          resolve(this.placeTalkListUpdate(placeId))
+        }
+      })
+      talkRoomMove.then(() => {
+        // 1秒後にトークルームを表示する
+        setTimeout(() => {
+          this.filterTalk(partnerId,eventId,true)
+        }, 1000);
+      }).then(() => {
+        // 通知を非表示
+        this.hideReceive()
+      }).catch((err) => {
+        // console.error(err)
+      })
     },
 
     // ------------------------------
@@ -2296,19 +2397,34 @@ const app = new Vue({
     // メッセージの送信
     // ------------------------------
     messageSend() {
+      if (this.sending) {
+        return
+      }
+
       const targetElm = document.querySelector('#autoHeightInput')
       targetElm.focus()
       if (this.send_message != '') {
         this.sending = true
-        this.messageChannel.perform('create_message', {
-          event_id: this.currentEventID,
-          partner_id: this.currentPartnerID,
-          body: this.send_message,
-          sender_nickname: this.userData.nickname,
-          partner_nickname: this.currentPartner.nickname,
-          token: this.$cookie.get('Authorization')
-        })
-        // this.send_message = ''
+        if (this.isPlaceTalkroom) {
+          this.messageChannel.perform('create_place_message', {
+            place_id: this.currentPlaceID,
+            partner_id: this.currentPartnerID,
+            body: this.send_message,
+            sender_nickname: this.userData.nickname,
+            partner_nickname: this.currentPartner.nickname,
+            token: this.$cookie.get('Authorization')
+          })
+        } else {
+          this.messageChannel.perform('create_message', {
+            event_id: this.currentEventID,
+            partner_id: this.currentPartnerID,
+            body: this.send_message,
+            sender_nickname: this.userData.nickname,
+            partner_nickname: this.currentPartner.nickname,
+            token: this.$cookie.get('Authorization')
+          })
+        }
+        this.send_message = ''
       }
       // $('#autoHeightInput').focus()
     },
@@ -2319,7 +2435,12 @@ const app = new Vue({
     markRead(talkID) {
       if (talkID != '') {
         // 1. API側
-        let markReadUrl = BASE_URL + "/talks/" + talkID + "/read"
+        let markReadUrl = ""
+        if (this.isPlaceTalkroom) {
+          markReadUrl = BASE_URL + "/place_talks/" + talkID + "/read"
+        } else {
+          markReadUrl = BASE_URL + "/talks/" + talkID + "/read"
+        }
         axios({
           method: 'PUT',
           url: markReadUrl,
@@ -2415,17 +2536,30 @@ const app = new Vue({
         // 次のページャーがある限り処理可能にする
         if (messageCount+50==countMax&&this.talkroomPageLoad==false) {
           this.talkroomPageLoad = true
-          axios({
-            method: 'GET',
-            url: BASE_URL + "/messages",
-            headers: {
-              Authorization: this.$cookie.get('Authorization')
-            },
-            params: {
+          let messagesUrl = ""
+          if (this.isPlaceTalkroom) {
+            messagesUrl = "/place_messages"
+            params = {
+              place_id: this.currentPlaceID,
+              partner_id: partnerId,
+              page: pageCount
+            }
+
+          } else {
+            messagesUrl = "/messages"
+            params = {
               event_id: this.currentEventID,
               partner_id: partnerId,
               page: pageCount
             }
+          }
+          axios({
+            method: 'GET',
+            url: BASE_URL + messagesUrl,
+            headers: {
+              Authorization: this.$cookie.get('Authorization')
+            },
+            params: params
           })
           .then(function(response) {
             let addTalkData = response.data
@@ -2527,10 +2661,11 @@ const app = new Vue({
     // ------------------------------
     // 会場詳細からの遷移
     // ------------------------------
-    setPlaceTalk(eventId,placeId) {
-      this.talkListUpdate(eventId)
+    setPlaceTalk(placeId) {
+      this.placeTalkListUpdate(placeId)
       this.currentPlaceID = placeId
       this.nowPlaceID = placeId
+      this.isPlaceTalkroom = true
     },
 
     // ------------------------------
@@ -2662,17 +2797,30 @@ const app = new Vue({
         targetTalkRoom.is_loading = true
         targetTalkRoom.is_error = false
 
-        axios({
-          method: 'GET',
-          url: BASE_URL + "/messages",
-          headers: {
-            Authorization: this.$cookie.get('Authorization')
-          },
-          params: {
+        let messagesUrl = ''
+        let params = {}
+        if (this.isPlaceTalkroom) {
+          messagesUrl = "/place_messages"
+          params = {
+            place_id: this.currentPlaceID,
+            partner_id: partnerId,
+            page: 1
+          }
+        } else {
+          messagesUrl = "/messages"
+          params = {
             event_id: this.currentEventID,
             partner_id: partnerId,
             page: 1
           }
+        }
+        axios({
+          method: 'GET',
+          url: BASE_URL + messagesUrl,
+          headers: {
+            Authorization: this.$cookie.get('Authorization')
+          },
+          params: params
         })
         .then(function(response) {
           this.talkroomDefault = response.data
@@ -2731,10 +2879,12 @@ const app = new Vue({
             }
           }
 
-          let eventid = this.currentEventID
-          this.currentPartner.data = this.alleventlist.filter(function(el){
-            return el.id == eventid
-          })[0]
+          if (!this.isPlaceTalkroom) {
+            let eventid = this.currentEventID
+            this.currentPartner.data = this.alleventlist.filter(function(el){
+              return el.id == eventid
+            })[0]
+          }
 
           // 既読にする
           let currentTalk = this.talklist.filter(function(el){
@@ -3435,6 +3585,7 @@ const app = new Vue({
         .then(function(response) {
           // 会場表示用データを更新
           this.placelist = response.data
+          this.getPlaceUsers()
           this.pastEventList()
           this.loaded = true
           this.loadErr = {
@@ -3695,6 +3846,43 @@ const app = new Vue({
     },
 
     // ------------------------------
+    // 場所ごとのユーザー一覧のデータを取得
+    // ------------------------------
+    getPlaceUsers() {
+      this.placelist.forEach((item, index) => {
+        let placeid = item.id
+        let userListUrl = BASE_URL + "/places/"+placeid+"/users"
+        axios({
+          method: 'GET',
+          url: userListUrl,
+          headers: {
+            Authorization: this.$cookie.get('Authorization')
+          }
+        })
+        .then(function(response) {
+          let responseData = response.data
+
+          // ------------------------------
+          // ユーザー一覧
+          // ------------------------------
+          this.placeUserList[index] = {}
+          this.placeUserList[index].place_id = placeid
+          // 取得したデータをindexのdataにぶっ込む
+          this.placeUserList[index].data = responseData
+        }.bind(this))
+        .catch(function(error) {
+          this.userLogInLoad = false
+          this.loginForm.msg = "エラーが発生しました。もう一度お試し下さい。"
+          this.loginForm.debugDefault += "places/:"+placeid+"/users, "
+          status_.content = '場所ID:'+item.id+'のユーザー一覧のデータの取得に失敗しました'
+          status_.error = true
+          status_.completed = false
+          status_.log = error
+        }.bind(this))
+      })
+    },
+
+    // ------------------------------
     // 3. ユーザー一覧・トーク一覧
     // ------------------------------
     defaultData() {
@@ -3906,6 +4094,7 @@ const app = new Vue({
           this.showToast('閲覧のみ','このイベントは終了しているため、メッセージの送信はできません','3000')
         }
         if (pane!=false) {
+          this.isPlaceTalkroom = false
           if (pane==null) {
             this.pane(2,0)
           } else {
@@ -3932,6 +4121,126 @@ const app = new Vue({
         // チェックイン用モーダルを開く
         this.openModal('checkIn')
       }
+    },
+
+    placeTalkListUpdate(placeid, pane) {
+      let userPromise = new Promise((resolve, reject) => {
+        let userListUrl = BASE_URL + "/places/"+placeid+"/users"
+        axios({
+          method: 'GET',
+          url: userListUrl,
+          headers: {
+            Authorization: this.$cookie.get('Authorization')
+          }
+        })
+        .then(function(response) {
+          resolve(response)
+        })
+      })
+      let talkPromise = new Promise((resolve, reject) => {
+        let talkListUrl = BASE_URL + "/places/"+placeid+"/talks"
+        axios({
+          method: 'GET',
+          url: talkListUrl,
+          headers: {
+            Authorization: this.$cookie.get('Authorization')
+          }
+        })
+        .then(function(response) {
+          resolve(response)
+        })
+      })
+
+      Promise.all([userPromise, talkPromise]).then(([users, talks]) => {
+        // ------------------------------
+        // 4. ユーザーリスト・トークリスト
+        // ------------------------------
+        // 4.1. currentUserList : トーク一覧に入れるためのユーザー一覧
+        // ------------------------------
+        let currentUserList = []
+        this.currentEventID = ''
+        users.data.forEach((item, index) => {
+          currentUserList[index] = {}
+          currentUserList[index].partner = item
+        })
+
+        // 4.2. currentTalkList : トーク一覧表示データのもとになる
+        // 最終的に this.talklist に入る（チェックインしてる場合のみ）
+        // ------------------------------
+        let currentTalkList = talks.data
+
+        currentUserList.forEach((item, index) => {
+          let partnerId = currentUserList[index].partner.id
+          currentUserList[index].user_id = partnerId
+  
+          // トークリストごと、各データのユーザーIDで絞り込み
+          let TARGETTALK = currentTalkList.filter(function(el){
+            // -----------------------【修正箇所】
+            if (el.partner!=null) {
+              return el.partner.id == partnerId
+            }
+            // -----------------------【修正箇所】
+          })
+  
+          // トークリストに対象のユーザーのトークがあるときは、
+          // partnerオブジェクトを更新
+          // ------------------------------
+          if (TARGETTALK.length) {
+            currentUserList[index].id = TARGETTALK[0].id
+            currentUserList[index].last_message = TARGETTALK[0].last_message
+            currentUserList[index].unread_count = TARGETTALK[0].unread_count
+          } else {
+            currentUserList[index].id = ""
+            currentUserList[index].last_message = {
+              body: "",
+              id: "",
+              image: "",
+              sent_at: ""
+            }
+            currentUserList[index].unread_count = 0
+          }
+  
+          // 会場を移動したユーザーの処理
+          // ※店舗のメンバー一覧の場合はその店舗に現在チェックインしているメンバーのみ表示させる
+          // ------------------------------
+          currentUserList[index].last_place_name = ""
+          currentUserList[index].is_moved = false
+        })
+
+        // ▼ ▼ ▼ トークルーム表示用データのリセット
+        if (pane!=false) {
+          this.currentPartner = ""
+          this.currentPartnerID = ""
+          this.currentTalkID = ""
+          this.talkroomDefault = []
+          this.talkroomPage = 1
+        }
+        // ▲ ▲ ▲ トークルーム表示用データのリセット
+
+        this.talklistAll = currentUserList
+
+        this.currentEvent = []
+
+        this.talklist = this.talklistAll
+  
+        if (pane!=false) {
+          if (pane==null) {
+            this.pane(2,0)
+          } else {
+            this.pane(pane,0)
+          }
+        }
+
+        // ▼ ▼ ▼ プロフィールモーダルのためのデータ格納
+        this.userList = users.data
+        // ▲ ▲ ▲ プロフィールモーダルのためのデータ格納
+  
+        // 自分のデータ
+        let myId = this.userData.id
+        this.userList.filter(function(el){
+          return el.id == myId
+        })[0].is_own = true
+      })
     },
 
     // ------------------------------
@@ -3975,6 +4284,7 @@ const app = new Vue({
       this.receive.show = true
       this.receive.id = content.id
       this.receive.event_id = content.event_id
+      this.receive.place_id = content.place_id
       this.receive.label = content.label
       this.receive.avatar_image = content.avatar_image
       this.receive.nickname = content.nickname

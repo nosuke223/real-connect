@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_06_124842) do
+ActiveRecord::Schema.define(version: 2021_03_07_141846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -108,6 +108,39 @@ ActiveRecord::Schema.define(version: 2021_03_06_124842) do
     t.index ["event_id"], name: "index_messages_on_event_id"
     t.index ["partner_id"], name: "index_messages_on_partner_id"
     t.index ["sender_id"], name: "index_messages_on_sender_id"
+  end
+
+  create_table "place_messages", force: :cascade do |t|
+    t.integer "place_id", null: false
+    t.integer "sender_id", null: false
+    t.integer "partner_id", null: false
+    t.string "body"
+    t.string "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
+    t.string "sender_nickname"
+    t.string "string"
+    t.string "partner_nickname"
+    t.index ["deleted_at"], name: "index_place_messages_on_deleted_at"
+    t.index ["partner_id"], name: "index_place_messages_on_partner_id"
+    t.index ["place_id"], name: "index_place_messages_on_place_id"
+    t.index ["sender_id"], name: "index_place_messages_on_sender_id"
+  end
+
+  create_table "place_talks", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "partner_id", null: false
+    t.integer "place_id", null: false
+    t.integer "last_message_id"
+    t.datetime "last_read_at"
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deleted_at"], name: "index_place_talks_on_deleted_at"
+    t.index ["partner_id"], name: "index_place_talks_on_partner_id"
+    t.index ["place_id"], name: "index_place_talks_on_place_id"
+    t.index ["user_id"], name: "index_place_talks_on_user_id"
   end
 
   create_table "place_users", force: :cascade do |t|

@@ -22,6 +22,26 @@ class Api::V1::PlacesController < Api::BaseController
     render_empty(:ok)
   end
 
+  #
+  # 場所のユーザー一覧返す
+  #
+  # GET /api/v1/places/:id/users
+  #
+  def users
+    place = Place.eager_load(:users).find(params[:id])
+    render json: place.users.uniq
+  end
+
+  #
+  # 場所のトーク一覧返す
+  #
+  # GET /api/v1/places/:id/talks
+  #
+  def talks
+    talks = current_user.place_talks.eager_load(:last_message, :partner).where(place_id: params[:id])
+    render json: talks
+  end
+
   private
 
   def place_update_params
