@@ -10,8 +10,9 @@
       p 申請メールアドレス: {{ tempArea.applicationEmail }}
       p 申請コメント: {{ tempArea.applicationComment }}
       p エリア名: {{ tempArea.name }}
-      p 都道府県: {{ displayPrefecture }}
       p 〒郵便番号: {{ displayZipCode }}
+      p 都道府県: {{ displayPrefecture }}
+      p 市区町村: {{ tempArea.municipality }}
 </template>
 
 <script>
@@ -27,6 +28,7 @@ export default {
         zipcode: 0,
         applicationComment: "",
         applicationEmail: "",
+        municipality: "",
       },
     };
   },
@@ -60,6 +62,7 @@ export default {
         this.tempArea.zipcode = data.zipcode;
         this.tempArea.applicationComment = data.application_comment;
         this.tempArea.applicationEmail = data.application_email;
+        this.tempArea.municipality = data.municipality;
       }
     },
     async deleteResource() {

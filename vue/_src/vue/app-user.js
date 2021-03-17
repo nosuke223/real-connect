@@ -170,7 +170,9 @@ const app = new Vue({
       areaChangeData: {
         region: {},
         prefectureList: [],
+        municipalityList: [],
         prefecture: null,
+        municipality: null,
         area_id: null,
         areaList: [],
         err: {
@@ -1133,6 +1135,7 @@ const app = new Vue({
       }
 
       this.$set(this.areaChangeData, 'prefecture', null)
+      this.$set(this.areaChangeData, 'municipality', null)
       this.$set(this.areaChangeData, 'area_id', null)
     },
 
@@ -1141,6 +1144,14 @@ const app = new Vue({
     // ------------------------------
     changePrefecture() {
       this.getAreaList(this.areaChangeData.prefecture)
+      this.$set(this.areaChangeData, 'municipality', null)
+      this.$set(this.areaChangeData, 'area_id', null)
+    },
+
+    // ------------------------------
+    // 市区町村プルダウンの変更時
+    // ------------------------------
+    changeMunicipality() {
       this.$set(this.areaChangeData, 'area_id', null)
     },
 
@@ -1246,6 +1257,7 @@ const app = new Vue({
           listData[index] = {}
           listData[index].text = item.name
           listData[index].value = item.id
+          listData[index].municipality = item.municipality
         })
         let selectedAreaId = this.areaChangeData.area_id
         let targetArea = areaList.filter(function(el){
@@ -1270,6 +1282,16 @@ const app = new Vue({
         listData.unshift(blankData)
         this.areaChangeData.areaList = listData
         // ▲ ▲ ▲ 登録エリアの変更 プルダウン表示データの作製
+
+        // 都道府県が選択されていたら市区町村リストを絞り込む
+        const municipalityList = this.areaChangeData.areaList.filter((area) => {
+          return (area.municipality && (
+            !this.areaChangeData.municipality || area.municipality == this.areaChangeData.municipality
+          ))
+        }).map((area) => {
+          return area.municipality
+        })
+        this.areaChangeData.municipalityList = Array.from(new Set(municipalityList)) // Setを使って重複を排除
 
       }.bind(this))
       .catch(function(error) {
@@ -1923,11 +1945,15 @@ const app = new Vue({
     // チェックアウト
     // ------------------------------
     checkOut() {
-      this.messageChannel.perform('checkout_event_and_place', {
-        token: this.$cookie.get('Authorization')
-      })
-      this.showNotice('チェックアウトしました', '', 2000)
-      this.reload()
+      const result = confirm('すべての会場、イベントからチェックアウトします。\nよろしいですか？');
+
+      if (result) {
+        this.messageChannel.perform('checkout_event_and_place', {
+          token: this.$cookie.get('Authorization')
+        })
+        this.showNotice('チェックアウトしました', '', 2000)
+        this.reload()
+      }
     },
 
     // ------------------------------
@@ -4555,6 +4581,7 @@ const app = new Vue({
     })
     this.areaDetailMaleCount = areaMaleCount
     this.areaDetailFemaleCount = areaFemaleCount
+    this.setAreaName()
 
     // ------------------------------
     // 現在のチェックイン会場へのアイコン

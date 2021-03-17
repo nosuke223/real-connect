@@ -59,7 +59,8 @@ class Api::V1::SystemAdmins::TempAreasController < Api::V1::SystemAdmins::BaseCo
         {
           name: attributes.dig('name'),
           prefecture_id: attributes.dig('prefecture_id'),
-          zipcode: attributes.dig('zipcode')
+          zipcode: attributes.dig('zipcode'),
+          municipality: attributes.dig('municipality')
         }
       )
       TempArea.transaction do

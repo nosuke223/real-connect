@@ -3,8 +3,9 @@
     CommonForm(btnTitle="更新" cardTitle="エリア修正" @submit="updateResource" @cancel="cancel")
       div(slot="fields")
         v-text-field(v-model="area.name" required :rules="nameRules" label="エリア名" )
-        v-select(v-model="area.prefecture" item-text="name" item-value="code" :items="prefectures" label="都道府県" clearable )
         v-text-field(type="postal-code" v-model="area.zipcode" label="〒郵便番号" :rules="zipCodeRules" )
+        v-select(v-model="area.prefecture" item-text="name" item-value="code" :items="prefectures" label="都道府県" clearable )
+        v-text-field(v-model="area.municipality" required :rules="nameRules" label="市区町村" )
 </template>
 
 <script>
@@ -23,6 +24,7 @@ export default {
         name: "",
         zipcode: "",
         prefecture: "",
+        municipality: "",
       },
       prefectures: [],
     };
@@ -46,6 +48,7 @@ export default {
       if (!error) {
         this.area.name = response.data.name;
         this.area.zipcode = response.data.zipcode;
+        this.area.municipality = response.data.municipality;
         if (response.data.prefecture) {
           this.area.prefecture = String(response.data.prefecture.id);
         }
@@ -64,6 +67,7 @@ export default {
         area: {
           name: this.area.name,
           zipcode: this.area.zipcode,
+          municipality: this.area.municipality,
           prefecture_id: Number(this.area.prefecture),
         },
       };

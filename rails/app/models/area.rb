@@ -4,6 +4,7 @@
 #
 #  id            :bigint(8)        not null, primary key
 #  deleted_at    :datetime
+#  municipality  :string
 #  name          :string
 #  zipcode       :string
 #  created_at    :datetime         not null

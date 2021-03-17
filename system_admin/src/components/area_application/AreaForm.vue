@@ -24,7 +24,7 @@
           v-model="formProps.zipcode"
           label="〒郵便番号"
           :rules="zipCodeRules"
-          @change="fetchAddress"
+          @input="fetchAddress"
           prepend-icon="mdi-map"
         )
         v-select(
@@ -113,6 +113,7 @@ export default {
       props.application_comment = this.formProps.application_comment;
       props.zipcode = this.formProps.zipcode;
       props.prefecture_id = this.formProps.address1.value;
+      props.municipality = this.formProps.address2;
       this.$emit("createResource", props);
     },
     cancel() {
@@ -153,6 +154,11 @@ export default {
         this.formProps.address2 = result.address2;
       } else {
         alert(error);
+        this.formProps.address1 = {
+            text: "",
+            value: 0
+          }
+        this.formProps.address2 = "";
       }
     },
   }

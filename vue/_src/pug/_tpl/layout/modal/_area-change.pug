@@ -23,6 +23,14 @@ transition(name='v-modal' appear v-if='modal.areaChange')
                   option(:value='item.code' v-for='item in areaChangeData.prefectureList') {{item.name}}
 
           section
+            h2 市区町村を選択して下さい
+            .input-field
+              label.c-select
+                select.c-select__item(v-model='areaChangeData.municipality' name='municipality' @change='changeMunicipality()' :disabled="!areaChangeData.prefecture")
+                  option(:value='null' selected) 全市区町村
+                  option(:value='item' v-for='item in areaChangeData.municipalityList') {{item}}
+
+          section
             h2 エリアを選択して下さい
             .input-field
               label.c-select
@@ -35,7 +43,7 @@ transition(name='v-modal' appear v-if='modal.areaChange')
                   //- (1)API通信時の空白
                   option(:value='areaChangeData.area_id' v-if='areaListLoad' disabled)
                   //- 選択可能なエリア一覧のオプション
-                  option(v-for='option in areaChangeData.areaList' :value='option.value' :disabled='option.disabled') {{ option.text }}
+                  option(v-for='option in areaChangeData.areaList' :value='option.value' :disabled='option.disabled' v-if='!areaChangeData.municipality || option.municipality == areaChangeData.municipality') {{ option.text }}
             .p-check-in__err.u-text__center.u-flex--ce-ce(v-if='areaChangeData.err.area')
               i.glyph.glyph-exclamation-circle
               | エリアが未選択、または変更されていません。

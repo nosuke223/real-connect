@@ -1,4 +1,5 @@
 class AreaSerializer < ActiveModel::Serializer
   attributes :id,
-    :name
+    :name,
+    :municipality
 end
