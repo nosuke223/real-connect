@@ -18,8 +18,8 @@ import Datepicker from "vuejs-datepicker";
 import {TweenMax} from 'gsap'
 import _ from 'lodash'
 
-let BASE_URL = 'https://real-connect.herokuapp.com/api/v1';
-let CABLE_URL = 'wss:real-connect.herokuapp.com/cable';
+let BASE_URL = 'https://real-connect-test.herokuapp.com/api/v1';
+let CABLE_URL = 'wss:real-connect-test.herokuapp.com/cable';
 
 if (document.domain=='localhost') {
   BASE_URL = 'http://localhost:8080/api/v1';

@@ -90,7 +90,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { host: 'real-connect.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'real-connect-test.herokuapp.com' }
   config.action_mailer.perform_deliveries = true
   config.action_mailer.smtp_settings = {
       user_name: ENV['SENDGRID_USERNAME'],
@@ -103,11 +103,11 @@ Rails.application.configure do
   }
 
   # TODO allowed_request_originsの調整
-  config.action_cable.allowed_request_origins = [ 'real-connect.jp', 'real-connect2.sd-general.com', 'localhost' ]
-  config.action_cable.url = 'wss://real-connect.herokuapp.com/cable'
+  config.action_cable.allowed_request_origins = [ 'real-connect.jp', 'real-connect2.sd-general.com', 'localhost', 'real-connect-test-vue.herokuapp.com', 'real-connect-test-system-admin.herokuapp.com' ]
+  config.action_cable.url = 'wss://real-connect-test.herokuapp.com/cable'
   ActionCable.server.config.disable_request_forgery_protection = true
 
   # TODO アセットのパス
-  config.action_controller.asset_host = "https://real-connect.herokuapp.com/"
-  config.action_mailer.asset_host = "https://real-connect.herokuapp.com/"
+  config.action_controller.asset_host = "https://real-connect-test.herokuapp.com/"
+  config.action_mailer.asset_host = "https://real-connect-test.herokuapp.com/"
 end

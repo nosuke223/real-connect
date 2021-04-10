@@ -1,7 +1,7 @@
 import axios from 'axios'
 import jsonpAdapter from 'axios-jsonp'
 
-let BASE_URL = 'https://real-connect.herokuapp.com/api/v1';
+let BASE_URL = 'https://real-connect-test.herokuapp.com/api/v1';
 
 if (document.domain=='localhost') {
   BASE_URL = 'http://localhost:8080/api/v1';

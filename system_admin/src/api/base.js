@@ -1,6 +1,6 @@
 import axios from "axios";
 import jsonpAdapter from "axios-jsonp";
-const domain = "http://localhost:8080";
+const domain = "https://real-connect-test.herokuapp.com";
 
 const apiInstance = axios.create({
   timeout: 5000
