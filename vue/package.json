@@ -2,10 +2,14 @@
   "name": "rc_applications",
   "version": "1.0.1",
   "description": "りあこね フロントエンドリソース",
+  "engines": {
+    "node": "10.16.0",
+    "npm": "6.9.0"
+  },
   "main": "index.js",
   "scripts": {
-    "install": "npm start",
-    "start": "rimraf dest && gulp && gulp server"
+    "build": "npm rebuild && npm install && rimraf dest && gulp",
+    "start": "gulp server"
   },
   "repository": {
     "type": "git",

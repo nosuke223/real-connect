@@ -202,10 +202,10 @@ const pwa = () => {
 // ----------------------------------------
 
 const BS_OPTION = {
-  port: 3000,
-  ui: {
-      port: 3001
-  },
+  port: process.env.PORT || 3000,
+  // ui: {
+  //     port: 3001
+  // },
   server: {
     baseDir: [
       DST,
@@ -215,6 +215,7 @@ const BS_OPTION = {
   startPath: '__content/index.html',
   reloadOnRestart: true,
   ghostMode: false,
+  open: false,
 }
 
 const browsersync = (done) => {
@@ -258,4 +259,4 @@ const watchFiles = (done) => {
 // ========================================
 
 exports.default = parallel(parallel(appUser,appAdmin), css, pug_html, images, files, favicon, fonts, pwa)
-exports.server = series(browsersync, watchFiles)
+exports.server = series(browsersync)

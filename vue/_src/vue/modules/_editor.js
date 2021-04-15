@@ -2,7 +2,7 @@
 // Wysiwyg エディターの設定
 // ------------------------------
 window.$ = window.umbrella = require('umbrellajs')
-window.Quill = require('Quill')
+window.Quill = require('quill')
 
 module.exports.editor = () => {
   const toolbarOptions = [
