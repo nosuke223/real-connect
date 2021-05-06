@@ -22,7 +22,7 @@
       v-card-actions
         v-btn(color="primary" text to="/place_application/create" target="_blank" rel="noopener") 店舗新規登録
         v-spacer
-        v-btn(color="primary" text href="https://real-connect-test-vue.herokuapp.com/" target="_blank" rel="noopener") エンドユーザー様
+        v-btn(color="primary" text href="https://rc1.onssl.jp/" target="_blank" rel="noopener") エンドユーザー様
 </template>
 
 <script>

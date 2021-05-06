@@ -5,8 +5,8 @@ if ($_SERVER[ "HTTP_HOST" ] == 'real-connect.jp') {
 } else {
   $production = false;
 };
-$APP_HOST = $production ? "https://real-connect.jp" : "https://real-connect-test-system-admin.herokuapp.com";
-$USER_APP_HOST = $production ? "https://real-connect.jp" : "https://real-connect-test-vue.herokuapp.com";
+$APP_HOST = $production ? "https://real-connect.jp" : "https://rc2.onssl.jp";
+$USER_APP_HOST = $production ? "https://real-connect.jp" : "https://rc1.onssl.jp";
 ?>
   <nav class="l-footer__nav c-container">
     <h2 class="c-logo l-footer__logo">

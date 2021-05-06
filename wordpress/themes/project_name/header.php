@@ -55,8 +55,8 @@ if (!is_user_logged_in()) {
 } else {
   $guest = false;
 };
-$APP_HOST = $production ? "https://real-connect.jp" : "https://real-connect-test-system-admin.herokuapp.com";
-$USER_APP_HOST = $production ? "https://real-connect.jp" : "https://real-connect-test-vue.herokuapp.com";
+$APP_HOST = $production ? "https://real-connect.jp" : "https://rc2.onssl.jp";
+$USER_APP_HOST = $production ? "https://real-connect.jp" : "https://rc1.onssl.jp";
 ?>
 <?php
 // 本番環境かつWPにログインしていないユーザのみ、

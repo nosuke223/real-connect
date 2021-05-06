@@ -103,7 +103,7 @@ Rails.application.configure do
   }
 
   # TODO allowed_request_originsの調整
-  config.action_cable.allowed_request_origins = [ 'real-connect.jp', 'real-connect2.sd-general.com', 'localhost', 'real-connect-test-vue.herokuapp.com', 'real-connect-test-system-admin.herokuapp.com' ]
+  config.action_cable.allowed_request_origins = [ 'real-connect.jp', 'real-connect2.sd-general.com', 'localhost', 'rc1.onssl.jp', 'rc2.onssl.jp' ]
   config.action_cable.url = 'wss://real-connect-test.herokuapp.com/cable'
   ActionCable.server.config.disable_request_forgery_protection = true
 
