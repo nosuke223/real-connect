@@ -41,7 +41,7 @@ services:
     tty: true
     stdin_open: true
     working_dir: /app
-    command: /bin/sh -c "npm rebuild && npm install && npm start"
+    command: /bin/sh -c "npm run build && npm start"
   system_admin_front:
     build: ./system_admin
     volumes:
