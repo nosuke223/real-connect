@@ -45,7 +45,7 @@ const routes = [
 
 const router = new VueRouter({
   routes,
-  mode: "hash",
+  mode: "history",
   base: "/system_admin/"
 });
 
