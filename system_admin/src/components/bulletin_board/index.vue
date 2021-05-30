@@ -22,7 +22,7 @@
       v-card-actions
         v-btn(color="primary" text to="/place_application/create" target="_blank" rel="noopener") 店舗新規登録
         v-spacer
-        v-btn(color="primary" text href="https://real-connect.jp/" target="_blank" rel="noopener") エンドユーザー様
+        v-btn(color="primary" text :href="getEnduserUrl()" target="_blank" rel="noopener") エンドユーザー様
 </template>
 
 <script>
@@ -128,6 +128,9 @@ export default {
       this.selectedArea = {};
       await this.fetchEvents({id: null});
       this.$router.push('/bulletin_board?tab=event');
+    },
+    getEnduserUrl() {
+      return document.domain=='localhost' ? 'http://localhost:3000/user/' : 'https://real-connect.jp/';
     }
   }
 };
