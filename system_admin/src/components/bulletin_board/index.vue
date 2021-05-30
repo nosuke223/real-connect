@@ -130,7 +130,7 @@ export default {
       this.$router.push('/bulletin_board?tab=event');
     },
     getEnduserUrl() {
-      return document.domain=='localhost' ? 'http://localhost:3000/user/' : 'https://real-connect.jp/';
+      return document.domain=='localhost' ? 'http://localhost:3000/user/' : 'https://real-connect.jp/user/';
     }
   }
 };
