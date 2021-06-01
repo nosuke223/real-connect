@@ -27,7 +27,7 @@ class EventSerializer < ActiveModel::Serializer
 
 
   def current_user_owner?
-    current_user.owner?
+    current_user.present? && current_user.owner?
   end
 
   def organizer_type_name
@@ -42,6 +42,6 @@ class EventSerializer < ActiveModel::Serializer
   end
 
   def is_checked_in
-    object.event_users.pluck(:user_id).include?(current_user.id)
+    current_user.present? && object.event_users.pluck(:user_id).include?(current_user.id)
   end
 end
