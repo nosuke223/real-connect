@@ -107,11 +107,18 @@ article#event.l-block( data-layer='2' )
                   select.c-select__item(v-model="eventPage.prefectureId" @change="requestFetchAreas")
                     option(v-for="elm of prefecture" :value="elm.id" :key="elm.id") {{elm.name}}
                   i.glyph.glyph-cart-right
-              p 地域を選択してください
+              p 市区町村を選択して下さい
+              .input-field
+                label.c-select
+                  select.c-select__item(v-model="eventPage.municipality" @change="changeMunicipalityOnEventPage")
+                    option(:value='null' selected) 全市区町村
+                    option(:value='item' v-for='item in eventPage.municipalityList') {{item}}
+                  i.glyph.glyph-cart-right
+              p エリアを選択してください
               .input-field
                 label.c-select
                   select.c-select__item(v-model="eventPage.areaId" @change="requestFetchPlaces")
-                    option(v-for="area of eventPage.areas" :value="area.id" :key="area.id") {{area.name}}
+                    option(v-for="area of eventPage.areas" :value="area.id" :key="area.id" v-if="!eventPage.municipality || area.municipality == eventPage.municipality") {{area.name}}
                   i.glyph.glyph-cart-right
               p 店舗を選択してください
               .input-field
