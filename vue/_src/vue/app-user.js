@@ -654,7 +654,9 @@ const app = new Vue({
         to: 20,
         areas: [],
         placeId: null,
-        places: []
+        places: [],
+        municipalityList: [],
+        municipality: null
       },
     }
   },
@@ -4683,11 +4685,27 @@ const app = new Vue({
       if (!response.error) {
         if (response.data.length > 0) {
           this.eventPage.areas = response.data;
+
+          // 市区町村リストを作成
+          const municipalityList = this.eventPage.areas.filter((area) => {
+            return (area.municipality && (
+              !this.eventPage.municipality || area.municipality == this.eventPage.municipality
+            ))
+          }).map((area) => {
+            return area.municipality
+          })
+          this.eventPage.municipalityList = Array.from(new Set(municipalityList)) // Setを使って重複を排除
         } else {
           alert('選択された都道府県には地域が登録されていません');
           this.eventPage.prefectureId = null;
         }
       }
+    },
+    // ------------------------------
+    // イベント作成で市区町村プルダウンの変更時
+    // ------------------------------
+    changeMunicipalityOnEventPage() {
+      this.$set(this.eventPage, 'area_id', null)
     },
     // ------------------------------
     // イベント作成で選択したエリア一覧の店舗一覧を取得する

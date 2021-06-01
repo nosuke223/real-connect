@@ -26,14 +26,21 @@
         v-stepper-step(:complete="step > 2" step="2") エリアを選択してください
           v-stepper-content(step="2")
             v-select(
+              v-model="municipality"
+              @change="filterTargetAreas()"
+              :items="municipalityList"
+              label="市区町村で絞り込み"
+              clearable
+            )
+            v-select(
               v-model="selectArea"
               @change="hideAreaSearch()"
               item-text="name"
               item-value="id"
-              :items="areas"
+              :items="targetAreas"
               label="エリア"
               return-object
-            )          
+            )
 </template>
 
 <script>
@@ -48,7 +55,10 @@ export default {
       prefArea: false,
       selectRegion: 0,
       selectPrefecture: 0,
+      municipalityList: [],
+      municipality: null,
       areas: [],
+      targetAreas: [],
       selectArea: {},
       step: 1
     };
@@ -57,12 +67,22 @@ export default {
     this.fetchRegions();
   },
   methods: {
+    init() {
+      this.selectRegion = 0;
+      this.selectPrefecture = 0;
+      this.municipalityList = [];
+      this.municipality = null;
+      this.areas = [];
+      this.targetAreas = [];
+      this.selectArea = {};
+      this.step = 1;
+    },
     open() {
+      this.init();
       this.dialog = true;
     },
     close() {
       this.dialog = false;
-      this.step = 1;
     },
     async fetchRegions() {
       const request = new ApiRequest("regions", this.$cookie, "api/v1");
@@ -82,7 +102,6 @@ export default {
     hidePrefectureList() {
       this.overlay = false;
       this.prefArea = false;
-      this.selectRegion = 0;
     },
     async getArea(prefectureId) {
       this.selectPrefecture = prefectureId;
@@ -97,18 +116,31 @@ export default {
         if (this.areas.length === 0) {
           alert("この都道府県にはまだエリアが登録されていません");
         } else {
+          // 市区町村リストを絞り込む
+          const municipalityList = this.areas.filter((area) => {
+            return area.municipality
+          }).map((area) => {
+            return area.municipality
+          });
+          this.municipalityList = Array.from(new Set(municipalityList)); // Setを使って重複を排除
+          this.filterTargetAreas();
+
           this.step = 2;
         }
       }
     },
     hideAreaSearch() {
       this.$emit("selectedArea", this.selectArea);
-      this.areas = [];
       this.$router.push(
         `/bulletin_board?tab=event&area_id=${this.selectArea.id}&area_name=${this.selectArea.name}`
       );
       this.close();
-      this.selectArea = {};
+    },
+    filterTargetAreas() {
+      // エリアリストを絞り込む
+      this.targetAreas = this.areas.filter((area) => {
+        return (!this.municipality || area.municipality == this.municipality)
+      });
     }
   }
 };
