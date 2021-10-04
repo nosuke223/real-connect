@@ -1,0 +1,5 @@
+.p-user-profile {
+  &__title-opacity {
+      @include opacity(.5);
+  }
+}

@@ -1,4 +1,4 @@
-article#user-profile.l-block( data-layer='2' )
+article#user-profile.p-user-profile.l-block( data-layer='2' )
   header.l-pane__header.p-pane-control
     .p-pane-control__button( data-block='user-profile' @click='cancelUpdateProfile()' )
       i.glyph ＜
@@ -18,13 +18,17 @@ article#user-profile.l-block( data-layer='2' )
               input(type='file' name='avatar_image' @change='chgAvatar' id='chgAvatar')
 
               .p-username
-                small ニックネーム
+                small
+                  span.c-require 必須
+                  | ニックネーム
                 input( type='text' name='' placeholder='入力してください' v-model='userDataTemporary.nickname')
                 i.glyph.glyph-pen
                 i.glyph.glyph-check-circle.u-color--primary01
 
           section
-            h3 カバー画像
+            h3
+              span.c-require--free 任意
+              | カバー画像
             label.p-cover( data-modal='cover-select' )
               input(type='file' name='cover_image' @change='chgCover' id='chgCover')
               img.is_preview(:src='cover_image_preview' v-if='cover_image_preview')
@@ -32,14 +36,18 @@ article#user-profile.l-block( data-layer='2' )
               img.is_default(:src='"/_assets/img/default_svg/default-"+ String(userData.id).slice(-2) +".svg"' v-else)
 
           section
-            h3 氏名
+            h3
+              span.c-require 必須
+              | 氏名
             .input-field
               input(type='text' name='full_name' autocomplete='off' placeholder='入力してください' v-model='userDataTemporary.full_name')
               i.glyph.glyph-pen
               i.glyph.glyph-check-circle.u-color--primary01
 
           section
-            h3 電話番号
+            h3
+              span.c-require 必須
+              | 電話番号
             .input-field
               input(type='text' name='telephone' autocomplete='off' placeholder='入力してください' v-model='userDataTemporary.telephone')
               i.glyph.glyph-pen
@@ -62,7 +70,9 @@ article#user-profile.l-block( data-layer='2' )
           section
             h3 プロフィール
             section
-              h4 性別
+              h3
+                span.c-require 必須
+                span.p-user-profile__title-opacity 性別
               .input-field
                 label.c-radio
                   input(type='radio' name='gender' value='male' v-model='userDataTemporary.gender')
@@ -73,7 +83,9 @@ article#user-profile.l-block( data-layer='2' )
                   span.c-radio__mirror
                   | 女性
             section
-              h4 血液型
+              h3
+                span.c-require 必須
+                span.p-user-profile__title-opacity 血液型
               .input-field
                 label.c-radio
                   input(type='radio' name='blood' value='A' v-model='userDataTemporary.blood')
@@ -92,7 +104,9 @@ article#user-profile.l-block( data-layer='2' )
                   span.c-radio__mirror
                   | AB型
             section
-              h4 年齢
+              h3
+                span.c-require 必須
+                span.p-user-profile__title-opacity 年齢
               .input-field
                 label.c-select
                   select.c-select__item(name='age' v-model='userDataTemporary.age')
@@ -103,7 +117,9 @@ article#user-profile.l-block( data-layer='2' )
                     option(value='fourty') 40代
                     option(value='fifty') 50代
             section
-              h4 身長
+              h3
+                span.c-require 必須
+                span.p-user-profile__title-opacity 身長
               .input-field
                 label.c-select
                   select.c-select__item(name='height' v-model='userDataTemporary.height')
@@ -111,13 +127,17 @@ article#user-profile.l-block( data-layer='2' )
                     - for (let tall = 140; tall < 190; tall++)
                       option(value=tall) #{tall} cm
             section
-              h4 出身地
+              h3
+                span.c-require--free 任意
+                span.p-user-profile__title-opacity 出身地
               .input-field
                 input(type='text' name='birthplace' autocomplete='off' placeholder='入力してください' v-model='userDataTemporary.birthplace')
                 i.glyph.glyph-pen
                 i.glyph.glyph-check-circle.u-color--primary01
             section
-              h4 タバコ
+              h3
+                span.c-require 必須
+                span.p-user-profile__title-opacity タバコ
               .input-field
                 label.c-radio
                   input(type='radio' name='tobacco' value='true' v-model='userDataTemporary.tobacco')
@@ -128,7 +148,9 @@ article#user-profile.l-block( data-layer='2' )
                   span.c-radio__mirror
                   | 吸わない
             section
-              h4 お酒
+              h3
+                span.c-require 必須
+                span.p-user-profile__title-opacity お酒
               .input-field
                 label.c-radio
                   input(type='radio' name='alcohol' value='true' v-model='userDataTemporary.alcohol')
@@ -142,13 +164,17 @@ article#user-profile.l-block( data-layer='2' )
           section
             h3 仕事、資格、学歴など
             section
-              h4 職業
+              h3
+                span.c-require--free 任意
+                span.p-user-profile__title-opacity 職業
               .input-field
                 textarea(name='business' placeholder='入力してください' v-model='userDataTemporary.business')
                 i.glyph.glyph-pen
                 i.glyph.glyph-check-circle.u-color--primary01
             section
-              h4 最終学歴
+              h3
+                span.c-require--free 任意
+                span.p-user-profile__title-opacity 最終学歴
               .input-field
                 label.c-select
                   select.c-select__item(name='education' v-model='userDataTemporary.education')
@@ -160,7 +186,9 @@ article#user-profile.l-block( data-layer='2' )
                     option(value='university') 大学卒
                     option(value='graduate') 大学院卒
             section
-              h4 好きな異性のタイプ
+              h3
+                span.c-require--free 任意
+                span.p-user-profile__title-opacity 好きな異性のタイプ
               .input-field
                 textarea(name='attracted_type' placeholder='入力してください' v-model='userDataTemporary.attracted_type')
                   | かわいらしく清潔感のある人。
@@ -168,13 +196,17 @@ article#user-profile.l-block( data-layer='2' )
                 i.glyph.glyph-pen
                 i.glyph.glyph-check-circle.u-color--primary01
             section
-              h4 趣味･資格･特技
+              h3
+                span.c-require--free 任意
+                span.p-user-profile__title-opacity 趣味･資格･特技
               .input-field
                 textarea(name='hobbies' placeholder='入力してください' v-model='userDataTemporary.hobbies')
                 i.glyph.glyph-pen
                 i.glyph.glyph-check-circle.u-color--primary01
             section
-              h4 年収
+              h3
+                span.c-require--free 任意
+                span.p-user-profile__title-opacity 年収
               .input-field
                 label.c-select
                   select.c-select__item(name='income' v-model='userDataTemporary.income')
