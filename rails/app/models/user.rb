@@ -90,7 +90,8 @@ class User < ApplicationRecord
     A: 1, # A型
     B: 2, # B型
     O: 3, # O型
-    AB: 4 # AB型
+    AB: 4, # AB型
+    UN: 5 # 不明
   }
 
   enum gender: {
