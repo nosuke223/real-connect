@@ -4168,7 +4168,7 @@ const app = new Vue({
         currentUserList.forEach((item, index) => {
           let partnerId = currentUserList[index].partner.id
           currentUserList[index].user_id = partnerId
-  
+
           // トークリストごと、各データのユーザーIDで絞り込み
           let TARGETTALK = currentTalkList.filter(function(el){
             // -----------------------【修正箇所】
@@ -4177,7 +4177,7 @@ const app = new Vue({
             }
             // -----------------------【修正箇所】
           })
-  
+
           // トークリストに対象のユーザーのトークがあるときは、
           // partnerオブジェクトを更新
           // ------------------------------
@@ -4195,7 +4195,7 @@ const app = new Vue({
             }
             currentUserList[index].unread_count = 0
           }
-  
+
           // 会場を移動したユーザーの処理
           // ※店舗のメンバー一覧の場合はその店舗に現在チェックインしているメンバーのみ表示させる
           // ------------------------------
@@ -4218,7 +4218,7 @@ const app = new Vue({
         this.currentEvent = []
 
         this.talklist = this.talklistAll
-  
+
         if (pane!=false) {
           if (pane==null) {
             this.pane(2,0)
@@ -4230,7 +4230,7 @@ const app = new Vue({
         // ▼ ▼ ▼ プロフィールモーダルのためのデータ格納
         this.userList = users.data
         // ▲ ▲ ▲ プロフィールモーダルのためのデータ格納
-  
+
         // 自分のデータ
         let myId = this.userData.id
         this.userList.filter(function(el){
@@ -5164,19 +5164,35 @@ const app = new Vue({
       return moment(time).format('HH:mm')
     },
     format_age(age) {
-      if (age=="early_twenty") {
-        return "20代前半"
-      } else if (age=="late_twenty") {
-        return "20代後半"
-      } else if (age=="thirty") {
-        return "30代"
-      } else if (age=="fourty") {
-        return "40代"
-      } else if (age=="fifty") {
-        return "50代以上"
-      } else {
-        return age
+      const num = (str) => {
+        switch (true) {
+          case str.includes("twenty"):
+            return "20"
+          case str.includes("thirty"):
+            return "30"
+          case str.includes("fourty"):
+            return "40"
+          case str.includes("fifty"):
+            return "50"
+          default:
+            return ""
+        }
       }
+
+      const gen = (str) => {
+        switch (true) {
+          case str.includes("early"):
+            return "前半"
+          case str.includes("mid"):
+            return "中頃"
+          case str.includes("late"):
+            return "後半"
+          default:
+            return ""
+        }
+      }
+
+      return num(age) + "代" + gen(age)
     },
     format_gender(gender) {
       if (gender=="male") {

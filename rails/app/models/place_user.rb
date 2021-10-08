@@ -27,10 +27,17 @@ class PlaceUser < ApplicationRecord
   # -------------------------------------------------------------------------------
   enum age: {
     early_twenty: 1, # 20代前半
-    late_twenty: 2, # 20代後半
-    thirty:  3, # 30代
-    fourty:  4, # 40代
-    fifty:  5 # 50代
+    late_twenty:  2, # 20代後半
+    early_thirty: 3, # 30代前半
+    early_fourty: 4, # 40代前半
+    early_fifty:  5, # 50代前半
+    mid_twenty:   6, # 20代中頃
+    mid_thirty:   7, # 30代中頃
+    late_thirty:  8, # 30代後半
+    mid_fourty:   9, # 40代中頃
+    late_fourty:  10, # 40代後半
+    mid_fifty:    11, # 50代中頃
+    late_fifty:   12  # 50代後半
   }
 
   enum gender: {
