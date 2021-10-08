@@ -5194,6 +5194,13 @@ const app = new Vue({
 
       return num(age) + "代" + gen(age)
     },
+    format_blood(blood) {
+      if (blood == "UN") {
+        return "不明"
+      } else {
+        return blood + "型"
+      }
+    },
     format_gender(gender) {
       if (gender=="male") {
         return "MEN"

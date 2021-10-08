@@ -21,7 +21,7 @@ section.p-talk-list.p-talk-list--slide(:class='{"is-current-place":is_current_pl
         i.glyph.glyph-question-circle
       .p-talk-list__name(v-else-if='partner.nickname') {{partner.nickname}}
       .p-talk-list__name(v-else) 仮登録ユーザ ID {{partner.id}} {{partner.nickname}}
-      small.p-talk-list__small(v-if='partner.id!=0') {{partner.age|format_age}} {{partner.blood}}型
+      small.p-talk-list__small(v-if='partner.id!=0') {{partner.age|format_age}} {{partner.blood|format_blood}}
         i.glyph.glyph-male(v-if='partner.gender=="male"')
         i.glyph.glyph-female(v-else-if='partner.gender=="female"')
     //- .p-talk-list__fashion(v-if='partner.fashion')
@@ -151,6 +151,13 @@ export default {
       }
 
       return num(age) + "代" + gen(age)
+    },
+    format_blood(blood) {
+      if (blood == "UN") {
+        return "不明"
+      } else {
+        return blood + "型"
+      }
     },
     format_education(val) {
       if (val=="junior_high") {
