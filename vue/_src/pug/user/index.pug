@@ -208,7 +208,7 @@ block content
                 i.glyph.u-bg-darkgrey 
               .p-username.c-notice__username
                 | {{receive.nickname}}
-                small.p-username__small(v-if='receive.age') {{receive.age|format_age}} ─ {{receive.blood}}型 ─ {{receive.gender|format_gender}}
+                small.p-username__small(v-if='receive.age') {{receive.age|format_age}} ─ {{receive.blood|format_blood}} ─ {{receive.gender|format_gender}}
           p.c-notice__message-body(@click='messageTap(receive.event_id,receive.id,receive.place_id)')
             i.glyph.glyph-brand-logo
             span.u-ellipsis {{receive.body}}

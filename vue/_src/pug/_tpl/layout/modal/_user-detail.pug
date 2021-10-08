@@ -8,7 +8,7 @@ transition(name='v-modal' appear v-if='modal.userDetail')
               img(v-lazy='userDetail.avatar_image' data-imgpre)
             span.p-avatar(v-else v-html='defaultAvatar(userDetail.nickname,userDetail.id)')
             h2.p-username {{userDetail.nickname}}
-              small.p-username__small {{userDetail.age|format_age}} ─ {{userDetail.blood}}型 ─ {{userDetail.gender|format_gender}}
+              small.p-username__small {{userDetail.age|format_age}} ─ {{userDetail.blood|format_blood}} ─ {{userDetail.gender|format_gender}}
           figure.p-cover
             img(v-lazy='userDetail.cover_image' v-if='userDetail.cover_image' data-imgpre)
             img(v-lazy='"/_assets/img/default_svg/default-"+ String(userDetail.id).slice(-2) +".svg"' v-else)
