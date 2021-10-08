@@ -21,13 +21,27 @@ ja:
     event:
       from:
         early_twenty: 20代前半
+        mid_twenty: 20代中頃
         late_twenty: 20代後半
-        thirty: 30代
-        fourty: 40代
-        fifty: 50代
+        early_thirty: 30代前半
+        mid_thirty: 30代中頃
+        late_thirty: 30代後半
+        early_fourty: 40代前半
+        mid_fourty:  40代中頃
+        late_fourty: 40代後半
+        early_fifty: 50代前半
+        mid_fifty: 50代中頃
+        late_fifty: 50代後半
       to:
         early_twenty: 20代前半
+        mid_twenty: 20代中頃
         late_twenty: 20代後半
-        thirty: 30代
-        fourty: 40代
-        fifty: 50代
+        early_thirty: 30代前半
+        mid_thirty: 30代中頃
+        late_thirty: 30代後半
+        early_fourty: 40代前半
+        mid_fourty:  40代中頃
+        late_fourty: 40代後半
+        early_fifty: 50代前半
+        mid_fifty: 50代中頃
+        late_fifty: 50代後半
