@@ -33,19 +33,35 @@ export default {
   },
 
   format_age(age) {
-    if (age=="early_twenty") {
-      return "20代前半"
-    } else if (age=="late_twenty") {
-      return "20代後半"
-    } else if (age=="thirty") {
-      return "30代"
-    } else if (age=="fourty") {
-      return "40代"
-    } else if (age=="fifty") {
-      return "50代以上"
-    } else {
-      return age
+    const num = (str) => {
+      switch (true) {
+        case str.includes("twenty"):
+          return "20"
+        case str.includes("thirty"):
+          return "30"
+        case str.includes("fourty"):
+          return "40"
+        case str.includes("fifty"):
+          return "50"
+        default:
+          return ""
+      }
     }
+
+    const gen = (str) => {
+      switch (true) {
+        case str.includes("early"):
+          return "前半"
+        case str.includes("mid"):
+          return "中頃"
+        case str.includes("late"):
+          return "後半"
+        default:
+          return ""
+      }
+    }
+
+    return num(age) + "代" + gen(age)
   },
   format_gender(gender) {
     if (gender=="male") {
