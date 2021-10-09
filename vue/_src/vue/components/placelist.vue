@@ -9,15 +9,15 @@ section.p-place-list
     img.is_origin(v-if='cover_image' :src='cover_image')
     img.is_default(:src='"/_assets/img/default_svg/default-"+ String(id).slice(-2) +".svg"' v-else)
   .p-place-list__address
+    i.glyph.glyph-map-marker
     a(:href='"https://www.google.co.jp/maps/search/"+address' target='_blank' v-if='address')
-      i.glyph.glyph-map-marker
       span
         em {{address}}
   .p-place-list__container
     .p-place-list__telephone
       img(:src='"/_assets/img/svg/phone.svg"')
-      span
-        em {{telephone}}
+      a(:href='"tel:"+telephone' v-if='telephone') {{telephone}}
+      span(v-else) -
     a(:href='url' target='_blank' v-if='url')
       | HPはこちら
 
