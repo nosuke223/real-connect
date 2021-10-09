@@ -4,6 +4,7 @@ class PlaceDetailSerializer < ActiveModel::Serializer
   :logo_image,
   :cover_image,
   :zipcode,
+  :address,
   :address1,
   :address2,
   :address3,
@@ -98,5 +99,9 @@ class PlaceDetailSerializer < ActiveModel::Serializer
 
   def sat_end_at
     object.sat_end_at&.strftime('%H:%M')
+  end
+
+  def address
+    object.address1.present? ? "#{object.address1}#{object.address2}#{object.address3}" : ''
   end
 end
