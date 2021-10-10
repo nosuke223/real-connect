@@ -6,7 +6,7 @@
         .c-date-thumb__month {{start_time|month}}
         .c-date-thumb__date {{start_time|date}}
         .c-date-thumb__day {{start_time|day}}
-      span.c-badge.p-event-list__badge.u-bg--secondary.animated.bounceIn(v-if='unread_count==0') {{unread_count}}
+      span.c-badge.p-event-list__badge.u-bg--secondary.animated.bounceIn(v-if='unread_count>0') {{unread_count}}
       .p-event-list__info
         .p-event-list__name(v-if='name') {{name}}
         .p-event-list__organizer-place(v-if='place_name')
