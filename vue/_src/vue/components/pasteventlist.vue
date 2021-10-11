@@ -1,13 +1,26 @@
 <template lang="pug">
   section.p-event-list(:data-event='"id:"+id' :data-pane='disable ? "" : "2"' :data-modal='is_checked_in ? "" : "check-in"' :class='{"is-enabled":!disable}' @click='talkListUpdateChild(id)' v-if='past==true&&is_checked_in==true')
-    .c-date-thumb
-      .c-date-thumb__year {{start_time|year}}
-      .c-date-thumb__month {{start_time|month}}
-      .c-date-thumb__date {{start_time|date}}
-      .c-date-thumb__day {{start_time|day}}
-    span.c-badge.p-event-list__badge.u-bg--secondary.animated.bounceIn(v-if='unread_count>0') {{unread_count}}
+    .p-event-list__info-container
+      .c-date-thumb
+        .c-date-thumb__year {{start_time|year}}
+        .c-date-thumb__month {{start_time|month}}
+        .c-date-thumb__date {{start_time|date}}
+        .c-date-thumb__day {{start_time|day}}
+      span.c-badge.p-event-list__badge.u-bg--secondary.animated.bounceIn(v-if='unread_count==0') {{unread_count}}
+      .p-event-list__info
+        .p-event-list__name(v-if='name') {{name}}
+        .p-event-list__organizer-place(v-if='place_name')
+          img(:src='"/_assets/img/svg/home.svg"')
+          span {{place_name}}
+        .p-event-list__organizer-user(v-if='user_name')
+          img(:src='"/_assets/img/svg/boy.svg"')
+          span {{user_name}}
+        .p-event-list__period
+          img(:src='"/_assets/img/svg/time.svg"')
+          span {{start_time|hhmm}} - {{end_time|hhmm}}
+          img.p-event-list__period-right(:src='"/_assets/img/svg/flag.svg"')
+          span {{event_status.name}}
     .p-event-list__detail
-      .p-event-list__name(v-if='name') {{name}}
       .p-event-list__gender-rate
         .p-event-list__label 男女比
         .p-event-list__rate-container
@@ -36,6 +49,9 @@ import moment from 'moment'
 export default {
   data() { return {
     counts: [],
+    place_name: 'イタリアンバル　◯◯地下街 101A',
+    // user_name: '出口 格', // API実装後消す
+    organizer_type: 2000, // API実装後消す
   }},
   props: {
     // ------------------------------
@@ -54,6 +70,7 @@ export default {
     past: Boolean,
     disable: Boolean,
     name: String,
+    event_status: Object,
   },
   methods: {
     // // ------------------------------
@@ -91,6 +108,9 @@ export default {
     },
     day(time) {
       return moment(time).format('dddd')
+    },
+    hhmm(time) {
+      return moment(time).format('HH:mm')
     },
   },
 }
