@@ -6,7 +6,7 @@ section.p-place-list
       | {{name}}
     span.c-badge.p-place-list__badge.u-bg--secondary.animated.bounceIn(v-if='unread_count>0') {{unread_count}}
   label.p-cover.p-place-list__cover( @click='placeDetailActiveC()')
-    img.is_origin(v-if='cover_image' :src='cover_image')
+    img.is_origin(v-if='cover_image' v-lazy='cover_image')
     img.is_default(:src='"/_assets/img/default_svg/default-"+ String(id).slice(-2) +".svg"' v-else)
   .p-place-list__address
     i.glyph.glyph-map-marker
