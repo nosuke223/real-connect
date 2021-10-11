@@ -40,6 +40,16 @@ $parent: '.p-event-list';
     color: $truewhite;
   }
 
+  #{$parent}.is-now-event__place & {
+    background: $placeLt;
+    color: $truewhite;
+  }
+
+  #{$parent}.is-now-event__user & {
+    background: $userLt;
+    color: $truewhite;
+  }
+
   #{$parent}.is-checked-in & {
     @include opacity(1);
   }

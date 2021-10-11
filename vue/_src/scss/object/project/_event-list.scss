@@ -1,29 +1,59 @@
 .p-event-list {
   $this: &;
-  @include flex(ce,ce,false);
   padding-top: 15px;
   padding-bottom: 15px;
   border-bottom: 1px solid rgba($grey,.1);
-  cursor: pointer;
-  position: relative;
+
+  &__info-container {
+    @include flex(ce,ce,false);
+    justify-content: flex-start;
+    position: relative;
+  }
 
   &__badge {
     font-size: 12px;
     position: absolute;
-    top: 6px;
+    top: -8px;
     left: -8px;
     padding: .1em .4em;
     z-index: 0;
   }
 
+  &__info {
+    padding: 0 1em;
+    font-size: 12px;
+  }
+
+  &__name {
+    font-size: 1.2em;
+    font-weight: bold;
+    @include ellipsis;
+    text-align: left;
+    max-width: 100%;
+    display: block;
+  }
+
+  &__organizer-place, &__organizer-user, &__period {
+    @include flex(ce,fs,false);
+
+    img {
+      width: 16px;
+      height: 16px;
+      margin-right: 0.4em;
+    }
+
+    span {
+      padding-top: 1px;
+    }
+
+    &-right {
+      margin-left: 1em;
+    }
+  }
+
   &__detail {
-    margin-left: 10px;
-    text-align: right;
-    line-height: 1em;
-    height: 80px;
     @include flex(ce,fe);
     width: 100%;
-    max-width: calc( 100% - 90px);
 
     & > * {
       width: 100%;
@@ -37,18 +67,6 @@
     // align-items: center;
     // justify-content: center;
     // flex-wrap: nowrap;
-  }
-
-  &__name {
-    font-size: 12px;
-    @include ellipsis;
-    text-align: left;
-    max-width: 16em;
-    text-align: center;
-    // max-width: 17em;
-    max-width: 100%;
-    display: block;
-    margin: 0 auto;
   }
 
   &__gender-rate {
@@ -127,6 +145,92 @@
 
     span {
       @include ellipsis;
+    }
+  }
+
+  &__button-container {
+    @include flex(ce,ce,false);
+    margin-top: 1em;
+  }
+
+  &__plase-change {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 5px;
+    border: 2px solid rgba($grey,0.2);
+    padding: 7px 15px;
+    border-radius: 1.5em;
+    width: 100%;
+    @include flex(ce,ce);
+    margin-right: 1em;
+    transition: .15s all ease-in-out;
+    background: rgba($truewhite,.1);
+
+    @include hover {
+      border-color: $accent;
+    };
+
+    & > .glyph {
+      margin-right: .5em;
+      color: rgba($grey,.5);
+      font-size: 20px;
+      position: absolute;
+      top: 50%;
+      line-height: 0;
+      left: 10px;
+    }
+
+    & > span {
+      color: $accent;
+      font-weight: bold;
+    }
+
+    &.is-current {
+      border-color: $accent;
+
+      & > .glyph {
+        color: $accent;
+      }
+
+      & > span {
+        color: $grey;
+      }
+    }
+  }
+
+  &__button {
+    width: 100%;
+    padding: 9px 17px;
+    font-weight: bold;
+    border-radius: 2em;
+    border: 1px solid transparent;
+    background: $accent;
+    color: $truewhite;
+    @include flex(ce,sb,false);
+
+    &::after {
+      content: '';
+      display: block;
+      width: 6px;
+      min-width: 6px;
+      height: 6px;
+      border-top: 2px solid $truewhite;
+      border-right: 2px solid $truewhite;
+      transform: rotate(45deg);
+      @include opacity(.5);
+      margin-left: auto;
+    }
+
+    & > span {
+      @include flex(ce,ce);
+      width: calc(100% - 10px);
+      margin-right: 5px;
+
+      em {
+        @include ellipsis;
+        max-width: calc(100% - 10.5em);
+      }
     }
   }
 }

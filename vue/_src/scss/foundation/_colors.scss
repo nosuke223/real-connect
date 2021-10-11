@@ -104,3 +104,15 @@ $femaleLt:     lighten($female, $range);
 $femaleDk:      darken($female, $range);
 $femaleSt:    saturate($female, $range);
 $femaleDs:  desaturate($female, $range);
+
+$place:                     #039BE5;
+$placeLt:    lighten($cs01, $range);
+$placeDk:     darken($cs01, $range);
+$placeSt:   saturate($cs01, $range);
+$placeDs: desaturate($cs01, $range);
+
+$user:                     #D81B60;
+$userLt:    lighten($cs04, $range);
+$userDk:     darken($cs04, $range);
+$userSt:   saturate($cs04, $range);
+$userDs: desaturate($cs04, $range);
