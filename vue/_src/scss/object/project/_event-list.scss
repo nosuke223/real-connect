@@ -47,7 +47,7 @@
     }
 
     &-right {
-      margin-left: 2em;
+      margin-left: 1em;
     }
   }
 
@@ -157,7 +157,6 @@
     position: relative;
     cursor: pointer;
     display: inline-block;
-    font-size: 14px;
     margin-right: 5px;
     border: 2px solid rgba($grey,0.2);
     padding: 7px 15px;
@@ -201,7 +200,6 @@
   }
 
   &__button {
-    font-size: 12px;
     width: 100%;
     padding: 9px 17px;
     font-weight: bold;

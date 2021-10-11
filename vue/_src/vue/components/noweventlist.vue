@@ -39,9 +39,11 @@
         //- span {{remain}}
       .p-event-list__remain(v-else) このイベントは終了しました
       .p-event-list__button-container
-        button.p-event-list__plase-change(@click='talkListUpdateChild(id)' v-if='!is_checked_in')
-          i.glyph.glyph-sign-out-alt
-          span チェックイン
+        button.p-event-list__plase-change(@click='talkListUpdateChild(id)' :class='{"is-current": is_checked_in}')
+          i.glyph.glyph-check-circle.u-color--secondary.animated.bounceIn(v-if='is_checked_in')
+          i.glyph.glyph-sign-out-alt(v-else)
+          span(v-if='is_checked_in') メンバー一覧へ
+          span(v-else) チェックイン
         button.p-event-list__button.u-bg--secondary
           span 掲示板へ行く
 </template>
