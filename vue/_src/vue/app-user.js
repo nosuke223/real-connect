@@ -371,6 +371,10 @@ const app = new Vue({
           id: 'placedetail',
           label: 'placedetail',
         },
+        {
+          id: 'area',
+          label: 'area',
+        },
       ],
 
       // ------------------------------

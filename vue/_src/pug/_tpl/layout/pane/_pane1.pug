@@ -75,3 +75,20 @@ article#pane1.l-pane.is-visible
               button.p-placedetail__button.u-bg--secondary(@click='setPlaceTalk(placeDetail.id)')
                 span イベントの詳細を表示
         // ↑ END Tab Target Content
+      .p-pane-target(:id='pane1[3].id' :class='{"is-visible":currentId1==pane1[3].id}')
+        // ↓ BEGIN Tab Target Content
+        .c-label 現在選択中のエリア
+        section.p-area-list(@click='')
+          .p-area-list__info
+            .p-area-list__area(v-if='areaDetailAreaName') {{areaDetailAreaName}}
+            .p-area-list__prefecture(v-if='areaDetailPrefectureName') ({{areaDetailPrefectureName}})
+          .p-area-list__gender-rate
+            .p-area-list__label 男女比
+            .p-area-list__rate-container
+              span.p-area-list__rate {{areaDetailMaleCount}}
+                small 名
+              | ：
+              span.p-area-list__rate {{areaDetailFemaleCount}}
+                small 名
+        .p-no-result(v-if='!areaDetailPrefectureName') 現在選択中のエリアはありません。
+        // ↑ END Tab Target Content

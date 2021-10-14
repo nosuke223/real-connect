@@ -184,6 +184,7 @@
     & > span {
       color: $accent;
       font-weight: bold;
+      font-size: 14px;
     }
 
     &.is-current {
@@ -195,6 +196,7 @@
 
       & > span {
         color: $grey;
+        font-size: 14px;
       }
     }
   }
@@ -226,6 +228,7 @@
       @include flex(ce,ce);
       width: calc(100% - 10px);
       margin-right: 5px;
+      font-size: 14px;
 
       em {
         @include ellipsis;

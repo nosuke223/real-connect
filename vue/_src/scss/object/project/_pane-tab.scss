@@ -47,7 +47,7 @@
     background: currentColor;
     z-index: 100;
     @include ease(.4s);
-    &--2 { width: calc( 100% / 2 );}
+    &--2 { width: calc( 100% / 3 );}
     &--3 { width: calc( 100% / 3 );}
     &--4 { width: calc( 100% / 4 );}
 
@@ -57,13 +57,14 @@
   }
 
   // Pane1
-  &.place       {.append {left: calc( 100% / 2 * 0 );}}
-  &.event       {.append {left: calc( 100% / 2 * 1 );}}
-  &.placedetail {.append {left: calc( 100% / 2 * 1 );}}
+  &.place       {.append {left: calc( 100% / 3 * 0 );}}
+  &.event       {.append {left: calc( 100% / 3 * 1 );}}
+  &.placedetail {.append {left: calc( 100% / 3 * 1 );}}
+  &.area        {.append {left: calc( 100% / 3 * 2 );}}
   &.placedetail {
     color: transparent;
   }
-  &.place, &.event, &.placedetail {
+  &.place, &.event, &.placedetail, &.area {
     top: $paneHeaderH + $paneHeaderH - 15px;
   }
 
