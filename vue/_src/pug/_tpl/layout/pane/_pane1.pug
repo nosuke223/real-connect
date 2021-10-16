@@ -78,7 +78,7 @@ article#pane1.l-pane.is-visible
       .p-pane-target(:id='pane1[3].id' :class='{"is-visible":currentId1==pane1[3].id}')
         // ↓ BEGIN Tab Target Content
         .c-label 現在選択中のエリア
-        section.p-area-list(@click='')
+        section.p-area-list(@click='areaTalkListUpdate(currentAreaId)')
           .p-area-list__info
             .p-area-list__area(v-if='areaDetailAreaName') {{areaDetailAreaName}}
             .p-area-list__prefecture(v-if='areaDetailPrefectureName') ({{areaDetailPrefectureName}})

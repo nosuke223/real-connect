@@ -14,7 +14,7 @@ section.p-talk-list.p-talk-list--slide(:class='{"is-current-place":is_current_pl
   //- .p-talk-list__detail( data-pane='3' @click='filterTalkChild()' )
   span.p-talk-list__other-area(v-if='is_other_area==true') エリア外
 
-  .p-talk-list__detail( @click='filterTalkChild()' )
+  .p-talk-list__detail(v-if='!is_area_talk' @click='filterTalkChild()' )
     .p-talk-list__title
       .p-talk-list__name.p-talk-list__name--full(v-if='partner.id==0')
         | {{partner.nickname}}
@@ -52,6 +52,19 @@ section.p-talk-list.p-talk-list--slide(:class='{"is-current-place":is_current_pl
         .p-progress-bar.p-progress-bar--sm
       //- .p-talk-list__error(v-if='is_error') ⚠エラー:通信できません
       | -
+  .p-talk-list__detail(v-if='is_area_talk' @click='modalUserDatailChild()' )
+    .p-talk-list__title
+      .p-talk-list__name.p-talk-list__name--full(v-if='partner.id==0')
+        | {{partner.nickname}}
+        i.glyph.glyph-question-circle
+      .p-talk-list__name(v-else-if='partner.nickname') {{partner.nickname}}
+      .p-talk-list__name(v-else) 仮登録ユーザ ID {{partner.id}} {{partner.nickname}}
+      small.p-talk-list__small(v-if='partner.id!=0') {{partner.age|format_age}} {{partner.blood|format_blood}}
+        i.glyph.glyph-male(v-if='partner.gender=="male"')
+        i.glyph.glyph-female(v-else-if='partner.gender=="female"')
+    .p-talk-list__fashion(v-if='partner.id==0')
+      i.glyph.glyph-exclamation-circle
+      span 退会済みユーザー
 </template>
 
 <script>
@@ -80,6 +93,7 @@ export default {
     is_other_area: Boolean,
     is_moved: Boolean,
     last_place_name: String,
+    is_area_talk: Boolean,
   },
   methods: {
     // ------------------------------

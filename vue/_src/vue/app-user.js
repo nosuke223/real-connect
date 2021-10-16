@@ -568,6 +568,8 @@ const app = new Vue({
       },
       behind_unread: 0,
       placeSelectDisabled: true, // メンバーリストでの店舗の切り替えは実質なくなったので常にtrue
+      // AREAタブで選択しているエリア
+      currentAreaIdForTalkList: '',
 
       // ------------------------------
       // トークルーム
@@ -3924,6 +3926,8 @@ const app = new Vue({
       // 4.1. currentUserList : トーク一覧に入れるためのユーザー一覧
       // ------------------------------
       let currentUserList = []
+      this.currentAreaIdForTalkList = ''
+
       this.currentEventID = eventid
       let currentUserListDefault = this.talklistTmp.filter(function(el){
         return el.event_id == eventid
@@ -4159,6 +4163,7 @@ const app = new Vue({
         // ------------------------------
         let currentUserList = []
         this.currentEventID = ''
+        this.currentAreaIdForTalkList = ''
         users.data.forEach((item, index) => {
           currentUserList[index] = {}
           currentUserList[index].partner = item
@@ -4240,6 +4245,102 @@ const app = new Vue({
         this.userList.filter(function(el){
           return el.id == myId
         })[0].is_own = true
+      })
+    },
+
+    areaTalkListUpdate(areaId, pane) {
+      let userPromise = new Promise((resolve, reject) => {
+        let userListUrl = BASE_URL + "/places/3/users"  // APIがまだなので仮で叩く
+        axios({
+          method: 'GET',
+          url: userListUrl,
+          headers: {
+            Authorization: this.$cookie.get('Authorization')
+          }
+        })
+        .then(function(response) {
+          resolve(response)
+        })
+      })
+
+      // あとでトーク機能を追加されてもいいようにPromise allにしとく
+      Promise.all([userPromise]).then(([users]) => {
+        // ------------------------------
+        // 4. ユーザーリスト（トーク機能は一旦なし）
+        // ------------------------------
+        // 4.1. currentUserList : エリアにチェックしているユーザー一覧
+        // ------------------------------
+        let currentUserList = []
+
+        users.data.forEach((item, index) => {
+          currentUserList[index] = {}
+          currentUserList[index].partner = item
+        })
+
+        currentUserList.forEach((item, index) => {
+          currentUserList[index].user_id = currentUserList[index].partner.id
+
+          // トークに関する最新情報の部分は初期化
+          currentUserList[index].id = ""
+          currentUserList[index].last_message = {
+            body: "",
+            id: "",
+            image: "",
+            sent_at: ""
+          }
+          currentUserList[index].unread_count = 0
+
+          // 店舗に関する最新情報の部分は初期化
+          currentUserList[index].last_place_name = ""
+          currentUserList[index].is_moved = false
+
+          // AREAタブの選択かどうかのフラグ
+          currentUserList[index].is_area_talk = true
+        })
+
+        // トークルーム表示用データのリセット
+        if (pane != false) {
+          this.currentPartner = ""
+          this.currentPartnerID = ""
+          this.currentTalkID = ""
+          this.talkroomDefault = []
+          this.talkroomPage = 1
+        }
+
+        // イベント周りの初期化
+        this.currentEventID = ''
+        this.currentEvent = []
+
+        // 会場周りの初期化
+        this.currentPlaceID = ''
+        this.nowPlaceID = ''
+        this.isPlaceTalkroom = false
+
+        this.talklist = currentUserList
+
+        // ペインスライドに関する処理
+        if (pane != false) {
+          if (pane == null) {
+            this.pane(2, 0)
+          } else {
+            this.pane(pane, 0)
+          }
+        }
+
+        // プロフィールモーダルのためのデータ格納
+        this.userList = users.data
+
+        // 自分のデータ
+        let myId = this.userData.id
+        const myData = this.userList.filter(function(el){
+          return el.id == myId
+        })
+
+        if (myData.length > 0) {
+          myData[0].is_own = true
+        }
+
+        this.currentAreaIdForTalkList = areaId
       })
     },
 
