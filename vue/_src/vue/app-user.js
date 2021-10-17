@@ -1828,7 +1828,11 @@ const app = new Vue({
             if (this.currentEventID==data.event_id) {
               this.talkListUpdate(data.event_id)
             }
-          }.bind(data))
+
+            if (this.currentAreaIdForTalkList) {
+              this.areaTalkListUpdate(this.currentAreaIdForTalkList)
+            }
+          }.bind(this, data))
           .catch(function(error) {
             // console.error(err)
           }.bind(data))
@@ -1887,53 +1891,58 @@ const app = new Vue({
           }, 100);
         }
       })
-      this.talklistData.forEach((item, index) => {
-        let target = this.talklistData[index].data.filter(function(el){
-          return el.partner.id == data.user_id
-        })
-        if (target.length) {
-          let lastPlaceId = _.clone(target[0].partner.current_place_id)
-          target[0].partner.last_place_id = lastPlaceId
-          setTimeout(() => {
-            target[0].partner.current_place_id = data.place_id
-            target[0].is_moved = true
-            this.talkListFilterPlace()
-            if (data.place_id==this.currentPlaceID) {
-              target[0].is_current_place = true
-            } else {
-              target[0].is_current_place = false
-            }
-          }, 100);
-        }
-      })
-      this.talklist.forEach((item, index) => {
-        if (this.talklist[index].partner.id==data.user_id) {
-          let target = this.talklist[index]
-          let lastPlaceId = _.clone(target.partner.current_place_id)
-          target.partner.last_place_id = lastPlaceId
-          // 会場一覧に会場IDがあるか判別するためのオブジェクト
-          let placeData = this.placelist.filter(function(el){
-            return el.id == data.place_id
+
+      if (this.currentAreaIdForTalkList) {
+        this.areaTalkListUpdate(this.currentAreaIdForTalkList)
+      } else {
+        this.talklistData.forEach((item, index) => {
+          let target = this.talklistData[index].data.filter(function(el){
+            return el.partner.id == data.user_id
           })
-          setTimeout(() => {
-            target.partner.current_place_id = data.place_id
-            target.is_moved = true
-            // いま閲覧中の会場かどうか
-            if (data.place_id==this.currentPlaceID) {
-              target.is_current_place = true
-            } else {
-              target.is_current_place = false
-            }
-            // エリア外の会場かどうか
-            if (placeData.length) {
-              target.is_other_area = false
-            } else {
-              target.is_other_area = true
-            }
-            this.talkListFilterPlace()
-          }, 100);
-        }
-      })
+          if (target.length) {
+            let lastPlaceId = _.clone(target[0].partner.current_place_id)
+            target[0].partner.last_place_id = lastPlaceId
+            setTimeout(() => {
+              target[0].partner.current_place_id = data.place_id
+              target[0].is_moved = true
+              this.talkListFilterPlace()
+              if (data.place_id==this.currentPlaceID) {
+                target[0].is_current_place = true
+              } else {
+                target[0].is_current_place = false
+              }
+            }, 100);
+          }
+        })
+        this.talklist.forEach((item, index) => {
+          if (this.talklist[index].partner.id==data.user_id) {
+            let target = this.talklist[index]
+            let lastPlaceId = _.clone(target.partner.current_place_id)
+            target.partner.last_place_id = lastPlaceId
+            // 会場一覧に会場IDがあるか判別するためのオブジェクト
+            let placeData = this.placelist.filter(function(el){
+              return el.id == data.place_id
+            })
+            setTimeout(() => {
+              target.partner.current_place_id = data.place_id
+              target.is_moved = true
+              // いま閲覧中の会場かどうか
+              if (data.place_id==this.currentPlaceID) {
+                target.is_current_place = true
+              } else {
+                target.is_current_place = false
+              }
+              // エリア外の会場かどうか
+              if (placeData.length) {
+                target.is_other_area = false
+              } else {
+                target.is_other_area = true
+              }
+              this.talkListFilterPlace()
+            }, 100);
+          }
+        })
+      }
 
       this.unreadCount()
 
@@ -1975,37 +1984,42 @@ const app = new Vue({
           }, 100);
         }
       })
-      this.talklistData.forEach((item, index) => {
-        let target = this.talklistData[index].data.filter(function(el){
-          return el.partner.id == data.user_id
+
+      if (this.currentAreaIdForTalkList) {
+        this.areaTalkListUpdate(this.currentAreaIdForTalkList)
+      } else {
+        this.talklistData.forEach((item, index) => {
+          let target = this.talklistData[index].data.filter(function(el){
+            return el.partner.id == data.user_id
+          })
+          if (target.length) {
+            let lastPlaceId = _.clone(target[0].partner.current_place_id)
+            target[0].partner.last_place_id = lastPlaceId
+            setTimeout(() => {
+              target[0].partner.current_place_id = ''
+              target[0].is_moved = true
+              this.talkListFilterPlace()
+              target[0].is_current_place = false
+            }, 100);
+          }
         })
-        if (target.length) {
-          let lastPlaceId = _.clone(target[0].partner.current_place_id)
-          target[0].partner.last_place_id = lastPlaceId
-          setTimeout(() => {
-            target[0].partner.current_place_id = ''
-            target[0].is_moved = true
-            this.talkListFilterPlace()
-            target[0].is_current_place = false
-          }, 100);
-        }
-      })
-      this.talklist.forEach((item, index) => {
-        if (this.talklist[index].partner.id==data.user_id) {
-          let target = this.talklist[index]
-          let lastPlaceId = _.clone(target.partner.current_place_id)
-          target.partner.last_place_id = lastPlaceId
-          setTimeout(() => {
-            target.partner.current_place_id = ''
-            target.is_moved = true
-            // いま閲覧中の会場かどうか
-            target.is_current_place = false
-            // エリア外の会場かどうか
-            target.is_other_area = false
-            this.talkListFilterPlace()
-          }, 100);
-        }
-      })
+        this.talklist.forEach((item, index) => {
+          if (this.talklist[index].partner.id==data.user_id) {
+            let target = this.talklist[index]
+            let lastPlaceId = _.clone(target.partner.current_place_id)
+            target.partner.last_place_id = lastPlaceId
+            setTimeout(() => {
+              target.partner.current_place_id = ''
+              target.is_moved = true
+              // いま閲覧中の会場かどうか
+              target.is_current_place = false
+              // エリア外の会場かどうか
+              target.is_other_area = false
+              this.talkListFilterPlace()
+            }, 100);
+          }
+        })
+      }
 
       this.unreadCount()
 
