@@ -42,6 +42,7 @@ class Event < ApplicationRecord
   has_many :talks
   has_many :messages, -> { order('created_at ASC') }
   belongs_to :event_status, optional: true
+  belongs_to :organizer_place, class_name: 'Place', foreign_key: 'organize_place_id'
 
   accepts_nested_attributes_for :places, allow_destroy: true
 

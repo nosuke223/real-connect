@@ -9,12 +9,12 @@
       span.c-badge.p-event-list__badge.u-bg--secondary.animated.bounceIn(v-if='unread_count>0') {{unread_count}}
       .p-event-list__info
         .p-event-list__name(v-if='name') {{name}}
-        .p-event-list__organizer-place(v-if='place_name')
+        .p-event-list__organizer-place(v-if='organizer_type == 2000')
           img(:src='"/_assets/img/svg/home.svg"')
-          span {{place_name}}
-        .p-event-list__organizer-user(v-if='user_name')
+          span {{organizer_place_name}}
+        .p-event-list__organizer-user(v-if='organizer_type == 1000')
           img(:src='"/_assets/img/svg/boy.svg"')
-          span {{user_name}}
+          span {{organizer_name}}
         .p-event-list__period
           img(:src='"/_assets/img/svg/time.svg"')
           span {{start_time|hhmm}} - {{end_time|hhmm}}
@@ -53,9 +53,6 @@ import moment from 'moment'
 export default {
   data() { return {
     counts: [],
-    place_name: 'イタリアンバル　◯◯地下街 101A',
-    // user_name: '出口 格', // API実装後消す
-    organizer_type: 2000, // API実装後消す
   }},
   props: {
     // ------------------------------
@@ -74,6 +71,12 @@ export default {
     past: Boolean,
     disable: Boolean,
     name: String,
+    organizer_type: Number,
+    organizer_type_name: String,
+    organize_user_id: Number,
+    organize_place_id: Number,
+    organizer_name: String,
+    organizer_place_name: String,
     event_status: Object,
   },
   methods: {
