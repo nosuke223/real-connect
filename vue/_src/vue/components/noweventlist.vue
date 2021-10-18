@@ -42,7 +42,7 @@
         button.p-event-list__plase-change(@click='talkListUpdateChild(id)' :class='{"is-current": is_checked_in}')
           i.glyph.glyph-check-circle.u-color--secondary.animated.bounceIn(v-if='is_checked_in')
           i.glyph.glyph-sign-out-alt(v-else)
-          span(v-if='is_checked_in') メンバー一覧へ
+          span(v-if='is_checked_in') メンバー一覧
           span(v-else) チェックイン
         button.p-event-list__button.u-bg--secondary
           span 掲示板へ行く

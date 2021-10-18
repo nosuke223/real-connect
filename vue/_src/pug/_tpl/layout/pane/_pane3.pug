@@ -7,6 +7,7 @@ article#pane3.l-pane.is-pushed
         .p-load-text__item.p-load-text__item--1
         .p-load-text__item.p-load-text__item--2
         .p-load-text__item.p-load-text__item--3
+  header.l-pane__header.p-pane-control.u-mode-bg--ltSM.ios-fixed-focus(v-else-if='currentAreaIdForTalkList')
   header.l-pane__header.p-pane-control.u-mode-bg--ltSM.ios-fixed-focus(v-else)
     .p-pane-control__button( data-pane='2' @click='currentPartnerRefresh()')
       i.glyph ＜
@@ -19,7 +20,8 @@ article#pane3.l-pane.is-pushed
       i.glyph.glyph-account
     .p-pane-control__button( data-block='menu' )
       i.glyph ︙
-  section.l-pane__body
+  section.l-pane__body(v-if='currentAreaIdForTalkList')
+  section.l-pane__body(v-else)
     .p-talkroom-load(v-if='talkroomErr') {{talkroomErr}}
     .p-talkroom-load(v-if='talkroomLoad')
       .p-spinner

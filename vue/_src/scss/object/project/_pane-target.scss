@@ -38,6 +38,10 @@
 
       & + .p-pane-target {
         left: 100%;
+
+        & + .p-pane-target {
+          left: 100%;
+        }
       }
     }
   }

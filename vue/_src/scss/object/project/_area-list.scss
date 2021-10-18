@@ -1,0 +1,65 @@
+.p-area-list {
+  $this: &;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba($grey,.1);
+
+  &__info {
+    @include flex(ce,ce,false);
+    justify-content: center;
+  }
+
+  &__area {
+    font-size: 20px;
+    font-weight: bold;
+    @include ellipsis;
+    display: block;
+  }
+
+  &__prefecture {
+    font-size: 16px;
+    display: block;
+    margin-left: 0.5em;
+  }
+
+  &__gender-rate {
+    @include flex(ce,fe);
+    width: 100%;
+    justify-content: center;
+  }
+
+  &__label {
+    border: 1px solid rgba($grey,.2);
+    font-size: 12px;
+    border-radius: 1.5em;
+    padding: .2em 1em;
+    margin-right: .5em;
+
+    @include ltSM {
+      padding: .4em 1em;
+    };
+
+    @include ltXXS {
+      font-size: 10px;
+      padding: .4em .8em;
+    };
+  }
+
+  &__rate-container {
+    font-size: 24px;
+    color: $grey;
+
+    small {
+      font-size: 50%;
+    }
+  }
+
+  &__rate {
+    &:first-child {
+      color: $male;
+    }
+    &:last-child {
+      color: $female;
+    }
+  }
+}

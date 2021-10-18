@@ -8,6 +8,8 @@ article#pane2.l-pane.is-pushed
       span.p-pane-control__notice(v-if='currentEvent.remain')
         span.u-hidden--iPhoneSE(v-if='currentEvent.past==false') あと
         | {{currentEvent.remain}}
+    .p-pane-control__heading(v-else-if='currentAreaIdForTalkList')
+      span.p-pane-control__title {{areaDetailAreaName}}（{{areaDetailPrefectureName}}）
     .p-pane-control__heading(v-else)
       span.p-pane-control__title Event not selected
     .p-pane-control__button( data-block='user-profile' )

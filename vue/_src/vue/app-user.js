@@ -371,6 +371,10 @@ const app = new Vue({
           id: 'placedetail',
           label: 'placedetail',
         },
+        {
+          id: 'area',
+          label: 'area',
+        },
       ],
 
       // ------------------------------
@@ -564,6 +568,8 @@ const app = new Vue({
       },
       behind_unread: 0,
       placeSelectDisabled: true, // メンバーリストでの店舗の切り替えは実質なくなったので常にtrue
+      // AREAタブで選択しているエリア
+      currentAreaIdForTalkList: '',
 
       // ------------------------------
       // トークルーム
@@ -1822,7 +1828,11 @@ const app = new Vue({
             if (this.currentEventID==data.event_id) {
               this.talkListUpdate(data.event_id)
             }
-          }.bind(data))
+
+            if (this.currentAreaIdForTalkList) {
+              this.areaTalkListUpdate(this.currentAreaIdForTalkList)
+            }
+          }.bind(this, data))
           .catch(function(error) {
             // console.error(err)
           }.bind(data))
@@ -1881,53 +1891,58 @@ const app = new Vue({
           }, 100);
         }
       })
-      this.talklistData.forEach((item, index) => {
-        let target = this.talklistData[index].data.filter(function(el){
-          return el.partner.id == data.user_id
-        })
-        if (target.length) {
-          let lastPlaceId = _.clone(target[0].partner.current_place_id)
-          target[0].partner.last_place_id = lastPlaceId
-          setTimeout(() => {
-            target[0].partner.current_place_id = data.place_id
-            target[0].is_moved = true
-            this.talkListFilterPlace()
-            if (data.place_id==this.currentPlaceID) {
-              target[0].is_current_place = true
-            } else {
-              target[0].is_current_place = false
-            }
-          }, 100);
-        }
-      })
-      this.talklist.forEach((item, index) => {
-        if (this.talklist[index].partner.id==data.user_id) {
-          let target = this.talklist[index]
-          let lastPlaceId = _.clone(target.partner.current_place_id)
-          target.partner.last_place_id = lastPlaceId
-          // 会場一覧に会場IDがあるか判別するためのオブジェクト
-          let placeData = this.placelist.filter(function(el){
-            return el.id == data.place_id
+
+      if (this.currentAreaIdForTalkList) {
+        this.areaTalkListUpdate(this.currentAreaIdForTalkList)
+      } else {
+        this.talklistData.forEach((item, index) => {
+          let target = this.talklistData[index].data.filter(function(el){
+            return el.partner.id == data.user_id
           })
-          setTimeout(() => {
-            target.partner.current_place_id = data.place_id
-            target.is_moved = true
-            // いま閲覧中の会場かどうか
-            if (data.place_id==this.currentPlaceID) {
-              target.is_current_place = true
-            } else {
-              target.is_current_place = false
-            }
-            // エリア外の会場かどうか
-            if (placeData.length) {
-              target.is_other_area = false
-            } else {
-              target.is_other_area = true
-            }
-            this.talkListFilterPlace()
-          }, 100);
-        }
-      })
+          if (target.length) {
+            let lastPlaceId = _.clone(target[0].partner.current_place_id)
+            target[0].partner.last_place_id = lastPlaceId
+            setTimeout(() => {
+              target[0].partner.current_place_id = data.place_id
+              target[0].is_moved = true
+              this.talkListFilterPlace()
+              if (data.place_id==this.currentPlaceID) {
+                target[0].is_current_place = true
+              } else {
+                target[0].is_current_place = false
+              }
+            }, 100);
+          }
+        })
+        this.talklist.forEach((item, index) => {
+          if (this.talklist[index].partner.id==data.user_id) {
+            let target = this.talklist[index]
+            let lastPlaceId = _.clone(target.partner.current_place_id)
+            target.partner.last_place_id = lastPlaceId
+            // 会場一覧に会場IDがあるか判別するためのオブジェクト
+            let placeData = this.placelist.filter(function(el){
+              return el.id == data.place_id
+            })
+            setTimeout(() => {
+              target.partner.current_place_id = data.place_id
+              target.is_moved = true
+              // いま閲覧中の会場かどうか
+              if (data.place_id==this.currentPlaceID) {
+                target.is_current_place = true
+              } else {
+                target.is_current_place = false
+              }
+              // エリア外の会場かどうか
+              if (placeData.length) {
+                target.is_other_area = false
+              } else {
+                target.is_other_area = true
+              }
+              this.talkListFilterPlace()
+            }, 100);
+          }
+        })
+      }
 
       this.unreadCount()
 
@@ -1969,37 +1984,42 @@ const app = new Vue({
           }, 100);
         }
       })
-      this.talklistData.forEach((item, index) => {
-        let target = this.talklistData[index].data.filter(function(el){
-          return el.partner.id == data.user_id
+
+      if (this.currentAreaIdForTalkList) {
+        this.areaTalkListUpdate(this.currentAreaIdForTalkList)
+      } else {
+        this.talklistData.forEach((item, index) => {
+          let target = this.talklistData[index].data.filter(function(el){
+            return el.partner.id == data.user_id
+          })
+          if (target.length) {
+            let lastPlaceId = _.clone(target[0].partner.current_place_id)
+            target[0].partner.last_place_id = lastPlaceId
+            setTimeout(() => {
+              target[0].partner.current_place_id = ''
+              target[0].is_moved = true
+              this.talkListFilterPlace()
+              target[0].is_current_place = false
+            }, 100);
+          }
         })
-        if (target.length) {
-          let lastPlaceId = _.clone(target[0].partner.current_place_id)
-          target[0].partner.last_place_id = lastPlaceId
-          setTimeout(() => {
-            target[0].partner.current_place_id = ''
-            target[0].is_moved = true
-            this.talkListFilterPlace()
-            target[0].is_current_place = false
-          }, 100);
-        }
-      })
-      this.talklist.forEach((item, index) => {
-        if (this.talklist[index].partner.id==data.user_id) {
-          let target = this.talklist[index]
-          let lastPlaceId = _.clone(target.partner.current_place_id)
-          target.partner.last_place_id = lastPlaceId
-          setTimeout(() => {
-            target.partner.current_place_id = ''
-            target.is_moved = true
-            // いま閲覧中の会場かどうか
-            target.is_current_place = false
-            // エリア外の会場かどうか
-            target.is_other_area = false
-            this.talkListFilterPlace()
-          }, 100);
-        }
-      })
+        this.talklist.forEach((item, index) => {
+          if (this.talklist[index].partner.id==data.user_id) {
+            let target = this.talklist[index]
+            let lastPlaceId = _.clone(target.partner.current_place_id)
+            target.partner.last_place_id = lastPlaceId
+            setTimeout(() => {
+              target.partner.current_place_id = ''
+              target.is_moved = true
+              // いま閲覧中の会場かどうか
+              target.is_current_place = false
+              // エリア外の会場かどうか
+              target.is_other_area = false
+              this.talkListFilterPlace()
+            }, 100);
+          }
+        })
+      }
 
       this.unreadCount()
 
@@ -3920,6 +3940,8 @@ const app = new Vue({
       // 4.1. currentUserList : トーク一覧に入れるためのユーザー一覧
       // ------------------------------
       let currentUserList = []
+      this.currentAreaIdForTalkList = ''
+
       this.currentEventID = eventid
       let currentUserListDefault = this.talklistTmp.filter(function(el){
         return el.event_id == eventid
@@ -4155,6 +4177,7 @@ const app = new Vue({
         // ------------------------------
         let currentUserList = []
         this.currentEventID = ''
+        this.currentAreaIdForTalkList = ''
         users.data.forEach((item, index) => {
           currentUserList[index] = {}
           currentUserList[index].partner = item
@@ -4236,6 +4259,102 @@ const app = new Vue({
         this.userList.filter(function(el){
           return el.id == myId
         })[0].is_own = true
+      })
+    },
+
+    areaTalkListUpdate(areaId, pane) {
+      let userPromise = new Promise((resolve, reject) => {
+        let userListUrl = BASE_URL + "/places/3/users"  // APIがまだなので仮で叩く
+        axios({
+          method: 'GET',
+          url: userListUrl,
+          headers: {
+            Authorization: this.$cookie.get('Authorization')
+          }
+        })
+        .then(function(response) {
+          resolve(response)
+        })
+      })
+
+      // あとでトーク機能を追加されてもいいようにPromise allにしとく
+      Promise.all([userPromise]).then(([users]) => {
+        // ------------------------------
+        // 4. ユーザーリスト（トーク機能は一旦なし）
+        // ------------------------------
+        // 4.1. currentUserList : エリアにチェックしているユーザー一覧
+        // ------------------------------
+        let currentUserList = []
+
+        users.data.forEach((item, index) => {
+          currentUserList[index] = {}
+          currentUserList[index].partner = item
+        })
+
+        currentUserList.forEach((item, index) => {
+          currentUserList[index].user_id = currentUserList[index].partner.id
+
+          // トークに関する最新情報の部分は初期化
+          currentUserList[index].id = ""
+          currentUserList[index].last_message = {
+            body: "",
+            id: "",
+            image: "",
+            sent_at: ""
+          }
+          currentUserList[index].unread_count = 0
+
+          // 店舗に関する最新情報の部分は初期化
+          currentUserList[index].last_place_name = ""
+          currentUserList[index].is_moved = false
+
+          // AREAタブの選択かどうかのフラグ
+          currentUserList[index].is_area_talk = true
+        })
+
+        // トークルーム表示用データのリセット
+        if (pane != false) {
+          this.currentPartner = ""
+          this.currentPartnerID = ""
+          this.currentTalkID = ""
+          this.talkroomDefault = []
+          this.talkroomPage = 1
+        }
+
+        // イベント周りの初期化
+        this.currentEventID = ''
+        this.currentEvent = []
+
+        // 会場周りの初期化
+        this.currentPlaceID = ''
+        this.nowPlaceID = ''
+        this.isPlaceTalkroom = false
+
+        this.talklist = currentUserList
+
+        // ペインスライドに関する処理
+        if (pane != false) {
+          if (pane == null) {
+            this.pane(2, 0)
+          } else {
+            this.pane(pane, 0)
+          }
+        }
+
+        // プロフィールモーダルのためのデータ格納
+        this.userList = users.data
+
+        // 自分のデータ
+        let myId = this.userData.id
+        const myData = this.userList.filter(function(el){
+          return el.id == myId
+        })
+
+        if (myData.length > 0) {
+          myData[0].is_own = true
+        }
+
+        this.currentAreaIdForTalkList = areaId
       })
     },
 
