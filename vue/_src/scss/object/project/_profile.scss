@@ -83,10 +83,17 @@
       @include opacity(.6);
       text-align: left;
       padding-right: 1em;
+      vertical-align: middle;
     }
 
     td {
       width: 70%;
+      vertical-align: middle;
+
+      img {
+        margin-bottom: 3px;
+        vertical-align: middle;
+      }
     }
   }
 
@@ -103,6 +110,12 @@
   input[type="date"] {
     display: block;
     margin-bottom: .5em;
+  }
+}
+
+.p-profile__footer {
+  .u-bg--warn {
+    background-color: #e63475 !important;
   }
 }
 

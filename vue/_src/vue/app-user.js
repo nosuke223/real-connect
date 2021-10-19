@@ -2950,6 +2950,9 @@ const app = new Vue({
       })
       if (target.length) {
         this.userDetail = target[0]
+        this.userDetail.show_rating = (this.currentEvent &&
+          this.currentEvent.organizer_type == 1000 &&
+          this.currentEvent.organize_user_id == this.userData.id) ? true : false;
         // ユーザープロフィールのモーダルを開く
         this.openModal('userDetail')
       } else {
