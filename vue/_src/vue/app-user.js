@@ -481,6 +481,7 @@ const app = new Vue({
         userLogIn: true,
         userEdit: false,
         userAdd: false,
+        userWarn: false,
         placeEdit: false,
         placeAdd: false,
         eventEdit: false,
@@ -658,6 +659,11 @@ const app = new Vue({
         municipalityList: [],
         municipality: null
       },
+
+      // ------------------------------
+      // 通報理由
+      // ------------------------------
+      warnReason: '',
     }
   },
 
@@ -1342,6 +1348,35 @@ const app = new Vue({
         });
         this.reload()
       }
+    },
+
+    // ------------------------------
+    // 通報送信処理
+    // ------------------------------
+    sendUserWarn() {
+      const data = {
+        event_id: this.currentEvent.id,
+        organize_user_id: this.currentEvent.organize_user_id,
+        place_id: this.currentEvent.organize_place_id,
+        warn_user_id: this.userDetail.id,
+        warn_reason: this.warnReason,
+      };
+
+      axios({
+        method: 'POST',
+        url: BASE_URL + '/user/warn',   // MATSUO TODO: ダミーのURLなのでどうリクエストして、レスポンスをどうするかはAPIが決まってから
+        headers: {
+          Authorization: this.$cookie.get('Authorization')
+        },
+        data: data
+      })
+      .then(function(response) {
+        this.showToast('通報の送信が完了しました', '', 3000)
+        this.reload();  // 一旦リロードとしておく
+      }.bind(this))
+      .catch(function(error) {
+        this.showToast('通報送信エラー', error, 3000)
+      }.bind(this))
     },
 
     // ------------------------------
@@ -2952,13 +2987,14 @@ const app = new Vue({
         this.userDetail = target[0]
         this.userDetail.show_rating = (this.currentEvent &&
           this.currentEvent.organizer_type == 1000 &&
-          this.currentEvent.organize_user_id == this.userData.id) ? true : false;
+          this.currentEvent.organize_user_id == this.userData.id &&
+          this.userData.id != userId) ? true : false;
 
         // MATSUO TODO: ユーザー情報に正式にチェックイン率とかが入ってきたら削除する
         this.userDetail.rating = "high"
         this.userDetail.warning_count = 15
         this.userDetail.check_in_rate = 80
-        this.userDetail.warned = 1
+        this.userDetail.warned = 0
 
         // ユーザープロフィールのモーダルを開く
         this.openModal('userDetail')
@@ -2967,6 +3003,13 @@ const app = new Vue({
       }
     },
 
+    // ------------------------------
+    // ユーザープロフィールのモーダル
+    // ------------------------------
+    modalUserWarn() {
+      this.warnReason = ''
+      this.openModal('userWarn')
+    },
 
     // ------------------------------
     // 会場プロフィールのモーダル
