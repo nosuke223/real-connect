@@ -115,7 +115,13 @@
 
 .p-profile__footer {
   .u-bg--warn {
-    background-color: #e63475 !important;
+    background-color: #e63475;
+  }
+  .u-bg--disable {
+    background-color: #DCDCDC;
+    span {
+      color: #A9A9A9;
+    }
   }
 }
 

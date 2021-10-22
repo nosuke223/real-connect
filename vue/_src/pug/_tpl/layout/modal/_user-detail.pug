@@ -25,11 +25,11 @@ transition(name='v-modal' appear v-if='modal.userDetail')
               tr(v-if='userDetail.show_rating')
                 th 評価
                 td
-                  img(:src='"/_assets/img/svg/face-low.svg"')
-                  span （チェックイン率：0.5%）
+                  img(:src="'/_assets/img/svg/face-' + userDetail.rating + '.svg'")
+                  span （チェックイン率：{{ userDetail.check_in_rate }}%）
               tr(v-if='userDetail.show_rating')
                 th 警告数
-                td 10 回
+                td {{ userDetail.warning_count }} 回
               tr
                 th 職業
                 td(v-html='nl2br(userDetail.business)' v-if='userDetail.business')
@@ -70,7 +70,9 @@ transition(name='v-modal' appear v-if='modal.userDetail')
                 td {{userDetail.income|format_income}}
 
         footer.p-card__footer.p-card__footer--fluid.p-profile__footer
-          .u-fluid-button.u-bg--warn(v-if='userDetail.show_rating')
-            button(@click='closeModal("userDetail")') 通報する
+          .u-fluid-button(v-if='userDetail.show_rating' :class='{"u-bg--warn": userDetail.warned != 1, "u-bg--disable": userDetail.warned == 1}')
+            button(@click='closeModal("userDetail")' v-bind:disabled='userDetail.warned == 1')
+              span(v-if='userDetail.warned == 1') 通報済み
+              span(v-else) 通報する
           .u-fluid-button.u-bg--primary
             button.p-modal__close(@click='closeModal("userDetail")') 閉じる

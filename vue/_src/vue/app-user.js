@@ -2953,6 +2953,13 @@ const app = new Vue({
         this.userDetail.show_rating = (this.currentEvent &&
           this.currentEvent.organizer_type == 1000 &&
           this.currentEvent.organize_user_id == this.userData.id) ? true : false;
+
+        // MATSUO TODO: ユーザー情報に正式にチェックイン率とかが入ってきたら削除する
+        this.userDetail.rating = "high"
+        this.userDetail.warning_count = 15
+        this.userDetail.check_in_rate = 80
+        this.userDetail.warned = 1
+
         // ユーザープロフィールのモーダルを開く
         this.openModal('userDetail')
       } else {
@@ -4267,7 +4274,8 @@ const app = new Vue({
 
     areaTalkListUpdate(areaId, pane) {
       let userPromise = new Promise((resolve, reject) => {
-        let userListUrl = BASE_URL + "/places/3/users"  // APIがまだなので仮で叩く
+        // MATSUO TODO: areas/:area_id/usersのAPIにかえる
+        let userListUrl = BASE_URL + "/places/3/users"
         axios({
           method: 'GET',
           url: userListUrl,
