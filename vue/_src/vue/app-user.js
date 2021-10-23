@@ -1371,11 +1371,17 @@ const app = new Vue({
         data: data
       })
       .then(function(response) {
-        this.showToast('通報の送信が完了しました', '', 3000)
-        this.reload();  // 一旦リロードとしておく
+        this.showToastWithFunction('通報の送信が完了しました', '', 1000, false, () => {
+          this.closeModal('userWarn')
+          this.closeModal('userDetail')
+          this.talkListUpdate(this.currentEvent.id);  // ユーザー一覧を最新化
+        })
       }.bind(this))
       .catch(function(error) {
-        this.showToast('通報送信エラー', error, 3000)
+        this.showToastWithFunction('通報送信エラー', error, 1000, false, () => {
+          this.closeModal('userWarn')
+          this.closeModal('userDetail')
+        })
       }.bind(this))
     },
 
@@ -2986,6 +2992,7 @@ const app = new Vue({
       if (target.length) {
         this.userDetail = target[0]
         this.userDetail.show_rating = (this.currentEvent &&
+          !this.currentEvent.past &&
           this.currentEvent.organizer_type == 1000 &&
           this.currentEvent.organize_user_id == this.userData.id &&
           this.userData.id != userId) ? true : false;
@@ -4424,6 +4431,22 @@ const app = new Vue({
       setTimeout(() => {
         this.toast.show = false
         this.toast.accept = false
+      }, time);
+    },
+
+    // ------------------------------
+    // トースト表示（消えるときに渡された関数を実行する）
+    // ------------------------------
+    showToastWithFunction(title, lead, time, accept, func) {
+      this.toast.show = true
+      this.toast.title = title
+      this.toast.lead = lead
+      this.toast.accept = accept
+
+      setTimeout(() => {
+        this.toast.show = false
+        this.toast.accept = false
+        func()
       }, time);
     },
 
