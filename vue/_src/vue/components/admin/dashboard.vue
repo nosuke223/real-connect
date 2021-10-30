@@ -53,7 +53,7 @@
                   td.p-event-data__start_time.p_event_data.p-event-data__label {{event.start_time|format_datetime}}
                   td.p-event-data__end_time.p_event_data.p-event-data__label {{event.end_time|format_datetime}}
                   td.p-event-data__button
-                    button.u-bg--primary(@click.stop="") 参加者
+                    button.u-bg--primary(@click.stop="goToUsersPage(event.id)") 参加者
                     button.u-bg--error(@click.stop="deleteEvent(event.id)") 削除
             button(@click="goToCreate()") イベント作成
       // ↑ END Block Content
@@ -129,6 +129,9 @@ export default {
     },
     goToEditPage(id) {
       this.$router.push(`/admin/event/${id}/edit`);
+    },
+    goToUsersPage(id) {
+      this.$router.push(`/admin/event/${id}/users`);
     }
   },
   filters,

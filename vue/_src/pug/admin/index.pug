@@ -11,6 +11,7 @@ block content
       :user-data='userData'
       :events='events'
       :handle-request-error='handleRequestError'
+      :modal-user-warn='modalUserWarn'
     )
 
   // ↓ Block
@@ -21,3 +22,23 @@ block content
   // ↓ Sidebar
   include /_tpl/layout/pc-menu/_admin
   // ↑ Sidebar
+
+  // ↓ Modal
+  include /_tpl/layout/modal/_user-warn
+  // ↑ Modal
+
+  transition(name='v-preloader' appear v-if='!loaded')
+    .p-preloader
+      .p-preloader__inner
+        .p-preloader__logo.c-logo
+          .c-logo__body
+            i.glyph.glyph-brand-logo.c-logo__symbol
+            span.c-logo__text.cft Real-Connect
+        .p-preloader__spinner(:class='{"is-visible":!loadErr.show}')
+          .p-spinner
+            .p-spinner__item
+            .p-spinner__item.p-spinner__item--2
+        .p-preloader__text(:class='{"is-visible":!loadErr.show}') Now Loading
+        .p-preloader__error(:class='{"is-visible":loadErr.show}')
+          h1 {{loadErr.title}}
+          p(v-html='loadErr.content')

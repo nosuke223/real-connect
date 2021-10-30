@@ -51,6 +51,11 @@
 
   td {
     font-size: 12px;
+
+    img {
+      margin-bottom: 3px;
+      vertical-align: middle;
+    }
   }
 
   thead {
@@ -85,6 +90,7 @@
       margin-bottom: 1em;
     }
 
+    // イベント一覧
     &__id {
       @include widthFix(10%);
     }
@@ -103,6 +109,26 @@
     &__end_time {
       @include widthFix(14%);
     }
+
+    // 参加者一覧
+    &__userid {
+      @include widthFix(10%);
+    }
+    &__nickname {
+      @include widthFix(18%);
+    }
+    &__gender {
+      @include widthFix(10%);
+    }
+    &__age {
+      @include widthFix(10%);
+    }
+    &__rating {
+      @include widthFix(20%);
+    }
+    &__warning_count {
+      @include widthFix(10%);
+    }
   }
 
   @include ltXS {
@@ -114,6 +140,8 @@
         margin-bottom: 0.5em;
       }
     }
+
+    // イベント一覧
     &__id::before {
       content: "イベントID";
     }
@@ -131,6 +159,26 @@
     }
     &__end_time::before {
       content: "終了時間";
+    }
+
+    // 参加者一覧
+    &__userid::before {
+      content: "ユーザーID";
+    }
+    &__nickname::before {
+      content: "ニックネーム";
+    }
+    &__gender::before {
+      content: "性別";
+    }
+    &__age::before {
+      content: "年代";
+    }
+    &__rating::before {
+      content: "評価";
+    }
+    &__warning_count::before {
+      content: "警告数";
     }
   }
 }
