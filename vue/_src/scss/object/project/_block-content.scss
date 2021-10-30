@@ -192,6 +192,12 @@
     &.u-bg--error {
       background: $error;
     }
+    &.u-bg--disable {
+      background-color: #DCDCDC;
+      span {
+        color: #A9A9A9;
+      }
+    }
   }
 
   .glyph-check-circle,

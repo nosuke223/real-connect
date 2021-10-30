@@ -7,6 +7,7 @@ import account from '../components/admin/account.vue'
 import terms from '../components/admin/terms.vue'
 import privacy from '../components/admin/privacy.vue'
 import event from '../components/admin/event.vue';
+import event_user from '../components/admin/event_user.vue';
 
 Vue.use(Router)
 
@@ -20,7 +21,7 @@ export default new Router({
     {
       path: '/admin/account',
       component: account
-  },
+    },
     {
       path: '/admin/profile',
       component: profile
@@ -40,6 +41,10 @@ export default new Router({
     {
       path: '/admin/event/:id/edit',
       component: event,
+    },
+    {
+      path: '/admin/event/:id/users',
+      component: event_user,
     },
   ]
 });

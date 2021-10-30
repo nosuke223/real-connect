@@ -32,7 +32,7 @@
                 @click='onTapPagerItem(n)'
                 :class='{"is-current":currentPage === n}'
               ) {{ n }}
-            
+
               span.p-pagenavi__page(@click='onTapPagerItem(currentPage + 1)' v-if='currentPage !== meta.total_pages') »
             table.p-event-data
               thead
@@ -43,18 +43,19 @@
                   th 主催者種別
                   th 開始時間
                   th 終了時間
-                  th 
-              tbody(v-for="event in events")
-                tr.clickable(@click="goToEditPage(event.id)")
+                  th
+              tbody
+                tr.clickable(v-for="event in events" @click="goToEditPage(event.id)")
                   td.p-event-data__id.p_event_data.p-event-data__label {{event.id}}
                   td.p-event-data__name.p_event_data.p-event-data__label {{event.name}}
                   td.p-event-data__capacity.p_event_data.p-event-data__label {{event.capacity}}
                   td.p-event-data__organizer_type.p_event_data.p-event-data__label {{event.organizer_type_name}}
                   td.p-event-data__start_time.p_event_data.p-event-data__label {{event.start_time|format_datetime}}
                   td.p-event-data__end_time.p_event_data.p-event-data__label {{event.end_time|format_datetime}}
-                  td
+                  td.p-event-data__button
+                    button.u-bg--primary(@click.stop="goToUsersPage(event.id)") 参加者
                     button.u-bg--error(@click.stop="deleteEvent(event.id)") 削除
-              button(@click="goToCreate()") イベント作成
+            button(@click="goToCreate()") イベント作成
       // ↑ END Block Content
 </template>
 
@@ -128,6 +129,9 @@ export default {
     },
     goToEditPage(id) {
       this.$router.push(`/admin/event/${id}/edit`);
+    },
+    goToUsersPage(id) {
+      this.$router.push(`/admin/event/${id}/users`);
     }
   },
   filters,

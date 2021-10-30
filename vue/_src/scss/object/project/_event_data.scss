@@ -1,6 +1,6 @@
 .p-event-data {
   width: 100%;
-  table-layout: fixed;
+  // table-layout: fixed;
 
   tr {
     @include ltXS {
@@ -20,7 +20,7 @@
     text-align: left;
     vertical-align: middle;
     border-bottom: 1px solid rgba($grey, 0.2);
-    padding-right: 1em;
+    padding-right: 0.5em;
 
     @include ltXS {
       display: block;
@@ -51,6 +51,11 @@
 
   td {
     font-size: 12px;
+
+    img {
+      margin-bottom: 3px;
+      vertical-align: middle;
+    }
   }
 
   thead {
@@ -64,6 +69,14 @@
     }
   }
 
+  &__button {
+    button {
+      &:first-child {
+        margin-right: 0.5em;
+      }
+    }
+  }
+
   // Data sell
   @mixin widthFix($width) {
     width: $width;
@@ -72,23 +85,49 @@
   }
 
   @include gtSM {
+    td {
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+
+    // イベント一覧
     &__id {
-      @include widthFix(15em);
+      @include widthFix(10%);
     }
     &__name {
-      @include widthFix(calc(20% - 3em));
+      @include widthFix(20%);
     }
     &__capacity {
-      @include widthFix(calc(20% - 3em));
+      @include widthFix(10%);
     }
     &__organizer_type {
-      @include widthFix(calc(20% - 3em));
+      @include widthFix(10%);
     }
     &__start_time {
-      @include widthFix(calc(20% - 3em));
+      @include widthFix(14%);
     }
     &__end_time {
-      @include widthFix(calc(20% - 3em));
+      @include widthFix(14%);
+    }
+
+    // 参加者一覧
+    &__userid {
+      @include widthFix(10%);
+    }
+    &__nickname {
+      @include widthFix(18%);
+    }
+    &__gender {
+      @include widthFix(10%);
+    }
+    &__age {
+      @include widthFix(10%);
+    }
+    &__rating {
+      @include widthFix(20%);
+    }
+    &__warning_count {
+      @include widthFix(10%);
     }
   }
 
@@ -101,6 +140,8 @@
         margin-bottom: 0.5em;
       }
     }
+
+    // イベント一覧
     &__id::before {
       content: "イベントID";
     }
@@ -118,6 +159,26 @@
     }
     &__end_time::before {
       content: "終了時間";
+    }
+
+    // 参加者一覧
+    &__userid::before {
+      content: "ユーザーID";
+    }
+    &__nickname::before {
+      content: "ニックネーム";
+    }
+    &__gender::before {
+      content: "性別";
+    }
+    &__age::before {
+      content: "年代";
+    }
+    &__rating::before {
+      content: "評価";
+    }
+    &__warning_count::before {
+      content: "警告数";
     }
   }
 }

@@ -43,6 +43,10 @@ const app = new Vue({
        */
       userData: {},
       events: {},
+      event: {},
+      warnUserId: 0,
+      warnReason: '',
+
       /**
        * フォームのデータ
        */
@@ -55,6 +59,23 @@ const app = new Vue({
        * レンダリングに関するデータ
        */
       loading: false,
+
+      // ------------------------------
+      // プリローダー表示切り替え用
+      // ------------------------------
+      loaded: false,
+      loadErr: {
+        show: false,
+        title: "",
+        content: "",
+      },
+
+      /**
+       * モーダル
+       */
+      modal: {
+        userWarn: false,
+      },
     }
   },
   created() {
@@ -73,6 +94,7 @@ const app = new Vue({
         await this.requestFetchEvents();
       }
     }
+    this.loaded = true
   },
   methods: {
     /**
@@ -192,7 +214,54 @@ const app = new Vue({
         this.handleRequestError(error);
       }
     },
+    // ------------------------------
+    // 通報送信処理
+    // ------------------------------
+    sendUserWarn() {
+      const data = {
+        event_id: this.event.id,
+        organize_user_id: this.event.organize_user_id,
+        place_id: this.event.organize_place_id,
+        warn_user_id: this.warnUserId,
+        warn_reason: this.warnReason,
+      };
+
+      request('PUT', '/user/warn', { data })
+      .then((result) => {
+        if (result.error) {
+          alert('通報処理に失敗しました');
+          this.closeModal('userWarn')
+        } else {
+          // 構造が構造なだけに仕方なくrootから子を取得して更新している
+          const target = this.$root.$children.filter((child) => child.requestFetchData)
+          this.closeModal('userWarn')
+          target[0].requestFetchData(1)
+        }
+      })
+    },
     soundInit() {},
+
+    // ------------------------------
+    // モーダルの開閉
+    // オプションにターゲットを入れて渡す
+    // ------------------------------
+    openModal(target) {
+      this.modal[target] = true
+    },
+
+    closeModal(target) {
+      this.modal[target] = false
+    },
+
+    // ------------------------------
+    // ユーザー通報のモーダル
+    // ------------------------------
+    modalUserWarn(userId, eventData) {
+      this.event = eventData
+      this.warnUserId = userId
+      this.warnReason = ''
+      this.openModal('userWarn')
+    },
   },
   filters,
 })
