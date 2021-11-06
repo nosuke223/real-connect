@@ -8,7 +8,7 @@ class Api::V1::PlacesController < Api::BaseController
   # GET /api/v1/places
   #
   def index
-    places = Place.where(area_id: params[:area_id])
+    places = Place.yield_self{|scope| params[:allow_event_create].present? ? scope.where(allow_event_create: params[:allow_event_create]) : scope }.where(area_id: params[:area_id])
     render json: places, each_serializer: PlaceDetailSerializer
   end
 
