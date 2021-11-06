@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_07_141846) do
+ActiveRecord::Schema.define(version: 2021_11_06_061901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -200,6 +200,7 @@ ActiveRecord::Schema.define(version: 2021_03_07_141846) do
     t.string "address3"
     t.boolean "payment_flag"
     t.datetime "last_payment_at"
+    t.boolean "allow_event_create", default: true, null: false
     t.index ["area_id"], name: "index_places_on_area_id"
     t.index ["deleted_at"], name: "index_places_on_deleted_at"
     t.index ["owner_id"], name: "index_places_on_owner_id"

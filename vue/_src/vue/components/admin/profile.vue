@@ -48,6 +48,14 @@
                 i.glyph.glyph-pen
                 i.glyph.glyph-check-circle.u-color--primary01
 
+            section
+              h3 ユーザーのイベント作成権限
+              .input-field
+                label.c-checkbox
+                  input.c-opentime-close(type='checkbox' v-model='ownPlaceFormData.allow_event_create')
+                  span.c-checkbox__mirror
+                  | 許可する
+
           .p-block-content
             section
               h3 営業時間・開催時間
@@ -107,7 +115,7 @@
                   input(type='text' name='zipcode' autocomplete='off' placeholder='入力してください' v-model='ownPlaceFormData.zipcode' @change="requestFetchAddress()")
                   i.glyph.glyph-pen
                   i.glyph.glyph-check-circle.u-color--primary01
-              
+
               section
                 h3 所在地(都道府県)
                 .input-field
