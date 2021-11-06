@@ -38,7 +38,7 @@ class Api::V1::Owners::PlacesController < Api::V1::Owners::BaseController
       :logo_image, :mon_end_at, :mon_start_at, :name, :note, :sat_end_at,
       :sat_start_at, :seat_status, :store_type, :sun_end_at, :sun_start_at,
       :telephone, :thu_end_at, :thu_start_at, :tue_end_at, :tue_start_at,
-      :url, :wed_end_at, :wed_start_at, :area_id
+      :url, :wed_end_at, :wed_start_at, :area_id, :allow_event_create
     )
   end
 end

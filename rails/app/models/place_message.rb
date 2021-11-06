@@ -8,18 +8,18 @@
 #  image            :string
 #  partner_nickname :string
 #  sender_nickname  :string
+#  string           :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  place_id         :integer          not null
 #  partner_id       :integer          not null
+#  place_id         :integer          not null
 #  sender_id        :integer          not null
 #
 # Indexes
 #
-#  index_place_messages_on_created_at  (created_at)
 #  index_place_messages_on_deleted_at  (deleted_at)
-#  index_place_messages_on_place_id    (place_id)
 #  index_place_messages_on_partner_id  (partner_id)
+#  index_place_messages_on_place_id    (place_id)
 #  index_place_messages_on_sender_id   (sender_id)
 #
 

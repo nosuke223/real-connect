@@ -35,7 +35,8 @@ class PlaceDetailSerializer < ActiveModel::Serializer
   :is_sat_holiday,
   :sat_start_at,
   :sat_end_at,
-  :area_id
+  :area_id,
+  :allow_event_create
 
   def logo_image
     object.logo_image.url
