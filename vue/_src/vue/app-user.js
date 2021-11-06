@@ -4909,6 +4909,7 @@ const app = new Vue({
         },
         params: {
           area_id: this.eventPage.areaId,
+          allow_event_create: true,
         },
       });
       if (!response.error) {
